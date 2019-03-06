@@ -1,0 +1,370 @@
+* {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+body {
+	background:#fff;
+	font-size:12px;	
+}
+img {
+	border:0;
+}
+a {
+	text-decoration:none;
+	color:#CFF;
+}
+
+a:link {color:#033;}    /* 設定尚未點閱過的連結樣式 */
+
+a:hover {
+	color:#FFF;
+}
+.clearfix:after {
+	content:".";
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden;
+}
+.clearfix10:after {
+	content:".";
+	display:block;
+	height:10px;
+	clear:both;
+	visibility:hidden;
+}
+
+.form-2 {
+    /* Size and position */
+    width: 400px;
+    margin: 20px auto 30px;
+    padding: 20px;
+    position: relative;
+
+    /* Styles */
+    background: #fffaf6;
+    border-radius: 10px;
+    color: #7e7975;
+    box-shadow:
+        0 5px 5px #0D5740,        
+        0 5px 5px #227B61,        
+        0 0 0 12px rgba(255,255,255,0.3); 
+}
+
+.form-2 h1 {
+    font-weight: bold;
+    color: #bdb5aa;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #EBE6E2;
+    text-shadow: 2px 2px 5px #25AE82;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.form-2 h1 .log-in,
+.form-2 h1 .sign-up {
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.form-2 h1 .log-in {
+    color: #6c6763;
+    padding-right: 2px;
+}
+
+.form-2 h1 .sign-up {
+    color: #ffb347;
+    padding-left: 2px;
+}
+
+.form-2 .float {
+    width: 70%;
+    float:none;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,1);
+	margin:auto;
+}
+
+.form-2 .float:first-of-type {
+    
+}
+
+.form-2 .float:last-of-type {
+    padding-left: 5px;
+}
+
+.form-2 label {
+    display: block;
+    padding: 0 0 5px 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    font-size: 11px;
+}
+
+.form-2 label i {
+    margin-right: 5px; /* Gap between icon and text */
+    display: inline-block;
+    width: 10px;
+}
+
+.form-2 input[type=text],
+.form-2 input[type=email],
+.form-2 input[type=date],
+.form-2 input[type=password] {
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: solid #ebe6e2;
+    border-radius: 10px;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.form-2 input[type=text]:hover,
+.form-2 input[type=password]:hover {
+    border-color: #CCC;
+}
+
+.form-2 label:hover ~ input {
+    border-color: #CCC;
+}
+
+.form-2 input[type=text]:focus,
+.form-2 input[type=email]:focus,
+.form-2 input[type=date]:focus,
+.form-2 input[type=search]:focus,
+.form-2 input[type=password]:focus {
+    border-color: #BBB;
+    outline: none; /* Remove Chrome's outline */
+}
+
+.form-2 input[type=submit],
+.form-2 .log-twitter {
+	/* Size and position */
+	width: 30%;
+	height: 38px;
+	float: left;
+	position: relative;
+	/* Styles */
+	box-shadow: inset 0 1px rgba(255,255,255,0.3);
+	border-radius: 3px;
+	cursor: pointer;
+	/* Font styles */
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 38px; /* Same as height */
+	text-align: center;
+	font-weight: bold;
+}
+
+.form-2 input[type=submit] {
+    margin-left: 1%;
+    background: #fbd568; /* Fallback */
+    background: -moz-linear-gradient(#fbd568, #ffb347);
+    background: -ms-linear-gradient(#fbd568, #ffb347);
+    background: -o-linear-gradient(#fbd568, #ffb347);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#fbd568), to(#ffb347));
+    background: -webkit-linear-gradient(#fbd568, #ffb347);
+    background: linear-gradient(#fbd568, #ffb347);
+    border: 1px solid #f4ab4c;
+    color: #996319;
+    text-shadow: 0 1px rgba(255,255,255,0.3);
+}
+
+.form-2 .log-twitter {
+    margin-right: 1%;
+    background: #34a5cf; /* Fallback */
+    background: -moz-linear-gradient(#34a5cf, #2a8ac4);
+    background: -ms-linear-gradient(#34a5cf, #2a8ac4);
+    background: -o-linear-gradient(#34a5cf, #2a8ac4);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#34a5cf), to(#2a8ac4));
+    background: -webkit-linear-gradient(#34a5cf, #2a8ac4);
+    background: linear-gradient(#34a5cf, #2a8ac4);
+    border: 1px solid #2b8bc7;
+    color: #ffffff;
+    text-shadow: 0 -1px rgba(0,0,0,0.3);
+    text-decoration: none;
+}
+
+.form-2 input[type=submit]:hover,
+.form-2 .log-twitter:hover {
+    box-shadow: 
+        inset 0 1px rgba(255,255,255,0.3), 
+        inset 0 20px 40px rgba(255,255,255,0.15);
+}
+
+.form-2 input[type=submit]:active,
+.form-2 .log-twitter:active{
+    top: 1px;
+}
+
+/* Fallback fro broswers that don't support box shadows */
+.no-boxshadow .form-2 input[type=submit]:hover {
+    background: #ffb347;
+}
+
+.no-boxshadow .form-2 .log-twitter:hover {
+    background: #2a8ac4;
+}
+
+.form-2 p:last-of-type {
+    clear: both;    
+}
+
+.form-2 .opt {
+    text-align: right;
+    margin-right: 3px;
+}
+
+.form-2 label[for=showPassword] {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
+.form-2 input[type=checkbox] {
+    vertical-align: middle;
+    margin: -1px 5px 0 1px;
+}
+
+
+.h10{height:10px;}
+.h15{height:15px;}
+#header{width:1000px; margin:0 auto;}
+.navBar {
+	width:1500px;
+	margin:0 auto;
+
+	height:50px;
+	line-height:56px;
+	background:#556b5b;
+	color:#333;
+}
+.nav {
+	
+	width:1200px;
+	margin:0 auto;
+	font-family:"Microsoft",SimSun,SimHei;
+	font-size:14px;
+}
+.nav a {
+	color:#fff;
+}
+.nav h3 {
+	font-size:100%;
+	font-weight:normal;
+	margin-top:5px;
+}
+.nav .m {
+	float:left;
+	position:relative;
+	z-index:1;
+}
+.nav .s {
+	float:left;
+	width:3px;
+	text-align:center;
+	color:#a5bea5;
+	font-size:12px;
+}
+.nav h3 a {
+	display:block;
+	width:110px;
+	text-align:center;
+	font-weight:300;
+	font-family:chogokubosogothic;
+	font-size:15px;
+}
+.nav .sub {
+	display:none;
+	position:absolute;
+	left:-9.7px;
+	top:35px;
+	z-index:1;
+	width:130px;
+	border:1px solid #E6E4E3;
+	border-top:0;
+	background:#fff;
+
+}
+.nav .sub li {
+	text-align:center;
+	padding:0 5px;
+	margin-bottom:-1px;
+}
+.nav .sub li a {
+	display:block;
+	border-bottom:1px solid #E6E4E3;
+	padding:3px 0;
+	height:28px;
+	line-height:28px;
+	color:#364c48;
+	font-size:13.3px;
+	font-weight:500;
+}
+.nav .sub li a:hover {
+	color:#5dbfbb;
+}
+.nav .block {
+	height:7px;
+	width:147px;
+	background:#87CECB;
+	position:absolute;
+	left:0;
+	top:43px;
+	overflow:hidden;
+}
+
+.myButton {
+	-moz-box-shadow:inset 0px 0px 14px -3px #f2fadc;
+	-webkit-box-shadow:inset 0px 0px 14px -3px #f2fadc;
+	box-shadow:inset 0px 0px 14px -3px #f2fadc;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dbe6c4), color-stop(1, #9ba892));
+	background:-moz-linear-gradient(top, #dbe6c4 5%, #9ba892 100%);
+	background:-webkit-linear-gradient(top, #dbe6c4 5%, #9ba892 100%);
+	background:-o-linear-gradient(top, #dbe6c4 5%, #9ba892 100%);
+	background:-ms-linear-gradient(top, #dbe6c4 5%, #9ba892 100%);
+	background:linear-gradient(to bottom, #dbe6c4 5%, #9ba892 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dbe6c4', endColorstr='#9ba892',GradientType=0);
+	background-color:#dbe6c4;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:8px;
+	border:1px solid #b2b8ad;
+	display:inline-block;
+	cursor:pointer;
+	color:#757d6f;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:800px;
+	padding:3px 3px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ced9bf;
+	font-weight: bold;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #9ba892), color-stop(1, #dbe6c4));
+	background:-moz-linear-gradient(top, #9ba892 5%, #dbe6c4 100%);
+	background:-webkit-linear-gradient(top, #9ba892 5%, #dbe6c4 100%);
+	background:-o-linear-gradient(top, #9ba892 5%, #dbe6c4 100%);
+	background:-ms-linear-gradient(top, #9ba892 5%, #dbe6c4 100%);
+	background:linear-gradient(to bottom, #9ba892 5%, #dbe6c4 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9ba892', endColorstr='#dbe6c4',GradientType=0);
+	background-color:#9ba892;
+}
+.myButton:active {
+	position:static;
+	top:1px;
+}

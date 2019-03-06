@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* CSS Document */
+#container{
+    border:1px #666 dashed;
+    width:900px;
+    margin:0 auto;
+}
+#headbox{
+    width:490px;
+    height:60px;
+    border:1px #666 dashed;
+    margin:0 auto;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+#sidebar_left{
+    width:300px;
+    height:800px;
+    border:1px #666 dashed;
+    margin-left:5px;
+    margin-top:5px;
+    margin-bottom:5px;
+    float:left;
+	background-color:#CDFDFE;
+}
+#sidebar_right{
+    width:300px;
+    height:800px;
+    border:1px #666 dashed;
+    margin-right:5px;
+    margin-top:5px;
+    margin-bottom:5px;
+    float:right;
+	background-color:#BEFBBB;
+}
+#sidebody{
+    width:270px;
+    height:800px;
+    border:1px #666 dashed;
+    margin-left:5px;
+    margin-top:5px;
+    margin-bottom:5px;
+    float:left;
+	background-color:#FFF;
+}
+#clear{
+    clear:both;
+}
+#footer{
+    width:490px;
+    height:60px;
+    border:1px #666 dashed;
+    margin-top:5px;
+    margin-left:5px;
+    margin-bottom:5px;
+}
