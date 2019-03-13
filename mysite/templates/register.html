@@ -39,8 +39,8 @@
 }
 	.btn-success {
     color: #fff;
-    background-color: #3C89EF;
-    border-color: #95BCF2;
+    background-color: #3AA185;
+    border-color: #168D53;
 	width:100px;
 }
 	.w3{
@@ -50,59 +50,35 @@
     margin: 0 -20px -30px -20px;
     padding: 15px 0 17px 0;
     text-align: center;
-    background-color: #096BEC;
+    background-color: #366;
     -webkit-border-radius: 0 0 7px 7px;
     -moz-border-radius: 0 0 7px 7px;
     -ms-border-radius: 0 0 7px 7px;
     -o-border-radius: 0 0 7px 7px;
     border-radius: 0 0 7px 7px;}
-		</style>
-    </head>
-    <body style="background-color:powderblue">
-        <div class="container">
-			<br><br>
-			<section class="main">
-					<header></header><br>
-	<form class="form-2" action="/login/?back={{ back }}&&article_id={{ article_id }}" method="post">
-           <h1 align="center"><span class="log-in">Login</span></h1>
-	<p class="float">
-		<label for="login"><img src="{% static 'png/multimedia.png' %}"> &nbsp;電子郵件</label>
-		<input type="email" name="username" placeholder="User email" required autofocus>
-		</p>
-		<p class="float">
-		<label for="password"><img src="{% static 'png/locked.png' %}"> &nbsp;密碼</label>
-		<input type="password" name="password" placeholder="Password" class="showpassword" required autofocus>
-		</p>
-        <br>
-      <p>
-        <h4 align="center"><a href="/forgot/">忘記密碼？</a>
-     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="checkbox" name="remember" value="1">記住我</h4>  </p>
-          <br>
 
-     {% if status_m == True or status_p == True %}
-      <div class="alert alert-danger ">
-           <center>
-               <img src="{% static 'png/warning.png' %}" width="16" height="16"> 提醒!!</h4>
-               <p>電子郵件或密碼錯誤</p></center>
-      </div>
-     {% endif %}
+    </style>
+           </head>
+    <body background="{% static 'png/back.jpg' %}">
+<div class="content-section" xmlns="http://www.w3.org/1999/html">
+            <fieldset method="POST">
+                {% csrf_token %}
+                <legend class="form-group">
+                    <legend class="border-bottom mb-4"Join today</legend>
+                    {{form.as_p}}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign up</button>
 
-
-
-<center><button type="submit" class="btn btn-success">登入</button></center><br>
-
-          <div class="create-account">
-
-<a href="/signin/" id="register-btn" class="uppercase"><font color="#FFFFFF">加入會員</font></a>
-
-		</div>
-
-					</p>
-				</form>​​
-			</section>
         </div>
-		<!-- jQuery if needed -->
+    </form>
+    <div class="border-top pt-3 ">
+        <small class="text-muted">
+            Already have an account<a href="#">Sign in</a>
+        </small>
+</div>
+
+
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     </body>
 </html>

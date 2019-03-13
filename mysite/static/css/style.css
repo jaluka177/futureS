@@ -6,7 +6,7 @@
 
 body {
 	background:#fff;
-	font-size:12px;	
+	font-size:12px;
 }
 img {
 	border:0;
@@ -48,9 +48,9 @@ a:hover {
     border-radius: 10px;
     color: #7e7975;
     box-shadow:
-        0 5px 5px #0D5740,        
-        0 5px 5px #227B61,        
-        0 0 0 12px rgba(255,255,255,0.3); 
+        0 5px 5px #0D5740,
+        0 5px 5px #227B61,
+        0 0 0 12px rgba(255,255,255,0.3);
 }
 
 .form-2 h1 {
@@ -87,7 +87,7 @@ a:hover {
 }
 
 .form-2 .float:first-of-type {
-    
+
 }
 
 .form-2 .float:last-of-type {
@@ -198,8 +198,8 @@ a:hover {
 
 .form-2 input[type=submit]:hover,
 .form-2 .log-twitter:hover {
-    box-shadow: 
-        inset 0 1px rgba(255,255,255,0.3), 
+    box-shadow:
+        inset 0 1px rgba(255,255,255,0.3),
         inset 0 20px 40px rgba(255,255,255,0.15);
 }
 
@@ -218,7 +218,7 @@ a:hover {
 }
 
 .form-2 p:last-of-type {
-    clear: both;    
+    clear: both;
 }
 
 .form-2 .opt {
@@ -249,11 +249,11 @@ a:hover {
 
 	height:50px;
 	line-height:56px;
-	background:#556b5b;
+	background:#3667E0;
 	color:#333;
 }
 .nav {
-	
+
 	width:1200px;
 	margin:0 auto;
 	font-family:"Microsoft",SimSun,SimHei;

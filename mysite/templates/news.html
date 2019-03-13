@@ -1,0 +1,540 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta http-equiv="content-type" content="text/html">
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/jquery-1.7.2.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'http://libs.baidu.com/jquery/1.6.0/jquery.min.js' %}">
+</script><script type="text/javascript" src="{% static 'jquery.SuperSlide.2.1.1.js' %}"></script>
+  <meta charset="utf-8" />
+  <title>新聞</title>
+  <link rel="stylesheet" media="screen and (max-width: 700px)" href="{% static 'css/style.css' %}" type="text/css"/>
+ <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/animate.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/simple-line-icons.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}" type="text/css">
+  <link rel="shortcut icon" href="{% static 'images/icon2.ico' %}">
+  <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+	
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:240px;border-radius:2px; }
+		.slideTxtBox .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox .hd ul{ float:left;  position:absolute; left:20px; top:-1px; height:32px;   }
+		.slideTxtBox .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+		.page-list-title{
+		font-size:20px;
+		font-weight:bold;
+            color: #3c763d;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #83d905;
+    margin: 0 3px 5px 0;
+}
+      .h {
+          margin-top: -80px;
+    font-size: 150px;
+    text-shadow: 0 1px 0 #3c763d, 0 2px 0 #d0d0d0, 0 5px 10px rgba(0,0,0,0.125), 0 10px 20px rgba(226, 226, 226, 0.2);
+}
+</style>
+</head>
+<body style="background-image: url({% static 'png/bk3.jpg' %}); background-position: 0% 00%;">
+ <!-- gotop的html語法 -->
+  <section class="vbox">
+    <header>
+<div class="navbar-header aside bg-info dk">
+<a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+</a>
+<a href="home.html" class="navbar-brand text-lt">
+         <!-- <i class="icon-earphones"></i>-->
+         <span class="hidden-nav-xs m-2-sm"> <img src="{% static 'png/robot2.png' %}" height="56" width="58"></span>
+          <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img src="{% static 'png/love.gif' %}" height="35" width="27">Futures</font>  </span>
+        </a>
+        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
+          <i class="icon-settings"></i>
+        </a>
+      </div>
+<div class="nav">
+       <!--nav-->
+<div class="navBar">
+		<ul class="nav clearfix">
+			<li class="m">
+			<h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> NEWS</a></font></h3>
+			<ul style="display: none;" class="sub">
+                <li><a href="/get_news/">財經新聞</a></li>
+			<li><a href="/stock/">期貨速覽</a></li>
+		<li><a href="/fundamental/">基本面分析</a></li>
+                <li><a href="/macd/">技術面分析</a></li>
+                <li><a href="/margin/">籌碼面分析</a></li>
+                <li><a href="/bal_sheet/">財報分析</a></li>
+			</ul>
+            </li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><a target="_blank" href="http://sc.chinaz.com/"><img src="{% static 'png/tap.png' %}"> 交易資訊</a></h3>
+			<ul class="sub">
+            <li><a href="/tech/">技術面期貨選擇</a></li>
+			<li><a href="/master/">期貨小幫手</a></li>
+			</ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+	<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> EDITOR</a></font></h3>
+            <ul class="sub">
+				<li><a href="/test/">理財小測驗</a></li>
+            </ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font></h3>
+			<ul class="sub" style="display: none;">
+	<li><a href="/predict/">預知未來型</a></li>
+<li><a href="/analysis1/">健康診斷型</a></li>
+                <li><a href="/gep/">推薦好股型</a></li>
+                <li><a href="/five/">買賣分析型</a></li>
+                <li><a href="/funds/">投資組合推薦</a></li>
+			</ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><a target="_blank" href="/mem_home/"><img src="{% static 'png/people-3.png' %}"> 交易策略</a></h3>
+			<ul class="sub" style="display: none;">
+				<li><a href="/member_news/">期貨資訊 & 新聞</a></li>
+				<li><a href="/my_stock/">投資組合清單</a></li>
+                <li><a href="/mem_sto/">期貨條件清單</a></li>
+				<li><a href="/modify/" >會員基本資料</a></li>
+
+			</ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+	<h3><a target="_blank" href="/financial/"><img src="{% static 'png/money 2.png' %}"> 下單機</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><a target="_blank" href="/get_article/"><img src="{% static 'png/interface.png' %}"> 新手專區</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><a target="_blank" href="/smallschool/"><img src="{% static 'png/open-book.png' %}"> 會員</a></h3>
+            <ul class="sub">
+		<li><a href="/new_info/" >新手投資小常識</a></li>
+        <li><a href="/economic_term/">經濟指標一覽</a></li>
+                <li><a href="/stock_ana/">期貨分析教室</a></li>
+                 <li><a href="/stock_ana/">期貨小撇步</a></li>
+             </ul>
+			</li>
+	<li class="block" style="left: 227px;"></li>
+		</ul>
+	</div>
+   </div>
+    </header>
+    <section>
+      <section class="hbox stretch">
+        <!-- .aside -->
+      <aside class="bg-black dk aside hidden-print" id="nav">
+          <section class="vbox">
+            <section class="w-f-md ">
+
+              <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railopacity="0.2">
+
+                <nav>
+  <ul class="nav bg clearfix" style="width:230px;height:130px">
+      {% if loginstatus == False %}
+      <div style="margin-left:40px; margin-top:8px">
+      <a href="/login/?back=新聞首頁" class="myButton">登入系統</a>
+      <a href="/signin/" class="myButton">註冊會員</a>
+                         </div>
+
+
+                          <!--喔喔不要壞掉惹-->
+     {% else %}
+     <li class="dropdown" style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+              <a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown">
+
+                    <img src="{% static 'png/man2.png' %}" ><font size="3" >&nbsp;您好!&nbsp;{{ name }}</font><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu animated fadeInRight" style="margin-left:35px;border-radius: 8px;">
+                  <li>
+                    <span class="arrow top"></span>
+                    <a href="#"><font size="3">個人資料</font></a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="badge bg-danger pull-right">3</span>
+                      <font size="3" >訊息</font>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"><font size="3" >聯絡我們</font></a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="/logout/" ><font size="3" color="#45968F">登出</font></a>
+                  </li>
+                </ul>
+              </li>
+
+
+                     <!---->
+{% endif %}
+
+                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                    期貨查詢
+                    </li>
+                  
+          <div class="form-group">
+           <div class="input-group">
+            <span class="input-group-btn">
+<button type="submit" class="btn btn-sm bg-white btn-icon rounded"><i class="fa fa-search"></i></button>
+            </span>
+   <input type="text" class="form-control input-sm no-border rounded" placeholder="請輸入股號/股名">
+          </div>
+        </div>
+        <li>
+  <a href="/get_news/">
+  <i class="icon-disc icon text-success" style="line-height:26px"></i>&nbsp; 
+   <span class="font-bold text-xs">財經新聞首頁</span>
+  </a>
+</li>
+<li>
+  <a href="/list/?id=1&&category=最新頭條&&page=1">
+    <i class="icon-feed icon text-info" style="line-height:26px"></i>&nbsp;
+    <span class="font-bold  text-xs">最新頭條</span>
+  </a>
+</li>
+<li>
+  <a href="/list/?id=2&&category=國際財經&&page=1">
+    <i class="icon-globe icon text-primary-lter" style="line-height:26px"></i>&nbsp;
+ <span class="font-bold  text-xs">國際財經</span>
+  </a>
+</li>
+<li>
+  <a href="/list/?id=3&&category=熱門點閱&&page=1">
+ <i class="icon-fire icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+    <span class="font-bold  text-xs">熱門點閱</span>
+  </a>
+</li>
+<li>
+  <a href="/list/?id=4&&category=台股盤勢&&page=1">
+ <i class="icon-book-open icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+    <span class="font-bold  text-xs">台灣期貨趨勢</span>
+  </a>
+</li><li>
+  <a href="/list/?id=5&&category=個股動態&&page=1">
+ <i class="icon-target icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+    <span class="font-bold  text-xs">期貨動態</span>
+  </a>
+</li><li>
+  <a href="/list/?id=6&&category=科技產業&&page=1">
+ <i class="icon-paper-plane icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+    <span class="font-bold  text-xs">科技產業</span>
+  </a>
+</li><li>
+  <a href="/list/?id=7&&category=傳統產業&&page=1">
+ <i class="icon-direction icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+    <span class="font-bold  text-xs">傳統產業</span>
+  </a>
+</li>
+
+
+ </ul> </nav>
+ 
+     </div>
+   </section>
+   <footer class="footer hidden-xs no-padder text-center-nav-xs">
+              <div class="bg hidden-xs ">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    
+                    
+                </a>
+                  
+              </div>
+            </footer>
+          </section>
+        </aside>
+        <!-- /.aside -->
+       <section id="content">
+          <section class="hbox stretch">
+            <section>
+              <section class="vbox">  <!--vbox-->
+<section class="scrollable padder-lg w-f-md" id="bjax-target">
+  <a id="top"></a> 
+  <div class="header">
+  <center>
+      <h1 class="font-thin m-b h fadeInDownBig" style="margin-bottom:0px;"><font size="+3" color="#3C763D">財經新聞</font>
+      <span class="musicbar animate inline m-l-sm" style="width:20px;height:20px; margin-left: -30px;">
+  <span class="bar1 a1 bg-primary lter"></span>
+    <span class="bar2 a2 bg-info lt"></span>
+    <span class="bar3 a3 bg-success"></span>
+    <span class="bar4 a4 bg-warning dk"></span>
+    <span class="bar5 a5 bg-danger dker"></span>
+                  </span></h1>
+              </center></div>
+    <div class="pull-right pull-right1">
+   <form action="/search/"  method="post">
+     <font color="#556b2f">新聞查詢: </font><input type="text" name = "search" class="input-sm form-control2 input-s-sm inline v-middle" placeholder="請輸入關鍵字"><button class="btn btn-sm btn-info" type="submit" style="border-radius: 0px 4px 4px 0px;">Go!</button>
+
+    <!-- <input type="submit" class="btn btn-success " value="查詢新聞"></input>-->
+                    </form>
+   </div>
+
+<!--套分頁模板-->   
+<div class="slideTxtBox" style="margin-top:10px">
+  <div class="hd"> 
+    <div align="right">
+      <!-- 下面是前/后按钮代码，如果不需要删除即可 --> 
+      <span ><a href="/list/?category=最新頭條&&id=1&&page=1"><i class="fa fa-arrow-circle-right"></i> more</a></span>
+    </div>
+    <ul class="page-list-title">
+    最新頭條
+    </ul>
+  </div>
+  <div class="bd">
+    <ul>
+      {% for new in breaking_news %}
+      <li><span class="date">{{ new.source }}&nbsp;{{ new.time }}</span><a href="/outcome/?c={{ new.title }}&&id=1" target="_blank">{{ new.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<p>
+<div class="slideTxtBox col-md-6" style="width:510px; margin-top:16px">
+  <div class="hd">
+    <div align="right">
+      <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+      <span ><a href="/list/?category=國際財經&&id=2&&page=1&&page=1"><i class="fa fa-arrow-circle-right"></i> more</a></span>
+    </div>
+    <ul class="page-list-title">
+    國際財經
+    </ul>
+  </div>
+  <div class="bd">
+    <ul>
+    {% for new in global %}
+      <li><span class="date">{{ new.source }}&nbsp;{{ new.time }}</span><a href="/outcome/?c={{ new.title }}&&id=2" target="_blank">{{ new.title }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+<p>
+<!--右1-->
+<div class="slideTxtBox col-md-6" style="width:510px; margin-top:16px">
+  <div class="hd">
+    <div align="right">
+      <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+      <span ><a href="/list/?category=熱門點閱&&id=3&&page=1"><i class="fa fa-arrow-circle-right"></i> more</a></span>
+    </div>
+    <ul class="page-list-title">
+    熱門點閱 &nbsp;</ul>
+  </div>
+  <div class="bd">
+    <ul>
+    {% for new in hot %}
+      <li><span class="date">{{ new.source }}&nbsp;{{ new.time }}</span><a href="/outcome/?c={{ new.title }}&&id=3" target="_blank">{{ new.title }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+
+
+
+<p><p><p>
+<!--套分頁模板-->
+<p>
+<div class="slideTxtBox post-item col-md-6" style="width:510px; margin-top:30px">
+  <div class="hd">
+    <div align="right">
+      <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+    </div>
+    <ul style="font-size:20px; font-weight:bolder; color: #3c763d;">
+      <li>台股盤勢</li>
+      <li>個股動態</li>
+    </ul>
+  </div>
+  <div class="bd">
+    <ul>
+    {% for new in t_all %}
+      <li><span class="date">{{ new.source }}&nbsp;{{ new.time }}</span><a href="/outcome/?c={{ new.title }}&&id=4" target="_blank">{{ new.title }}</a></li>
+    {% endfor %}
+    <div align="right" style="margin-top:10px;">
+      <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+      <span ><a href = "/list/?category=台股盤勢&&id=4&&page=1"><i class="fa fa-arrow-circle-right"></i> more</a></span>
+    </div>
+    </ul>
+    <ul>
+    {% for new in stock %}
+      <li><span class="date">{{ new.source }}&nbsp;{{ new.time }}</span><a href="/outcome/?c={{ new.title }}&&id=5" target="_blank">{{ new.title }}</a></li>
+    {% endfor %}
+         <div align="right" style="margin-top:10px;">
+      <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+      <span ><a href = "/list/?category=個股動態&&id=5&&page=1"><i class="fa fa-arrow-circle-right"></i> more</a></span>
+    </div>
+    </ul>
+
+  </div>
+</div>
+
+<div class="slideTxtBox post-media col-md-6" style="width:510px; margin-top:30px" >
+  <div class="hd">
+    <div align="right">
+      <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+    </div>
+    <ul style="font-size:20px; font-weight:bolder; color: #3c763d;">
+      <li>科技產業</li>
+      <li>傳統產業</li>
+    </ul>
+  </div>
+  <div class="bd">
+    <ul>
+    {% for new in tec %}
+      <li><span class="date">{{ new.source }}&nbsp;{{ new.time }}</span><a href="/outcome/?c={{ new.title }}&&id=6" target="_blank">{{ new.title }}</a></li>
+    {% endfor %}
+          <div align="right" style="margin-top:10px;">
+      <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+      <span ><a href = "/list/?category=科技產業&&id=6&&page=1"><i class="fa fa-arrow-circle-right"></i> more</a></span>
+    </div>
+    </ul>
+    <ul>
+    {% for new in tra %}
+      <li><span class="date">{{ new.source }}&nbsp;{{ new.time }}</span><a href="/outcome/?c={{ new.title }}&&id=7" target="_blank">{{ new.title }}</a></li>
+    {% endfor %}
+         <div align="right" style="margin-top:10px;">
+      <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+      <span ><a href = "/list/?category=傳統產業&&id=7&&page=1"><i class="fa fa-arrow-circle-right"></i> more</a></span>
+    </div>
+    </ul>
+    
+  </div>
+</div>
+
+                 
+     </section> <footer class="footer bg-alert">
+ <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+</h6>
+    </footer> 
+              </section> 
+             </section>
+         </section>
+         </section>
+      </section>
+    </section>  
+ </section>
+ <script src="{% static 'js/jquery.min.js' %}"></script>
+  <!-- Bootstrap -->
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <!-- App -->
+  <script type="text/javascript" src="{% static 'js/SuperSlide.2.1.js' %}"></script>
+  <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+  
+<script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+  <a href="#top"><div id="gotop"><i class="fa fa-hand-o-up"></i> top</div></a>
+</body>
+</html>

@@ -19,10 +19,27 @@ from django.urls import path
 from django.conf.urls import url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^home/', views.home),
     url(r'^login/', views.login),
+    url(r'^signin/', views.register),
+    url(r'^forgot/', views.getpassword),
+    url(r'^get_news/', views.get_news),
+    url(r'^mo_pass/', views.modifypassword),
+    url(r'^modify/', views.modify),
+    url(r'^outcome/', views.outcome_news),
+
+
+    # url(r'^news/', views.news),
+
+    # url(r'^login1/', auth_views.LoginView.as_view(template_name='login1.html'),name='login1'),
+    # url(r'^logout/', auth_views.LogoutView.as_view(template_name='logout.html'),name='logout'),
+
+
+
+
 ]
 urlpatterns += staticfiles_urlpatterns()

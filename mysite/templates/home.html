@@ -76,7 +76,7 @@
 .navigation li dd { 
 	margin:0; 
     padding:0; 
-	color: #333; 
+	color: #333;
 	background-color:#efefef;
 	border-bottom:dotted 1px #666;
 	}
@@ -87,7 +87,7 @@
 
 .navigation li dd a, .navigation  li dd a:visited {
 	display:block; 
-	color:#333; 
+	color:#333;
     text-decoration:none; 
 	padding:4px 5px 4px 20px;
     }
@@ -259,7 +259,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5bee0', end
 </style>
 
   </head>
-<body style="background-image:url('{% static 'png/bk.jpg' %}'); /*url('{% static 'png/bk.jpg' %}');*/ background-position: 0px 0px;">
+<body style="background-color:powderblue">
   <section class="vbox">
     <header>
       <div class="navbar-header aside bg-info dk">
@@ -267,8 +267,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5bee0', end
         </a>
         <a href="/home/" class="navbar-brand text-lt">
          <!-- <i class="icon-earphones"></i>-->
-         <span class="hidden-nav-xs m-2-sm" style="margin-top: -20px;"> <img src="{% static 'png/robot2.png' %}" height="56" width="58"></span>
-          <span class="hidden-nav-xs m-l-sm" style="margin-top: -20px;"><font size="4">羅伯特<img src="{% static 'png/love.gif' %}" height="35" width="27">瑪妮</font>  </span>
+
+          <span class="hidden-nav-xs m-l-sm" style="margin-top: -20px;"><font size="4">future<img src="{% static 'png/love.gif' %}" height="35" width="27">futures</font>  </span>
         </a>
         <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
           <i class="icon-settings"></i>
@@ -280,7 +280,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5bee0', end
 <div class="navBar">
 		<ul class="nav clearfix">
 			<li class="m">
-			<h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font></h3>
+			<h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> ＮＥＷＳ</a></font></h3>
 			<ul style="display: none;" class="sub">
                 <li><a href="/get_news/">財經新聞</a></li>
 			<li><a href="/stock/">個股速覽</a></li>
@@ -292,22 +292,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5bee0', end
             </li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="http://sc.chinaz.com/"><img src="{% static 'png/tap.png' %}"> 選股專區</a></h3>
+			<h3><a target="_blank" href="http://sc.chinaz.com/"><img src="{% static 'png/tap.png' %}"> 交易資訊</a></h3>
 			<ul class="sub">
-            <li><a href="/tech/">技術面選股</a></li>
-			<li><a href="/master/">選股小幫手</a></li>
+            <li><a href="/tech/">技術面期貨選擇</a></li>
+			<li><a href="/master/">期貨小幫手</a></li>
 			</ul>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-	<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font></h3>
+	<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> EDITOR</a></font></h3>
             <ul class="sub">
 				<li><a href="/test/">理財小測驗</a></li>
             </ul>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font></h3>
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font></h3>
 			<ul class="sub" style="display: none;">
 	<li><a href="/predict/">預知未來型</a></li>
 <li><a href="/analysis1/">健康診斷型</a></li>
@@ -318,31 +318,31 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5bee0', end
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="/mem_home/"><img src="{% static 'png/people-3.png' %}"> 會員專區</a></h3>
+			<h3><a target="_blank" href="/mem_home/"><img src="{% static 'png/people-3.png' %}"> 交易策略</a></h3>
 			<ul class="sub" style="display: none;">
-				<li><a href="/member_news/">個股資訊 & 新聞</a></li>
+				<li><a href="/member_news/">期貨資訊 & 新聞</a></li>
 				<li><a href="/my_stock/">投資組合清單</a></li>
-                <li><a href="/mem_sto/">選股條件清單</a></li>
+                <li><a href="/mem_sto/">期貨條件清單</a></li>
                 <li><a href="/message/">追蹤訊息</a></li>
 
 			</ul>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-	<h3><a target="_blank" href="/financial/"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a></h3>
+	<h3><a target="_blank" href="/financial/"><img src="{% static 'png/money 2.png' %}"> 下單機</a></h3>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="/get_article/"><img src="{% static 'png/interface.png' %}"> 討論區</a></h3>
+			<h3><a target="_blank" href="/get_article/"><img src="{% static 'png/interface.png' %}"> 新手專區</a></h3>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="/smallschool/"><img src="{% static 'png/open-book.png' %}"> 理財小學堂</a></h3>
+			<h3><a target="_blank" href="/smallschool/"><img src="{% static 'png/open-book.png' %}"> 會員</a></h3>
             <ul class="sub">
 		<li><a href="/new_info/" >新手投資小常識</a></li>
         <li><a href="/economic_term/">經濟指標一覽</a></li>
-                <li><a href="/stock_ana/">股票分析教室</a></li>
-                 <li><a href="/stock_ana/">選股小撇步</a></li>
+                <li><a href="/stock_ana/">期貨分析教室</a></li>
+                 <li><a href="/stock_ana/">期貨小撇步</a></li>
              </ul>
 			</li>
 	<li class="block" style="left: 227px;"></li>
@@ -396,7 +396,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5bee0', end
 <!---->
 {% endif %}
 <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                    個股查詢
+                    期貨查詢
                     </li>
         <div class="form-group">
            <div class="input-group">
@@ -413,14 +413,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5bee0', end
         <div id="menu" class="menu">
           <div class="menu-header">我的個人化功能</div>
           <ul>
-            <li><a href="/predict/"><i class="fa fa-rocket" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>我的追蹤個股</strong></font></a></li>
-            <li><a href="/member_news/"><i class="fa fa-stethoscope" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>我的追蹤個股新聞</strong></font></a></li>
-            <li><a href="/my_stock/"><i class="icon-like" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>我的選股清單</strong></font></a></li>
+            <li><a href="/predict/"><i class="fa fa-rocket" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>我的追蹤期貨</strong></font></a></li>
+            <li><a href="/member_news/"><i class="fa fa-stethoscope" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>我的期貨新聞</strong></font></a></li>
+            <li><a href="/my_stock/"><i class="icon-like" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>我的期貨清單</strong></font></a></li>
             <li><a href="#"><i class="icon-bulb" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>機器人投顧</strong></font></a>
             <ul class="submenu">
             <li><a href="/predict/"><font size="3"><strong>預知未來型</strong></font></a></li>
             <li><a href="/analysis1/"><font size="3"><strong>健康診斷型</strong></font></a></li>
-            <li><a href="/gep/"><font size="3"><strong>推薦好股型</strong></font></a></li>
+            <li><a href="/gep/"><font size="3"><strong>推薦型</strong></font></a></li>
               <li><a href="/portfolio/"><font size="3"><strong>投資組合清單</strong></font></a></li>
           </ul></li></ul>
           </div></div></ul>
@@ -448,7 +448,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5bee0', end
            {% if track %}
            <section class="post-item panel-success" style="margin-left:-20px; margin-top:20px; width:1050px;height:50px; margin-bottom:-5px;padding:20px;padding-top:10px; background: rgba(20%,18%,20%,0.6);border-radius:10px">
       <div class="elearning_block" style="padding:18px; padding-top:5px;padding-bottom:5px;">
-<font color="#ffc800"><strong>▼▼▼個人化專區▼▼▼使用者可在此查看加入清單之個股資訊</strong></font><img src="{% static 'images/gift.gif' %}" style="margin-top-:20px; margin-left:20px; height: 30px;"></div></section>
+<font color="#ffc800"><strong>▼▼▼個人化專區▼▼▼使用者可在此查看加入清單之期貨資訊</strong></font><img src="{% static 'images/gift.gif' %}" style="margin-top-:20px; margin-left:20px; height: 30px;"></div></section>
        {% endif %}
        </center>
 
@@ -577,7 +577,7 @@ $(function(){
                   <table width="86%" class="table" style="margin-top: -50px; margin-bottom: 20px; margin-left: -50px;">
                           <thead>
                             <tr style=" background-color: rgba(64, 32, 10, 0.72)">
-<th width="20"><div align="center">股價</div></th>
+<th width="20"><div align="center">價格</div></th>
 <th width="20"><div align="center">漲跌</div></th>
  <th width="20"><div align="center">漲幅</div></th>
  <th width="20"><div align="center">成交量</div></th>
@@ -619,7 +619,7 @@ $(function(){
                   <table width="88%" class="table" style="margin-bottom: 10px; margin-left: -70px;">
                           <thead>
                             <tr style=" background-color: rgba(64, 32, 10, 0.72)">
-<th width="20"><div align="center">股價</div></th>
+<th width="20"><div align="center">價值</div></th>
 <th width="20"><div align="center">漲跌</div></th>
  <th width="20"><div align="center">漲幅</div></th>
  <th width="20"><div align="center">成交量</div></th>
@@ -689,7 +689,7 @@ $(function(){
 <center>
 <section class="post-item panel-success" style="margin-top:20px; width:1050px;height:50px; margin-bottom:-5px;padding:20px;padding-top:10px; background: rgba(20%,18%,20%,0.6);border-radius:10px">
       <div class="elearning_block" style="padding:18px; padding-top:5px;padding-bottom:5px;">
-<div class="blink"><font color="#ffc800"><strong>▼▼▼股票及討論區相關▼▼▼</strong></font></div></div></section></center>
+<div class="blink"><font color="#ffc800"><strong>--------期貨及討論區相關--------</strong></font></div></div></section></center>
    <table style="margin-top: 10px;">
 <tr><td>
   <div class="slideTxtBox" style="margin-left:-6px; height:300px;width:700px; margin-top:10px;box-shadow: 0px 12px 16px 0px rgba(0,0,0,0.24), 0px 17px 20px 0px rgba(0,0,0,0.19);">
@@ -800,7 +800,7 @@ $(function(){
       <span ><a href="#"><i class="fa fa-arrow-circle-right"></i> more</a></span>
     </div>
     <ul style="font-size:20px; font-weight:bolder;">
-    <span class="page-list-title">個股排行--<font color="#009933">漲跌幅</font></span>
+    <span class="page-list-title">期貨排行--<font color="#009933">漲跌幅</font></span>
     </ul>
   </div>
   <div class="bd"><table style="margin:20px;">

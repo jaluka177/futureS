@@ -1,0 +1,132 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>註冊</title>
+        <meta name="description" content="Custom Login Form Styling with CSS3" />
+        <meta name="keywords" content="css3, login, form, custom, input, submit, button, html5, placeholder" />
+        <meta name="author" content="Codrops" />
+        <link rel="shortcut icon" href="{% static 'images/icon2.ico' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style2.css' %} " />
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %} " />
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <script src="{% static 'js/modernizr.custom.63321.js' %}"></script>
+
+        <!--[if lte IE 7]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
+		<style>
+
+	.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+	.btn-success {
+    color: #fff;
+    background-color: #3C89EF;
+    border-color: #95BCF2;
+	width:100px;
+}
+		</style>
+    </head>
+    <body style="background-color:powderblue">
+    <!--<body background="{% static 'png/back.jpg' %}">-->
+    <br><br>
+        <div class="container">								
+			<header>				
+					<!--<center><img src="{% static 'images/2.png' %}" width="230" height="100"></center>-->
+			</header>
+            <br>
+			<section class="main">
+	<form class="form-2" action="/signin/" method="post">
+          <h1 align="center"><span class="log-in">Sign in</span></h1>
+	<p class="float">
+	<label for="signin"><img src="{% static 'png/user.png' %}" width="10" height="10"> &nbsp;姓名</label>
+        {% if status_m != True or status_p != TRUE or status_check_password != TRUE %}
+            <input type="text" name="name" placeholder="User name" required autofocus value={{ name }} >
+        {% else%}
+             <input type="text" name="name" placeholder="User name"  required autofocus/>
+        {% endif %}
+		</p>
+        
+        
+     <p class="float">
+<label for="signin"><img src="{% static 'png/multimedia.png' %}" width="10" height="10"> &nbsp;電子郵件</label>
+<!--<input type="email" name="mail" placeholder="User email" required autofocus >-->
+		
+        
+        {% if status_m == True %}
+                 <input type="email" name="mail" placeholder="User email" required autofocus value={{ mail }}>
+        {% else%}
+                 <input type="email" name="mail" data-toggle="popover" placeholder="請輸入其他電子郵件" data-placement="top" data-content="電子郵件已註冊過" class="alert alert-danger ">
+        {% endif %}
+     </p>  
+     
+ <!-- <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">點擊切換彈出提示</button> -->
+
+       <!-- <p class="float">
+<label for="signin"><i class="icon-gift"></i>生日</label>
+<input type="date" name="birth" placeholder="MM/DD/YY" width="200" height="50" required/>
+		</p>-->
+     <p class="float">
+<label for="signin"><img src="{% static 'png/phone-call.png' %}" width="10" height="10"> &nbsp;電話</label>
+	<input type="text" name="tel" placeholder="User tel" required autofocus value={{ tel }}>
+		</p>
+        
+        
+       
+		<p class="float">
+	<label for="password"><img src="{% static 'png/key.png' %}" width="10" height="10"> &nbsp;密碼</label>
+        
+        {% if status_p == True %}
+                 <input type="password" name="password" placeholder="Password" class="showpassword" required autofocus value={{ password }}>
+        {% else %}
+                 <input type="password" name="password" placeholder="請輸入其他密碼" class="showpassword alert alert-danger" data-toggle="popover" data-placement="top" data-content="密碼已被使用">
+        {% endif %}
+        </p>
+        
+        <p class="float">
+<label for="password"><img src="{% static 'png/key.png' %}" width="10" height="10"> &nbsp;確認密碼</label>
+        
+        {% if status_check_password == True %}
+                 <input type="password" name="password_check" placeholder="Check Your Password" class="showpassword"  required autofocus>
+        {% else %}
+                 <input type="password" name="password_check" placeholder="請重新輸入密碼" class="showpassword alert alert-danger" data-toggle="popover" data-placement="top" data-content="密碼輸入不正確">
+        {% endif %}
+        </p>
+        
+        <br>       
+		<p class="clearfix">
+<center><button type="submit" class="btn btn-success">註冊</button></center>
+					</p>
+				</form>​​
+			</section>			
+        </div>
+		<!-- jQuery if needed -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="{% static 'js/bootstrap.js'%}"></script>
+        <script>
+		$(function () {
+ 		 	$('[data-toggle="popover"]').popover('show')
+		})
+		</script>
+    </body>
+</html>
