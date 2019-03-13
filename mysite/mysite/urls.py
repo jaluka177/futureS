@@ -31,6 +31,9 @@ urlpatterns = [
     url(r'^mo_pass/', views.modifypassword),
     url(r'^modify/', views.modify),
     url(r'^outcome/', views.outcome_news),
+    url(r'^smallschool/', views.home),
+    url(r'^news_con/', views.news_con),
+    url(r'^index/', views.index),
 
 
     # url(r'^news/', views.news),

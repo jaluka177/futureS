@@ -1,6 +1,6 @@
 from django.shortcuts import render,render_to_response,HttpResponseRedirect,redirect
 
-from .models import RobotMember,RobotYahooNew,RobotCna,RobotYahooHot,RobotYahooStock,RobotYahooTec,RobotYahooTra,RobotYahoo,RobotYahooTendency
+from .models import RobotMember,RobotYahooNew,RobotCna,RobotYahooHot,RobotYahooStock,RobotYahooTec,RobotYahooTra,RobotYahoo,RobotYahooTendency,RobotDiscuss,RobotInformation,RobotTransactionInfo,RobotCorporate,RobotTrackStock,RobotCategory
 from django.contrib.auth import authenticate, login
 from . import views
 from django.views.generic import View
@@ -10,9 +10,25 @@ from django.contrib import messages
 from django.core.mail import send_mail
 import random
 
+
+def news_con(request):
+
+    return render(request, 'news_con.html')
+
 def home(request):
 
     return render(request, 'home.html')
+
+
+# def home(request):  #理財小學堂
+#    name = ''
+#    loginstatus = False
+#    try:
+#         name = request.session['name']
+#         loginstatus = True
+#    except:
+#         pass
+#    return render_to_response('smallschool.html', {'name': name, 'loginstatus': loginstatus})
 
 
 # def news(request):
@@ -44,22 +60,22 @@ def login(request): #登入功能
             request.session['name'] = user[0].member_name
             if back == '0' or back == '':
                 return HttpResponseRedirect('/home/')
-            elif back == '討論區發文':
-                return HttpResponseRedirect('/post/')
-            elif back == '討論區回覆':
-                return HttpResponseRedirect('/chat_outcome/?id='+article_id)
-            elif back == '未來型預測':
-                return HttpResponseRedirect('/predict/')
-            elif back == '修改基本資料':
-                return HttpResponseRedirect('/modify/')
-            elif back == '修改密碼':
-                return HttpResponseRedirect('/mo_pass/')
-            elif back == '新聞首頁':
-                return HttpResponseRedirect('/get_news/')
-            elif back == '系統首頁':
-                return HttpResponseRedirect('/home/')
-            elif back == 'My_News':
-                return HttpResponseRedirect('/member_news/')
+        #     elif back == '討論區發文':
+        #         return HttpResponseRedirect('/post/')
+        #     elif back == '討論區回覆':
+        #         return HttpResponseRedirect('/chat_outcome/?id='+article_id)
+        #     elif back == '未來型預測':
+        #         return HttpResponseRedirect('/predict/')
+        #     elif back == '修改基本資料':
+        #         return HttpResponseRedirect('/modify/')
+        #     elif back == '修改密碼':
+        #         return HttpResponseRedirect('/mo_pass/')
+        #     elif back == '新聞首頁':
+        #         return HttpResponseRedirect('/get_news/')
+        #     elif back == '系統首頁':
+        #         return HttpResponseRedirect('/home/')
+        #     elif back == 'My_News':
+        #         return HttpResponseRedirect('/member_news/')
         else:
             return render_to_response('login.html', {'status_m': status_m, 'status_p': status_p})
 
@@ -380,6 +396,84 @@ def outcome_news(request):#搜尋文章結果 check
             next_article = RobotYahooTendency.objects.get(id = res.id+1)
             prev_article = RobotYahooTendency.objects.get(id = res.id-1)
             return render_to_response('news_con.html', {'status_next': status_next, 'status_prev': status_prev,'prev_article': prev_article, 'next_article': next_article, 'category': category, 'id': type, 'result': res, 'name': name, 'loginstatus': loginstatus})
+
+def index(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    if name != '':
+        member_id = RobotMember.objects.get(member_name=name).member_id
+        rank2_stock_name, rank_stock_name, rank3_stock_name, rank4_stock_name, info = [], [], [], [], []
+        res = RobotDiscuss.objects.order_by('-like')
+        res_3 = RobotDiscuss.objects.order_by('-date', '-time')
+        hot = RobotYahooNew.objects.order_by('-date')
+        rank = RobotTransactionInfo.objects.filter(date='20160826').order_by('-change')[:5]
+        rank2 = RobotTransactionInfo.objects.filter(date='20160826').order_by('-vol')[:5]
+        rank3 = RobotCorporate.objects.filter(date='20160826').order_by('-foreign_net')[:5]
+        rank4 = RobotCorporate.objects.filter(date='20160826').order_by('-trust_net')[:5]
+        list_name = RobotTrackStock.objects.filter(member_id=member_id).order_by('list_name').values('list_name').distinct()
+        list2_name = []
+        try:
+            list2_name = list_name.exclude(list_name=RobotTrackStock.objects.filter(member_id=member_id).order_by('list_name').values('list_name').distinct().first()['list_name'])
+        except:
+            pass
+        track = RobotTrackStock.objects.filter(member_id=member_id)
+
+        for i in rank:
+            rank_stock_name.append(RobotInformation.objects.get(stock_id=i.stock_id).co_name)
+        for i in rank2:
+            rank2_stock_name.append(RobotInformation.objects.get(stock_id=i.stock_id).co_name)
+        for i in rank3:
+            rank3_stock_name.append(RobotInformation.objects.get(stock_id=i.stock_id).co_name)
+        for i in rank4:
+            rank4_stock_name.append(RobotInformation.objects.get(stock_id=i.stock_id).co_name)
+        for i in track:
+            s = Share(i.stock_id+'.TW')
+            s1,s2, s3, s4 = s.get_price(),s.get_change(),s.get_percent_change(),s.get_volume()
+            if s1 is None:
+                s1 = 0
+            if s2 is None:
+                s2 = 0
+            if s3 is None:
+                s3 = 0
+            if s4 is None:
+                s4 = 0
+            industry_id = RobotInformation.objects.get(stock_id=i.stock_id).category
+            indusry_name = RobotCategory.objects.get(category_id=industry_id).category_name
+            capital = RobotInformation.objects.get(stock_id=i.stock_id).co_capital
+            info.append({'list_name':i.list_name,'stock_id':i.stock_id, 'stock_name':i.stock_name,'price':s1,'change':s2,'change_percent':s3,'vol':s4,'capital':capital,'industry':indusry_name})
+        return render_to_response('home.html', {'loginstatus': loginstatus, 'name': name, 'res':res, 'res_3':res_3,'rank':rank,
+                                                'rank2':rank2,'hot':hot,'rank3':rank3,'rank4':rank4,'rank_name':rank_stock_name,
+                                                'rank2_name':rank2_stock_name,'rank3_name':rank3_stock_name,'rank4_name':rank4_stock_name,
+                                                'list_name':list_name,'list2_name': list2_name, 'track':info})
+    else:
+        rank2_stock_name, rank_stock_name, rank3_stock_name, rank4_stock_name, info = [], [], [], [], []
+        res = RobotDiscuss.objects.order_by('-like')
+        res_3 = RobotDiscuss.objects.order_by('-date', '-time')
+        hot = RobotYahooNew.objects.order_by('-date')
+        rank = RobotTransactionInfo.objects.filter(date='20160826').order_by('-change')[:5]
+        rank2 = RobotTransactionInfo.objects.filter(date='20160826').order_by('-vol')[:5]
+        rank3 = RobotCorporate.objects.filter(date='20160826').order_by('-foreign_net')[:5]
+        rank4 = RobotCorporate.objects.filter(date='20160826').order_by('-trust_net')[:5]
+        for i in rank:
+            rank_stock_name.append(RobotInformation.objects.get(stock_id=i.stock_id).co_name)
+        for i in rank2:
+            rank2_stock_name.append(RobotInformation.objects.get(stock_id=i.stock_id).co_name)
+        for i in rank3:
+            rank3_stock_name.append(RobotInformation.objects.get(stock_id=i.stock_id).co_name)
+        for i in rank4:
+            rank4_stock_name.append(RobotInformation.objects.get(stock_id=i.stock_id).co_name)
+        return render_to_response('home.html', {'loginstatus': loginstatus, 'name': name, 'res':res, 'res_3':res_3,'rank':rank,
+                                                'rank2':rank2,'hot':hot,'rank3':rank3,'rank4':rank4,'rank_name':rank_stock_name,
+                                                'rank2_name':rank2_stock_name,'rank3_name':rank3_stock_name,'rank4_name':rank4_stock_name,
+                                                })
+
+
+
 
 
 

@@ -51,7 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mysite.urls'
-
+LOGIN_REDIRECT_URL = '/index/'
 
 TEMPLATES = [
     {
@@ -85,14 +85,16 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'robot_love_money',
+        'NAME': 'futureＳ',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'acer2009',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS':{
-           'autocommit':True,
+            'autocommit':True,
+
         },
+
     }
 }
 
