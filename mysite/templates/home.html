@@ -21,37 +21,36 @@
    <link type="text/css" rel="stylesheet" href="{% static 'css/style6.css' %}" />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<!---->
-    <!---->
+
   <meta charset="utf-8">
   <title>首頁</title>
   <style type="text/css">
-/* 整體設置*/ 
+/* 整體設置*/
 .navigation {
-	margin:0; 
+	margin:0;
 	padding:0;
 	width:1500px;
-	list-style-type:none; 
+	list-style-type:none;
 	font:12px Arial;
 	}
 
 .navigation li {
-	float:left; 
-    padding:0; 
-	margin:0 10px 0 0; 
-	_margin:0 2px 0 0; 
+	float:left;
+    padding:0;
+	margin:0 10px 0 0;
+	_margin:0 2px 0 0;
 	width:150px;
 	}
 
 /* 設置選單區塊*/
-.navigation li dl { 
+.navigation li dl {
 	width:150px;/*ie6*/
-    margin:0; 
+    margin:0;
 	padding:0;
 	background-color:#fff;
-	border:solid 2px #666; 
+	border:solid 2px #666;
 	}
-	
+
 .navigation li dt a , .navigation li dd a{ display:block;}
 
 
@@ -60,7 +59,7 @@
 	margin:0;
 	padding: 5px;
 	text-align:center;
-	background-color:#fff;	
+	background-color:#fff;
 	font-size: 12px;
 	font-weight: bold;
 	height:20px;
@@ -68,32 +67,32 @@
 	}
 
 .navigation li dt a ,.navigation  li dt a:visited {
-	display:block; 
+	display:block;
     color:#333;
     text-decoration:none;
 	}
 
 /* 設置子選單dd */
-.navigation li dd { 
-	margin:0; 
-    padding:0; 
+.navigation li dd {
+	margin:0;
+    padding:0;
 	color: #333;
 	background-color:#efefef;
 	border-bottom:dotted 1px #666;
 	}
-	
+
 .navigation li dd.last {
 	border-bottom:0;
-	}	
+	}
 
 .navigation li dd a, .navigation  li dd a:visited {
-	display:block; 
+	display:block;
 	color:#333;
-    text-decoration:none; 
+    text-decoration:none;
 	padding:4px 5px 4px 20px;
     }
 
-	
+
 /*隱藏子選單*/
 .navigation li dd { display:none;}
 
@@ -103,20 +102,20 @@
 
 /*ie6 hack*/
 .navigation li:hover,.navigation li a:hover { border:0;}
-.navigation table { border-collapse:collapse; 
-    padding:0; 		
+.navigation table { border-collapse:collapse;
+    padding:0;
 	text-align:left;
 	}
 .pull-right1{
 	margin-right:12px;
 	margin-top:-45px;
 	}
-	
+
 		/* css 重置 */
 		*{margin:0; padding:0; list-style:none; }
 		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
 		a{ text-decoration:none; color:#333;  }
-		
+
 				/* 本例子css */
 		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:23px;height:240px;border-radius:2px; }
 		.slideTxtBox .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
@@ -281,16 +280,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5bee0', end
 <div class="navBar">
 		<ul class="nav clearfix">
 			<li class="m">
-			<h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> ＮＥＷＳ</a></font></h3>
-			<ul style="display: none;" class="sub">
-                <li><a href="/get_news/">財經新聞</a></li>
-			<li><a href="/stock/">個股速覽</a></li>
-		<li><a href="/fundamental/">基本面分析</a></li>
-                <li><a href="/macd/">技術面分析</a></li>
-                <li><a href="/margin/">籌碼面分析</a></li>
-                <li><a href="/bal_sheet/">財報分析</a></li>
-			</ul>
-            </li>
+	<h3><a target="_blank" href="/get_news/"><img src="{% static 'png/money 2.png' %}"> NEWS</a></h3>
+			</li>
 			<li class="s">|</li>
 			<li class="m">
 			<h3><a target="_blank" href="http://sc.chinaz.com/"><img src="{% static 'png/tap.png' %}"> 交易資訊</a></h3>
