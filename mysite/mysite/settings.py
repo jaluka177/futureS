@@ -85,16 +85,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'futureＳ',
+        'NAME': 'FF',
         'USER': 'root',
-        'PASSWORD': 'acer2009',
+        'PASSWORD': 'angelo2662',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS':{
-            'autocommit':True,
-
+           # 'autocommit':True,
         },
-
     }
 }
 
