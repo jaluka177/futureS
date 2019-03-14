@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.core.mail import send_mail
 import random
-
+#####
 
 def news_con(request):
 
