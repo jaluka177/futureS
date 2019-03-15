@@ -202,10 +202,10 @@
       <div class="navbar-header aside bg-info dk">
         <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
         </a>
-        <a href="/home/" class="navbar-brand text-lt">
+        <a href="/recent/" class="navbar-brand text-lt">
          <!-- <i class="icon-earphones"></i>-->
-         <span class="hidden-nav-xs m-2-sm"> <img src="{% static 'png/robot2.png' %}" height="56" width="58"></span>
-          <span class="hidden-nav-xs m-l-sm"><font size="4">羅伯特<img src="{% static 'png/love.gif' %}" height="35" width="27">瑪妮</font>  </span>
+
+          <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img src="{% static 'png/love.gif' %}" height="35" width="27">Futures</font>  </span>
         </a>
         <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
           <i class="icon-settings"></i>
@@ -217,37 +217,26 @@
 <div class="navBar">
 		<ul class="nav clearfix">
 			<li class="m">
-			<h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font></h3>
-			<ul style="display: none;" class="sub">
-                <li><a href="/get_news/">財經新聞</a></li>
-			<li><a href="/stock/">個股速覽</a></li>
-		<li><a href="/fundamental/">基本面分析</a></li>
-                <li><a href="/macd/">技術面分析</a></li>
-                <li><a href="/margin/">籌碼面分析</a></li>
-                <li><a href="/bal_sheet/">財報分析</a></li>
-			</ul>
-            </li>
+	<h3><a target="_blank" href="/get_news/"><img src="{% static 'png/money 2.png' %}"> NEWS</a></h3>
+			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="http://sc.chinaz.com/"><img src="{% static 'png/tap.png' %}"> 選股專區</a></h3>
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 交易資訊</a></font></h3>
 			<ul class="sub">
-            <li><a href="/tech/">技術面選股</a></li>
-			<li><a href="/master/">選股小幫手</a></li>
+            <li><a href="/tech/">歷史回測</a></li>
+			<li><a href="/master/">即時資料</a></li>
 			</ul>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-	<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font></h3>
-            <ul class="sub">
-				<li><a href="/test/">理財小測驗</a></li>
-            </ul>
+	<h3><a target="_blank" href="/get_news/"><img src="{% static 'png/money 2.png' %}"> EDITOR</a></h3>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font></h3>
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font></h3>
 			<ul class="sub" style="display: none;">
-	<li><a href="/predict/">預知未來型</a></li>
-<li><a href="/analysis1/">健康診斷型</a></li>
+	            <li><a href="/predict/">預知未來型</a></li>
+                <li><a href="/analysis1/">健康診斷型</a></li>
                 <li><a href="/gep/">推薦好股型</a></li>
                 <li><a href="/five/">買賣分析型</a></li>
                 <li><a href="/funds/">投資組合推薦</a></li>
@@ -255,31 +244,27 @@
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="/member/"><img src="{% static 'png/people-3.png' %}"> 會員專區</a></h3>
-			<ul class="sub" style="display: none;">
-				<li><a href="/member_news/">個股資訊 & 新聞</a></li>
-				<li><a href="/my_stock/">投資組合清單</a></li>
-                <li><a href="/mem_sto/">選股條件清單</a></li>
-				<li><a href="/modify/" >會員基本資料</a></li>
-
-			</ul>
+			<h3><a target="_blank" href="/mem_home/"><img src="{% static 'png/people-3.png' %}"> 指標專區</a></h3>
+			</li>
+			<li class="m">
+	<h3><a target="_blank" href="/financial/"><img src="{% static 'png/money 2.png' %}"> 下單機</a></h3>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-	<h3><a target="_blank" href="/financial/"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a></h3>
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 新手專區</a></font></h3>
+                 <ul class="sub">
+                     <li><a href="/discussion/">討論區</a></li>
+                     <li><a href="/rookie/">新手投資小常識</a></li>
+             </ul>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="/get_article/"><img src="{% static 'png/interface.png' %}"> 討論區</a></h3>
-			</li>
-			<li class="s">|</li>
-			<li class="m">
-			<h3><a target="_blank" href="/smallschool/"><img src="{% static 'png/open-book.png' %}"> 理財小學堂</a></h3>
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 會員</a></font></h3>
             <ul class="sub">
-		<li><a href="/new_info/" >新手投資小常識</a></li>
-        <li><a href="/economic_term/">經濟指標一覽</a></li>
-                <li><a href="/stock_ana/">股票分析教室</a></li>
-                 <li><a href="/stock_ana/">選股小撇步</a></li>
+		<li><a href="/new_info/" >我的追蹤期貨</a></li>
+        <li><a href="/economic_term/">我的期貨新聞</a></li>
+                <li><a href="/stock_ana/">我的期貨清單</a></li>
+                 <li><a href="/stock_ana/">機器人投顧</a></li>
              </ul>
 			</li>
 	<li class="block" style="left: 227px;"></li>
@@ -350,20 +335,20 @@ ul class="nav bg clearfix" -->
             <span class="input-group-btn">
               <button type="submit" class="btn btn-sm bg-white btn-icon rounded"><i class="fa fa-search"></i></button>
             </span>
-            <input type="text" class="form-control input-sm no-border rounded mac" placeholder="請輸入股號/股名" id="demo1"  autocomplete="off">
+            <input type="text" class="form-control input-sm no-border rounded mac" placeholder="請輸入代號/期貨" id="demo1"  autocomplete="off">
           </div>
         </div>
           <div class="nav navBar1 clearfix dk">
          <div id="menu" class="menu">
-          <div class="menu-header" style="padding-left:65px; text-align:left;"> 理財小學堂</div>
+          <div class="menu-header" style="padding-left:65px; text-align:left;"> MENU</div>
           <ul>
-            <li><a href="/new_info/"><i class=" icon-graduation" style="margin-top:7px; color:#6FAEB7"> </i><font size="+1"><strong>新手投資小常識</strong></font></a></li>
-            <li><a href="/economic_term/"><i class="icon-direction" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>經濟指標一覽</strong></font></a>
+            <li><a href="/new_info/"><i class=" icon-graduation" style="margin-top:7px; color:#6FAEB7"> </i><font size="+1"><strong>NEWS</strong></font></a></li>
+            <li><a href="/economic_term/"><i class="icon-direction" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>指標專區</strong></font></a>
             </li>
-            <li><a href="/stock_ana/"><i class="icon-bar-chart" style="margin-top:7px ;color:#6FAEB7"> </i><font size="+1"><strong>股票分析教室</strong></font></a>
+            <li><a href="/stock_ana/"><i class="icon-bar-chart" style="margin-top:7px ;color:#6FAEB7"> </i><font size="+1"><strong>智能機器人</strong></font></a>
 
             </li>
-           <li><a href="/choose_stock/"><i class="icon-basket" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>選股小撇步</strong></font></a>
+           <li><a href="/choose_stock/"><i class="icon-basket" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>下單機</strong></font></a>
 
             </li>
           </ul>
@@ -415,10 +400,10 @@ ul class="nav bg clearfix" -->
 				<li>
 		<figure style=" box-shadow: 0 0 30px 5px rgb(52, 55, 60);">
         <div style="position:relative" >
-						<img src="{% static 'images/knowledge.png' %}" width="350" height="300" alt="img04" ><div style="position:absolute; left:0px; top:115px; margin-left:120px; color:#fff"><h2>新手投資</h2></div></div>
+						<img src="{% static 'images/knowledge.png' %}" width="350" height="300" alt="img04" ><div style="position:absolute; left:0px; top:115px; margin-left:120px; color:#fff"><h2>NEWS</h2></div></div>
 				<figcaption style="box-shadow: 0 0 50px 5px rgb(242, 240, 236);">
 
-      <h4 style="color:#fff">了解基本投資相關知識</h4>
+      <h4 style="color:#fff">掌握最新金融新聞</h4>
 	<a href="/new_info/">Take a look</a>
 			  </figcaption>
 				  </figure>
@@ -426,9 +411,9 @@ ul class="nav bg clearfix" -->
 				<li>
 					<figure style=" box-shadow: 0 0 30px 5px rgb(52, 55, 60);">
 	<div style="position:relative">
-	<img src="{% static 'images/dict.jpg' %}" width="350" height="300" alt="img04"><div style="position:absolute; left:0px; top:115px; margin-left:105px; color:#fff"><h2>指標一覽</h2></div></div>
+	<img src="{% static 'images/dict.jpg' %}" width="350" height="300" alt="img04"><div style="position:absolute; left:0px; top:115px; margin-left:105px; color:#fff"><h2>指標專區</h2></div></div>
 					  <figcaption style="box-shadow: 0 0 50px 5px rgb(242, 240, 236); background-color:#3b4953;">
-	<h4 style="color:#fff">了解理財指標名詞解釋</h4>
+	<h4 style="color:#fff">各項指標、函數、訊號</h4>
 <a href="/economic_term/">Take a look</a>
 						</figcaption>
 					</figure>
@@ -436,9 +421,9 @@ ul class="nav bg clearfix" -->
                 <li>
 					<figure style=" box-shadow: 0 0 30px 5px rgb(52, 55, 60);">
 	<div style="position:relative">
-	<img src="{% static 'images/analysis.jpg' %}" width="350" height="300" alt="img04"><div style="position:absolute; left:0px; top:115px; margin-left:115px; color:#fff"><h2>股票分析</h2></div></div>
+	<img src="{% static 'images/analysis.jpg' %}" width="350" height="300" alt="img04"><div style="position:absolute; left:0px; top:115px; margin-left:115px; color:#fff"><h2>智能機器人</h2></div></div>
 					  <figcaption style="box-shadow: 0 0 50px 5px rgb(242, 240, 236); background-color:#3b4953;">
-	<h4 style="color:#fff">了解基本面及技術面分析</h4>
+	<h4 style="color:#fff">AI、人工智慧精華</h4>
 	<a href="/stock_ana/">Take a look</a>
 						</figcaption>
 					</figure>
@@ -446,9 +431,9 @@ ul class="nav bg clearfix" -->
                 <li>
 					<figure style=" box-shadow: 0 0 30px 5px rgb(52, 55, 60);">
 	<div style="position:relative">
-	<img src="{% static 'images/method.jpg' %}" width="350" height="300" alt="img04"><div style="position:absolute; left:0px; top:115px; margin-left:115px; color:#fff"><h2>選股撇步</h2></div></div>
+	<img src="{% static 'images/method.jpg' %}" width="350" height="300" alt="img04"><div style="position:absolute; left:0px; top:115px; margin-left:115px; color:#fff"><h2>下單機</h2></div></div>
 					  <figcaption style="box-shadow: 0 0 50px 5px rgb(242, 240, 236);">
-	<h4 style="color:#fff">了解選股方法的種類</h4>
+	<h4 style="color:#fff">快速下單</h4>
 	<a href="/choose_stock/">Take a look</a>
 						</figcaption>
 					</figure>
