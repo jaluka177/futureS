@@ -1,0 +1,549 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>  
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <title>理財小學堂</title>
+  <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.text-m1{
+	margin-left:140px;
+}
+#customers
+  {
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  width:100%;
+  border-collapse:collapse;
+  }
+
+#customers td, #customers th 
+  {
+  font-size:1em;
+  border:1px solid #D4D7C2;
+  padding:3px 7px 2px 7px;
+  }
+
+#customers th 
+  {
+  font-size:1.1em;
+  text-align:left;
+  padding-top:5px;
+  padding-bottom:4px;
+  background-color:#B0B495;
+  color:#ffffff;
+  }
+
+#customers tr.alt td 
+  {
+  color:#000000;
+  background-color:#EAF2D3;
+  }
+#customers tr:hover{background:#EDEEDF;text-shadow: 0 0 10px yellow;} 
+ .m1 {
+	 color:#FFF;
+	 width:80px;
+	 height:40px;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f59696), color-stop(1, #f0a9a9));
+	background:-moz-linear-gradient(top, #f59696 5%, #f0a9a9 100%);
+	background:-webkit-linear-gradient(top, #f59696 5%, #f0a9a9 100%);
+	background:-o-linear-gradient(top, #f59696 5%, #f0a9a9 100%);
+	background:-ms-linear-gradient(top, #f59696 5%, #f0a9a9 100%);
+	background:linear-gradient(to bottom, #f59696 5%, #f0a9a9 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f59696', endColorstr='#f0a9a9',GradientType=0);
+	background-color:#f59696;
+	border:1px solid #ca7070;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:微軟正黑體;
+	font-size:15px;
+	font-weight:bold;
+	padding:8px 8px;
+	text-decoration:none;
+	text-shadow:0px 1px 7px #d83526;
+}
+.m1:hover {
+	color:#FFF;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f0a9a9), color-stop(1, #f59696));
+	background:-moz-linear-gradient(top, #f0a9a9 5%, #f59696 100%);
+	background:-webkit-linear-gradient(top, #f0a9a9 5%, #f59696 100%);
+	background:-o-linear-gradient(top, #f0a9a9 5%, #f59696 100%);
+	background:-ms-linear-gradient(top, #f0a9a9 5%, #f59696 100%);
+	background:linear-gradient(to bottom, #f0a9a9 5%, #f59696 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0a9a9', endColorstr='#f59696',GradientType=0);
+	background-color:#f0a9a9;
+}
+.m1:active {
+	color:#FFF;
+	position:relative;
+	top:1px;
+}
+.class-info {
+    min-height: 194px;
+    padding: 25px;
+    box-sizing: border-box;
+	    border: 1px solid #C5C5C5;
+		margin:20px;
+}
+.navBar1 {
+	width:228px;
+	margin:0 auto;
+	margin-left:1px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+</style>
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/animate.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/simple-line-icons.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}" type="text/css">
+  <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'css/simple-line-icons.css' %}" type="text/css">
+  <link rel="shortcut icon" href="{% static 'images/icon2.ico' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/componen.css' %}" />
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/bootstrap-typeahead.js' %}" type="text/javascript"></script>
+		<script src="{% static 'js/modernizr.custom1.js' %}"></script>
+    <!--[if lt IE 9]>
+  <![endif]-->
+</head>
+<body style="background-image: url('{% static 'png/bk3.jpg' %}'); background-position: 0px 0px;">
+  <section class="vbox">
+    <header>
+      <div class="navbar-header aside bg-info dk">
+        <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+        </a>
+        <a href="/recent/" class="navbar-brand text-lt">
+         <!-- <i class="icon-earphones"></i>-->
+
+          <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img src="{% static 'png/love.gif' %}" height="35" width="27">Futures</font>  </span>
+        </a>
+        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
+          <i class="icon-settings"></i>
+        </a>
+      </div>
+
+<div class="nav">
+       <!--nav-->
+<div class="navBar">
+		<ul class="nav clearfix">
+			<li class="m">
+	<h3><a target="_blank" href="/get_news/"><img src="{% static 'png/money 2.png' %}"> NEWS</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 交易資訊</a></font></h3>
+			<ul class="sub">
+            <li><a href="/tech/">歷史回測</a></li>
+			<li><a href="/master/">即時資料</a></li>
+			</ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+	<h3><a target="_blank" href="/get_news/"><img src="{% static 'png/money 2.png' %}"> EDITOR</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font></h3>
+			<ul class="sub" style="display: none;">
+	            <li><a href="/predict/">預知未來型</a></li>
+                <li><a href="/analysis1/">健康診斷型</a></li>
+                <li><a href="/gep/">推薦好股型</a></li>
+                <li><a href="/five/">買賣分析型</a></li>
+                <li><a href="/funds/">投資組合推薦</a></li>
+			</ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><a target="_blank" href="/mem_home/"><img src="{% static 'png/people-3.png' %}"> 指標專區</a></h3>
+			</li>
+			<li class="m">
+	<h3><a target="_blank" href="/financial/"><img src="{% static 'png/money 2.png' %}"> 下單機</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 新手專區</a></font></h3>
+                 <ul class="sub">
+                     <li><a href="/discussion/">討論區</a></li>
+                     <li><a href="/rookie/">新手投資小常識</a></li>
+             </ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 會員</a></font></h3>
+            <ul class="sub">
+		<li><a href="/new_info/" >我的追蹤期貨</a></li>
+        <li><a href="/economic_term/">我的期貨新聞</a></li>
+                <li><a href="/stock_ana/">我的期貨清單</a></li>
+                 <li><a href="/stock_ana/">機器人投顧</a></li>
+             </ul>
+			</li>
+	<li class="block" style="left: 227px;"></li>
+		</ul>
+	</div>
+</div>
+    </header>
+
+
+    <section>
+      <section class="hbox stretch">
+        <!-- .aside -->
+       <aside class="bg-black dk aside hidden-print" id="nav">
+          <section class="vbox">
+            <section class="w-f-md scrollable">
+
+              <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railopacity="0.2">
+
+
+                <!-- nav class="nav-primary hidden-xs"<br>
+ul class="nav bg clearfix" -->
+                <nav>
+   <ul class="nav bg-black clearfix" style="width:230px;">
+      {% if loginstatus == False %}
+      <div style="margin-left:40px; margin-top:8px">
+      <a href="/login/" class="myButton">登入系統</a>
+      <a href="/signin/" class="myButton">註冊會員</a>
+                         </div>
+
+
+                          <!--喔喔不要壞掉惹-->
+     {% else %}
+     <li class="dropdown" style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+              <a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown">
+
+                    <img src="{% static 'png/man2.png' %}" ><font size="3" >&nbsp;您好!&nbsp;{{ name }}</font><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu animated fadeInRight" style="margin-left:35px;border-radius: 8px;">
+                  <li>
+                    <span class="arrow top"></span>
+                    <a href="#"><font size="3">個人資料</font></a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="badge bg-danger pull-right">3</span>
+                      <font size="3" >訊息</font>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"><font size="3" >聯絡我們</font></a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="/logout/" ><font size="3" color="#45968F">登出</font></a>
+                  </li>
+                </ul>
+              </li>
+
+
+                     <!---->
+{% endif %}
+                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                    個股查詢
+                    </li>
+
+          <div class="form-group">
+           <div class="input-group">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-sm bg-white btn-icon rounded"><i class="fa fa-search"></i></button>
+            </span>
+            <input type="text" class="form-control input-sm no-border rounded mac" placeholder="請輸入代號/期貨" id="demo1"  autocomplete="off">
+          </div>
+        </div>
+          <div class="nav navBar1 clearfix dk">
+         <div id="menu" class="menu">
+          <div class="menu-header" style="padding-left:65px; text-align:left;"> MENU</div>
+          <ul>
+            <li><a href="/new_info/"><i class=" icon-graduation" style="margin-top:7px; color:#6FAEB7"> </i><font size="+1"><strong>NEWS</strong></font></a></li>
+            <li><a href="/economic_term/"><i class="icon-direction" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>指標專區</strong></font></a>
+            </li>
+            <li><a href="/stock_ana/"><i class="icon-bar-chart" style="margin-top:7px ;color:#6FAEB7"> </i><font size="+1"><strong>智能機器人</strong></font></a>
+
+            </li>
+           <li><a href="/choose_stock/"><i class="icon-basket" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>下單機</strong></font></a>
+
+            </li>
+          </ul>
+        </div></div>
+</ul>
+     </nav>
+           </div>
+   </section>
+   <footer class="footer hidden-xs no-padder text-center-nav-xs">
+              <div class="bg hidden-xs ">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+
+                </a>
+                    <ul class="dropdown-menu animated fadeInRight aside text-left">
+                      <li>
+                        <span class="arrow bottom hidden-nav-xs"></span>
+                        <a href="#">Settings</a>
+                      </li>
+                      <li>
+                        <a href="/profile/">Profile</a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <span class="badge bg-danger pull-right">3</span>
+                          Notifications
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/docs/">Help</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="/modal.lockme/" data-toggle="ajaxModal">Logout</a>
+                      </li>
+                    </ul>
+              </div>
+            </footer>
+          </section>
+        </aside>
+        <!-- /.aside -->
+  <section class="scrollable">
+<div class="container demo-3">
+  <section id="content">
+          <section class="vbox">
+
+    <div style="background-color:rgba(102,102,102,0.5); width:100%; height:650px; margin-top:40px">
+      <ul class="grid cs-style-3" style="margin-top:-10px;">
+				<li>
+		<figure style=" box-shadow: 0 0 30px 5px rgb(52, 55, 60);">
+        <div style="position:relative" >
+						<img src="{% static 'images/knowledge.png' %}" width="350" height="300" alt="img04" ><div style="position:absolute; left:0px; top:115px; margin-left:120px; color:#fff"><h2>NEWS</h2></div></div>
+				<figcaption style="box-shadow: 0 0 50px 5px rgb(242, 240, 236);">
+
+      <h4 style="color:#fff">掌握最新金融新聞</h4>
+	<a href="/new_info/">Take a look</a>
+			  </figcaption>
+				  </figure>
+				</li>
+				<li>
+					<figure style=" box-shadow: 0 0 30px 5px rgb(52, 55, 60);">
+	<div style="position:relative">
+	<img src="{% static 'images/dict.jpg' %}" width="350" height="300" alt="img04"><div style="position:absolute; left:0px; top:115px; margin-left:105px; color:#fff"><h2>指標專區</h2></div></div>
+					  <figcaption style="box-shadow: 0 0 50px 5px rgb(242, 240, 236); background-color:#3b4953;">
+	<h4 style="color:#fff">各項指標、函數、訊號</h4>
+<a href="/economic_term/">Take a look</a>
+						</figcaption>
+					</figure>
+				</li>
+                <li>
+					<figure style=" box-shadow: 0 0 30px 5px rgb(52, 55, 60);">
+	<div style="position:relative">
+	<img src="{% static 'images/analysis.jpg' %}" width="350" height="300" alt="img04"><div style="position:absolute; left:0px; top:115px; margin-left:115px; color:#fff"><h2>智能機器人</h2></div></div>
+					  <figcaption style="box-shadow: 0 0 50px 5px rgb(242, 240, 236); background-color:#3b4953;">
+	<h4 style="color:#fff">AI、人工智慧精華</h4>
+	<a href="/stock_ana/">Take a look</a>
+						</figcaption>
+					</figure>
+				</li>
+                <li>
+					<figure style=" box-shadow: 0 0 30px 5px rgb(52, 55, 60);">
+	<div style="position:relative">
+	<img src="{% static 'images/method.jpg' %}" width="350" height="300" alt="img04"><div style="position:absolute; left:0px; top:115px; margin-left:115px; color:#fff"><h2>下單機</h2></div></div>
+					  <figcaption style="box-shadow: 0 0 50px 5px rgb(242, 240, 236);">
+	<h4 style="color:#fff">快速下單</h4>
+	<a href="/choose_stock/">Take a look</a>
+						</figcaption>
+					</figure>
+				</li>
+	  </ul></div>
+          <script>
+    $('#demo1').typeahead({
+        source: [
+            { id: 1, name: '2330 台積電' },
+            { id: 2, name: '1101 台泥' },
+            { id: 3, name: '1102 亞泥' },
+            { id: 4, name: '1217 愛之味' },
+        { id: 5, name: '1256 鮮活果汁-KY' },
+            { id: 6, name: '1262 綠悅-KY' },
+            { id: 7, name: '1301 台塑' },
+            { id: 8, name: '1326 台化' },
+            { id: 9, name: '1565 精華' },
+            { id: 10, name: '1590 亞德客-KY' },
+			{ id: 11, name: '1704 榮化' },
+            { id: 12, name: '2002 中鋼' },
+            { id: 13, name: '2023 燁輝' },
+            { id: 14, name: '2105 正新' },
+            { id: 15, name: '2107 厚生' },
+            { id: 16, name: '2201 裕隆' },
+            { id: 17, name: '2207 和泰車' },
+            { id: 18, name: '2227 裕日車' },
+            { id: 19, name: '2308 台達電' },
+            { id: 20, name: '2317 鴻海' },
+			{ id: 21, name: '2323 中環' },
+            { id: 22, name: '2344 華邦電' },
+            { id: 23, name: '2347 聯強' },
+            { id: 24, name: '2349 錸德' },
+            { id: 25, name: '2353 宏碁' },
+            { id: 26, name: '2357 華碩' },
+            { id: 27, name: '2371 大同' },
+            { id: 28, name: '2373 震旦行' },
+            { id: 29, name: '2379 瑞昱' },
+            { id: 30, name: '2382 廣達' },
+			{ id: 31, name: '2383 台光電' },
+            { id: 32, name: '2397 友通' },
+            { id: 33, name: '2405 浩鑫' },
+            { id: 34, name: '2409 友達' },
+            { id: 35, name: '2412 中華電' },
+            { id: 36, name: '2454 聯發科' },
+            { id: 37, name: '2474 可成' },
+            { id: 38, name: '2481 強茂' },
+            { id: 39, name: '2485 兆赫' },
+            { id: 40, name: '2498 宏達電' },
+			{ id: 41, name: '2610 華航' },
+            { id: 42, name: '2618 長榮航' },
+            { id: 43, name: '2727 王品' },
+            { id: 44, name: '2729 瓦城' },
+            { id: 45, name: '2809 京城銀' },
+            { id: 46, name: '2832 台產' },
+            { id: 47, name: '2845 遠東銀' },
+            { id: 48, name: '2852 第一保' },
+            { id: 49, name: '2855 統一證' },
+            { id: 50, name: '2881 富邦金' },
+			{ id: 51, name: '2882 國泰金' },
+            { id: 52, name: '2890 永豐金' },
+            { id: 53, name: '2912 統一超' },
+            { id: 54, name: '3008 大立光' },
+            { id: 55, name: '3045 台灣大' },
+            { id: 56, name: '3059 華晶科' },
+            { id: 57, name: '3083 網龍' },
+            { id: 58, name: '3450 聯鈞' },
+            { id: 59, name: '3454 晶睿' },
+            { id: 60, name: '3548 兆利' },
+			{ id: 61, name: '3663 鑫科' },
+            { id: 62, name: '3669 圓展' },
+            { id: 63, name: '3702 大聯大' },
+            { id: 64, name: '4129 聯合' },
+            { id: 65, name: '4416 三圓' },
+            { id: 66, name: '4552 力達-KY' },
+            { id: 67, name: '4726 永昕' },
+            { id: 68, name: '4739 康普' },
+            { id: 69, name: '4904 遠傳' },
+            { id: 70, name: '4915 致伸' },
+			{ id: 71, name: '4935 茂林-KY' },
+            { id: 72, name: '4946 辣椒' },
+            { id: 73, name: '5474 聰泰' },
+            { id: 74, name: '5903 全家' },
+            { id: 75, name: '6015 宏遠證' },
+            { id: 76, name: '6154 順發' },
+            { id: 77, name: '6176 瑞儀' },
+            { id: 78, name: '6214 精誠' },
+            { id: 79, name: '6244 茂迪' },
+            { id: 80, name: '6281 全國電' },
+			{ id: 81, name: '6505 台塑化' },
+            { id: 82, name: '8044 網家' },
+            { id: 83, name: '8101 華冠' },
+            { id: 84, name: '8349 恒耀' },
+            { id: 85, name: '8906 花王' },
+            { id: 86, name: '9914 美利達' },
+            { id: 87, name: '9921 巨大' },
+
+        ]
+    });</script>
+
+          </section><br><footer class="footer bg-alert">
+    <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+</h6>
+  </footer></section></div></section>
+  <script src="{% static 'js/toucheffects.js' %}"></script>
+  <!-- Bootstrap -->
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <!-- App -->
+  <script type="text/javascript" src="{% static 'js/SuperSlide.2.1.js' %}"></script>
+  <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+
+   
+</section></section></section></body>
+</html>
