@@ -1,0 +1,1965 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+
+    <script src="{% static 'js/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap-typeahead.js' %}" type="text/javascript"></script>
+
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'jquery.SuperSlide.2.1.1.js' %}" type="text/javascript"></script>
+
+    <meta charset="utf-8"/>
+    <title>技術面選股</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/icon2.ico' %}" rel="shortcut icon">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/styles.css' %}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/stickysort.css' %}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style6.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'stylee.css' %}" media="all" rel="stylesheet" type="text/css"/>
+
+
+    <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+	
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:240px;border-radius:2px; }
+		.slideTxtBox1{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:150px;border-radius:2px; }
+		.slideTxtBox, .slideTxtBox1 .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox, .slideTxtBox1 .hd ul{
+	float: left;
+	position: absolute;
+	left: 20px;
+	top: 2px;
+	height: 32px;
+}
+		.slideTxtBox, .slideTxtBox1 .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox, .slideTxtBox1 .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox, .slideTxtBox1 .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox, .slideTxtBox1 .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox, .slideTxtBox1 .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+		.page-list-title{
+		font-size:20px;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 3px 5px 0;
+}
+		.page-list-title2{
+		font-size:16px;
+		}
+
+.page-list-title2:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 2px 4px 0;
+}
+.navBar1 {
+	width:228px;
+	margin:0 auto;
+	margin-left:1px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+	/*new*/
+.tabbox{width:505px;height:256px;background:#fff;font-family:'微软雅黑'; }
+.tabbox .tab{overflow:hidden;background:#f0f0f0;}
+.tabbox .tab a{display:block;padding:8px 18px;float:left;text-decoration:none;color:#333;}
+.tabbox .tab a:hover{background:#E64E3F;color:#fff;text-decoration:none;}
+.tabbox .tab a.on{background:#90BF60;color:#fff;text-decoration:none;}
+.tabbox .content{overflow:hidden;width:500px;height:500px;position:relative;    margin-top: -0px;}
+.tabbox .content ul{position:absolute;left:0;top:0;}
+.tabbox .content li{width:500px;height:300px;float:left;}
+.tabbox .content li p{padding:10px;}
+.table tr:hover{
+	background-color:#FFFCED;
+}
+.table{
+ color:#282828;
+ font-size:16px;
+}
+.btn-rounded :hover{
+
+ color:#FFEB00;
+
+}
+
+.btn-icon.btn-sm {
+    width: 30px;
+    height: 30px;
+}
+.btn-sm, .btn-group-sm .bt > .btn {
+    padding: 2px 10px 10px 10px;
+    font-size: 10px;
+    line-height: 1.5;
+    border-radius: 50px;
+}
+.mb0 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #8dc272), color-stop(1, #60a83d));
+	background:-moz-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-webkit-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-o-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-ms-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:linear-gradient(to bottom, #8dc272 5%, #60a83d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8dc272', endColorstr='#60a83d',GradientType=0);
+	background-color:#8dc272;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #73a35b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:3px 3px 3px 2px;
+	padding-right:0px;
+	text-decoration:none;
+}
+.mb0:hover {
+	color:#ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #60a83d), color-stop(1, #8dc272));
+	background:-moz-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-webkit-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-o-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-ms-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:linear-gradient(to bottom, #60a83d 5%, #8dc272 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#60a83d', endColorstr='#8dc272',GradientType=0);
+	background-color:#60a83d;
+}
+.mb0:active {
+	color:#ffffff;
+	position:relative;
+	top:1px;
+}
+
+.mb1 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #8dc272), color-stop(1, #60a83d));
+	background:-moz-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-webkit-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-o-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-ms-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:linear-gradient(to bottom, #8dc272 5%, #60a83d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8dc272', endColorstr='#60a83d',GradientType=0);
+	background-color:#8dc272;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #73a35b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 10px;
+	text-decoration:none;
+}
+.mb1:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #60a83d), color-stop(1, #8dc272));
+	background:-moz-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-webkit-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-o-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-ms-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:linear-gradient(to bottom, #60a83d 5%, #8dc272 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#60a83d', endColorstr='#8dc272',GradientType=0);
+	background-color:#60a83d;
+}
+.mb1:active {
+	position:relative;
+	top:1px;
+}
+
+.mb2 {
+	-moz-box-shadow:inset 0px 39px 12px -24px #f7766f;
+	-webkit-box-shadow:inset 0px 39px 12px -24px #f7766f;
+	box-shadow:inset 0px 39px 12px -24px #f7766f;
+	background-color:#f2766d;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid #d48c9a;
+	display:inline-block;
+	cursor:pointer;
+	color:#fafafa;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ff6d63;
+}
+.mb2:hover {
+	background-color:#eb756f;
+}
+.mb2:active {
+	position:relative;
+	top:1px;
+}
+.sticky-wrap.sortable thead {
+    cursor: pointer;
+}
+
+.mb3 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #43adad), color-stop(1, #51b5b8));
+	background:-moz-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-webkit-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-o-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-ms-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:linear-gradient(to bottom, #43adad 5%, #51b5b8 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#43adad', endColorstr='#51b5b8',GradientType=0);
+	background-color:#43adad;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:4px;
+	border:1px solid #25a4a8;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 6px;
+	text-decoration:none;
+}
+.mb3:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #51b5b8), color-stop(1, #43adad));
+	background:-moz-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-webkit-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-o-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-ms-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:linear-gradient(to bottom, #51b5b8 5%, #43adad 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#51b5b8', endColorstr='#43adad',GradientType=0);
+	background-color:#51b5b8;
+}
+.mb3:active {
+	position:relative;
+	top:1px;
+}
+.mb01 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #43adad), color-stop(1, #51b5b8));
+	background:-moz-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-webkit-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-o-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-ms-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:linear-gradient(to bottom, #43adad 5%, #51b5b8 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#43adad', endColorstr='#51b5b8',GradientType=0);
+	background-color:#43adad;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:4px;
+	border:1px solid #25a4a8;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:3px 3px 3px 2px;
+	padding-right:0px;
+	text-decoration:none;
+}
+.mb01:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #51b5b8), color-stop(1, #43adad));
+	background:-moz-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-webkit-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-o-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-ms-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:linear-gradient(to bottom, #51b5b8 5%, #43adad 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#51b5b8', endColorstr='#43adad',GradientType=0);
+	background-color:#51b5b8;
+}
+.mb01:active {
+	background-color:#8dc272;
+	position:relative;
+	top:1px;
+}
+.elearning_title {
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffc800;
+    font-weight: bold;
+    background: url('{% static 'png/arrow.png' %}') no-repeat;
+    padding:0px 10px 3px 28px;
+    border-bottom: 1px dotted #ccc;
+	width:300px
+}
+
+.elearning_content {
+    font-size: 14px;padding: 15px;
+	color:#E9E9E9;
+}
+.breadcrumb{
+ border-color: transparent;
+ margin-bottom:-20px;
+ font-size:14px;
+}
+.mac {
+  display: block;
+  border: #ddd 1px solid;
+  border-radius: 20px;
+  color: #333;
+}
+ 
+.mac:focus {
+  outline: none;
+  box-shadow: 
+      0 0 5px 1px #51CBEE;
+}
+.mac2 {
+  border: #ddd 1px solid;
+  border-radius: 20px;
+  color: #333;
+}
+.mac2:focus {
+  outline: none;
+  box-shadow: 
+      0 0 5px 1px #51CBEE;
+}
+.tooltip2 {
+    position: relative;
+    display: inline-block;
+/*    border-bottom: 1px dotted black;*/
+}
+
+.tooltip2 .tooltiptext {
+    visibility: visible;
+    width: 138px;
+    background-color: #666;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 110%;
+}
+
+.tooltip2 .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #666 transparent transparent transparent;
+}
+.tooltip2:hover .tooltiptext {
+    visibility: visible;
+}
+
+.numbers {
+    background-color: #808584;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+    border: 1px solid #898f8d;
+    display: inline-block;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 14px;
+    padding: 1px 8px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2d423f;
+}
+
+
+    </style>
+
+</head>
+<body style="background-image: url('{% static 'png/bk3.jpg' %}'); background-position: 0px 0px;">
+
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/smallschool/">
+                <!-- <i class="icon-earphones"></i>-->
+
+                <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img height="35"
+                                                                             src="{% static 'png/love.gif' %}"
+                                                                             width="27">Futures</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+
+        <div class="nav">
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><a href="/get_news/" target="_blank"><img src="{% static 'png/money 2.png' %}"> NEWS</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/tap.png' %}">
+                            交易資訊</a></font></h3>
+                        <ul class="sub">
+                            <li><a href="/algotrade/">歷史回測</a></li>
+                            <li><a href="/recent/">即時資料</a></li>
+                            <li><a href="/stock/">期貨專區</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="//" target="_blank"><img src="{% static 'png/business.png' %}"> EDITOR</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/economic_term/" target="_blank"><img src="{% static 'png/anal.png' %}"> 指標專區</a>
+                        </h3>
+                    </li>
+                    <li class="m">
+                        <h3><a href="/tech/" target="_blank"><img src="{% static 'png/pay.png' %}"> 下單機</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/school.png' %}"> 新手專區</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/discussion/">討論區</a></li>
+                            <li><a href="/rookie/">新手投資小常識</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">我的追蹤期貨</a></li>
+                            <li><a href="/economic_term/">我的期貨新聞</a></li>
+                            <li><a href="/stock_ana/">機器人投顧</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+
+                            <nav>
+                                <ul class="nav bg-black clearfix" style="width:230px;">
+                                    {% if loginstatus == False %}
+                                    <div style="margin-left:40px; margin-top:8px">
+                                        <a class="myButton" href="/login/">登入系統</a>
+                                        <a class="myButton" href="/signin/">註冊會員</a>
+                                    </div>
+
+
+                                    <!--喔喔不要壞掉惹-->
+                                    {% else %}
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font size="3">&nbsp;您好!&nbsp;{{ name
+                                            }}</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+                                    <!---->
+                                    {% endif %}
+
+
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search" style="padding-top:6px"></i></button>
+            </span>
+                                            <input autocomplete="off"
+                                                   class="form-control input-sm no-border rounded mac" id="demo1"
+                                                   placeholder="請輸入股號/股名" type="text">
+
+                                        </div>
+                                    </div>
+                                    <script>
+    $('#demo1').typeahead({
+        source: [
+            { id: 1, name: '2330 台積電' },
+            { id: 2, name: '1101 台泥' },
+            { id: 3, name: '1102 亞泥' },
+            { id: 4, name: '1217 愛之味' },
+            { id: 5, name: '1256 鮮活果汁-KY' },
+            { id: 6, name: '1262 綠悅-KY' },
+            { id: 7, name: '1301 台塑' },
+            { id: 8, name: '1326 台化' },
+            { id: 9, name: '1565 精華' },
+            { id: 10, name: '1590 亞德客-KY' },
+			{ id: 11, name: '1704 榮化' },
+            { id: 12, name: '2002 中鋼' },
+            { id: 13, name: '2023 燁輝' },
+            { id: 14, name: '2105 正新' },
+            { id: 15, name: '2107 厚生' },
+            { id: 16, name: '2201 裕隆' },
+            { id: 17, name: '2207 和泰車' },
+            { id: 18, name: '2227 裕日車' },
+            { id: 19, name: '2308 台達電' },
+            { id: 20, name: '2317 鴻海' },
+			{ id: 21, name: '2323 中環' },
+            { id: 22, name: '2344 華邦電' },
+            { id: 23, name: '2347 聯強' },
+            { id: 24, name: '2349 錸德' },
+            { id: 25, name: '2353 宏碁' },
+            { id: 26, name: '2357 華碩' },
+            { id: 27, name: '2371 大同' },
+            { id: 28, name: '2373 震旦行' },
+            { id: 29, name: '2379 瑞昱' },
+            { id: 30, name: '2382 廣達' },
+			{ id: 31, name: '2383 台光電' },
+            { id: 32, name: '2397 友通' },
+            { id: 33, name: '2405 浩鑫' },
+            { id: 34, name: '2409 友達' },
+            { id: 35, name: '2412 中華電' },
+            { id: 36, name: '2454 聯發科' },
+            { id: 37, name: '2474 可成' },
+            { id: 38, name: '2481 強茂' },
+            { id: 39, name: '2485 兆赫' },
+            { id: 40, name: '2498 宏達電' },
+			{ id: 41, name: '2610 華航' },
+            { id: 42, name: '2618 長榮航' },
+            { id: 43, name: '2727 王品' },
+            { id: 44, name: '2729 瓦城' },
+            { id: 45, name: '2809 京城銀' },
+            { id: 46, name: '2832 台產' },
+            { id: 47, name: '2845 遠東銀' },
+            { id: 48, name: '2852 第一保' },
+            { id: 49, name: '2855 統一證' },
+            { id: 50, name: '2881 富邦金' },
+			{ id: 51, name: '2882 國泰金' },
+            { id: 52, name: '2890 永豐金' },
+            { id: 53, name: '2912 統一超' },
+            { id: 54, name: '3008 大立光' },
+            { id: 55, name: '3045 台灣大' },
+            { id: 56, name: '3059 華晶科' },
+            { id: 57, name: '3083 網龍' },
+            { id: 58, name: '3450 聯鈞' },
+            { id: 59, name: '3454 晶睿' },
+            { id: 60, name: '3548 兆利' },
+			{ id: 61, name: '3663 鑫科' },
+            { id: 62, name: '3669 圓展' },
+            { id: 63, name: '3702 大聯大' },
+            { id: 64, name: '4129 聯合' },
+            { id: 65, name: '4416 三圓' },
+            { id: 66, name: '4552 力達-KY' },
+            { id: 67, name: '4726 永昕' },
+            { id: 68, name: '4739 康普' },
+            { id: 69, name: '4904 遠傳' },
+            { id: 70, name: '4915 致伸' },
+			{ id: 71, name: '4935 茂林-KY' },
+            { id: 72, name: '4946 辣椒' },
+            { id: 73, name: '5474 聰泰' },
+            { id: 74, name: '5903 全家' },
+            { id: 75, name: '6015 宏遠證' },
+            { id: 76, name: '6154 順發' },
+            { id: 77, name: '6176 瑞儀' },
+            { id: 78, name: '6214 精誠' },
+            { id: 79, name: '6244 茂迪' },
+            { id: 80, name: '6281 全國電' },
+			{ id: 81, name: '6505 台塑化' },
+            { id: 82, name: '8044 網家' },
+            { id: 83, name: '8101 華冠' },
+            { id: 84, name: '8349 恒耀' },
+            { id: 85, name: '8906 花王' },
+            { id: 86, name: '9914 美利達' },
+            { id: 87, name: '9921 巨大' },
+
+        ]
+    });
+
+                                    </script>
+                                    <div class="nav navBar1 clearfix dk">
+                                        <!--崩壞開始-->
+
+                                        <div class="menu" id="menu">
+                                            <div class="menu-header"> 選股專區</div>
+                                            <ul>
+                                                <!--   <ul class="submenu">
+                                                     <li><a href="#" onClick="demo1()"><font size="3">財報數據</font></a></li>
+                                                     <li><a href="#" onClick="demo2()"><font size="3">獲利能力</font></a></li>
+                                                     <li><a href="#" onClick="demo3()"><font size="3">安全性</font></a></li>
+                                                     <li><a href="#" onClick="demo4()"><font size="3">成長力</font></a></li>
+                                                   </ul>-->
+                                                <li><a href="/tech/"><i class="fa fa-dashboard"
+                                                                        style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        color="#CCCCCC" size="+1"><strong>技術面選股</strong></font></a></li>
+                                                <li><a href="#"><i class="fa fa-magic"
+                                                                   style="margin-top:7px ;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>選股小幫手</strong></font></a>
+                                                    <ul class="submenu">
+
+
+                                                        <li><a href="/emily/"><font size="3">小資女艾蜜莉</font></a></li>
+                                                        <li><a href="/master/"><font size="3">穩穩賺的不敗法寶</font></a></li>
+                                                        <li><a href="/master3_1/"><font size="3">便宜存好股</font></a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="/my_stock/"><i class="fa  fa-cogs"
+                                                                            style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>我的選股清單</strong></font></a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </nav>
+                        </div>
+                        </ul>
+                        <script>
+function demo1() {
+    document.getElementById("demo").innerHTML = "財報數據";
+}
+
+                        </script>
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">  <!--vbox-->
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+
+                                <a id="top"></a>
+                                <div>
+                                    <ul class="breadcrumb" style="background-color:transparent">
+                                        <a href="/home/"><i class="fa fa-home"></i> 首頁 </a><i
+                                            class="fa fa-angle-double-right" style="color:#066"></i>
+                                        <font color="#414141"> 選股專區</font> <i class="fa fa-angle-double-right"
+                                                                              style="color:#066"></i> <font
+                                            color="#414141"> <u>技術面選股</u></font>
+                                        <span class="pull-right" style="color:#000;">股票交易日期 : <span style="
+   border-color:#296564;
+   font-family:'Courier New', Courier, monospace;
+    border-style: solid;
+    background-color:#368D8D;
+    border-width: thin;
+    color: #F7F9AE;
+    margin: 2px;
+    padding: 2px;"> 2016/08/26</span></span>
+                                    </ul>
+                                </div>
+
+
+                                <section class="post-item panel-success col-md-6 scrollable"
+                                         style="margin-top:20px; width:1065px;height:320px; margin-bottom:-5px;padding:20px;padding-top:10px; background: rgba(20%,18%,20%,0.6);border-radius:25px">
+                                    <h2><font color="#fff">利用技術指標篩選出潛力標的</font></h2>
+                                    <div class="elearning_block"
+                                         style="padding:18px; padding-top:5px;padding-bottom:5px;">
+                                        <div><font color="#ffc800"><strong>適合對象 : 短線投資者</strong></font></div>
+                                        <div class="elearning_content" style="margin-bottom:5px">
+                                            <li>短線賺價差 - 幾天就賺到長線投資一整年的報酬，但起伏很大</li>
+
+                                            <li>長線投資每年穩定有 5％～10％ 的報酬率，但每天股票上上下下震盪，動輒 3％～7％，每個月的波動幾乎超過
+                                                10％，代表短線賺價差，只要幾天就能創造一整年的報酬！
+                                            </li>
+
+                                            <li>而短線賺價差的缺點就是，它的風險相對高很多，會大賺也會大賠，股票價格短期內的走勢非常隨機，投資人也要花費很多心力在短線的研究上。</li>
+                                        </div>
+
+                                        <div class="elearning_title">
+                                            什麼是『KD』指標?
+                                        </div>
+                                        <div class="elearning_content">
+                                            <li>KD指標是 美國的喬治．連(George C. Lane)在1957年原創，全名是stochastic oscillator(隨機指標)。
+                                            </li>
+                                            <li>K值就是 取RSV的加權移動平均，D值則是 取K值的加權移動平均，
+
+                                                當日K值 占1/3權重，過去的D值 占2/3權重。
+
+                                                經過兩次平滑，
+
+                                                D值因為速度慢(這是為了取其穩定)，
+
+                                                K值就成為較快速的轉折了。
+                                            </li>
+                                        </div>
+                                        <div class="elearning_title">
+                                            什麼是『RSI』指標?
+                                        </div>
+                                        <div class="elearning_content">
+                                            <li>RSI (相對強弱指標)．是可看出股價相對強弱的指標
+
+                                                是以某段時間，股價 平均漲幅 與 平均跌幅 所計算出來的數值。
+                                            </li>
+                                            <li>由於RSI是一個大小介於0~100的數值，
+
+                                                越高代表市場越熱，越小代表越冷。
+
+                                                一般人看到這裡，一定會以為，
+
+                                                RSI越大(市場越熱)我就買越多，越小(市場越冷)就不要買，
+
+                                                我要跟著股民共進退！
+                                            </li>
+                                        </div>
+                                        <div class="elearning_title">
+                                            什麼是『MACD』指標?
+                                        </div>
+                                        <div class="elearning_content">
+                                            <li>MACD指標，可確定波段漲幅 找到買賣點。</li>
+                                            <li>MACD基本原理 是運用 兩條不同速度的 股價指數平滑移動平均線(EMA)
+
+                                                來計算兩者間的差離狀態(DIF)，
+
+                                                然後再對DIF進行指數平滑移動平均。
+                                            </li>
+                                            <li>簡而言之，
+
+                                                MACD就是 對長期與短期的移動平均線 收斂或發散的徵兆，
+
+                                                加以雙重平滑處理，
+
+                                                用來判斷 買賣股票的時機與訊號。
+                                            </li>
+                                        </div>
+                                        <div class="elearning_title">連續三日大漲 or 大跌</div>
+                                        <div class="elearning_content">
+                                            <li>連續3日大漲，且每日漲幅超過2%</li>
+                                            <li>連續3日大跌，且每日跌幅超過2%</li>
+                                        </div>
+
+                                        <div class="elearning_title">KD黃金交叉 or 死亡交叉</div>
+                                        <div class="elearning_content">
+                                            <li>最近一日K > D，前一日K < D</li>
+                                            KD黃金交叉-建議買進
+
+                                            當KD指標的K值由下往上突破D值，建議買進、做多<br>
+                                            KD死亡交叉-建議賣出
+
+                                            當KD指標的K值由上往下跌破D值時，建議賣出、做空
+                                        </div>
+
+                                        <div class="elearning_title">MACD黃金交叉 or 死亡交叉 <img height="19"
+                                                                                           src="{% static 'png/hot.png'%}"
+                                                                                           width="18"></div>
+                                        <div class="elearning_content">
+                                            <li>前一日DIF <= MACD</li>
+                                            <li>當日DIF >= MACD</li>
+                                            <li>MACD – 比均線更好賺波段的技術指標:</li>
+                                            <p>
+                                                MACD是一種很熱門的技術分析指標，跟KD、RSI不同點在於MACD是偏中線波段的技術指標，沒有這麼敏感，所以更適合操作週期比較長的投資人。</p>
+                                            <p>
+                                                MACD是由三個元素組成：DIF、DEM(又叫MACD值)、OSC(柱狀)，怎麼算出來的其實不重要，會用就好。MACD因為太多人習慣會看，所以有很多會員問過咱們什麼時候會開發MACD出來，現在終於大功告成，免費給大家用。</p>
+                                        </div>
+                                    </div>
+                                </section>
+
+
+                                <section class="post-item panel-success col-md-6"
+                                         style="margin-top:20px; width:525px; height:350px">
+                                    <header class="row-wrapper panel-heading page-list-title"
+                                            style="margin-bottom:-5px;border-bottom:#063 1px solid">&nbsp;<font
+                                            size="+1"><span id="demo">技術面指標--</span></font><font color="#FF0000"
+                                                                                                 size="3px">
+                                        多方選股 </font>vs.<font color="#4B9898" size="3px"> 空方選股</font>
+                                        <button class="mb3 pull-right" data-toggle="modal" href="#" id="btn001"
+                                                onClick="all1()" style="margin:-5px; margin-left:10px;"> 全部匯入&nbsp;<i
+                                                class="fa  fa-angle-double-right"></i></button>
+                                    </header>
+                                    <script>
+   $("#btn001").click(function(){
+	$("#help").find("td").find("button").click();
+		});
+
+                                    </script>
+                                    <article class="page-list-content" style="padding:10px;">
+                                        <div class="tabbox">
+                                            <div class="content">
+                                                <ul>
+                                                    <li style="padding-top:6px;">
+
+                                                        <table class="table" id="help" style="background-color:#FFF"
+                                                               width="100%">
+                                                            <tbody>
+
+                                                            <tr id="bg1">
+                                                                <td style="border-top: 1px solid #fff; " width="78%">
+                                                                    <span id="t1"
+                                                                          style="padding-top:20px"> 連續三日</span><span
+                                                                        id="tt1"><font color="#FF0000"> 大漲 </font>|<font
+                                                                        color="#4B9898"> 大跌</font></span>
+                                                                    <button class="btn btn-rounded btn-sm btn-icon btn-info  pull-right"
+                                                                            id="deliver1"
+                                                                            onClick="deliver(); num(); bg();"><font
+                                                                            size="3"> <i class="fa fa-arrow-right"></i></font>
+                                                                    </button>
+                                                                </td>
+                                                                <!-- <script>
+                                                                 function deliver(){
+                                                                    var news = document.getElementById("t1").innerHTML;
+                                                                     t11.innerHTML = t11.innerHTML+'<tr style="border-bottom:#ddd 1px solid;"><td bgcolor="#fff">'+news+'<button type="button" class="close pull-right" data-dismiss="alert" style="color:#FF1717;" onClick="minus();">×</button>'+'</td></tr>';
+                                                                     }
+                                                                 </script>  -->
+                                                                <script> <!--選了tr變色-->
+function bg() {
+   <!-- document.getElementById("bg").style.backgroundColor = "lightblue"; button變色 id = bg-->
+	 document.getElementById("bg1").style.backgroundColor = "#F3F5F3";	
+}
+
+function bg2() {
+	 	 document.getElementById("bg2").style.backgroundColor = "#F3F5F3";
+	
+}
+function bg3() {
+	 	 document.getElementById("bg3").style.backgroundColor = "#F3F5F3";
+	
+}
+function bg4() {
+	 	 document.getElementById("bg4").style.backgroundColor = "#F3F5F3";
+	
+}
+function bg5() {
+	 	 document.getElementById("bg5").style.backgroundColor = "#F3F5F3";
+	
+}
+function bg6() {
+	 	 document.getElementById("bg6").style.backgroundColor = "#F3F5F3";
+	
+}
+function bg7() {
+	 	 document.getElementById("bg7").style.backgroundColor = "#F3F5F3";
+	
+}
+
+                                                                </script>
+
+                                                                <script>
+ function deliver(){
+	var news = document.getElementById("t1").innerHTML;
+	var nnews = document.getElementById("tt1").innerHTML;
+	 $("#t11").append('<tr style="border-bottom:#ddd 1px solid; border-top:#ddd 1px solid" id="delete3"><td bgcolor="#fff">'+ news+'&nbsp;<select name="op1" id="s1"><option value="a" selected>大漲</option><option value="b">大跌</option></select>'+'<button type="button" class="close pull-right" data-dismiss="alert" style="color:#FF1717" onClick="minus(); mibg();delete3();">×</button>'+'</td><input type="hidden" name="conID1" value="1" id="hide1"></tr>');
+	     var x = document.getElementById("deliver1");
+    x.disabled = true;
+ }
+
+                                                                </script>
+
+                                                                <script>
+	 function minus(){
+		 var num=document.getElementById('num').innerHTML;
+	if(num >= 0){
+      num--;
+    document.getElementById('num').innerHTML = num;
+<!--	document.getElementById("bg").style.backgroundColor = "#4cb6cb"; -->
+}
+	 }
+
+ function mibg(){
+	 document.getElementById("bg1").style.backgroundColor = "#fff";
+     var x = document.getElementById("deliver1");
+     x.disabled = false;
+}
+ function mibg2(){
+	 document.getElementById("bg2").style.backgroundColor = "#fff";
+     var x = document.getElementById("deliver2");
+     x.disabled = false;
+}
+ function mibg3(){
+	 document.getElementById("bg3").style.backgroundColor = "#fff";
+     var x = document.getElementById("deliver3");
+     x.disabled = false;
+}
+ function mibg4(){
+	 document.getElementById("bg4").style.backgroundColor = "#fff";
+     var x = document.getElementById("deliver4");
+     x.disabled = false;
+}
+ function mibg5(){
+	 document.getElementById("bg5").style.backgroundColor = "#fff";
+     var x = document.getElementById("deliver5");
+     x.disabled = false;
+}
+ function mibg6(){
+	 document.getElementById("bg6").style.backgroundColor = "#fff";
+     var x = document.getElementById("deliver6");
+     x.disabled = false;
+}
+ function mibg7(){
+	 document.getElementById("bg7").style.backgroundColor = "#fff";
+}
+ function delete1(){
+	$("#delete1").remove();
+}
+function delete2(){
+	$("#delete2").remove();
+}
+function delete3(){
+	$("#delete3").remove();
+}
+function delete4(){
+	$("#delete4").remove();
+}
+     function delete5(){
+	$("#delete5").remove();
+}
+     function delete6(){
+	$("#delete6").remove();
+}
+     function delete7(){
+	$("#delete7").remove();
+}
+
+                                                                </script>
+                                                            </tr>
+                                                            <tr id="bg2">
+                                                                <td width="78%"><span id="t2" style="padding-top:20px"> 日KD</span><font
+                                                                        color="#FF0000"> 黃金交叉</font> |<font
+                                                                        color="#4B9898"> 死亡交叉</font><span id="tt2"> <img
+                                                                        height="15" src="{% static 'png/hot.png'%}"
+                                                                        width="15"> </span>
+                                                                    <button class="btn btn-rounded btn-sm btn-icon btn-info  pull-right"
+                                                                            id="deliver2"
+                                                                            onClick="deliver1(); num(); bg2();"
+                                                                            style="padding-top:-10px"><font size="3"> <i
+                                                                            class="fa  fa-arrow-right"></i></font>
+                                                                    </button>
+                                                                </td>
+                                                                <script>
+ function deliver1(){
+	var news = document.getElementById("t2").innerHTML;
+	var nnews = document.getElementById("tt2").innerHTML;
+	$("#t11").append('<tr style="border-bottom:#ddd 1px solid; border-top:#ddd 1px solid" id="delete1"><td bgcolor="#fff">'+news+'&nbsp;<select name="op2" id="s2"><option value="a" selected>黃金交叉</option><option value="b">死亡交叉</option></select>'+'<button type="button" class="close pull-right" data-dismiss="alert" style="color:#FF1717" onClick="minus(); mibg2();delete1();">×</button>'+'</td><input type="hidden" name="conID2" value="1" id="hide2"></tr>');
+	   var x = document.getElementById("deliver2");
+    x.disabled = true;
+ }
+
+                                                                </script>
+                                                            </tr>
+                                                            <tr id="bg3" style="border-bottom:#ddd 1px solid;">
+                                                                <td width="78%"><span id="t3" style="padding-top:20px"> 日MACD</span><font
+                                                                        color="#FF0000"> 黃金交叉</font> |<font
+                                                                        color="#4B9898"> 死亡交叉</font><span id="tt3"> <img
+                                                                        height="15" src="{% static 'png/hot.png'%}"
+                                                                        width="15"> </span>
+                                                                    <button class="btn btn-rounded btn-sm btn-icon btn-info  pull-right"
+                                                                            id="deliver3"
+                                                                            onClick="deliver2(); num();bg3();"
+                                                                            style="padding-top:-10px"><font size="3"> <i
+                                                                            class="fa  fa-arrow-right"></i></font>
+                                                                    </button>
+                                                                </td>
+                                                                <script>
+ function deliver2(){
+	var news = document.getElementById("t3").innerHTML;
+	var nnews = document.getElementById("tt3").innerHTML;
+	$("#t11").append('<tr style="border-bottom:#ddd 1px solid; border-top:#ddd 1px solid" id="delete2"><td bgcolor="#fff">'+news  +'&nbsp;<select name="op3" id="s3"><option value="a" selected>黃金交叉</option><option value="b">死亡交叉</option></select>'+'<button type="button" class="close pull-right" data-dismiss="alert" style="color:#FF1717" onClick="minus(); mibg3();delete2();">×</button>'+'</td><input type="hidden" name="conID3" value="1" id="hide3"></tr>');
+	  var x = document.getElementById("deliver3");
+    x.disabled = true;
+	  }
+
+                                                                </script>
+                                                            </tr>
+
+                                                            <!---->
+                                                            <tr id="bg4" style="border-bottom:#ddd 1px solid;">
+                                                                <td width="78%"><span id="t4" style="padding-top:20px"> 日RSI</span><font
+                                                                        color="#FF0000"> 黃金交叉</font> |<font
+                                                                        color="#4B9898"> 死亡交叉</font><span
+                                                                        id="tt4"> </span>
+                                                                    <button class="btn btn-rounded btn-sm btn-icon btn-info  pull-right"
+                                                                            id="deliver4"
+                                                                            onClick="deliver3(); num();bg4();"
+                                                                            style="padding-top:-10px"><font size="3"> <i
+                                                                            class="fa  fa-arrow-right"></i></font>
+                                                                    </button>
+                                                                </td>
+                                                                <script>
+ function deliver3(){
+	var news = document.getElementById("t4").innerHTML;
+	var nnews = document.getElementById("tt4").innerHTML;
+	$("#t11").append('<tr style="border-bottom:#ddd 1px solid; border-top:#ddd 1px solid" id="delete3"><td bgcolor="#fff">'+news  +'&nbsp;<select name="op4" id="s4"><option value="a" selected>黃金交叉</option><option value="b">死亡交叉</option></select>'+'<button type="button" class="close pull-right" data-dismiss="alert" style="color:#FF1717" onClick="minus(); mibg4();delete3();">×</button>'+'</td><input type="hidden" name="conID4" value="1" id="hide4"></tr>');
+	  var x = document.getElementById("deliver4");
+    x.disabled = true;
+	  }
+
+                                                                </script>
+                                                            </tr>
+
+                                                            <tr id="bg5" style="border-bottom:#ddd 1px solid;">
+                                                                <td width="78%"><span id="t5" style="padding-top:20px"> 股價創5日</span><font
+                                                                        color="#FF0000"> 新高</font> |<font
+                                                                        color="#4B9898"> 新低</font><span
+                                                                        id="tt5"> </span>
+                                                                    <button class="btn btn-rounded btn-sm btn-icon btn-info  pull-right"
+                                                                            id="deliver5"
+                                                                            onClick="deliver4(); num();bg5();"
+                                                                            style="padding-top:-10px"><font size="3"> <i
+                                                                            class="fa  fa-arrow-right"></i></font>
+                                                                    </button>
+                                                                </td>
+                                                                <script>
+ function deliver4(){
+	var news = document.getElementById("t5").innerHTML;
+	var nnews = document.getElementById("tt5").innerHTML;
+	$("#t11").append('<tr style="border-bottom:#ddd 1px solid; border-top:#ddd 1px solid" id="delete4"><td bgcolor="#fff">'+news  +'&nbsp;<select name="op5" id="s5"><option value="a" selected>新高</option><option value="b">新低</option></select>'+'<button type="button" class="close pull-right" data-dismiss="alert" style="color:#FF1717" onClick="minus(); mibg5();delete4();">×</button>'+'</td><input type="hidden" name="conID5" value="1" id="hide5"></tr>');
+	  var x = document.getElementById("deliver5");
+    x.disabled = true;
+	  }
+
+                                                                </script>
+                                                            </tr>
+
+                                                            <tr id="bg6" style="border-bottom:#ddd 1px solid;">
+                                                                <td width="78%"><span id="t6" style="padding-top:20px"> 均線</span><font
+                                                                        color="#FF0000"> 多頭排列</font> |<font
+                                                                        color="#4B9898"> 空頭排列</font><span
+                                                                        id="tt6"> </span>
+                                                                    <button class="btn btn-rounded btn-sm btn-icon btn-info  pull-right"
+                                                                            id="deliver6"
+                                                                            onClick="deliver5(); num();bg6();"
+                                                                            style="padding-top:-10px"><font size="3"> <i
+                                                                            class="fa  fa-arrow-right"></i></font>
+                                                                    </button>
+                                                                </td>
+                                                                <script>
+ function deliver5(){
+	var news = document.getElementById("t6").innerHTML;
+	var nnews = document.getElementById("tt6").innerHTML;
+	$("#t11").append('<tr style="border-bottom:#ddd 1px solid; border-top:#ddd 1px solid" id="delete5"><td bgcolor="#fff">'+news  +'&nbsp;<select name="op6" id="s6"><option value="a" selected>多頭排列</option><option value="b">空頭排列</option></select>'+'<button type="button" class="close pull-right" data-dismiss="alert" style="color:#FF1717" onClick="minus(); mibg6();delete5();">×</button>'+'</td><input type="hidden" name="conID6" value="1" id="hide6"></tr>');
+	  var x = document.getElementById("deliver6");
+    x.disabled = true;
+	  }
+
+                                                                </script>
+                                                            </tr>
+
+                                                            <script>
+	 function num(){
+		 var num=document.getElementById('num').innerHTML;
+	if(num <= 15){
+      num++;
+    document.getElementById('num').innerHTML = num;
+}else{
+	num = 15;
+}
+if (num == 15){
+	document.getElementById('alert').innerHTML = '<font color="red"><strong> 已超過15個條件!'+'</strong></font>'
+}
+	 }
+
+ 
+
+                                                            </script>
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    </li></ul>   </section>
+
+                                <section class="post-item panel-success col-md-6"
+                                         style="margin-top:20px; width:525px;margin-left:16px;height:350px; ">
+                                    <header class="row-wrapper panel-heading page-list-title"
+                                            style="margin-bottom:-5px;border-bottom:#063 1px solid">&nbsp;<font
+                                            id="alert" size="+1">選股條件數 : &nbsp;<font color="#990000" id="num">0</font> /
+                                        <font color="#990000">6</font></font>
+                                        <button class="mb3 pull-right" data-toggle="modal" href="#"
+                                                onClick="zero();reset();" style="margin:-5px; margin-left:10px;"><i
+                                                class="fa fa-cut"></i> &nbsp;清空
+                                        </button>&nbsp;&nbsp;<button class="mb2 pull-right" id="choose_stock"
+                                                                     style="margin:-5px; margin-right:-5px;"><i
+                                                class="fa fa-search"></i> &nbsp;開始選股
+                                        </button>
+                                        <button class="mb1 pull-right" data-target="#pop" data-toggle="modal"
+                                                onClick="save()" style="margin:-5px;  margin-right:10px"><i
+                                                class="fa fa-save"></i> &nbsp;儲存條件
+                                        </button>
+                                    </header>
+                                    <!--開始選股form-->
+                                    <div class="tabbox" style="margin-top:5px;">
+                                        <article class="page-list-content scrollable" id="choose"
+                                                 style="padding:8px;padding-left:15px; height:102%;width:102%;">
+                                            <!--overflow-y: scroll;-->
+                                            <table class="table" id="t11" style="width:100%">
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </article>
+                                    </div>    <!---->
+
+
+                                    <script>
+
+$("#choose_stock").click(function() {
+
+    $.ajax({
+        url: "/tech1/",
+        data: {
+            op1: $("#t11").find('#s1').find("option:selected").val(),
+            conID1: $("#t11").find('#hide1').val(),
+            op2: $("#t11").find('#s2').find("option:selected").val(),
+            conID2: $("#t11").find('#hide2').val(),
+            op3: $("#t11").find('#s3').find("option:selected").val(),
+            conID3: $("#t11").find('#hide3').val(),
+            op4: $("#t11").find('#s4').find("option:selected").val(),
+            conID4: $("#t11").find('#hide4').val(),
+            op5: $("#t11").find('#s5').find("option:selected").val(),
+            conID5: $("#t11").find('#hide5').val(),
+            op6: $("#t11").find('#s6').find("option:selected").val(),
+            conID6: $("#t11").find('#hide6').val()
+        },
+        type: "POST",
+
+        success: function (data) {
+           // data = JSON.parse(data),
+            //1個list(一筆資料多個值)
+             /*for(var i=0; i <= data.length;i++){
+		$("#t11").append('<td class="user-firstName"><div align="center">'+data.id+'</div></td><td class="user-lastName">'+data.stock_id+'</td><td class="user-email">'+data.pclose+'</td><td class="user-md5">'+data.growfall+'</td><td >'+data.x+'</td><td class="user-sha1" align="center"><div align="center"><a href="#"><img src="char1.png" width="28" height="27" style="border-radius:0px;"></a></div></td> <td><div align="center"><!--<button href="#" class="mb0" style=" width:90px;" data-toggle="modal" data-target="#pop1"><i class="fa fa-plus-square"></i> &nbsp;加入追蹤</button></div></td>--> <button href="#" class="mb01 " style=" width:90px;" data-toggle="modal"  onClick="change()" id="change"><i class="fa fa-check"></i> &nbsp;已追蹤</button></div></td> ')
+	}*/
+
+    if (data[1].length<=0) {
+        $("#warnhide").show();
+    }
+    //data = JSON.parse(JSON.stringify(data));
+    if (data[1].length>0) {
+
+        $("#choosetable").show();
+        document.getElementById("stocknum").innerHTML = " "+data[1].length;
+
+
+
+      /*   if ($("#t11").find('#hide1').val() != null ) {
+             $("#delete4").show();
+         }
+         if ($("#t11").find('#hide1').val() == null ) {
+            $("#delete4").hide();
+        }
+
+        if ($("#t11").find('#hide2').val() != null) {
+         $("#delete5").show();
+        }
+         if ($("#t11").find('#hide2').val() == null ) {
+            $("#delete5").hide();
+         }
+
+        if ($("#t11").find('#hide3').val() != null ) {
+         $("#delete6").show();
+        }
+        if ($("#t11").find('#hide3').val() == null ) {
+            $("#delete6").hide();
+       }
+       */ //2個list(一筆資料一個值
+        for (var i = 0; i < data[1].length; i++) {
+            $(" #choosebody").append('<tr>');
+             $("#choosebody").append('<td class="user-firstName" bgcolor="#f3f5f3" style="border:#ddd 1px solid"><div align="center"><span class="numbers" style="box-shadow:4px 4px 12px -2px rgba(20%,20%,40%,0.5);">' +(i+1)  + '</span></div></td>')
+            for (var j = 0; j < data.length; j++) {
+                if(j==2 && data[j][i]<0){
+                $("#choosebody").append('<td class="user-firstName"><div align="center" style="color:red;">'+ data[j][i]  + '</div></td>')
+
+                }
+                 if(j==3 && data[j][i]>0){
+                $("#choosebody").append('<td class="user-firstName"><div align="center" style="color:red;">'+ '▲'+ data[j][i] +' %' + '</div></td>')
+
+                 }
+                 else if(j==3 && data[j][i]<0){
+                $("#choosebody").append('<td class="user-firstName"><div align="center" style="color:#090;">'+ '▼' + data[j][i] +' %' + '</div></td>')
+                 }
+                 else if(j==4){
+                       }
+                 else{
+                     $("#choosebody").append('<td class="user-firstName"><div align="center" style="color:#454545;">' + data[j][i] + '</div></td>')
+                 }
+            }
+            var a= data[0][i];
+            var addstock =a.split(" ",1);
+            $("#choosebody").append('<td align="center"><div align="center"><a href="/stock/?stock_id=' + addstock + '"><img src="{% static 'png/char1.png'%}" width="28" height="27" style="border-radius:0px;"></a></div></td>')
+            $("#choosebody").append('<td><div align="center"><a href="javascript:add_stock('+addstock+','+i+')"><button class="mb0" style=" width:90px;" data-toggle="modal" data-target="#pop1"  onClick="change();" id="change"><i class="fa fa-plus-square"></i> &nbsp;加入追蹤</button></a></div></td>');
+            $("#choosebody").append('</tr>');
+        }
+
+
+
+    }
+
+        }
+            ,
+    beforeSend:
+            function(){$("#choosebody").empty();$("#stephide").hide();$("#choosetable").hide(); $("#warnhide").hide();$("#load"). css (
+            "display","block");},
+    complete:
+        function() {$(" #load" ).css("display","none");},
+        error:function(xhr, ajaxOptions, thrownError){
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+
+    })
+
+})
+
+
+
+                                    </script>
+
+                                    <script>
+    //加入追蹤
+    function add_stock(stockid,i) {
+        $.ajax({
+            url: "/add_stock/",
+            data: {stockID: stockid},
+            type: "POST",
+            success: function (data) {
+                alert(stockid+"已加入追蹤!");
+            },
+            complete:function() {
+                 var x = document.getElementsByClassName("mb0");
+                 x[i].disabled = true;},
+            error:function(xhr, ajaxOptions, thrownError){
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+
+        })
+    }
+
+                                    </script>
+
+                                    <script>
+  function zero(){
+      $("#t11").empty();
+      var x = document.getElementById("deliver1");
+     x.disabled = false;
+     var y = document.getElementById("deliver2");
+     y.disabled = false;
+     var z = document.getElementById("deliver3");
+     z.disabled = false;
+     var z4 = document.getElementById("deliver4");
+     z4.disabled = false;
+      var z5 = document.getElementById("deliver5");
+     z5.disabled = false;
+      var z6 = document.getElementById("deliver6");
+     z6.disabled = false;
+	 document.getElementById("num").innerHTML = 0;
+	 document.getElementById("bg1").style.backgroundColor = "#fff";
+	 document.getElementById("bg2").style.backgroundColor = "#fff";
+	 document.getElementById("bg3").style.backgroundColor = "#fff";
+	 document.getElementById("bg4").style.backgroundColor = "#fff";
+	 document.getElementById("bg5").style.backgroundColor = "#fff";
+	 document.getElementById("bg6").style.backgroundColor = "#fff";
+	 document.getElementById("bg7").style.backgroundColor = "#fff";
+
+	 }
+  function reset(){
+
+  }
+
+                                    </script>
+                                    <script>
+ function save(){
+	 
+var sa = document.getElementById("t11").innerHTML;
+document.getElementById("save").innerHTML=sa;
+	 
+var v=$("#t11").find('#s1').find("option:selected").val();
+$("#save").find('#s1').val(v);
+	
+	
+var v2=$("#t11").find('#s2').find("option:selected").val();
+$("#save").find('#s2').val(v2);
+
+var v3=$("#t11").find('#s3').find("option:selected").val();
+$("#save").find('#s3').val(v3);
+	
+var v4=$("#t11").find('#s4').find("option:selected").val();
+$("#save").find('#s4').val(v4);
+
+var v5=$("#t11").find('#s5').find("option:selected").val();
+$("#save").find('#s5').val(v5);
+
+var v6=$("#t11").find('#s6').find("option:selected").val();
+$("#save").find('#s6').val(v6);
+
+var v7=$("#t11").find('#s7').find("option:selected").val();
+$("#save").find('#s7').val(v7);
+	 }
+
+                                    </script>
+
+                                    {% if loginstatus == False %}
+                                    <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="pop"
+                                         role="dialog" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button class="close" data-dismiss="modal" type="button"><span
+                                                            aria-hidden="true">&times;</span><span
+                                                            class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel"><i class="icon-bell"></i>提醒！
+                                                    </h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    儲存條件前請先登入
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-default" data-dismiss="modal" type="button">
+                                                        關閉
+                                                    </button>
+                                                    <button class="btn btn-primary"
+                                                            onClick="self.location.href='/login/'" type="button">前往登入
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% else %}
+                                    <!--儲存條件彈出視窗-->
+                                    <form id="con">
+                                        <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade"
+                                             id="pop" role="dialog" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header"
+                                                         style="background-color:#ECECEC; border-bottom:#333 1px solid">
+                                                        <button class="close" data-dismiss="modal"
+                                                                style="font-size: 28px;" type="button"><span
+                                                                aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                                        </button>
+                                                        <h4 class="modal-title" id="myModalLabel" style="color:#000">
+                                                            <img src="{% static 'png/list2.png' %}"><strong>
+                                                            儲存選股條件</strong></h4>
+                                                    </div>
+                                                    <div class="modal-body" style="margin-left:100px; color:#333">
+                                                        <div class="page-list-title2"> 選擇清單編號：
+                                                            <select name="conditionList">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                            </select> (共五組清單可使用)
+                                                        </div>
+                                                        <br>
+                                                        <!--<div class="page-list-title2"> 設定清單名稱： <input type="text" placeholder="my 選股清單" name="listName"></div>
+                                                        <br>-->
+                                                        <div class="page-list-title2"> 您儲存的條件：
+                                                            <table class="tb" id="save">
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div align="center" class="modal-footer"
+                                                         style="background-color:#ECECEC;border-top:#333 1px solid">
+                                                        <button class="btn btn-default" data-dismiss="modal"
+                                                                onClick="window.close()" type="button">取消
+                                                        </button>
+                                                        <button class="btn btn-primary" id="choose_con" type="submit">
+                                                            確認儲存
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    {% endif %}
+
+                                    <script>
+
+$("#choose_con").click(function(){
+
+     $.ajax({
+        url: "/add_list2/",
+        data: $("#con").serialize(),
+        type: "POST"
+})
+});
+
+
+                                    </script>
+
+                                    <!-- <form action="/#/" method="post">      <div class="tabbox" style="margin-top:5px;">
+                                             <article class="page-list-content scrollable"  style="padding:8px;padding-left:15px overflow-y: scroll; height:102%;width:102%;" id="choose">
+                                          <table class="table" style="width:100%" id="t11"><tbody>
+                                          </tbody></table></article></div>	</form>	-->
+                                    </li></ul>   </section>
+                                <script>
+function hid(){
+	document.getElementById("hid1").style.visibility = "hidden";
+}
+
+                                </script>
+
+                                <section class="post-item panel-success col-md-6"
+                                         style="margin-top:0px; width:1065px;margin-left:0px;height:120px;">
+                                    <header class="row-wrapper panel-heading page-list-title"
+                                            style="margin-bottom:-5px;border-bottom:#063 1px solid">&nbsp;<font
+                                            size="+1">您設定的篩選條件 : &nbsp;共<font color="#990000" id="stocknum">
+                                        &nbsp;</font> 檔個股 </font>
+                                        <span class="tooltip2"><font color="#dff0d8" size="-4">e</font><span
+                                                class="tooltiptext" id="hid1" onClick="hid()"
+                                                style="padding:2px; padding-bottom:5px"><font
+                                                size="-2">點選表格欄位即可排序</font></span>
+</span>
+                                        <select class="selectable mac2" id="pref1" name="category1"
+                                                style="margin-left:462px; font-size:18px; color:#333;border-radius:5px; border: #acacac 1px solid">
+
+                                            <option value="all">所有交易所</option>
+                                            <option value="上市  ">上市</option>
+                                            <option value="上櫃  ">上櫃</option>
+                                        </select>&nbsp;<select class="selectable mac2" id="pref2" name="category2"
+                                                               style=" font-size:18px; color:#333; border-radius:5px;  border: #acacac 1px solid">
+
+                                            <option value="0">所有產業</option>
+                                            <option value="1">水泥工業</option>
+                                            <option value="2">食品工業</option>
+                                            <option value="3">塑膠工業</option>
+                                            <option value="4">紡織纖維</option>
+                                            <option value="5">電機機械</option>
+                                            <option value="6">電器電纜</option>
+                                            <option value="8">玻璃陶瓷</option>
+                                            <option value="9">造紙工業</option>
+                                            <option value="10">鋼鐵工業</option>
+                                            <option value="11">橡膠工業</option>
+                                            <option value="12">汽車工業</option>
+                                            <option value="14">建材營造</option>
+                                            <option value="15">航運業</option>
+                                            <option value="16">觀光事業</option>
+                                            <option value="17">金融業</option>
+                                            <option value="18">貿易百貨</option>
+                                            <option value="19">綜合</option>
+                                            <option value="20">其他</option>
+                                            <option value="21">化學工業</option>
+                                            <option value="22">生技醫療</option>
+                                            <option value="23">油電燃氣業</option>
+                                            <option value="24">半導體業</option>
+                                            <option value="25">電腦周邊</option>
+                                            <option value="26">光電業</option>
+                                            <option value="27">通信網路業</option>
+                                            <option value="28">電子零組件業</option>
+                                            <option value="29">電子通路業</option>
+                                            <option value="30">資訊服務業</option>
+                                            <option value="31">其他電子業</option>
+                                            <option value="32">文化創意業</option>
+                                            <option value="80">管理股票</option>
+                                            <option value="91">TDR</option>
+
+
+                                        </select>
+                                        <button class="mb3 pull-right" data-toggle="modal" id="master2"
+                                                style="margin:-5px; margin-top:0.8px; padding:1px">&nbsp;<i
+                                                class="fa fa-search"></i>&nbsp;
+                                        </button>
+                                    </header>
+                                    <script>
+
+$("#master2").click(function() {
+
+    $.ajax({
+        url: "/tech2/",
+        data: {
+            op1: $("#t11").find('#s1').find("option:selected").val(),
+            conID1: $("#t11").find('#hide1').val(),
+            op2: $("#t11").find('#s2').find("option:selected").val(),
+            conID2: $("#t11").find('#hide2').val(),
+            op3: $("#t11").find('#s3').find("option:selected").val(),
+            conID3: $("#t11").find('#hide3').val(),
+            op4: $("#t11").find('#s4').find("option:selected").val(),
+            conID4: $("#t11").find('#hide4').val(),
+            op5: $("#t11").find('#s5').find("option:selected").val(),
+            conID5: $("#t11").find('#hide5').val(),
+            op6: $("#t11").find('#s6').find("option:selected").val(),
+            conID6: $("#t11").find('#hide6').val(),
+            category1: $("#pref1").find("option:selected").val(),
+            category2: $("#pref2").find("option:selected").val(),
+        },
+        type: "POST",
+
+        success: function (data) {
+           // data = JSON.parse(data),
+            //1個list(一筆資料多個值)
+             /*for(var i=0; i <= data.length;i++){
+		$("#t11").append('<td class="user-firstName"><div align="center">'+data.id+'</div></td><td class="user-lastName">'+data.stock_id+'</td><td class="user-email">'+data.pclose+'</td><td class="user-md5">'+data.growfall+'</td><td >'+data.x+'</td><td class="user-sha1" align="center"><div align="center"><a href="#"><img src="char1.png" width="28" height="27" style="border-radius:0px;"></a></div></td> <td><div align="center"><!--<button href="#" class="mb0" style=" width:90px;" data-toggle="modal" data-target="#pop1"><i class="fa fa-plus-square"></i> &nbsp;加入追蹤</button></div></td>--> <button href="#" class="mb01 " style=" width:90px;" data-toggle="modal"  onClick="change()" id="change"><i class="fa fa-check"></i> &nbsp;已追蹤</button></div></td> ')
+	}*/
+
+    if (data[1].length<=0) {
+        $("#warnhide").show();
+    }
+    //data = JSON.parse(JSON.stringify(data));
+    if (data[1].length>0) {
+
+        $("#choosetable").show();
+       document.getElementById("stocknum").innerHTML = " "+data[1].length;
+
+       /*  if ($("#t11").find('#hide1').val() != null ) {
+             $("#delete4").show();
+         }
+         if ($("#t11").find('#hide1').val() == null ) {
+            $("#delete4").hide();
+        }
+
+        if ($("#t11").find('#hide2').val() != null) {
+         $("#delete5").show();
+        }
+         if ($("#t11").find('#hide2').val() == null ) {
+            $("#delete5").hide();
+         }
+
+        if ($("#t11").find('#hide3').val() != null ) {
+         $("#delete6").show();
+        }
+        if ($("#t11").find('#hide3').val() == null ) {
+            $("#delete6").hide();
+        }
+     */   //2個list(一筆資料一個值
+        for (var i = 0; i < data[1].length; i++) {
+            $(" #choosebody").append('<tr>');
+             $("#choosebody").append('<td class="user-firstName" bgcolor="#f3f5f3" style="border:#ddd 1px solid"><div align="center"><span class="numbers" style="box-shadow:4px 4px 12px -2px rgba(20%,20%,40%,0.5);">' +(i+1)  + '</span></div></td>')
+            for (var j = 0; j < data.length; j++) {
+                if(j==2 && data[j][i]<0){
+                $("#choosebody").append('<td class="user-firstName"><div align="center" style="color:red;">'+ data[j][i]  + '</div></td>')
+
+                }
+                 if(j==3 && data[j][i]>0){
+                $("#choosebody").append('<td class="user-firstName"><div align="center" style="color:red;">'+ '▲'+ data[j][i] +' %' + '</div></td>')
+
+                 }
+                 else if(j==3 && data[j][i]<0){
+                $("#choosebody").append('<td class="user-firstName"><div align="center" style="color:#090;">'+ '▼' + data[j][i] +' %' + '</div></td>')
+                 }
+                         else if(j==4){
+                       }
+                 else{
+                     $("#choosebody").append('<td class="user-firstName"><div align="center" style="color:#454545;">' + data[j][i] + '</div></td>')
+                 }
+            }
+            var a= data[0][i];
+            var addstock =a.split(" ",1);
+            $("#choosebody").append('<td align="center"><div align="center"><a href="/stock_info/?stock_id=' + addstock + '"><img src="{% static 'png/char1.png'%}" width="28" height="27" style="border-radius:0px;"></a></div></td>')
+            $("#choosebody").append('<td><div align="center"><a href="javascript:add_stock('+addstock+','+i+')"><button class="mb0" style=" width:90px;" data-toggle="modal" data-target="#pop1"  onClick="change();" id="change"><i class="fa fa-plus-square"></i> &nbsp;加入追蹤</button></a></div></td>');
+            $("#choosebody").append('</tr>');
+        }
+        $("#choosebody").append('</tr>');
+
+
+    }
+
+        }
+            ,
+    beforeSend:
+            function(){$("#choosebody").empty();$("#stephide").hide();$("#choosetable").hide(); $("#warnhide").hide();$("#load"). css (
+            "display","block");},
+    complete:
+        function() {$(" #load" ).css("display","none");},
+        error:function(xhr, ajaxOptions, thrownError){
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+
+    })
+
+})
+
+
+
+                                    </script>
+
+                                    <br>
+                                    <div id="warnhide">
+                                        <div align="center" style="padding-top:50px; background-color:#fff"><img
+                                                height="80" src="{% static 'png/warn3.png' %}" width="80"></div>
+                                        <div align="center" style="padding-bottom:40px; background-color:#fff"><br><font
+                                                color="#333333" size="+2"><strong>很抱歉，目前沒有符合您選股條件的個股</strong></font>
+                                        </div>
+                                    </div>
+                                    <div id="stephide">
+                                        <div align="center" style="padding-top:50px; background-color:#fff"><img
+                                                height="80" src="{% static 'png/in.png' %}" width="80"></div>
+                                        <div align="center" style="padding-bottom:40px; background-color:#fff"><br><font
+                                                color="#333333" size="+2"><strong>選擇上方條件後點擊開始選股</strong></font></div>
+                                    </div>
+
+                                    <section class="demo" id="basic-sort" style="margin-top:-64px;">
+
+                                        <table ; border="1" bordercolor="#999999" class="ta tb" id="choosetable"
+                                               style="border-bottom: #fff 0px solid;">
+                                            <thead>
+                                            <tr>
+                                                <th width="8%">
+                                                    <div align="center" style="margin-left:15px">編號</div>
+                                                </th>
+                                                <th width="16%">
+                                                    <div align="center" style="margin-left:15px">個股代號</div>
+                                                </th>
+                                                <th width="16%">
+                                                    <div align="center" style="margin-left:15px">產業類別</div>
+                                                </th>
+                                                <th width="15%">
+                                                    <div align="center" style="margin-left:15px">收盤價</div>
+                                                </th>
+                                                <th width="12%">
+                                                    <div align="center" style="margin-left:15px">漲跌幅</div>
+                                                </th>
+
+                                                <th id="choosename" width="11%">
+                                                    <div align="center" style="margin-left:15px">詳細資訊</div>
+                                                </th>
+                                                <th width="12%">
+                                                    <div align="center" style="margin-left:15px">加入追蹤</div>
+                                                </th>
+
+                                            </tr>
+                                            </thead>
+                                            <script>
+     $(document).ready(function() {
+    $("#choosetable").hide();
+         $("#warnhide").hide();
+
+});
+
+                                            </script>
+                                            <tbody id="choosebody">
+                                            <div align="center" id="load"
+                                                 style="display:none; margin-top: 110px; background-color: #fff; height: 280px">
+                                                <img src="{% static 'png/Star.gif' %}"></div>
+
+                                            {% if loginstatus == False %}
+                                            <!--加入追蹤警示框 -->
+                                            <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade"
+                                                 id="pop1" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header"
+                                                             style="background-color:#ECECEC; border-bottom:#333 1px solid">
+                                                            <button class="close" data-dismiss="modal" type="button">
+                                                                <span aria-hidden="true">&times;</span><span
+                                                                    class="sr-only">Close</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel"
+                                                                style="color:#000"><img src="{% static 'png/wa2.png' %}"
+                                                                                        style="margin-top:-6px"><strong>
+                                                                提醒!</strong></h4>
+                                                        </div>
+                                                        <div align="center" class="modal-body">
+                                                            追蹤個股前請先登入
+                                                        </div>
+                                                        <div align="center" class="modal-footer"
+                                                             style="background-color:#ECECEC;border-top:#333 1px solid">
+                                                            <button class="btn btn-default" data-dismiss="modal"
+                                                                    type="button">關閉
+                                                            </button>
+                                                            <button class="btn btn-primary"
+                                                                    onClick="self.location.href='/login/'"
+                                                                    type="button">前往登入
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!---->
+                                            {% endif %}
+
+
+                                            <!-- 加入追蹤彈出視窗
+                                            <div class="modal fade" id="pop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog">
+                                                <div class="modal-content" >
+                                                  <div class="modal-header" style="background-color:#ECECEC; border-bottom:#333 1px solid">
+                                                    <button type="button" class="close" data-dismiss="modal" style="font-size: 28px;"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title" id="my eeModalLabel" style="color:#000"><img src="list2.png"><strong> 追蹤個股</strong></h4>
+                                                  </div>
+                                                 <div class="modal-body" style="margin-left:100px; color:#333">
+                                                  <div class="page-list-title2"> 選擇清單編號：
+                                               <select name="select_list">
+                                               <option name="list" value="1">1</option>
+                                               <option name="list" value="2">2</option>
+                                               <option name="list" value="3">3</option>
+                                               <option name="list" value="4">4</option>
+                                               <option name="list" value="5">5</option>
+                                               </select> (共五組清單可使用)</div>
+                                               <br>
+                                               <div class="page-list-title2"> 設定清單名稱： <input type="text" placeholder="my 股票清單" name = "list_name"></input></div>
+                                               <br><div class="page-list-title2"> 您儲存的條件：
+                                              <table id="save" class="tb">
+                                              </table></div>
+                                                  </div>
+                                                 <div class="modal-footer" style="background-color:#ECECEC;border-top:#333 1px solid" align="center">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                    <button type="button" class="btn btn-primary" onClick="self.location.href='emily2.html'">確認儲存</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            -->
+
+
+                                            </tbody>
+                                        </table>
+
+                                    </section>
+                                </section>
+                            </section>
+                            <footer class="footer bg-alert">
+                                <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+                                </h6>
+                            </footer>
+                        </section>
+                        <script src="{% static 'js/jquery.min.js' %}"></script>
+                        <script src="{% static 'js/bootstrap.js' %}"></script>
+                        <!-- Bootstrap -->
+
+                        <script>
+$(function(){
+	$('.tabbox .content ul').width(500*$('.tabbox .content li').length+'px');
+	$(".tabbox .tab a").mouseover(function(){
+		$(this).addClass('on').siblings().removeClass('on');
+		var index = $(this).index();
+		number = index;
+		var distance = -500*index;
+		$('.tabbox .content ul').stop().animate({
+			left:distance
+		});
+	});
+	
+	
+	
+});
+
+
+                        </script>
+                        <script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')
+                        </script>
+                        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+                        <script src="{% static 'js/jquery.stickysort.js' %}" type="text/javascript"></script>
+                        <script>
+			$(function () {
+
+				// Basic table with sort
+				$('#basic-sort table').stickySort({ sortable: true });
+                //-----------------------------------------------------------------------------------------------------------------
+				// Section toggle
+				$('section.demo h2')
+				.append('<a href="#" title="Collapse section" class="toggle">Collapse</a>')
+				.on('click', 'a', function(e) {
+					e.preventDefault();
+					if(!$(this).data('state') || $(this).data('state') == 0) {
+						$(this)
+						.data('state', 1)
+						.attr('title', 'Expand section')
+						.text('Expand')
+						.parent()
+							.siblings()
+								.stop(true,true).slideUp();
+					} else {
+						$(this)
+						.data('state', 0)
+						.attr('title', 'Collapse section')
+						.text('Collapse')
+						.parent()
+							.siblings()
+								.stop(true,true).slideDown();
+					}
+				});
+			});
+
+                        </script>
+
+                        <script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/app.js' %}"></script>
+                        <script src="{% static 'js/jQselectable.js' %}" type="text/javascript"></script>
+                        <a href="#top">
+                            <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+                        </a></section>
+                </section>
+            </section>
+        </section>
+    </section>
+</body>
+</html>

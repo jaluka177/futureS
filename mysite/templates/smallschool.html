@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8" />
-  <title>理財小學堂</title>
+    <title>首頁</title>
   <style type="text/css">
 /* 整體設置*/ 
 .navigation {
@@ -202,7 +202,7 @@
       <div class="navbar-header aside bg-info dk">
         <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
         </a>
-        <a href="/recent/" class="navbar-brand text-lt">
+          <a class="navbar-brand text-lt" href="/smallschool/">
          <!-- <i class="icon-earphones"></i>-->
 
           <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img src="{% static 'png/love.gif' %}" height="35" width="27">Futures</font>  </span>
@@ -221,15 +221,16 @@
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 交易資訊</a></font></h3>
+                <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/tap.png' %}"> 交易資訊</a></font></h3>
 			<ul class="sub">
-            <li><a href="/tech/">歷史回測</a></li>
-			<li><a href="/master/">即時資料</a></li>
+                <li><a href="/algotrade/">歷史回測</a></li>
+                <li><a href="/recent/">即時資料</a></li>
+                <li><a href="/stock/">期貨專區</a></li>
 			</ul>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-	<h3><a target="_blank" href="/get_news/"><img src="{% static 'png/money 2.png' %}"> EDITOR</a></h3>
+                <h3><a href="//" target="_blank"><img src="{% static 'png/business.png' %}"> EDITOR</a></h3>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
@@ -244,14 +245,15 @@
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="/mem_home/"><img src="{% static 'png/people-3.png' %}"> 指標專區</a></h3>
+                <h3><a href="/economic_term/" target="_blank"><img src="{% static 'png/anal.png' %}"> 指標專區</a></h3>
 			</li>
 			<li class="m">
-	<h3><a target="_blank" href="/financial/"><img src="{% static 'png/money 2.png' %}"> 下單機</a></h3>
+                <h3><a href="/tech/" target="_blank"><img src="{% static 'png/pay.png' %}"> 下單機</a></h3>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 新手專區</a></font></h3>
+                <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/school.png' %}"> 新手專區</a></font>
+                </h3>
                  <ul class="sub">
                      <li><a href="/discussion/">討論區</a></li>
                      <li><a href="/rookie/">新手投資小常識</a></li>
@@ -259,11 +261,11 @@
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 會員</a></font></h3>
+                <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員</a></font>
+                </h3>
             <ul class="sub">
 		<li><a href="/new_info/" >我的追蹤期貨</a></li>
         <li><a href="/economic_term/">我的期貨新聞</a></li>
-                <li><a href="/stock_ana/">我的期貨清單</a></li>
                  <li><a href="/stock_ana/">機器人投顧</a></li>
              </ul>
 			</li>
@@ -327,7 +329,7 @@ ul class="nav bg clearfix" -->
                      <!---->
 {% endif %}
                     <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                    個股查詢
+                        期貨查詢
                     </li>
 
           <div class="form-group">
@@ -342,13 +344,15 @@ ul class="nav bg clearfix" -->
          <div id="menu" class="menu">
           <div class="menu-header" style="padding-left:65px; text-align:left;"> MENU</div>
           <ul>
-            <li><a href="/new_info/"><i class=" icon-graduation" style="margin-top:7px; color:#6FAEB7"> </i><font size="+1"><strong>NEWS</strong></font></a></li>
+              <li><a href="/get_news/"><i class=" icon-graduation" style="margin-top:7px; color:#6FAEB7"> </i><font
+                      size="+1"><strong>NEWS</strong></font></a></li>
             <li><a href="/economic_term/"><i class="icon-direction" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>指標專區</strong></font></a>
             </li>
             <li><a href="/stock_ana/"><i class="icon-bar-chart" style="margin-top:7px ;color:#6FAEB7"> </i><font size="+1"><strong>智能機器人</strong></font></a>
 
             </li>
-           <li><a href="/choose_stock/"><i class="icon-basket" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>下單機</strong></font></a>
+              <li><a href="/tech/"><i class="icon-basket" style="margin-top:7px;color:#6FAEB7"> </i><font
+                      size="+1"><strong>下單機</strong></font></a>
 
             </li>
           </ul>
@@ -404,7 +408,7 @@ ul class="nav bg clearfix" -->
 				<figcaption style="box-shadow: 0 0 50px 5px rgb(242, 240, 236);">
 
       <h4 style="color:#fff">掌握最新金融新聞</h4>
-	<a href="/new_info/">Take a look</a>
+                    <a href="/get_news/">Take a look</a>
 			  </figcaption>
 				  </figure>
 				</li>
@@ -434,7 +438,7 @@ ul class="nav bg clearfix" -->
 	<img src="{% static 'images/method.jpg' %}" width="350" height="300" alt="img04"><div style="position:absolute; left:0px; top:115px; margin-left:115px; color:#fff"><h2>下單機</h2></div></div>
 					  <figcaption style="box-shadow: 0 0 50px 5px rgb(242, 240, 236);">
 	<h4 style="color:#fff">快速下單</h4>
-	<a href="/choose_stock/">Take a look</a>
+                          <a href="/tech/">Take a look</a>
 						</figcaption>
 					</figure>
 				</li>
@@ -534,7 +538,7 @@ ul class="nav bg clearfix" -->
     });</script>
 
           </section><br><footer class="footer bg-alert">
-    <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+      <h6 align="center">Copyright ® 2019 by Future Futures.com. Corp. All right reserved.
 </h6>
   </footer></section></div></section>
   <script src="{% static 'js/toucheffects.js' %}"></script>

@@ -1,0 +1,1370 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap-typeahead.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+
+    <meta charset="utf-8"/>
+    <title>歷史回測</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/3.png' %}" rel="shortcut icon">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/styles1.css' %}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style6.css' %}" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+	
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:900px; border:1px solid #B8DDC4; text-align:left;background:#fff;height:240px;border-radius:2px; box-shadow: 0 0 30px rgba(0,0,0,0.5);}
+		.slideTxtBox .hd{ height:35px; line-height:35px; background:#eaeff0; padding:0 10px 0 20px; position:relative; }
+		.slideTxtBox .hd ul{ float:left;  position:absolute; left:10px; top:-1px; height:32px;   }
+		.slideTxtBox .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox .hd ul li.on{ height:35px;  background:#ffffff; border:2px solid #9e90d7; border-bottom:2px solid #fff; }
+		.slideTxtBox .bd ul{ padding-left:5px;  zoom:1;  }
+		.slideTxtBox .bd{ width:800px;}
+		.slideTxtBox .bd li{ height:30px; line-height:35px; font-size:25px;}
+		
+		.slideTxtBox .bd li:nth-child(odd){
+			background-color:#EEE;}
+		.slideTxtBox .bd li:hover{ background-color:#FFC;}	
+
+		.page-list-title{
+		font-size:16px;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    background: #b5d247;
+    margin: 0px 3px 3px 0;
+}
+		.page-list-title2{
+		font-size:16px;
+		}
+
+.page-list-title2:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 2px 4px 0;
+}
+.navBar1 {
+	width:228px;
+	margin:0 auto;
+	margin-left:1px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+	/*new*/
+.tabbox{width:505px;height:256px;background:#fff;font-family:'微软雅黑'; }
+.tabbox .tab{overflow:hidden;background:#f0f0f0;}
+.tabbox .tab a{display:block;padding:8px 18px;float:left;text-decoration:none;color:#333;}
+.tabbox .tab a:hover{background:#E64E3F;color:#fff;text-decoration:none;}
+.tabbox .tab a.on{background:#90BF60;color:#fff;text-decoration:none;}
+.tabbox .content{overflow:hidden;width:500px;height:500px;position:relative;    margin-top: -0px;}
+.tabbox .content ul{position:absolute;left:0;top:0;}
+.tabbox .content li{width:500px;height:300px;float:left;}
+.tabbox .content li p{padding:10px;}
+.table tr:hover{
+	background-color:#FFFCED;
+}
+.table td,th{
+	padding:0.5rem 0.6rem;
+}
+.table{
+ color:#282828;
+ font-size:16px;
+}
+.btn-rounded :hover{
+
+ color:#FFEB00;
+
+}
+
+.btn-icon.btn-sm {
+    width: 30px;
+    height: 30px;
+}
+.btn-sm, .btn-group-sm .bt > .btn {
+    padding: 2px 10px 10px 10px;
+    font-size: 10px;
+    line-height: 1.5;
+    border-radius: 50px;
+}
+.mb1 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #8dc272), color-stop(1, #60a83d));
+	background:-moz-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-webkit-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-o-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-ms-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:linear-gradient(to bottom, #8dc272 5%, #60a83d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8dc272', endColorstr='#60a83d',GradientType=0);
+	background-color:#8dc272;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #73a35b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 10px;
+	text-decoration:none;
+}
+.mb1:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #60a83d), color-stop(1, #8dc272));
+	background:-moz-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-webkit-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-o-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-ms-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:linear-gradient(to bottom, #60a83d 5%, #8dc272 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#60a83d', endColorstr='#8dc272',GradientType=0);
+	background-color:#60a83d;
+}
+.mb1:active {
+	position:relative;
+	top:1px;
+}
+
+.mb2 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b8e356), color-stop(1, #a5cc52));
+	background:-moz-linear-gradient(top, #b8e356 5%, #a5cc52 100%);
+	background:-webkit-linear-gradient(top, #b8e356 5%, #a5cc52 100%);
+	background:-o-linear-gradient(top, #b8e356 5%, #a5cc52 100%);
+	background:-ms-linear-gradient(top, #b8e356 5%, #a5cc52 100%);
+	background:linear-gradient(to bottom, #b8e356 5%, #a5cc52 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8e356', endColorstr='#a5cc52',GradientType=0);
+	background-color:#b8e356;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #83c41a;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:9px 19px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #86ae47;
+}
+.mb2:hover {
+	color:#fff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #a5cc52), color-stop(1, #b8e356));
+	background:-moz-linear-gradient(top, #a5cc52 5%, #b8e356 100%);
+	background:-webkit-linear-gradient(top, #a5cc52 5%, #b8e356 100%);
+	background:-o-linear-gradient(top, #a5cc52 5%, #b8e356 100%);
+	background:-ms-linear-gradient(top, #a5cc52 5%, #b8e356 100%);
+	background:linear-gradient(to bottom, #a5cc52 5%, #b8e356 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a5cc52', endColorstr='#b8e356',GradientType=0);
+	background-color:#a5cc52;
+}
+.mb2:active {
+	color:#fff;
+	position:relative;
+	top:1px;
+}
+
+
+.mb3 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #43adad), color-stop(1, #51b5b8));
+	background:-moz-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-webkit-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-o-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-ms-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:linear-gradient(to bottom, #43adad 5%, #51b5b8 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#43adad', endColorstr='#51b5b8',GradientType=0);
+	background-color:#43adad;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:4px;
+	border:1px solid #25a4a8;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 6px;
+	text-decoration:none;
+}
+.mb3:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #51b5b8), color-stop(1, #43adad));
+	background:-moz-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-webkit-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-o-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-ms-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:linear-gradient(to bottom, #51b5b8 5%, #43adad 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#51b5b8', endColorstr='#43adad',GradientType=0);
+	background-color:#51b5b8;
+}
+.mb3:active {
+	position:relative;
+	top:1px;
+}
+
+.tooltip2 {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip2 .tooltiptext2 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip2 .tooltiptext2::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip2:hover .tooltiptext2 {
+    visibility: visible;
+}
+.elearning_title {
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffc800;
+    font-weight: bold;
+    background: url(arrow.png) no-repeat;
+    padding:0px 10px 3px 28px;
+    border-bottom: 1px dotted #ccc;
+	width:300px
+}
+
+.elearning_content {
+    font-size: 14px;padding: 15px;
+	color:#E9E9E9;
+}
+.breadcrumb{
+ border-color: transparent;
+ margin-bottom:-20px;
+ font-size:14px;
+}
+.simple-input {
+  display: block;
+  padding: 5px;
+  border: 4px solid #F1B720;
+  border-radius: 5px;
+  color: #333;
+  transition: all 0.3s ease-out;
+}
+ 
+.simple-input:hover {
+  border-radius: 8px
+}
+ 
+.simple-input:focus {
+  outline: none;
+  border-radius: 8px;
+  border-color: #EBD292;
+}
+.mac {
+ 
+  border: #ddd 1px dolid;
+  border-radius: 20px;
+  color: #333;
+}
+ 
+.mac:focus {
+  outline: none;
+  box-shadow: 
+      0 0 5px 1px #51CBEE;
+}
+.wrap{width:600px;margin:0 auto;padding:20px 40px;border:2px solid #999;border-radius:0px 0px 8px 8px;background:#fff;box-shadow:0 0 10px rgba(0,0,0,0.5);}
+
+fieldset{margin:1em 0;
+    display: block;
+    -webkit-margin-start: 2px;
+    -webkit-margin-end: 2px;
+    -webkit-padding-before: 0.35em;
+    -webkit-padding-start: 0.75em;
+    -webkit-padding-end: 0.75em;
+    -webkit-padding-after: 0.25em;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    min-width: -webkit-min-content;
+    border-width: 1px;
+    border-style: groove;
+	border-radius: 1px;
+	border-width: 1px;
+    border-color: #b5d247;
+}
+fieldset legend{font:bold 14px/2 "\5fae\8f6f\96c5\9ed1";border-bottom: 0px;}
+
+/*checkbox*/
+.i-checks i {
+    width: 18px;
+    height: 18px;
+    line-height: 1;
+    border: 1px solid #cbd5dd;
+    background-color: #fff;
+    margin-left: -20px;
+    margin-top: -2px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+    position: relative;
+    font-size: 12px;
+}
+.mac2 {
+  border: #ddd 1px dolid;
+  border-radius: 20px;
+  color: #333;
+}
+.mac2:focus {
+  outline: none;
+  box-shadow: 
+      0 0 5px 1px #51CBEE;
+}
+input {
+    border: 1px solid #BBBBBB; //改變外框
+    background: #fff; // 背景色
+    /* 邊角圓弧化，不同瀏器覧設定不同　*/
+    -moz-border-radius:3px; // Firefox
+    -webkit-border-radius: 3px; // Safari 和 Chrome
+    border-radius: 3px; // Opera 10.5+
+}
+.check{
+	height:16px;
+	width:16px;
+	border-radius:5px;
+	}
+
+    </style>
+</head>
+<body style="background-image: url('{% static 'png/bk.jpg' %}'); background-position: 0px 0px;">
+
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="home.html">
+                <!-- <i class="icon-earphones"></i>-->
+                <span class="hidden-nav-xs m-2-sm"> <img height="56" src="{% static 'png/robot2.png' %}"
+                                                         width="58"></span>
+                <span class="hidden-nav-xs m-l-sm"><font size="4">羅伯特<img height="35" src="{% static 'png/love.gif' %}"
+                                                                          width="27">瑪妮</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/get_news/">財經新聞</a></li>
+                            <li><a href="/stock/">個股速覽</a></li>
+                            <li><a href="/fundamental/">基本面分析</a></li>
+                            <li><a href="/macd/">技術面分析</a></li>
+                            <li><a href="/margin/">籌碼面分析</a></li>
+                            <li><a href="/bal_sheet/">財報分析</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="http://sc.chinaz.com/" target="_blank"><img src="{% static 'png/tap.png' %}"> 選股專區</a>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/DIY2/">基本面選股</a></li>
+                            <li><a href="/tech/">技術面選股</a></li>
+                            <li><a href="/master/">選股小幫手</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/test/">理財小測驗</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/portfolio/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/member/" target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員專區</a></h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/member_news/">個股資訊 & 新聞</a></li>
+                            <li><a href="/my_stock/">投資組合清單</a></li>
+                            <li><a href="/mem_sto/">選股條件清單</a></li>
+                            <li><a href="/modify/">會員基本資料</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/financial/" target="_blank"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/get_article/" target="_blank"><img src="{% static 'png/interface.png' %}"> 討論區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/smallschool/" target="_blank"><img src="{% static 'png/open-book.png' %}">
+                            理財小學堂</a></h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">新手投資小常識</a></li>
+                            <li><a href="/economic_term/">經濟指標一覽</a></li>
+                            <li><a href="/stock_ana/">股票分析教室</a></li>
+                            <li><a href="/stock_ana/">選股小撇步</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+
+                            <nav>
+                                <ul class="nav bg-black clearfix" style="width:230px;">
+                                    {% if loginstatus == False %}
+                                    <div style="margin-left:40px; margin-top:8px">
+                                        <a class="myButton" href="/login/">登入系統</a>
+                                        <a class="myButton" href="/signin/">註冊會員</a>
+                                    </div>
+
+
+                                    <!--喔喔不要壞掉惹-->
+                                    {% else %}
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font
+                                                size="3">&nbsp;您好!&nbsp;王小明</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!---->
+                                    {% endif %}
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded mac" type="submit"><i class="fa fa-search"
+                                                                          style="padding-top:5px"></i></button>
+            </span>
+                                            <input autocomplete="off"
+                                                   class="form-control input-sm no-border rounded mac" id="demo1"
+                                                   placeholder="請輸入股號/股名" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="nav navBar1 clearfix dk">
+                                        <!--開始-->
+
+                                        <div class="menu" id="menu">
+                                            <div class="menu-header"> 交易回測</div>
+                                            <ul>
+                                                <li><a href="#"><i class="fa  fa-bar-chart-o"
+                                                                   style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="3"><strong>MC平台</strong></font></a>
+                                                    <!--   <ul class="submenu">
+                                                         <li><a href="#" onClick="demo1()"><font size="3">財報數據</font></a></li>
+                                                         <li><a href="#" onClick="demo2()"><font size="3">獲利能力</font></a></li>
+                                                         <li><a href="#" onClick="demo3()"><font size="3">安全性</font></a></li>
+                                                         <li><a href="#" onClick="demo4()"><font size="3">成長力</font></a></li>
+                                                       </ul>-->
+                                                </li>
+                                                <li><a href="/back/"><i class="fa fa-dashboard"
+                                                                        style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="3"><strong>清單股回測</strong></font></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </nav>
+                        </div>
+                        </ul>
+
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"></a>
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">  <!--vbox-->
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+
+                                <a id="top"></a>
+                                <div class="wrap" style="margin-top:20px; width:900px">
+                                    <div id="btn" style="width:150px;">
+                                        <section class="post-item panel-success col-md-6"
+                                                 style="margin-left:-41px; margin-top:-5px; width:898px;height:170px; margin-bottom:15px;padding:20px;padding-top:5px; background: rgba(20%,18%,20%,0.6);border-radius:10px 10px 10px 10px">
+                                            <h3 style="margin-top: 8px; margin-left: 15px;"><font
+                                                    color="#fff">歷史回測</font></h3>
+                                            <div class="elearning_block" style="padding:18px; padding-top:5px;">
+                                                <div><font color="#ffc800" size="2"><strong>使用說明: </strong></font></div>
+                                                <div class="elearning_content" style="margin-bottom:5px">
+                                                    <li>1. 先選擇至多三檔股票</li>
+                                                    <li>2. 選擇資金額度、回測年數及設定進出場訊號</li>
+                                                    <li>3. 開始回測，您即可查看分析圖表及績效報表</li>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <form action="/algotrade/" method="POST">
+
+                                        <fieldset id="city_china">
+                                            <div id="chart1"><br>
+                                                <p class="page-list-title">STEP.1：請先選擇想查看回測的股票(最多三個)：<font size="1">（註：清單名稱為使用者自訂，最多五筆）</font><span
+                                                        id="alert" style="height:24px; width:150px;"></span>
+
+                                                </p>
+                                                <div class="scroll-y"
+                                                     style="overflow:scroll; width:800px; height:200px; padding-top:10px;">
+                                                    {% if list1.count != 0 %}
+                                                    <div class="pull-left" style="margin-top:-10px; width:200px">
+                                                        <label class="checkbox-inline i-checks"
+                                                               style="padding-left:0px; margin-right:5px; height:200px; width:250px;">
+                                                            <p class="page-list-title" style="margin-bottom:-1px;"><font
+                                                                    color="#75CA20">{{ list1.0.list_name }}</font>
+                                                            <table border="1" bordercolor="#CCCCCC" cellpadding="1"
+                                                                   cellspacing="1" class="scrollable" id="customers">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th align="center" class="alt" height="23"
+                                                                        width="10%">股名
+                                                                    </th>
+                                                                    <th align="center" width="18%">
+                                                                        <div align="center">勾選回測
+                                                                        </div>
+                                                                    </th>
+                                                                </tr>
+                                                                {% for n1 in list1 %}
+                                                                <tr>
+                                                                    <td align="center" bgcolor="DDEBFF" height="20">{{
+                                                                        n1.stock_name }}
+                                                                    </td>
+                                                                    <td align="center" width="18%">
+                                                                        <div align="center"><label
+                                                                                class="checkbox-inline i-checks">
+                                                                            <input name="{{ n1.stock_id }}"
+                                                                                   onClick="num()" type="checkbox"
+                                                                                   value="{{ n1.stock_id }}">
+                                                                            <i></i>
+                                                                        </label></div>
+                                                                    </td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </label>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if list2.count != 0 %}
+                                                    <div class="pull-left" style="margin-top:-10px; margin-left:65px;">
+                                                        <label class="checkbox-inline i-checks"
+                                                               style="padding-left:0px; margin-right:5px; height:200px; width:250px;">
+                                                            <p class="page-list-title" style="margin-bottom:-1px;"><font
+                                                                    color="#75CA20">{{ list2.0.list_name }}</font>
+                                                            <table border="1" bordercolor="#CCCCCC" cellpadding="1"
+                                                                   cellspacing="1" class="scroll-y" id="customers">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th align="center" class="alt" height="23"
+                                                                        width="10%">股名
+                                                                    </td>
+                                                                    <th align="center" width="18%">
+                                                                        <div align="center">勾選回測
+                                                                        </div>
+                                                                    </th>
+                                                                </tr>
+                                                                {% for n2 in list2 %}
+                                                                <tr>
+                                                                    <td align="center" bgcolor="DDEBFF" height="20">{{
+                                                                        n2.stock_name }}
+                                                                    </td>
+                                                                    <td align="center" width="18%">
+                                                                        <div align="center"><label
+                                                                                class="checkbox-inline i-checks">
+                                                                            <input name="{{ n2.stock_id }}"
+                                                                                   onClick="num()" type="checkbox"
+                                                                                   value="{{ n2.stock_id }}">
+                                                                            <i></i>
+                                                                        </label></div>
+                                                                    </td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </label>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if list3.count != 0 %}
+                                                    <div class="pull-left" style="margin-top:-10px; margin-left:10px;">
+                                                        <label class="checkbox-inline i-checks"
+                                                               style="padding-left:0px; margin-right:5px; height:200px; width:250px">
+                                                            <p class="page-list-title" style="margin-bottom:-1px;"><font
+                                                                    color="#75CA20">{{ list3.0.list_name }}</font>
+                                                            <table border="1" bordercolor="#CCCCCC" cellpadding="1"
+                                                                   cellspacing="1" class="scroll-y" id="customers">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th align="center" class="alt" height="23"
+                                                                        width="10%">股名
+                                                                    </th>
+                                                                    <th align="center" width="18%">
+                                                                        <div align="center">勾選回測
+                                                                        </div>
+                                                                    </th>
+                                                                </tr>
+                                                                {% for n3 in list3 %}
+                                                                <tr>
+                                                                    <td align="center" bgcolor="DDEBFF" height="20">{{
+                                                                        n3.stock_name }}
+                                                                    </td>
+                                                                    <td align="center" width="18%">
+                                                                        <div align="center"><label
+                                                                                class="checkbox-inline i-checks">
+                                                                            <input name="{{ n3.stock_id }}"
+                                                                                   onClick="num()" type="checkbox"
+                                                                                   value="{{ n3.stock_id }}">
+                                                                            <i></i>
+                                                                        </label></div>
+                                                                    </td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </label>
+                                                    </div>
+                                                    {% endif %}
+                                                    <!--------------------------------------->
+                                                    {% if list4.count != 0 %}
+                                                    <div class="pull-left" style="margin-top:-10px; margin-left:0px;">
+                                                        <label class="checkbox-inline i-checks"
+                                                               style="padding-left:0px; margin-right:5px; height:200px; width:250px">
+                                                            <p class="page-list-title" style="margin-bottom:-1px;"><font
+                                                                    color="#75CA20">{{ list4.0.list_name }}</font>
+                                                            <table border="1" bordercolor="#CCCCCC" cellpadding="1"
+                                                                   cellspacing="1" class="scroll-y" id="customers">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th align="center" class="alt" height="23"
+                                                                        width="10%">股名
+                                                                    </th>
+                                                                    <th align="center" width="18%">
+                                                                        <div align="center">勾選回測
+                                                                        </div>
+                                                                    </th>
+                                                                </tr>
+                                                                {% for n4 in list4 %}
+                                                                <tr>
+                                                                    <td align="center" bgcolor="DDEBFF" height="20">{{
+                                                                        n4.stock_name }}
+                                                                    </td>
+                                                                    <td align="center" width="18%">
+                                                                        <div align="center"><label
+                                                                                class="checkbox-inline i-checks">
+                                                                            <input name="{{ n4.stock_id }}"
+                                                                                   onClick="num()" type="checkbox"
+                                                                                   value="{{ n4.stock_id }}">
+                                                                            <i></i>
+                                                                        </label></div>
+                                                                    </td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </label>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if list5.count != 0 %}
+                                                    <div class="pull-left" style="margin-top:-10px; margin-left:65px;">
+                                                        <label class="checkbox-inline i-checks"
+                                                               style="padding-left:0px; margin-right:5px; height:200px; width:250px">
+                                                            <p class="page-list-title" style="margin-bottom:-1px;"><font
+                                                                    color="#75CA20">{{ list5.0.list_name }}</font>
+                                                            <table border="1" bordercolor="#CCCCCC" cellpadding="1"
+                                                                   cellspacing="1" class="scroll-y" id="customers">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th align="center" class="alt" height="23"
+                                                                        width="10%">股名
+                                                                    </th>
+                                                                    <th align="center" width="18%">
+                                                                        <div align="center">勾選回測
+                                                                        </div>
+                                                                    </th>
+                                                                </tr>
+                                                                {% for n5 in list5 %}
+                                                                <tr>
+                                                                    <td align="center" bgcolor="DDEBFF" height="20">{{
+                                                                        n5.stock_name }}
+                                                                    </td>
+                                                                    <td align="center" width="18%">
+                                                                        <div align="center"><label
+                                                                                class="checkbox-inline i-checks">
+                                                                            <input name="{{ n5.stock_id }}"
+                                                                                   onClick="num()" type="checkbox"
+                                                                                   value="{{ n5.stock_id }}">
+                                                                            <i></i>
+                                                                        </label></div>
+                                                                    </td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </label>
+                                                    </div>
+                                                    {% endif %}
+                                                    <!--------------------------------------->                    </div>
+                                                <br>
+                                                <p class="page-list-title">STEP.2：請設定初始資金：
+                                                    <select id="money" name="money">
+                                                        <option value="100">100</option>
+                                                        <option value="1000">1000</option>
+                                                        <option value="10000">10000</option>
+                                                    </select>萬&nbsp;|| 及預計回測年份：從<input name="begin_month" type="month">，到<input
+                                                            name="end_month" type="month"></p>
+                                                <p class="page-list-title">STEP.3：請設定進出場條件：
+                                                    <button class="mb1" data-target="#choose" data-toggle="collapse"
+                                                            type="button">點我設定
+                                                    </button>
+                                                    <script>
+    $(function () { $("#choose").collapse('hide')});
+
+                                                    </script>
+                                                <div class="collapse in" id="choose">
+                                                    <!-------------------------------------->
+
+                                                    <!-------------------------------------->
+                                                    <div class="panel panel-danger pull-left" style="width:380px;">
+                                                        <div class="panel-heading">
+                                                            <h3 class="panel-title">進場</h3>
+                                                        </div>
+                                                        <div class="panel-body" style="margin-bottom:-15px;">
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item"><input class="check"
+                                                                                                   name="buy_check1"
+                                                                                                   style="margin-right:8px;"
+                                                                                                   type="checkbox"
+                                                                                                   value="1"><select
+                                                                        name="buy1_1">
+                                                                    <option value="day">日</option>
+                                                                    <option value="week">周</option>
+                                                                    <option value="month">月</option>
+                                                                </select>KD黃金交叉<select name="buy1_2">
+                                                                    <option value="20">KD值20以下</option>
+                                                                    <option value="50">KD值50以下</option>
+                                                                    <option value="80">KD值80以下</option>
+                                                                </select></li>
+                                                                <li class="list-group-item"><input class="check"
+                                                                                                   name="buy_check2"
+                                                                                                   style="margin-right:8px;"
+                                                                                                   type="checkbox"
+                                                                                                   value="1">突破<select
+                                                                        name="buy2">
+                                                                    <option value="240">年線(240日)</option>
+                                                                    <option value="120">半年線(120日)</option>
+                                                                    <option value="60">季線(60日)</option>
+                                                                    <option value="20">月線(20日)</option>
+                                                                    <option value="10">10日線</option>
+                                                                    <option value="5">5日線</option>
+                                                                </select></li>
+                                                                <li class="list-group-item"><input class="check"
+                                                                                                   name="buy_check3"
+                                                                                                   style="margin-right:8px;"
+                                                                                                   type="checkbox"
+                                                                                                   value="1"><select
+                                                                        name="buy3">
+                                                                    <option value="5_10">5日與10日</option>
+                                                                    <option value="5_20">5日與20日</option>
+                                                                    <option value="20_60">20日與60日</option>
+                                                                </select>均線黃金交叉
+                                                                </li>
+                                                                <li class="list-group-item"><input class="check"
+                                                                                                   name="buy_check4"
+                                                                                                   style="margin-right:8px;"
+                                                                                                   type="checkbox"
+                                                                                                   value="1">RSI黃金交叉<select
+                                                                        name="buy4">
+                                                                    <option value="20">RSI值20以下</option>
+                                                                    <option value="10">RSI值50以下</option>
+                                                                    <option value="80">RSI值80以下</option>
+                                                                </select></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel panel-success pull-right" style="width:400px;">
+                                                        <div class="panel-heading">
+                                                            <h3 class="panel-title">出場</h3>
+                                                        </div>
+                                                        <div class="panel-body" style="margin-bottom:-15px;">
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item"><input class="check"
+                                                                                                   name="sell_check1"
+                                                                                                   style="margin-right:8px;"
+                                                                                                   type="checkbox"
+                                                                                                   value="1"><select
+                                                                        name="sell1_1">
+                                                                    <option value="day">日</option>
+                                                                    <option value="week">周</option>
+                                                                    <option value="month">月</option>
+                                                                </select>KD死亡交叉<select name="sell1_2">
+                                                                    <option value="20">KD值20以上</option>
+                                                                    <option value="50">KD值50以上</option>
+                                                                    <option value="80">KD值80以上</option>
+                                                                </select></li>
+                                                                <li class="list-group-item"><input class="check"
+                                                                                                   name="sell_check2"
+                                                                                                   style="margin-right:8px;"
+                                                                                                   type="checkbox"
+                                                                                                   value="1">跌破<select
+                                                                        name="sell2">
+                                                                    <option value="240">年線(240日)</option>
+                                                                    <option value="120">半年線(120日)</option>
+                                                                    <option value="60">季線(60日)</option>
+                                                                    <option value="20">月線(20日)</option>
+                                                                    <option value="10">10日線</option>
+                                                                    <option value="5">5日線</option>
+                                                                </select></li>
+                                                                <li class="list-group-item"><input class="check"
+                                                                                                   name="sell_check3"
+                                                                                                   style="margin-right:8px;"
+                                                                                                   type="checkbox"
+                                                                                                   value="1"><select
+                                                                        name="sell3">
+                                                                    <option value="5_10">5日與10日</option>
+                                                                    <option value="5_20">5日與20日</option>
+                                                                    <option value="20_60">20日與60日</option>
+                                                                </select>均線死亡交叉
+                                                                </li>
+                                                                <li class="list-group-item"><input class="check"
+                                                                                                   name="sell_check4"
+                                                                                                   style="margin-right:8px;"
+                                                                                                   type="checkbox"
+                                                                                                   value="1">RSI死亡交叉<select
+                                                                        name="sell4">
+                                                                    <option value="20">RSI值20以上</option>
+                                                                    <option value="10">RSI值50以上</option>
+                                                                    <option value="80">RSI值80以上</option>
+                                                                </select></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <!-------------------------------------->
+                                                </div>
+                                                </p>
+                                                FINAL-->以上都設定完成後即可立即開始回測：&nbsp;&nbsp;
+                                                <!--<button type="submit" class="btn btn-success" name="btn" id="ana">開始分析</button>-->
+                                                <input class="btn btn-success" id="ana" name="btn" type="submit"
+                                                       value="開始分析">
+                                                <br>
+                                                <div id="chart2" style="width:800px; height:500px; display:none"></div>
+                                            </div>
+                                        </fieldset>
+
+                                        <script>
+	function num(){
+if ($("input[type=checkbox]:checked").length <1){
+      document.getElementById("alert").innerHTML='<br><font color="red"><strong> 您未選擇個股!'+'</strong></font>';
+	$("#ana").attr("disabled", true);  
+	}		
+if ($("input[type=checkbox]:checked").length > 3){
+	 document.getElementById("alert").innerHTML='<br><font color="red"><strong> 已超過3個個股!'+'</strong></font>';
+	$("#ana").attr("disabled", true);
+} 
+	if (($("input[type=checkbox]:checked").length <= 3) && ($("input[type=checkbox]:checked").length >= 1) ){
+	 document.getElementById("alert").innerHTML='<br>選擇個股數：'+'<font color="red"><strong>'+$("input[type=checkbox]:checked").length+'/3'+'</strong></font>';
+	$("#ana").attr("disabled", false);
+	} 
+else{}
+		}
+
+                                        </script>
+                                    </form>
+                                    <!------------------------------------>
+                                    <!--開始-->
+                                    {% if check == 1 %}
+
+                                    <div id="btn1" style="display:none">
+                                        <button class="mb1" style="margin-left:20px;"><a href="back.html">點我重新回測</a>
+                                        </button>
+                                    </div>     <!------------------------------>
+
+                                    <script>
+ $(function () {
+    Highcharts.chart('container', {
+        title: {
+            text: '策略分析報表',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'Source: WorldClimate.com',
+            x: -20
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Temperature (°C)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '°C'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Tokyo',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+        }, {
+            name: 'New York',
+            data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+        }, {
+            name: 'Berlin',
+            data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+        }, {
+            name: 'London',
+            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+        }]
+    });
+});
+
+                                    </script>
+                                    <script>
+  $(function () {
+    Highcharts.chart('container1', {
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: '損益分析報表'
+        },
+        xAxis: {
+            categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'John',
+            data: [5, 3, 4, 7, 2]
+        }, {
+            name: 'Jane',
+            data: [2, -2, -3, 2, 1]
+        }, {
+            name: 'Joe',
+            data: [3, 4, 4, -2, 5]
+        }]
+    });
+});
+
+                                    </script>
+                                    <script>
+   $("#ana").click(function () {
+	$("#btn").innerHtml=($("#btn1").show());
+	$("#chart1").innerHtml=($("#sli").show());
+	$("#container").show(800);
+	$("#chart2").show();
+	$("#chart2").html($("#container1").show(800));
+			//$("#chart1").append($("#container1"));
+			//$("#chart2").html($("#d2").show(800));
+			$("#d1").show(1000);
+    		$("#d2").show(1000);
+			$("#re").show(1000);
+  			});
+			
+
+                                    </script>
+                                    <!-------------------------------------->
+                                    <section class="panel panel-info" id="sli" style="display:none">
+                                        <div class="slideTxtBox scroll-y"
+                                             style="width:100%;height:800px;margin-bottom:0px;">
+                                            <div class="hd">
+                                                <ul style="font-size:20px; font-weight:bolder">
+                                                    <li>策略分析</li>
+                                                    <li>損益分析</li>
+                                                </ul>
+                                            </div>
+                                            <div align="center" class="bd" style="margin-left:-5px;">
+                                                <ul>
+                                                    <div id="container"
+                                                         style="width: 800px; height: 400px; margin: 0 auto; display:none"></div>
+                                                    <br>
+                                                    ------------ <span class="page-list-title"><font size="+1">詳細資訊<span
+                                                        class="page-list-title"></span></font></span>------------
+                                                    <div id="d1" style="display:none">
+                                                        <div style="margin-top:10px;">
+                                                            <label class="checkbox-inline i-checks"
+                                                                   style="padding-left:0px; margin-right:5px; height:200px;">
+                                                                <table border="1" bordercolor="#CCCCCC" cellpadding="1"
+                                                                       cellspacing="1" id="customers" width="700px">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <th align="center" class="alt" height="23"
+                                                                            width="15%">單位
+                                                                        </th>
+                                                                        <th align="center" width="10%">初始資金（元）</th>
+                                                                        <th align="center" width="10%">期末資金（元）</th>
+                                                                        <th align="center" width="10%">交易次數（次）</th>
+                                                                        <th align="center" width="10%">交易勝率（％）</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="center" bgcolor="DDEBFF" height="20">
+                                                                            台積電
+                                                                        </td>
+                                                                        <td align="center" width="10%">1000000.0</td>
+                                                                        <td align="center" width="10%">991619.9</td>
+                                                                        <td align="center" width="10%">14539</td>
+                                                                        <td align="center" width="10%">41.80</td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <table border="1" bordercolor="#CCCCCC" cellpadding="1"
+                                                                       cellspacing="1" id="customers" width="700px">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <th align="center" class="alt" height="23"
+                                                                            width="15%">單位
+                                                                        </th>
+                                                                        <th align="center" width="10%">獲利因子</th>
+                                                                        <th align="center" width="10%">單筆最高報酬（％）</th>
+                                                                        <th align="center" width="10%">單筆最低報酬（％）</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="center" bgcolor="DDEBFF" height="20">
+                                                                            台積電
+                                                                        </td>
+                                                                        <td align="center" width="10%">0.8</td>
+                                                                        <td align="center" width="10%">419.5</td>
+                                                                        <td align="center" width="10%">-90.8</td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </label></div>
+                                                    </div>
+                                                    <!------------------------------------------>
+                                                </ul>
+                                                <ul>
+                                                    <div id="container1"
+                                                         style="width: 750px; height: 470px; margin: 0 auto; display:none"></div>
+                                                    ------------ <span class="page-list-title"><font size="+1">詳細資訊<span
+                                                        class="page-list-title"></span></font></span>------------
+                                                    <div id="d2" style="display:none; margin-top:20px;">
+                                                        <div style="margin-top:-10px;">
+                                                            <label class="checkbox-inline i-checks"
+                                                                   style="padding-left:0px; margin-right:5px; height:200px; width:700px;">
+                                                                <table border="1" bordercolor="#CCCCCC" cellpadding="1"
+                                                                       cellspacing="1" id="customers" width="700px">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <th align="center" class="alt" height="23"
+                                                                            width="15%">單位
+                                                                        </th>
+                                                                        <th align="center" width="10%">買賣次數（次）</th>
+                                                                        <th align="center" width="10%">毛利（元）</th>
+                                                                        <th align="center" width="10%">毛損（元）</th>
+                                                                        <th align="center" width="10%">損益（元）</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="center" bgcolor="DDEBFF" height="20">
+                                                                            台積電
+                                                                        </td>
+                                                                        <td align="center" width="10%">29078</td>
+                                                                        <td align="center" width="10%">36525</td>
+                                                                        <td align="center" width="10%">44905</td>
+                                                                        <td align="center" width="10%">-8380</td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <table border="1" bordercolor="#CCCCCC" cellpadding="1"
+                                                                       cellspacing="1" id="customers" width="100%">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <th align="center" class="alt" height="23"
+                                                                            width="15%">單位
+                                                                        </th>
+                                                                        <th align="center" width="10%">平均交易獲利金額（元）</th>
+                                                                        <th align="center" width="10%">平均獲利交易金額（元）</th>
+                                                                        <th align="center" width="10%">平均虧損交易金額（元）</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="center" bgcolor="DDEBFF" height="20">
+                                                                            台積電
+                                                                        </td>
+                                                                        <td align="center" width="10%">-8</td>
+                                                                        <td align="center" width="10%">6</td>
+                                                                        <td align="center" width="10%">5</td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <table border="1" bordercolor="#CCCCCC" cellpadding="1"
+                                                                       cellspacing="1" id="customers" width="100%">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <th align="center" class="alt" height="23"
+                                                                            width="15%">單位
+                                                                        </th>
+                                                                        <th align="center" width="10%">平均獲利/平均虧損比率（％）
+                                                                        </th>
+                                                                        <th align="center" width="10%">最大交易獲利（元）</th>
+                                                                        <th align="center" width="10%">最大交易虧損（元）</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="center" bgcolor="DDEBFF" height="20">
+                                                                            台積電
+                                                                        </td>
+                                                                        <td align="center" width="10%">113.26</td>
+                                                                        <td align="center" width="10%">314</td>
+                                                                        <td align="center" width="10%">109</td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </label><br><br></div>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <button class="mb1" id="re" style="display:none"><a href="back.html">點我重新回測</a>
+                                    </button>
+                                    {% endif %}
+                                </div>
+
+                            </section>
+                            <footer class="footer bg-alert">
+                                <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+                                </h6>
+                            </footer>
+
+                        </section>
+                        <script src="{% static 'js/jquery.min.js' %}"></script>
+                        <script src="{% static 'js/bootstrap.js' %}"></script>
+                        <!-- Bootstrap -->
+                        <script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')
+                        </script>
+                        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+                        <script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/app.js' %}"></script>
+                        <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+                        <a href="#top">
+                            <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+                        </a></section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+</body>
+</html>

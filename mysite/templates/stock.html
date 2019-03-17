@@ -1,0 +1,1651 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+
+    <script src="{% static 'js/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap-typeahead.js' %}" type="text/javascript"></script>
+
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'jquery.SuperSlide.2.1.1.js' %}" type="text/javascript"></script>
+
+    <meta charset="utf-8"/>
+    <title>個股速覽</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/icon2.ico' %}" rel="shortcut icon">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <style type="text/css">
+      ${demo.css}
+/* 整體設置*/
+      .mac {
+
+  border: #ddd 1px solid;
+  border-radius: 20px;
+  color: #333;
+}
+
+.mac:focus {
+  outline: none;
+  box-shadow:
+      0 0 5px 1px #51CBEE;
+}
+.navigation {
+	margin:0;
+	padding:0;
+	width:1500px;
+	list-style-type:none;
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left;
+    padding:0;
+	margin:0 10px 0 0;
+	_margin:0 2px 0 0;
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl {
+	width:150px;/*ie6*/
+    margin:0;
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666;
+	}
+
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block;
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd {
+	margin:0;
+    padding:0;
+	color: #333;
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+
+.navigation li dd.last {
+	border-bottom:0;
+	}
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block;
+	color:#333;
+    text-decoration:none;
+	padding:4px 5px 4px 20px;
+    }
+
+
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse;
+    padding:0;
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:240px;border-radius:2px; }
+		.slideTxtBox1{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:150px;border-radius:2px; }
+		.slideTxtBox, .slideTxtBox1 .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox, .slideTxtBox1 .hd ul{
+	float: left;
+	position: absolute;
+	left: 20px;
+	top: 2px;
+	height: 32px;
+}
+		.slideTxtBox, .slideTxtBox1 .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox, .slideTxtBox1 .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox, .slideTxtBox1 .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox, .slideTxtBox1 .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox, .slideTxtBox1 .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+		.page-list-title{
+		font-size:20px;
+		font-weight:bold;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 3px 5px 0;
+}
+.navBar1 {
+	width:228px;
+	margin:0 auto;
+	margin-left:1px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+.tb th {
+    background: #9AEBD0;
+    border: solid 1px #399;
+	height:40px;
+	padding-left:5px;
+}
+.tb{ font-size:16px;}
+.tb td{
+	border: solid 1px #CDCDCD;
+	padding-left:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	font-size:18px;
+	height:20px;
+	}
+.tb tr:nth-child(odd){background:#F4F4F4;}
+.tb tr:hover{background:#FFC;text-shadow: 0 0 10px yellow;}
+
+.page-list-hdr {
+    padding: 0 1em;
+    background: linear-gradient(#f6f6f6, #ddd);
+    background: -webkit-linear-gradient(#f6f6f6, #ddd);
+    background: -moz-linear-gradient(#f6f6f6, #ddd);
+    background: -ms-linear-gradient(#f6f6f6, #ddd);
+    background: -o-linear-gradient(#f6f6f6, #ddd);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#dddddd',GradientType=0 );
+}
+
+ .mb0 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #8dc272), color-stop(1, #60a83d));
+	background:-moz-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-webkit-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-o-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-ms-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:linear-gradient(to bottom, #8dc272 5%, #60a83d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8dc272', endColorstr='#60a83d',GradientType=0);
+	background-color:#8dc272;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #73a35b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+	padding:-2px 2px 2px 0px;
+	padding-right:0px;
+	text-decoration:none;
+}
+.mb0:hover {
+	color:#ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #60a83d), color-stop(1, #8dc272));
+	background:-moz-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-webkit-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-o-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-ms-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:linear-gradient(to bottom, #60a83d 5%, #8dc272 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#60a83d', endColorstr='#8dc272',GradientType=0);
+	background-color:#60a83d;
+}
+.mb0:active {
+	color:#ffffff;
+	position:relative;
+	top:1px;
+}
+
+    </style>
+    <!--融資-->
+    <script type="text/javascript">
+$(function () {
+    $('#container3').highcharts({
+        colors: ["#2b908f", "#90ee7e", "#53EADF", "#f45b5b", "#7798BF", "#aaeeee"
+                ],
+		credits:{
+     enabled:false // 禁用版权信息
+},
+        chart: {
+
+        },
+		"lang": {
+		"printChart": "列印",
+		"downloadPNG": "下載 PNG 圖檔",
+		"downloadJPEG": "下載 JPEG 圖檔",
+		"downloadPDF": "下載 PDF 文件",
+		"downloadSVG": ""
+	},
+
+        title: {
+			    style:{
+        color:"white"
+    },
+            text: '融資'
+        },
+        xAxis: {
+			type:'datetime',
+            labels: {
+                format: '{value:%m/%d}',
+            },
+			tickInterval:30*24 * 3600 * 1000,
+			gridLineWidth:0.6,
+			tickmarkPlacement:'on',
+
+        },
+        legend: {
+            backgroundColor: 'rgba(92, 128, 58, 0.13)',
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: '#909090'
+        },
+        yAxis: [{
+			gridLineColor: '#C0C0C0',
+            gridLineDashStyle: 'Dash',
+            gridLineWidth:1,
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: '(元)',
+                style: {
+                    fontSize: '12px'
+                }
+            }},  // Secondary yAxis
+                {title: {
+                    text: '(%)',
+                    style: {
+                        color: '#4572A7',
+                    }
+                },
+                 labels: {
+                     style: {
+                         color: '#4572A7'
+                     }
+                 },
+
+                 opposite: true
+                }],
+        tooltip:{
+            shared: true,
+			borderRadius: 10,
+			borderWidth: 1.3,
+			borderColor: '#A19D96',
+			crosshairs: true
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: '股價',
+            type: 'spline',
+			pointStart: Date.UTC(2016, 2, 22),
+             pointInterval: 24 * 3600 * 1000 ,
+
+			 marker:{
+                enabled: false},
+            data: {{ cd2 }},
+            stack: 'male',
+            tooltip: {
+				valueSuffix: ' 元',
+               xDateFormat: '%Y/%m/%d',
+            }
+        },{
+            name: '融資餘額',
+            type: 'spline',
+			pointStart: Date.UTC(2016, 2, 22),
+             pointInterval: 24 * 3600 * 1000 ,
+			 marker:{
+                enabled: false},
+            yAxis: 1,
+            data: {{ mb }},
+            tooltip: {
+
+                formatter: function () {
+                    return '<b>' + '20'+ this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' ;
+                }
+            },
+        }]
+    });
+});
+
+
+    </script>
+    <!--股利政策-->
+    <script type="text/javascript">
+$(function () {
+		var cashfit;
+		var cashfit_color;
+		var cashfit_name;
+		var fit;
+		var fit_color;
+		var fit_name;
+		var fit2;
+		var fit2_color;
+		var fit2_name;
+    $('#container2').highcharts({
+        colors: ["#6B949F", "#90ee7e", "#53EADF", "#9AE2D2", "#7798BF", "#aaeeee"
+                ],
+		credits:{
+     enabled:false // 禁用版权信息
+},
+
+		"lang": {
+		"printChart": "列印",
+		"downloadPNG": "下載 PNG 圖檔",
+		"downloadJPEG": "下載 JPEG 圖檔",
+		"downloadPDF": "下載 PDF 文件",
+		"downloadSVG": ""
+	},
+
+        title: {
+			    style:{
+        color:"white"
+    },
+            text: '股利政策'
+        },
+        xAxis: {
+            type:'datetime',
+			gridLineWidth:0.6,
+			tickInterval: 365*24 * 3600 * 1000,
+        },
+        legend: {
+            backgroundColor: 'rgba(92, 128, 58, 0.13)',
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: '#909090'
+        },
+        yAxis: [{
+			gridLineColor: '#C0C0C0',
+            gridLineDashStyle: 'Dash',
+            gridLineWidth:1,
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: '(元)',
+                style: {
+                    fontSize: '12px'
+                }
+            }},  // Secondary yAxis
+                {title: {
+                    text: '(元)',
+                    style: {
+                        color: '#4572A7',
+                    }
+                },
+                 labels: {
+                     style: {
+                         color: '#4572A7'
+                     }
+                 },
+
+                 opposite: true
+                }],
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+            }
+        },
+
+        tooltip:{
+            shared: true,
+			 useHTML: true,
+			<!--  xDateFormat: '%Y/%m/%d',-->
+
+		formatter: function () {
+			var time=new Date(this.x);
+			var y=time.getFullYear();
+			var m=time.getMonth()+1;
+			var s1='<small>'+y+'/'+m+'</small><table>';
+           $.each(this.points, function () {
+				if(this.series.name== '現金股利'){
+					cashfit=this.y;
+					cashfit_color=this.series.color;
+					cashfit_name=this.series.name;
+				}
+				if(this.series.name== '股票股利'){
+					fit=this.y;
+					fit_color=this.series.color;
+					fit_name=this.series.name;
+				}
+
+			s=s1+'<table><tr><td style="color:'+cashfit_color+'">'+cashfit_name+': </td>' +
+            '<td style="text-align: right"><b>'+cashfit+'</b></td></tr>'+'<tr><td style="color:'+fit_color+'">'+fit_name+': </td>' +
+            '<td style="text-align: right"><b>'+fit+'</b></td></tr>'+'<tr><td style="color:'+this.series.color+'">'+this.series.name+': </td>' + '<td style="text-align: right"><b>'+this.y+'</b></td></tr></table>';
+			 })
+
+
+                return s;
+				      },
+			footerFormat: '</table>',
+			borderRadius: 10,
+			borderWidth: 1.3,
+			borderColor: '#A19D96',
+			crosshairs: true
+
+        },
+
+        series: [{
+            name: '現金股利',
+            type: 'column',
+            data: {{ cash }},
+			pointStart: Date.UTC(2007, 0, 1),
+            pointIntervalUnit: 'year',
+			 pointWidth: 15,
+
+
+        }, {
+            name: '股票股利',
+            type: 'column',
+           data: {{ stocks }},
+			pointStart: Date.UTC(2007, 0, 1),
+            pointIntervalUnit: 'year',
+			 pointWidth: 15,
+
+
+        },{
+            name: '股價',
+            type: 'spline',
+			 marker:{
+                enabled: false},
+            yAxis: 1,
+            data: {{ cp }},
+            pointStart: Date.UTC(2007, 0, 1),
+            pointIntervalUnit: 'month',
+
+        }]
+    });
+});
+
+
+    </script>
+
+
+    <!--月營收走勢-->
+    <script type="text/javascript">
+$(function () {
+		var cashfit;
+		var cashfit_color;
+		var cashfit_name;
+
+		var fit2;
+		var fit2_color;
+		var fit2_name;
+    $('#container').highcharts({
+        colors: ["#2b908f", "#90ee7e", "#53EADF", "#f45b5b", "#7798BF", "#aaeeee"
+                ],
+		credits:{
+     enabled:false // 禁用版权信息
+},
+
+		"lang": {
+		"printChart": "列印",
+		"downloadPNG": "下載 PNG 圖檔",
+		"downloadJPEG": "下載 JPEG 圖檔",
+		"downloadPDF": "下載 PDF 文件",
+		"downloadSVG": ""
+	},
+
+        title: {
+			    style:{
+        color:"white"
+    },
+            text: '月營收走勢'
+        },
+        xAxis: {
+            type:'datetime',
+			gridLineWidth:0.6,
+			tickInterval: 365*24 * 3600 * 1000,
+        },
+        legend: {
+            backgroundColor: 'rgba(92, 128, 58, 0.13)',
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: '#909090'
+        },
+        yAxis: [{
+			gridLineColor: '#C0C0C0',
+            gridLineDashStyle: 'Dash',
+            gridLineWidth:1,
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: '(百萬元)',
+                style: {
+                    fontSize: '12px'
+                }
+            }},  // Secondary yAxis
+                {title: {
+                    text: '(元)',
+                    style: {
+                        color: '#4572A7',
+                    }
+                },
+                 labels: {
+                     style: {
+                         color: '#4572A7'
+                     }
+                 },
+
+                 opposite: true
+                }],
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+            },
+
+        },
+
+        tooltip:{
+            shared: true,
+			 useHTML: true,
+			<!--  xDateFormat: '%Y/%m/%d',-->
+
+		formatter: function () {
+			var time=new Date(this.x);
+			var y=time.getFullYear();
+			var m=time.getMonth()+1;
+			var s1='<small>'+y+'/'+m+'</small><table>';
+           $.each(this.points, function () {
+				if(this.series.name== '月營收(百萬)'){
+					cashfit=this.y;
+					cashfit_color=this.series.color;
+					cashfit_name=this.series.name;
+				}
+
+			s=s1+'<table><tr><td style="color:'+cashfit_color+'">'+cashfit_name+': </td>' +
+            '<td style="text-align: right"><b>'+cashfit+'</b></td></tr>'
+            +'<tr><td style="color:'+this.series.color+'">'+this.series.name+': </td>' + '<td style="text-align: right"><b>'+this.y+'</b></td></tr></table>';
+			 })
+
+
+                return s;
+				      },
+			footerFormat: '</table>',
+			borderRadius: 10,
+			borderWidth: 1.3,
+			borderColor: '#A19D96',
+			crosshairs: true
+
+        },
+
+        series: [{
+            name: '月營收(百萬)',
+            type: 'column',
+            data: {{ set }},
+            pointStart: Date.UTC(2013, 8, 1),
+            pointIntervalUnit: 'month',
+
+
+
+        },{
+            name: '股價',
+            type: 'spline',
+			 marker:{
+                enabled: false},
+            yAxis: 1,
+            data: {{ set2 }},
+            pointStart: Date.UTC(2013, 8, 1),
+            pointIntervalUnit: 'month',
+
+        },
+		]
+    });
+});
+
+
+    </script>
+
+    <!--融券-->
+    <script type="text/javascript">
+$(function () {
+    $('#container4').highcharts({
+        colors: ["#2b908f", "#AAE2E2", "#77C5C5", "#f45b5b", "#7798BF", "#aaeeee"
+                ],
+		credits:{
+     enabled:false // 禁用版权信息
+},
+        chart: {
+
+        },
+		"lang": {
+		"printChart": "列印",
+		"downloadPNG": "下載 PNG 圖檔",
+		"downloadJPEG": "下載 JPEG 圖檔",
+		"downloadPDF": "下載 PDF 文件",
+		"downloadSVG": ""
+	},
+
+        title: {
+			    style:{
+        color:"white"
+    },
+            text: '融券'
+        },
+        xAxis: {
+			type:'datetime',
+            labels: {
+                format: '{value:%m/%d}',
+            },
+			tickInterval:30*24 * 3600 * 1000,
+			gridLineWidth:0.6,
+			tickmarkPlacement:'on',
+
+        },
+        legend: {
+            backgroundColor: 'rgba(92, 128, 58, 0.13)',
+            borderWidth: 1,
+            borderRadius: 5,
+            borderColor: '#909090'
+        },
+        yAxis: [{
+			gridLineColor: '#C0C0C0',
+            gridLineDashStyle: 'Dash',
+            gridLineWidth:1,
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: '(元)',
+                style: {
+                    fontSize: '12px'
+                }
+            }},  // Secondary yAxis
+                {title: {
+                    text: '(%)',
+                    style: {
+                        color: '#4572A7',
+                    }
+                },
+                 labels: {
+                     style: {
+                         color: '#4572A7'
+                     }
+                 },
+
+                 opposite: true
+                }],
+        tooltip:{
+            shared: true,
+			borderRadius: 10,
+			borderWidth: 1.3,
+			borderColor: '#A19D96',
+			crosshairs: true
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: '股價',
+            type: 'spline',
+			pointStart: Date.UTC(2016, 2, 22),
+             pointInterval: 24 * 3600 * 1000 ,
+
+			 marker:{
+                enabled: false},
+            data: {{ cd2 }},
+            stack: 'male',
+            tooltip: {
+				valueSuffix: ' 元',
+               xDateFormat: '%Y/%m/%d',
+            }
+        },{
+            name: '融券餘額',
+            type: 'spline',
+			pointStart: Date.UTC(2016, 2, 22),
+             pointInterval: 24 * 3600 * 1000 ,
+			 marker:{
+                enabled: false},
+            yAxis: 1,
+            data: {{ mb2 }},
+            tooltip: {
+                valueSuffix: ' %',
+                formatter: function () {
+                    return '<b>' + '20'+ this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' ;
+                }
+            },
+        }]
+    });
+});
+
+
+    </script>
+
+    <!--K線圖-->
+    <script>
+
+
+//绘制K线图
+function tradeChart(){
+	var crrentData =[];
+	var retTrade = {"vl":"1393776000000^6.67^6.64^6.71^6.56^76074355^503907245^-1.1905^-0.08^0.787^6.72^6.64^6.901^null^7.2427^null~1393862400000^7.0^6.92^7.1^6.78^212249601^1467381151^4.2169^0.28^2.194^6.64^6.71^6.866^null^7.2323^null~1393948800000^6.92^6.76^6.92^6.75^59026244^402549854^-2.3121^-0.16^0.61^6.92^6.726^6.805^null^7.2187^null~1394035200000^6.76^7.32^7.43^6.69^266097004^1900909534^8.284^0.56^2.751^6.76^6.872^6.805^null^7.223^null~1394121600000^7.34^7.27^7.46^7.23^171953502^1263703960^-0.6831^-0.05^1.778^7.32^6.982^6.816^null^7.2293^null~1394380800000^7.22^7.15^7.33^7.04^116402600^837063095^-1.6506^-0.12^1.203^7.27^7.084^6.862^null^7.23^null~1394467200000^7.19^7.5^7.59^7.15^189248809^1412509385^4.8951^0.35^1.957^7.15^7.2^6.955^null^7.2393^null~1394553600000^7.48^7.6^7.85^7.42^208987285^1603158727^1.3333^0.1^2.161^7.5^7.368^7.047^null^7.2387^null~1394640000000^7.58^7.71^7.85^7.53^149235872^1149903973^1.4474^0.11^1.543^7.6^7.446^7.159^null^7.246^null~1394726400000^7.68^7.53^7.81^7.5^130310997^996213411^-2.3346^-0.18^1.347^7.71^7.498^7.24^null^7.2373^null~1394985600000^7.6^7.76^7.8^7.59^117707900^908293030^3.0544^0.23^1.217^7.53^7.62^7.352^null^7.241^null~1395072000000^7.76^7.6^7.76^7.55^84389956^642680623^-2.0619^-0.16^0.873^7.76^7.64^7.42^null^7.2397^null~1395158400000^7.51^7.5^7.54^7.24^157546281^1158670983^-1.3158^-0.1^1.629^7.6^7.62^7.494^null^7.2383^null~1395244800000^7.5^7.51^7.73^7.4^115455187^876828993^0.1333^0.01^1.194^7.5^7.58^7.513^null^7.2427^null~1395331200000^7.57^8.01^8.08^7.45^270439501^2118807009^6.6578^0.5^2.796^7.51^7.676^7.587^null^7.2627^null~1395590400000^8.01^8.06^8.17^7.85^139877099^1122120961^0.6242^0.05^1.446^8.01^7.736^7.678^null^7.281^null~1395676800000^8.04^7.98^8.2^7.9^95754115^769251859^-0.9926^-0.08^0.99^8.06^7.812^7.726^null^7.2953^null~1395763200000^7.99^7.85^8.04^7.79^70405842^553737780^-1.6291^-0.13^0.728^7.98^7.882^7.751^null^7.3063^null~1395849600000^7.8^7.98^8.1^7.73^107800631^857121798^1.6561^0.13^1.115^7.85^7.976^7.778^null^7.3253^null~1395936000000^7.93^8.12^8.24^7.92^110530999^896881736^1.7544^0.14^1.143^7.98^7.998^7.837^null^7.3503^null~1396195200000^8.16^8.09^8.22^7.96^67897119^546825578^-0.3695^-0.03^0.702^8.12^8.004^7.87^null^7.3743^null~1396281600000^8.08^8.08^8.18^8.05^52524942^426237417^-0.1236^-0.01^0.543^8.09^8.024^7.918^null^7.4013^null~1396368000000^8.14^8.29^8.4^8.11^128655948^1069009796^2.599^0.21^1.331^8.08^8.112^7.997^null^7.432^null~1396454400000^8.3^8.1^8.39^8.07^98636692^810649950^-2.2919^-0.19^1.02^8.29^8.136^8.056^null^7.458^null~1396540800000^8.1^8.11^8.15^8.01^64285871^519860625^0.1235^0.01^0.665^8.1^8.134^8.066^null^7.4897^null~1396886400000^8.05^8.15^8.23^7.94^96118504^778608412^0.4932^0.04^0.994^8.11^8.146^8.075^null^7.5383^null~1396972800000^8.16^8.05^8.19^8.02^92985418^749184322^-1.227^-0.1^0.962^8.15^8.14^8.082^null^7.5877^null~1397059200000^8.04^8.05^8.08^7.82^160169456^1271310054^0.0^0.0^1.657^8.05^8.092^8.102^null^7.6333^null~1397145600000^8.0^7.95^8.01^7.89^77595171^616719793^-1.2422^-0.1^0.803^8.05^8.062^8.099^null^7.6787^null~1397404800000^7.95^7.93^8.01^7.83^53024683^419179437^-0.2516^-0.02^0.548^7.95^8.026^8.08^null^7.719^null~1397491200000^7.86^7.76^7.91^7.7^75881356^590811570^-2.1438^-0.17^0.785^7.93^7.948^8.047^null^7.7563^null~1397577600000^7.74^7.87^7.92^7.71^70965625^557522103^1.4175^0.11^0.734^7.76^7.912^8.026^null^7.788^null~1397664000000^7.88^7.75^7.89^7.73^45759242^355678857^-1.5248^-0.12^0.473^7.87^7.852^7.972^null^7.821^null~1397750400000^7.7^7.78^7.8^7.62^41008279^316044522^0.3871^0.03^0.424^7.75^7.818^7.94^null^7.8363^null~1398009600000^7.71^7.66^7.8^7.65^45448390^351633982^-1.5424^-0.12^0.47^7.78^7.764^7.895^null^7.8493^null~1398096000000^7.65^7.74^7.77^7.62^64815843^498926810^1.0444^0.08^0.67^7.66^7.76^7.854^null^7.869^null~1398182400000^7.72^7.8^7.83^7.7^48885958^380461201^0.7752^0.06^0.506^7.74^7.746^7.829^null^7.879^null~1398268800000^7.83^7.99^8.1^7.77^139640297^1118052366^2.4359^0.19^1.444^7.8^7.794^7.823^null^7.892^null~1398355200000^8.07^7.94^8.11^7.9^69763109^558804653^-0.6258^-0.05^0.722^7.99^7.826^7.822^null^7.8997^null~1398614400000^7.98^7.97^8.16^7.92^96845118^777834925^0.3778^0.03^1.002^7.94^7.888^7.826^null^7.9143^null~1398700800000^7.91^7.94^7.98^7.67^67109783^524493489^-0.3764^-0.03^0.694^7.97^7.928^7.844^null^7.9203^null~1398787200000^7.87^7.9^7.98^7.77^39547643^312451018^-0.5038^-0.04^0.409^7.94^7.948^7.847^null^7.9303^null~1399219200000^7.85^7.74^7.86^7.67^57717483^446552195^-2.0253^-0.16^0.597^7.9^7.898^7.846^null^7.9383^null~1399305600000^7.74^7.79^7.9^7.74^46379716^362147101^0.646^0.05^0.48^7.74^7.868^7.847^null^7.9477^null~1399392000000^7.79^7.87^7.89^7.75^52723015^413257743^1.027^0.08^0.545^7.79^7.848^7.868^null^7.943^null~1399478400000^7.48^7.35^7.58^7.32^75190490^559315921^-1.4745^-0.11^0.778^7.46^7.73^7.829^null^7.9193^null~1399564800000^7.35^7.26^7.37^7.1^62968012^455104583^-1.2245^-0.09^0.651^7.35^7.602^7.775^null^7.8953^null~1399824000000^7.28^7.32^7.43^7.19^51722748^378905109^0.8264^0.06^0.535^7.26^7.518^7.708^null^7.8777^null~1399910400000^7.39^7.53^7.59^7.37^89727866^674165060^2.8689^0.21^0.928^7.32^7.466^7.667^null^7.8627^null~1399996800000^7.65^7.63^7.83^7.61^93198701^717443075^1.328^0.1^0.964^7.53^7.418^7.633^null^7.8463^null~1400083200000^7.62^7.58^7.64^7.53^45869870^347998497^-0.6553^-0.05^0.474^7.63^7.464^7.597^null^7.8293^null~1400169600000^7.58^7.7^7.8^7.58^96234169^742805234^1.5831^0.12^0.995^7.58^7.552^7.577^null^7.8167^null~1400428800000^7.66^7.69^7.78^7.52^59464663^455281149^-0.1299^-0.01^0.615^7.7^7.626^7.572^null^7.7967^null~1400515200000^7.7^7.74^7.78^7.64^68587514^530138261^0.6502^0.05^0.709^7.69^7.668^7.567^null^7.7847^null~1400601600000^7.68^7.74^7.77^7.58^54343526^417012721^0.0^0.0^0.562^7.74^7.69^7.554^null^7.7723^null~1400688000000^7.75^7.89^7.94^7.73^92142006^726170189^1.938^0.15^0.953^7.74^7.752^7.608^null^7.7637^null~1400774400000^7.92^8.15^8.2^7.85^133827747^1079426650^3.2953^0.26^1.384^7.89^7.842^7.697^null^7.767^null~1401033600000^8.2^8.11^8.29^8.07^60755644^494191825^-0.4908^-0.04^0.628^8.15^7.926^7.776^null^7.769^null~1401120000000^8.11^8.17^8.25^8.06^80099743^655534259^0.7398^0.06^0.828^8.11^8.012^7.84^null^7.7763^null~1401206400000^8.18^8.45^8.46^8.17^155707433^1298336237^3.4272^0.28^1.611^8.17^8.154^7.922^null^7.7937^null~","ccode":"000002.sz","tag":"mtag_s430101_房地产开发","cname":"万  科Ａ"}
+	new highStockChart('container5',retTrade,crrentData);
+}
+
+
+
+$(function() {
+	tradeChart();
+
+});
+
+    </script>
+</head>
+<body style="background-image: url('{% static 'png/bk.jpg' %}'); background-position: 0px 0px;">
+
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/home/">
+                <!-- <i class="icon-earphones"></i>-->
+                <span class="hidden-nav-xs m-2-sm"> <img height="56" src="{% static 'png/robot2.png' %}"
+                                                         width="58"></span>
+                <span class="hidden-nav-xs m-l-sm"><font size="4">羅伯特<img height="35" src="{% static 'png/love.gif' %}"
+                                                                          width="27">瑪妮</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/get_news/">財經新聞</a></li>
+                            <li><a href="/stock/">個股速覽</a></li>
+                            <li><a href="/fundamental/">基本面分析</a></li>
+                            <li><a href="/macd/">技術面分析</a></li>
+                            <li><a href="/margin/">籌碼面分析</a></li>
+                            <li><a href="/bal_sheet/">財報分析</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="http://sc.chinaz.com/" target="_blank"><img src="{% static 'png/tap.png' %}"> 選股專區</a>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/tech/">技術面選股</a></li>
+                            <li><a href="/master/">選股小幫手</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/test/">理財小測驗</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/member/" target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員專區</a></h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/member_news/">個股資訊 & 新聞</a></li>
+                            <li><a href="/my_stock/">投資組合清單</a></li>
+                            <li><a href="/mem_sto/">選股條件清單</a></li>
+                            <li><a href="/modify/">會員基本資料</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/financial/" target="_blank"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/get_article/" target="_blank"><img src="{% static 'png/interface.png' %}"> 討論區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/smallschool/" target="_blank"><img src="{% static 'png/open-book.png' %}">
+                            理財小學堂</a></h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">新手投資小常識</a></li>
+                            <li><a href="/economic_term/">經濟指標一覽</a></li>
+                            <li><a href="/stock_ana/">股票分析教室</a></li>
+                            <li><a href="/stock_ana/">選股小撇步</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+
+                            <ul class="nav bg-black clearfix" style="width:230px;">
+                                {% if loginstatus == False %}
+                                <div style="margin-left:40px; margin-top:8px">
+                                    <a class="myButton" href="login.html">登入系統</a>
+                                    <a class="myButton" href="signin.html">註冊會員</a>
+                                </div>
+
+                                {% else %}
+                                <!--喔喔不要壞掉惹-->
+
+                                <li class="dropdown" style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                    <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                        <img src="{% static 'png/man2.png' %}"><font size="3">&nbsp;您好!&nbsp;{{ name
+                                        }}</font><b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu animated fadeInRight"
+                                        style="margin-left:35px;border-radius: 8px;">
+                                        <li>
+                                            <span class="arrow top"></span>
+                                            <a href="#"><font size="3">個人資料</font></a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="badge bg-danger pull-right">3</span>
+                                                <font size="3">訊息</font>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><font size="3">聯絡我們</font></a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                {% endif %}
+                                <!---->
+                                <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                    個股查詢
+                                </li>
+
+                                <div class="form-group">
+                                    <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+                                        <input autocomplete="off" class="form-control input-sm no-border rounded mac"
+                                               id="demo1" placeholder="請輸入股號/股名" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="nav navBar1 clearfix dk">
+                                    <!--崩壞開始-->
+
+                                    <div class="menu" id="menu">
+                                        <div class="menu-header"> 個股專區</div>
+                                        <ul>
+                                            <li><a href="/stock/"><i class="fa fa-home"
+                                                                     style="margin-top:7px; color:#6FAEB7"> </i><font
+                                                    color="#fff" size="+1"><strong>個股速覽</strong></font></a></li>
+                                            <li><a href="#"><i class="fa fa-dashboard"
+                                                               style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                    size="+1"><strong>基本面分析</strong></font></a>
+                                                <ul class="submenu">
+                                                    <li><a href="/fundamental/?id={{ id }}"><font
+                                                            size="3">公司資料</font></a></li>
+                                                    <li><a href="/dividend_policy/?id={{ id }}"><font
+                                                            size="3">股利政策</font></a></li>
+                                                    <li><a href="/profit/?id={{ id }}"><font size="3">營收盈餘</font></a>
+                                                    </li>
+                                                    <li><a href="/pe/?id={{ id }}"><font size="3">本益比</font></a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-signal"
+                                                               style="margin-top:7px ;color:#6FAEB7"> </i><font
+                                                    size="+1"><strong>技術面分析</strong></font></a>
+                                                <ul class="submenu">
+
+                                                    </li>
+                                                    <li><a href="/macd/?id={{ id }}"><font size="3">MACD</font></a></li>
+                                                    <li><a href="/kd/?id={{ id }}"><font size="3">KD 指標</font></a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#"><i class="fa  fa-cogs"
+                                                               style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                    size="+1"><strong>籌碼分析</strong></font></a>
+                                                <ul class="submenu">
+                                                    <li><a href="/margin/?id={{ id }}"><font size="3">融資融券</font></a>
+                                                    </li>
+                                                    <li><a href="/three/?id={{ id }}"><font size="3">三大法人</font></a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-bar-chart-o"
+                                                               style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                    size="+1"><strong>財報分析</strong></font></a>
+                                                <ul class="submenu">
+                                                    <li><a href="/bal_sheet/?id={{ id }}"><font
+                                                            size="3">資產負債表</font></a></li>
+                                                    <li><a href="/income_statement/?id={{ id }}"><font
+                                                            size="3">損益表</font></a></li>
+                                                    <li><a href="/cash_flow_statement/?id={{ id }}"><font
+                                                            size="3">現金流量表</font></a></li>
+                                                    <li><a href="/ratio/?id={{ id }}"><font size="3">財務比率</font></a>
+                                                    </li>
+                                                </ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </ul>
+
+                        </div>
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <!-- /.aside -->
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">  <!--vbox-->
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+                                <a id="top"></a>
+
+                                <div class="header">
+                                    <center>
+                                        <h2 class="font-thin m-b"><font color="#556b2f"> 個股資訊 </font><span
+                                                class="musicbar animate inline m-l-sm" style="width:20px;height:20px">
+  <span class="bar1 a1 bg-primary lter"></span>
+    <span class="bar2 a2 bg-info lt"></span>
+    <span class="bar3 a3 bg-success"></span>
+    <span class="bar4 a4 bg-warning dk"></span>
+    <span class="bar5 a5 bg-danger dker"></span>
+                  </span>
+                                        </h2></center>
+                                    <div class="pull-right pull-right1">
+
+                                        <a onclick="window.open('/choice/', 'look_stock', config='height=600,width=930');">
+                                            <button class="btn btn-sm btn-success rounded" style="margin-left: -105px">
+                                                個股代碼查詢:
+                                            </button>
+                                        </a>
+                                        <form action="/stock/" method="post" name="form">
+                                            <div style="margin-top: -30px"><input autocomplete="off"
+                                                                                  class="demo2 input-sm form-control2 input-s-sm inline v-middle"
+                                                                                  id='par' name="search"
+                                                                                  placeholder="請輸入關鍵字" type="text">
+
+                                                <button class="btn btn-sm btn-success"
+                                                        style="margin-left: -5px; border-radius: 0px 5px 5px 0px;"
+                                                        type="submit">Go!
+                                                </button>
+                                            </div>
+
+
+                                            <!-- <input type="submit" class="btn btn-success " value="查詢新聞"></input>-->
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                                <!--套分頁模板-->
+                                <div class="slideTxtBox1" style="margin-top:26px; height: 100px">
+                                    <div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+                                        <ul style="font-size:20px; font-weight:bolder">
+                                            <img src="{% static 'png/s.png' %}" style="width: 30px; height: 25px">
+                                            &nbsp;{{ stock_name }}（{{ id }}）
+                                        </ul>
+                                        <a href="javascript:add_stock('{{ id }}','+i+')">
+                                            <button class="mb0 " data-target="#pop1" data-toggle="modal" id="change"
+                                                    onClick="change();"
+                                                    style=" width:90px; height: 32px; margin-left: 920px; margin-top: 3px">
+                                                <i class="fa fa-plus-square"></i> &nbsp;加入追蹤
+                                            </button>
+                                            </form>
+
+                                        </a></div>
+
+                                    <script>
+    //加入追蹤
+    function add_stock(stockid,i) {
+        $.ajax({
+            url: "/add_stock/",
+            data: {stockID: stockid},
+            type: "POST",
+            success: function (data) {
+                alert(stockid+"已加入追蹤!");
+            },
+            complete:function() {
+                 var x = document.getElementsByClassName("mb0");
+                 x[i].disabled = true;},
+            error:function(xhr, ajaxOptions, thrownError){
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+
+        })
+    }
+
+                                    </script>
+                                    <table border="1" class="table table-striped b-t"
+                                           style="border:#8ca1af 1px; border-left:0px; border-right: 0px" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th bgcolor="#EFFAFA" width="15">
+                                                <div align="center">股價</div>
+                                            </th>
+                                            <th bgcolor="#EFFAFA" width="15">
+                                                <div align="center">漲跌</div>
+                                            </th>
+                                            <th bgcolor="#EFFAFA" width="15">
+                                                <div align="center">漲幅</div>
+                                            </th>
+                                            <th bgcolor="#EFFAFA" width="15">
+                                                <div align="center">成交量</div>
+                                            </th>
+                                            <th bgcolor="#EFFAFA" width="35">
+                                                <div align="center">股本</div>
+                                            </th>
+                                            <th bgcolor="#EFFAFA" width="10">
+                                                <div align="center">產業</div>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div align="center">{{ price }}</div>
+                                            </td>
+                                            <td>
+                                                <div align="center">{{ change }}</div>
+                                            </td>
+                                            <td>
+                                                <div align="center">{{ change_in_percent }}%</div>
+                                            </td>
+                                            <td>
+                                                <div align="center">{{ volume }}</div>
+                                            </td>
+                                            <td>
+                                                <div align="center">{{ capital }}</div>
+                                            </td>
+                                            <td>
+                                                <div align="center">{{ industry }}</div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <p>
+                                            <div class="slideTxtBox1 col-md-6"
+                                                 style="width:650px; height:375px; margin-top:16px">
+                                                <div class="hd"
+                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+                                                    <ul class="page-list-title">
+                                                        交易資訊
+                                                    </ul>
+
+                                                </div>
+                                                <div class="bd">
+                                                    <ul style="display:block ">
+                                                        <div id="report" style="height:18px;padding-top:-10px;"></div>
+                                                        <div id="container5"
+                                                             style="margin-left: -15px;margin-top: -60px; ">
+                                                            <img src="{% static 'png/k.png' %}"
+                                                                 style="width: 640px; height: 360px;">
+                                                        </div>
+                                                    </ul>
+                                                    <ul style="display:none">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <p>
+                                        <td>
+                                            <div class="slideTxtBox1 col-md-6"
+                                                 style="width:365px; height:375px; margin-top:26px">
+                                                <div class="hd"
+                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+                                                    <ul class="page-list-title">
+                                                        個股資訊
+                                                    </ul>
+                                                </div>
+                                                <div class="bd">
+
+                                                    <section class="panel panel-default">
+                                                        <header class="panel-heading font-bold"><font
+                                                                size="+1">綜合平均分數：<font
+                                                                color="#339933">4.8分</font></font></header>
+                                                        <div class="wrapper">
+                                                            <span class="h5">評語：標準以下，<font color="#339933"
+                                                                                           size="+1"><strong>普通</strong></font></span>
+
+                                                            <div class="text-center m-b-n m-t-sm">
+                                                                <div class="sparkline inline" data-bar-color="#9AE2D2"
+                                                                     data-bar-spacing="32" data-bar-width="25"
+                                                                     data-height="60" data-type="bar">3,5,7,10,6
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-body" style="height:165px; padding-top:0px;">
+                                                            <nav class="nav navbar-default"
+                                                                 style="width:330px; padding-right:10px;">
+                                                                <div class="container-fluid">
+                                                                    <ul class="nav navbar-nav"
+                                                                        style="padding-top:0px; margin-bottom:7px; margin-top:-7px; margin-left:-8px;">
+                                                                        <li><a data-toggle="tab" href="#1"
+                                                                               style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">價值</a>
+                                                                        </li>
+                                                                        <li><a data-toggle="tab" href="#2"
+                                                                               style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">安全</a>
+                                                                        </li>
+                                                                        <li><a data-toggle="tab" href="#3"
+                                                                               style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">成長</a>
+                                                                        </li>
+                                                                        <li><a data-toggle="tab" href="#4"
+                                                                               style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">籌碼</a>
+                                                                        </li>
+                                                                        <li><a data-toggle="tab" href="#5"
+                                                                               style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">技術</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </nav>
+                                                            <div class="tab-content"
+                                                                 style="margin:20px; margin-bottom: -15px">
+                                                                <div class="tab-pane fade in active" id="1">
+                                                                    <li>本益比 < 20
+                                                                        {% if pe < 20 %}
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-down text-danger"></i></span>
+                                                                    </li>
+                                                                    {% else %}
+                                                                    <span class="pull-right"> <i
+                                                                            class="fa fa-thumbs-up text-success"></i></span></li>
+                                                                    {% endif %}
+                                                                    <li>股價淨值比 < 1.5
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-up text-success"></i></span>
+                                                                    </li>
+                                                                    <li>殖利率 > 3%
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-up text-success"></i></span>
+                                                                    </li>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="2">
+                                                                    <li>財務安全評分：<font color="#339933">{{ score }}</font>
+                                                                    </li>
+
+                                                                </div>
+                                                                <div class="tab-pane fade" id="3">
+                                                                    <li>月營收月成長 > 3%
+                                                                        {% if month_growth > 3 %}
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-up text-success"></i></span>
+                                                                    </li>
+                                                                    {% else %}
+                                                                    <span class="pull-right"> <i
+                                                                            class="fa fa-thumbs-down text-danger"></i></span></li>
+                                                                    {% endif %}
+                                                                    <li>月營收年成長 > 10%
+                                                                        {% if year_growth > 10 %}
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-up text-success"></i></span>
+                                                                    </li>
+                                                                    {% else %}
+                                                                    <span class="pull-right"> <i
+                                                                            class="fa fa-thumbs-down text-danger"></i></span></li>
+                                                                    {% endif %}
+                                                                    <li>近12月營收成長 > 15%
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-down text-danger"></i></span>
+                                                                    </li>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="4">
+                                                                    <li>法人連 2 天買超3%
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-down text-danger"></i></span>
+                                                                    </li>
+                                                                    <li>主力連 2 天買超
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-down text-danger"></i></span>
+                                                                    </li>
+                                                                    <li>董監持股比例增加
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-down text-danger"></i></span>
+                                                                    </li>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="5">
+                                                                    <li>股價在週線上
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-up text-success"></i></span>
+                                                                    </li>
+                                                                    <li>股價在月線上
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-up text-success"></i></span>
+                                                                    </li>
+                                                                    <li>股價在季線上
+                                                                        <span class="pull-right"> <i
+                                                                                class="fa fa-thumbs-up text-success"></i></span>
+                                                                    </li>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <!--右1-->
+                                    <tr>
+                                        <td>
+                                            <div class="slideTxtBox1 post-item col-md-6"
+                                                 style="width:530px; height:350px; margin-top:10px">
+                                                <div class="hd"
+                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+                                                    <ul class="page-list-title"
+                                                        style="font-size:20px; font-weight:bolder">
+                                                        融資
+                                                    </ul>
+
+                                                </div>
+                                                <div class="bd">
+                                                    <div id="container3" style="height: 308px; width:520px"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="slideTxtBox1 col-md-6" style="width:485px; height:350px;">
+                                                <div class="hd"
+                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+
+                                                    <ul class="page-list-title">
+                                                        融券
+                                                    </ul>
+                                                </div>
+                                                <div class="bd">
+                                                    <div id="container4" style="height: 308px; width:480px"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="slideTxtBox1 post-item col-md-6"
+                                                 style="width:530px; height:350px; margin-top:3px">
+                                                <div class="hd"
+                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+                                                    <ul class="page-list-title"
+                                                        style="font-size:20px; font-weight:bolder">
+                                                        月營收走勢
+                                                    </ul>
+                                                    <ul style="font-size:23px; font-weight:bolder; padding-left:130px">
+                                                        <input class="btn btn-info" style="background-color:#3C9"
+                                                               type="button" value="月營收">
+                                                        <input class="btn btn-info" style="background-color:#3C9"
+                                                               type="button" value="月營收年增率">
+                                                    </ul>
+                                                </div>
+                                                <div class="bd">
+                                                    <div id="container" style="height: 308px; width:520px"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="slideTxtBox1 col-md-6"
+                                                 style="width:485px; height:350px;  margin-top:-8px">
+                                                <div class="hd"
+                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d;">
+
+                                                    <ul class="page-list-title">
+                                                        股利政策
+                                                    </ul>
+                                                </div>
+                                                <div class="bd">
+                                                    <div id="container2" style="height: 308px; width:480px"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <div class="slideTxtBox1 post-media col-md-6" style="width:1030px;">
+                                    <div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+                                        <div align="right">
+                                            <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+                                            <span><a href="#"><i class="fa fa-arrow-circle-right"></i> more</a></span>
+                                        </div>
+                                        <ul class="page-list-title" style="font-size:20px; font-weight:bolder">
+                                            個股新聞
+                                        </ul>
+                                    </div>
+                                    <div class="bd" style="padding:10px">
+                                        <table class="table  b-t b-b b-light" width="100%">
+                                            <tbody>
+
+                                            <!--列出15行-->
+                                            <tr class="ta">
+                                                <td width="90%"><a href="/outcome/?id={{ invest.discuss_id }}"
+                                                                   style="margin-left:5px">
+                                                    《陸股》滬指弱勢震盪、收跌0.28%，週線漲1.03%</a></td>
+                                                <td width="10%"><font size="2">09/23</font></td>
+                                            </tr>
+                                            <!--列出15行-->
+                                            <tr class="ta">
+                                                <td width="90%"><a href="/outcome/?id={{ invest.discuss_id }}"
+                                                                   style="margin-left:5px"> 先探／環泥具低ＰＥ與ＰＢ比雙優勢</a></td>
+                                                <td width="10%"><font size="2">09/23</font></td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <script>
+    $('#demo1').typeahead({
+        source: [
+            { id: 1, name: '2330 台積電' },
+            { id: 2, name: '1101 台泥' },
+            { id: 3, name: '1102 亞泥' },
+            { id: 4, name: '1217 愛之味' },
+            { id: 5, name: '1256 鮮活果汁-KY' },
+            { id: 6, name: '1262 綠悅-KY' },
+            { id: 7, name: '1301 台塑' },
+            { id: 8, name: '1326 台化' },
+            { id: 9, name: '1565 精華' },
+            { id: 10, name: '1590 亞德客-KY' },
+			{ id: 11, name: '1704 榮化' },
+            { id: 12, name: '2002 中鋼' },
+            { id: 13, name: '2023 燁輝' },
+            { id: 14, name: '2105 正新' },
+            { id: 15, name: '2107 厚生' },
+            { id: 16, name: '2201 裕隆' },
+            { id: 17, name: '2207 和泰車' },
+            { id: 18, name: '2227 裕日車' },
+            { id: 19, name: '2308 台達電' },
+            { id: 20, name: '2317 鴻海' },
+			{ id: 21, name: '2323 中環' },
+            { id: 22, name: '2344 華邦電' },
+            { id: 23, name: '2347 聯強' },
+            { id: 24, name: '2349 錸德' },
+            { id: 25, name: '2353 宏碁' },
+            { id: 26, name: '2357 華碩' },
+            { id: 27, name: '2371 大同' },
+            { id: 28, name: '2373 震旦行' },
+            { id: 29, name: '2379 瑞昱' },
+            { id: 30, name: '2382 廣達' },
+			{ id: 31, name: '2383 台光電' },
+            { id: 32, name: '2397 友通' },
+            { id: 33, name: '2405 浩鑫' },
+            { id: 34, name: '2409 友達' },
+            { id: 35, name: '2412 中華電' },
+            { id: 36, name: '2454 聯發科' },
+            { id: 37, name: '2474 可成' },
+            { id: 38, name: '2481 強茂' },
+            { id: 39, name: '2485 兆赫' },
+            { id: 40, name: '2498 宏達電' },
+			{ id: 41, name: '2610 華航' },
+            { id: 42, name: '2618 長榮航' },
+            { id: 43, name: '2727 王品' },
+            { id: 44, name: '2729 瓦城' },
+            { id: 45, name: '2809 京城銀' },
+            { id: 46, name: '2832 台產' },
+            { id: 47, name: '2845 遠東銀' },
+            { id: 48, name: '2852 第一保' },
+            { id: 49, name: '2855 統一證' },
+            { id: 50, name: '2881 富邦金' },
+			{ id: 51, name: '2882 國泰金' },
+            { id: 52, name: '2890 永豐金' },
+            { id: 53, name: '2912 統一超' },
+            { id: 54, name: '3008 大立光' },
+            { id: 55, name: '3045 台灣大' },
+            { id: 56, name: '3059 華晶科' },
+            { id: 57, name: '3083 網龍' },
+            { id: 58, name: '3450 聯鈞' },
+            { id: 59, name: '3454 晶睿' },
+            { id: 60, name: '3548 兆利' },
+			{ id: 61, name: '3663 鑫科' },
+            { id: 62, name: '3669 圓展' },
+            { id: 63, name: '3702 大聯大' },
+            { id: 64, name: '4129 聯合' },
+            { id: 65, name: '4416 三圓' },
+            { id: 66, name: '4552 力達-KY' },
+            { id: 67, name: '4726 永昕' },
+            { id: 68, name: '4739 康普' },
+            { id: 69, name: '4904 遠傳' },
+            { id: 70, name: '4915 致伸' },
+			{ id: 71, name: '4935 茂林-KY' },
+            { id: 72, name: '4946 辣椒' },
+            { id: 73, name: '5474 聰泰' },
+            { id: 74, name: '5903 全家' },
+            { id: 75, name: '6015 宏遠證' },
+            { id: 76, name: '6154 順發' },
+            { id: 77, name: '6176 瑞儀' },
+            { id: 78, name: '6214 精誠' },
+            { id: 79, name: '6244 茂迪' },
+            { id: 80, name: '6281 全國電' },
+			{ id: 81, name: '6505 台塑化' },
+            { id: 82, name: '8044 網家' },
+            { id: 83, name: '8101 華冠' },
+            { id: 84, name: '8349 恒耀' },
+            { id: 85, name: '8906 花王' },
+            { id: 86, name: '9914 美利達' },
+            { id: 87, name: '9921 巨大' },
+
+        ]
+    });
+
+
+	  $('.demo2').typeahead({
+        source: [
+            { id: 1, name: '2330 台積電' },
+            { id: 2, name: '1101 台泥' },
+            { id: 3, name: '1102 亞泥' },
+            { id: 4, name: '1217 愛之味' },
+            { id: 5, name: '1256 鮮活果汁-KY' },
+            { id: 6, name: '1262 綠悅-KY' },
+            { id: 7, name: '1301 台塑' },
+            { id: 8, name: '1326 台化' },
+            { id: 9, name: '1565 精華' },
+            { id: 10, name: '1590 亞德客-KY' },
+			{ id: 11, name: '1704 榮化' },
+            { id: 12, name: '2002 中鋼' },
+            { id: 13, name: '2023 燁輝' },
+            { id: 14, name: '2105 正新' },
+            { id: 15, name: '2107 厚生' },
+            { id: 16, name: '2201 裕隆' },
+            { id: 17, name: '2207 和泰車' },
+            { id: 18, name: '2227 裕日車' },
+            { id: 19, name: '2308 台達電' },
+            { id: 20, name: '2317 鴻海' },
+			{ id: 21, name: '2323 中環' },
+            { id: 22, name: '2344 華邦電' },
+            { id: 23, name: '2347 聯強' },
+            { id: 24, name: '2349 錸德' },
+            { id: 25, name: '2353 宏碁' },
+            { id: 26, name: '2357 華碩' },
+            { id: 27, name: '2371 大同' },
+            { id: 28, name: '2373 震旦行' },
+            { id: 29, name: '2379 瑞昱' },
+            { id: 30, name: '2382 廣達' },
+			{ id: 31, name: '2383 台光電' },
+            { id: 32, name: '2397 友通' },
+            { id: 33, name: '2405 浩鑫' },
+            { id: 34, name: '2409 友達' },
+            { id: 35, name: '2412 中華電' },
+            { id: 36, name: '2454 聯發科' },
+            { id: 37, name: '2474 可成' },
+            { id: 38, name: '2481 強茂' },
+            { id: 39, name: '2485 兆赫' },
+            { id: 40, name: '2498 宏達電' },
+			{ id: 41, name: '2610 華航' },
+            { id: 42, name: '2618 長榮航' },
+            { id: 43, name: '2727 王品' },
+            { id: 44, name: '2729 瓦城' },
+            { id: 45, name: '2809 京城銀' },
+            { id: 46, name: '2832 台產' },
+            { id: 47, name: '2845 遠東銀' },
+            { id: 48, name: '2852 第一保' },
+            { id: 49, name: '2855 統一證' },
+            { id: 50, name: '2881 富邦金' },
+			{ id: 51, name: '2882 國泰金' },
+            { id: 52, name: '2890 永豐金' },
+            { id: 53, name: '2912 統一超' },
+            { id: 54, name: '3008 大立光' },
+            { id: 55, name: '3045 台灣大' },
+            { id: 56, name: '3059 華晶科' },
+            { id: 57, name: '3083 網龍' },
+            { id: 58, name: '3450 聯鈞' },
+            { id: 59, name: '3454 晶睿' },
+            { id: 60, name: '3548 兆利' },
+			{ id: 61, name: '3663 鑫科' },
+            { id: 62, name: '3669 圓展' },
+            { id: 63, name: '3702 大聯大' },
+            { id: 64, name: '4129 聯合' },
+            { id: 65, name: '4416 三圓' },
+            { id: 66, name: '4552 力達-KY' },
+            { id: 67, name: '4726 永昕' },
+            { id: 68, name: '4739 康普' },
+            { id: 69, name: '4904 遠傳' },
+            { id: 70, name: '4915 致伸' },
+			{ id: 71, name: '4935 茂林-KY' },
+            { id: 72, name: '4946 辣椒' },
+            { id: 73, name: '5474 聰泰' },
+            { id: 74, name: '5903 全家' },
+            { id: 75, name: '6015 宏遠證' },
+            { id: 76, name: '6154 順發' },
+            { id: 77, name: '6176 瑞儀' },
+            { id: 78, name: '6214 精誠' },
+            { id: 79, name: '6244 茂迪' },
+            { id: 80, name: '6281 全國電' },
+			{ id: 81, name: '6505 台塑化' },
+            { id: 82, name: '8044 網家' },
+            { id: 83, name: '8101 華冠' },
+            { id: 84, name: '8349 恒耀' },
+            { id: 85, name: '8906 花王' },
+            { id: 86, name: '9914 美利達' },
+            { id: 87, name: '9921 巨大' },
+
+        ]
+    });
+
+                                </script>
+                            </section>
+                            <footer class="footer bg-alert">
+                                <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+                                </h6>
+                            </footer>
+
+                        </section>
+                        <script src="{% static 'js/jquery.min.js' %}"></script>
+                        <!-- Bootstrap -->
+                        <script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js"
+                                type="text/javascript"></script>
+                        <script>
+                            window.jQuery || document.write('<script src="{% static 'js/jquery-2.1.1.min.js'%}"><\/script>')
+                        </script>
+                        <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+                        <!--要加!-->
+                        <script src="{% static 'js/jquery.min.js'%}"></script>
+                        <script src="{% static 'js/bootstrap.js' %}"></script>
+                        <!-- App -->
+                        <script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/charts/sparkline/jquery.sparkline.min.js' %}"></script>
+                        <script src="{% static 'js/app.plugin.js' %}"></script>
+                        <script src="js/jPlayer/jquery.jplayer.min.js" type="text/javascript"></script>
+                        <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+
+                        <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+                        <script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
+                        <script src="{% static 'js/highstock.js' %}"></script>
+                        <script src="{% static 'js/chartExt.js' %}"></script>
+                        <a href="#top">
+                            <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+                        </a></section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+</body>
+</html>
