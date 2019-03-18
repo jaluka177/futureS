@@ -2,26 +2,26 @@
 <!DOCTYPE html>
 <html class="app">
 <head>
-    <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
-    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+<link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
 
-    <script src="{% static 'js/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
-    <script src="{% static 'js/bootstrap-typeahead.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/bootstrap-typeahead.js' %}" type="text/javascript"></script>
 
-    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
-    <script src="{% static 'jquery.SuperSlide.2.1.1.js' %}" type="text/javascript"></script>
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery.SuperSlide.2.1.1.js' %}"></script>
 
-    <meta charset="utf-8"/>
-    <title>個股速覽</title>
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'images/icon2.ico' %}" rel="shortcut icon">
-    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
-    <style type="text/css">
+  <meta charset="utf-8" />
+  <title>個股速覽</title>
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/animate.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}" type="text/css">
+  <link rel="shortcut icon" href="{% static 'images/icon2.ico' %}">
+  <link rel="stylesheet" href="{% static 'css/simple-line-icons.css' %}" type="text/css">
+  <style type="text/css">
       ${demo.css}
 /* 整體設置*/
       .mac {
@@ -236,8 +236,7 @@
 	position:relative;
 	top:1px;
 }
-
-    </style>
+  </style>
     <!--融資-->
     <script type="text/javascript">
 $(function () {
@@ -352,10 +351,9 @@ $(function () {
     });
 });
 
-
-    </script>
+		</script>
     <!--股利政策-->
-    <script type="text/javascript">
+   <script type="text/javascript">
 $(function () {
 		var cashfit;
 		var cashfit_color;
@@ -500,12 +498,11 @@ $(function () {
     });
 });
 
+		</script>
 
-    </script>
 
-
-    <!--月營收走勢-->
-    <script type="text/javascript">
+<!--月營收走勢-->
+<script type="text/javascript">
 $(function () {
 		var cashfit;
 		var cashfit_color;
@@ -636,8 +633,7 @@ $(function () {
     });
 });
 
-
-    </script>
+		</script>
 
     <!--融券-->
     <script type="text/javascript">
@@ -753,8 +749,7 @@ $(function () {
     });
 });
 
-
-    </script>
+		</script>
 
     <!--K線圖-->
     <script>
@@ -773,312 +768,242 @@ $(function() {
 	tradeChart();
 
 });
-
-    </script>
+</script>
 </head>
 <body style="background-image: url('{% static 'png/bk.jpg' %}'); background-position: 0px 0px;">
 
-<!-- gotop的html語法 -->
-<section class="vbox">
+ <!-- gotop的html語法 -->
+  <section class="vbox">
     <header>
-        <div class="navbar-header aside bg-info dk">
-            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
-            </a>
-            <a class="navbar-brand text-lt" href="/home/">
-                <!-- <i class="icon-earphones"></i>-->
-                <span class="hidden-nav-xs m-2-sm"> <img height="56" src="{% static 'png/robot2.png' %}"
-                                                         width="58"></span>
-                <span class="hidden-nav-xs m-l-sm"><font size="4">羅伯特<img height="35" src="{% static 'png/love.gif' %}"
-                                                                          width="27">瑪妮</font>  </span>
-            </a>
-            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
-                <i class="icon-settings"></i>
-            </a>
-        </div>
-        <div class="nav">
+<div class="navbar-header aside bg-info dk">
+<a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+</a>
+<a href="/recent/" class="navbar-brand text-lt">
+         <!-- <i class="icon-earphones"></i>-->
+          <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img src="{% static 'png/love.gif' %}" height="35" width="27">Futures</font>  </span>
+    </a>
+        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
+          <i class="icon-settings"></i>
+        </a>
+      </div>
+<div class="nav">
 
-            <!--nav-->
-            <div class="navBar">
-                <ul class="nav clearfix">
-                    <li class="m">
-                        <h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font>
-                        </h3>
-                        <ul class="sub" style="display: none;">
-                            <li><a href="/get_news/">財經新聞</a></li>
-                            <li><a href="/stock/">個股速覽</a></li>
-                            <li><a href="/fundamental/">基本面分析</a></li>
-                            <li><a href="/macd/">技術面分析</a></li>
-                            <li><a href="/margin/">籌碼面分析</a></li>
-                            <li><a href="/bal_sheet/">財報分析</a></li>
-                        </ul>
-                    </li>
-                    <li class="s">|</li>
-                    <li class="m">
-                        <h3><a href="http://sc.chinaz.com/" target="_blank"><img src="{% static 'png/tap.png' %}"> 選股專區</a>
-                        </h3>
-                        <ul class="sub">
-                            <li><a href="/tech/">技術面選股</a></li>
-                            <li><a href="/master/">選股小幫手</a></li>
-                        </ul>
-                    </li>
-                    <li class="s">|</li>
-                    <li class="m">
-                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font>
-                        </h3>
-                        <ul class="sub">
-                            <li><a href="/test/">理財小測驗</a></li>
-                        </ul>
-                    </li>
-                    <li class="s">|</li>
-                    <li class="m">
-                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font>
-                        </h3>
-                        <ul class="sub" style="display: none;">
-                            <li><a href="/predict/">預知未來型</a></li>
-                            <li><a href="/analysis1/">健康診斷型</a></li>
-                            <li><a href="/gep/">推薦好股型</a></li>
-                            <li><a href="/five/">買賣分析型</a></li>
-                            <li><a href="/funds/">投資組合推薦</a></li>
-                        </ul>
-                    </li>
-                    <li class="s">|</li>
-                    <li class="m">
-                        <h3><a href="/member/" target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員專區</a></h3>
-                        <ul class="sub" style="display: none;">
-                            <li><a href="/member_news/">個股資訊 & 新聞</a></li>
-                            <li><a href="/my_stock/">投資組合清單</a></li>
-                            <li><a href="/mem_sto/">選股條件清單</a></li>
-                            <li><a href="/modify/">會員基本資料</a></li>
-
-                        </ul>
-                    </li>
-                    <li class="s">|</li>
-                    <li class="m">
-                        <h3><a href="/financial/" target="_blank"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a>
-                        </h3>
-                    </li>
-                    <li class="s">|</li>
-                    <li class="m">
-                        <h3><a href="/get_article/" target="_blank"><img src="{% static 'png/interface.png' %}"> 討論區</a>
-                        </h3>
-                    </li>
-                    <li class="s">|</li>
-                    <li class="m">
-                        <h3><a href="/smallschool/" target="_blank"><img src="{% static 'png/open-book.png' %}">
-                            理財小學堂</a></h3>
-                        <ul class="sub">
-                            <li><a href="/new_info/">新手投資小常識</a></li>
-                            <li><a href="/economic_term/">經濟指標一覽</a></li>
-                            <li><a href="/stock_ana/">股票分析教室</a></li>
-                            <li><a href="/stock_ana/">選股小撇步</a></li>
-                        </ul>
-                    </li>
-                    <li class="block" style="left: 227px;"></li>
-                </ul>
-            </div>
-        </div>
+       <!--nav-->
+<div class="navBar">
+		<ul class="nav clearfix">
+			<li class="m">
+	<h3><a target="_blank" href="/get_news/"><img src="{% static 'png/money 2.png' %}"> NEWS</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 交易資訊</a></font></h3>
+			<ul class="sub">
+            <li><a href="/algotrade/">歷史回測</a></li>
+			<li><a href="/master/">即時資料</a></li>
+                <li><a href="/stock/">期貨專區</a></li>
+			</ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+	<h3><a target="_blank" href="/get_news/"><img src="{% static 'png/money 2.png' %}"> EDITOR</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font></h3>
+			<ul class="sub" style="display: none;">
+	            <li><a href="/predict/">預知未來型</a></li>
+                <li><a href="/analysis1/">健康診斷型</a></li>
+                <li><a href="/gep/">推薦好股型</a></li>
+                <li><a href="/five/">買賣分析型</a></li>
+                <li><a href="/funds/">投資組合推薦</a></li>
+			</ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><a target="_blank" href="/mem_home/"><img src="{% static 'png/people-3.png' %}"> 指標專區</a></h3>
+			</li>
+			<li class="m">
+	<h3><a target="_blank" href="/financial/"><img src="{% static 'png/money 2.png' %}"> 下單機</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 新手專區</a></font></h3>
+                 <ul class="sub">
+                     <li><a href="/discussion/">討論區</a></li>
+                     <li><a href="/rookie/">新手投資小常識</a></li>
+             </ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 會員</a></font></h3>
+            <ul class="sub">
+		<li><a href="/new_info/" >我的追蹤期貨</a></li>
+        <li><a href="/economic_term/">我的期貨新聞</a></li>
+                <li><a href="/stock_ana/">我的期貨清單</a></li>
+                 <li><a href="/stock_ana/">機器人投顧</a></li>
+             </ul>
+			</li>
+	<li class="block" style="left: 227px;"></li>
+		</ul>
+	</div>
+   </div>
     </header>
     <section>
-        <section class="hbox stretch">
-            <!-- .aside -->
-            <aside class="bg-black dk aside hidden-print" id="nav">
-                <section class="vbox">
-                    <section class="w-f-md ">
+      <section class="hbox stretch">
+        <!-- .aside -->
+      <aside class="bg-black dk aside hidden-print" id="nav">
+          <section class="vbox">
+            <section class="w-f-md ">
 
-                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
-                             data-railopacity="0.2" data-size="10px">
+              <div class="slim-scroll " data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railopacity="0.2">
 
 
-                            <ul class="nav bg-black clearfix" style="width:230px;">
-                                {% if loginstatus == False %}
-                                <div style="margin-left:40px; margin-top:8px">
-                                    <a class="myButton" href="login.html">登入系統</a>
-                                    <a class="myButton" href="signin.html">註冊會員</a>
-                                </div>
+  <ul class="nav bg-black clearfix" style="width:230px;">
+      {% if loginstatus == False %}
+      <div style="margin-left:40px; margin-top:8px">
+  <a href="login.html" class="myButton">登入系統</a>
+  <a href="signin.html" class="myButton">註冊會員</a>
+                     </div>
 
-                                {% else %}
-                                <!--喔喔不要壞掉惹-->
+{% else %}
+                      <!--喔喔不要壞掉惹-->
 
-                                <li class="dropdown" style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
-                                    <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+ <li class="dropdown" style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+          <a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown">
 
-                                        <img src="{% static 'png/man2.png' %}"><font size="3">&nbsp;您好!&nbsp;{{ name
-                                        }}</font><b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu animated fadeInRight"
-                                        style="margin-left:35px;border-radius: 8px;">
-                                        <li>
-                                            <span class="arrow top"></span>
-                                            <a href="#"><font size="3">個人資料</font></a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="badge bg-danger pull-right">3</span>
-                                                <font size="3">訊息</font>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><font size="3">聯絡我們</font></a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                {% endif %}
-                                <!---->
-                                <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                                    個股查詢
-                                </li>
+                <img src="{% static 'png/man2.png' %}" ><font size="3" >&nbsp;您好!&nbsp;{{ name }}</font><b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu animated fadeInRight" style="margin-left:35px;border-radius: 8px;">
+              <li>
+                <span class="arrow top"></span>
+                <a href="#"><font size="3">個人資料</font></a>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="badge bg-danger pull-right">3</span>
+                  <font size="3" >訊息</font>
+                </a>
+              </li>
+              <li>
+                <a href="#"><font size="3" >聯絡我們</font></a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="/logout/" ><font size="3" color="#45968F">登出</font></a>
+              </li>
+            </ul>
+          </li>
+{% endif %}
+                 <!---->
+      <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                    期貨查詢
+                    </li>
 
-                                <div class="form-group">
-                                    <div class="input-group">
+          <div class="form-group">
+           <div class="input-group">
             <span class="input-group-btn">
-<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search"></i></button>
+<button type="submit" class="btn btn-sm bg-white btn-icon rounded"><i class="fa fa-search"></i></button>
             </span>
-                                        <input autocomplete="off" class="form-control input-sm no-border rounded mac"
-                                               id="demo1" placeholder="請輸入股號/股名" type="text">
-                                    </div>
-                                </div>
+   <input type="text" class="form-control input-sm no-border rounded mac" placeholder="請輸入代號/期貨" id="demo1"  autocomplete="off">
+          </div>
+        </div>
 
-                                <div class="nav navBar1 clearfix dk">
-                                    <!--崩壞開始-->
+        <div class="nav navBar1 clearfix dk">
+        <!--崩壞開始-->
 
-                                    <div class="menu" id="menu">
-                                        <div class="menu-header"> 個股專區</div>
-                                        <ul>
-                                            <li><a href="/stock/"><i class="fa fa-home"
-                                                                     style="margin-top:7px; color:#6FAEB7"> </i><font
-                                                    color="#fff" size="+1"><strong>個股速覽</strong></font></a></li>
-                                            <li><a href="#"><i class="fa fa-dashboard"
-                                                               style="margin-top:7px;color:#6FAEB7"> </i><font
-                                                    size="+1"><strong>基本面分析</strong></font></a>
-                                                <ul class="submenu">
-                                                    <li><a href="/fundamental/?id={{ id }}"><font
-                                                            size="3">公司資料</font></a></li>
-                                                    <li><a href="/dividend_policy/?id={{ id }}"><font
-                                                            size="3">股利政策</font></a></li>
-                                                    <li><a href="/profit/?id={{ id }}"><font size="3">營收盈餘</font></a>
-                                                    </li>
-                                                    <li><a href="/pe/?id={{ id }}"><font size="3">本益比</font></a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#"><i class="fa fa-signal"
-                                                               style="margin-top:7px ;color:#6FAEB7"> </i><font
-                                                    size="+1"><strong>技術面分析</strong></font></a>
-                                                <ul class="submenu">
+        <div id="menu" class="menu">
+          <div class="menu-header"> 期貨專區</div>
+          <ul>
+            <li><a href="/stock/"><i class="fa fa-home" style="margin-top:7px; color:#6FAEB7"> </i><font size="+1" color="#fff"><strong>期貨速覽</strong></font></a></li>
+            <li><a href="#"><i class="fa fa-dashboard" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>基本面分析</strong></font></a>
+              <ul class="submenu">
+                <li><a href="/fundamental/?id={{ id }}"><font size="3">公司資料</font></a></li>
+                <li><a href="/dividend_policy/?id={{ id }}"><font size="3">股利政策</font></a></li>
+                <li><a href="/profit/?id={{ id }}"><font size="3">營收盈餘</font></a></li>
+                <li><a href="/pe/?id={{ id }}"><font size="3">本益比</font></a></li>
+              </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-signal" style="margin-top:7px ;color:#6FAEB7"> </i><font size="+1"><strong>技術面分析</strong></font></a>
+              <ul class="submenu">
 
-                                                    </li>
-                                                    <li><a href="/macd/?id={{ id }}"><font size="3">MACD</font></a></li>
-                                                    <li><a href="/kd/?id={{ id }}"><font size="3">KD 指標</font></a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#"><i class="fa  fa-cogs"
-                                                               style="margin-top:7px;color:#6FAEB7"> </i><font
-                                                    size="+1"><strong>籌碼分析</strong></font></a>
-                                                <ul class="submenu">
-                                                    <li><a href="/margin/?id={{ id }}"><font size="3">融資融券</font></a>
-                                                    </li>
-                                                    <li><a href="/three/?id={{ id }}"><font size="3">三大法人</font></a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#"><i class="fa fa-bar-chart-o"
-                                                               style="margin-top:7px;color:#6FAEB7"> </i><font
-                                                    size="+1"><strong>財報分析</strong></font></a>
-                                                <ul class="submenu">
-                                                    <li><a href="/bal_sheet/?id={{ id }}"><font
-                                                            size="3">資產負債表</font></a></li>
-                                                    <li><a href="/income_statement/?id={{ id }}"><font
-                                                            size="3">損益表</font></a></li>
-                                                    <li><a href="/cash_flow_statement/?id={{ id }}"><font
-                                                            size="3">現金流量表</font></a></li>
-                                                    <li><a href="/ratio/?id={{ id }}"><font size="3">財務比率</font></a>
-                                                    </li>
-                                                </ul>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </ul>
+                </li>
+                <li><a href="/macd/?id={{ id }}"><font size="3">MACD</font></a></li>
+                <li><a href="/kd/?id={{ id }}"><font size="3">KD 指標</font></a></li>
+              </ul>
+            </li>
+           <li><a href="#"><i class="fa  fa-cogs" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>籌碼分析</strong></font></a>
+              <ul class="submenu">
+                <li><a href="/margin/?id={{ id }}"><font size="3">融資融券</font></a></li>
+                <li><a href="/three/?id={{ id }}"><font size="3">三大法人</font></a></li>
+              </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-bar-chart-o" style="margin-top:7px;color:#6FAEB7"> </i><font size="+1"><strong>財報分析</strong></font></a>
+              <ul class="submenu">
+                <li><a href="/bal_sheet/?id={{ id }}"><font size="3">資產負債表</font></a></li>
+                <li><a href="/income_statement/?id={{ id }}"><font size="3">損益表</font></a></li>
+                <li><a href="/cash_flow_statement/?id={{ id }}"><font size="3">現金流量表</font></a></li>
+                <li><a href="/ratio/?id={{ id }}"><font size="3">財務比率</font></a></li>
+              </ul>
+          </ul>
+        </div>
+   </div>
+ </ul>
 
-                        </div>
-                    </section>
-                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
-                        <div class="bg hidden-xs ">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+     </div>
+   </section>
+   <footer class="footer hidden-xs no-padder text-center-nav-xs">
+              <div class="bg hidden-xs ">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
 
-                            </a>
+                </a>
 
-                        </div>
-                    </footer>
-                </section>
-            </aside>
-            <!-- /.aside -->
-            <!-- /.aside -->
-            <section id="content">
-                <section class="hbox stretch">
-                    <section>
-                        <section class="vbox">  <!--vbox-->
-                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
-                                <a id="top"></a>
+              </div>
+            </footer>
+          </section>
+</aside>
+        <!-- /.aside -->
+  <!-- /.aside -->
+       <section id="content">
+          <section class="hbox stretch">
+            <section>
+              <section class="vbox">  <!--vbox-->
+<section class="scrollable padder-lg w-f-md" id="bjax-target">
+  <a id="top"></a>
 
-                                <div class="header">
-                                    <center>
-                                        <h2 class="font-thin m-b"><font color="#556b2f"> 個股資訊 </font><span
-                                                class="musicbar animate inline m-l-sm" style="width:20px;height:20px">
+  <div class="header">
+  <center>
+    <h2 class="font-thin m-b"><font color="#556b2f"> 期貨資訊 </font><span class="musicbar animate inline m-l-sm" style="width:20px;height:20px">
   <span class="bar1 a1 bg-primary lter"></span>
     <span class="bar2 a2 bg-info lt"></span>
     <span class="bar3 a3 bg-success"></span>
     <span class="bar4 a4 bg-warning dk"></span>
     <span class="bar5 a5 bg-danger dker"></span>
                   </span>
-                                        </h2></center>
-                                    <div class="pull-right pull-right1">
+    </h2>   </center> <div class="pull-right pull-right1">
 
-                                        <a onclick="window.open('/choice/', 'look_stock', config='height=600,width=930');">
-                                            <button class="btn btn-sm btn-success rounded" style="margin-left: -105px">
-                                                個股代碼查詢:
-                                            </button>
-                                        </a>
-                                        <form action="/stock/" method="post" name="form">
-                                            <div style="margin-top: -30px"><input autocomplete="off"
-                                                                                  class="demo2 input-sm form-control2 input-s-sm inline v-middle"
-                                                                                  id='par' name="search"
-                                                                                  placeholder="請輸入關鍵字" type="text">
+   <a onclick="window.open('/choice/', 'look_stock', config='height=600,width=930');"><button class="btn btn-sm btn-success rounded" style="margin-left: -105px">個股代碼查詢:</button></a>
+    <form action="/stock/" name="form" method="post">
+    <div style="margin-top: -30px"> <input type="text" name="search" id = 'par'  class="demo2 input-sm form-control2 input-s-sm inline v-middle"  placeholder="請輸入關鍵字" autocomplete="off">
 
-                                                <button class="btn btn-sm btn-success"
-                                                        style="margin-left: -5px; border-radius: 0px 5px 5px 0px;"
-                                                        type="submit">Go!
-                                                </button>
-                                            </div>
+       <button class="btn btn-sm btn-success" type="submit" style="margin-left: -5px; border-radius: 0px 5px 5px 0px;">Go!</button></div>
 
 
-                                            <!-- <input type="submit" class="btn btn-success " value="查詢新聞"></input>-->
-                                        </form>
-                                    </div>
-                                </div>
+    <!-- <input type="submit" class="btn btn-success " value="查詢新聞"></input>-->
+      </form>
+   </div></div>
 
 
-                                <!--套分頁模板-->
-                                <div class="slideTxtBox1" style="margin-top:26px; height: 100px">
-                                    <div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
-                                        <ul style="font-size:20px; font-weight:bolder">
-                                            <img src="{% static 'png/s.png' %}" style="width: 30px; height: 25px">
-                                            &nbsp;{{ stock_name }}（{{ id }}）
-                                        </ul>
-                                        <a href="javascript:add_stock('{{ id }}','+i+')">
-                                            <button class="mb0 " data-target="#pop1" data-toggle="modal" id="change"
-                                                    onClick="change();"
-                                                    style=" width:90px; height: 32px; margin-left: 920px; margin-top: 3px">
-                                                <i class="fa fa-plus-square"></i> &nbsp;加入追蹤
-                                            </button>
-                                            </form>
+<!--套分頁模板-->
+<div class="slideTxtBox1" style="margin-top:26px; height: 100px">
+  <div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+   <ul style="font-size:20px; font-weight:bolder">
+    <img src="{% static 'png/s.png' %}" style="width: 30px; height: 25px"> &nbsp;{{ stock_name }}（{{ id }}）
+    </ul><a href="javascript:add_stock('{{ id }}','+i+')"><button class="mb0 "  style=" width:90px; height: 32px; margin-left: 920px; margin-top: 3px" data-toggle="modal" data-target="#pop1"  onClick="change();" id="change"><i class="fa fa-plus-square"></i> &nbsp;加入追蹤</button></form>
 
-                                        </a></div>
+ </a> </div>
 
-                                    <script>
+<script>
     //加入追蹤
     function add_stock(stockid,i) {
         $.ajax({
@@ -1098,329 +1023,218 @@ $(function() {
 
         })
     }
+</script>
+  <table width="100%"  class="table table-striped b-t" border="1" style="border:#8ca1af 1px; border-left:0px; border-right: 0px" >
+                          <thead>
+                            <tr>
+<th width="15" bgcolor="#EFFAFA"><div align="center">股價</div></th>
+<th width="15" bgcolor="#EFFAFA"><div align="center">漲跌</div></th>
+ <th width="15" bgcolor="#EFFAFA"><div align="center">漲幅</div></th>
+ <th width="15" bgcolor="#EFFAFA"><div align="center">成交量</div></th>
+ <th width="35" bgcolor="#EFFAFA"><div align="center">股本</div></th>
+ <th width="10" bgcolor="#EFFAFA"><div align="center">產業</div></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+  <td><div align="center">{{ price }}</div></td>
+  <td><div align="center">{{ change }}</div></td>
+  <td><div align="center">{{ change_in_percent }}%</div></td>
+    <td><div align="center">{{ volume }}</div></td>
+     <td><div align="center">{{ capital }}</div></td> <td><div align="center">{{ industry }}</div></td>
+                            </tr>
+                          </tbody>
+  </table></div>
+</div>
+<table>
+<tr><td>
+<p>
+<div class="slideTxtBox1 col-md-6" style="width:650px; height:375px; margin-top:16px">
+   <div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+    <ul class="page-list-title">
+    交易資訊
+    </ul>
 
-                                    </script>
-                                    <table border="1" class="table table-striped b-t"
-                                           style="border:#8ca1af 1px; border-left:0px; border-right: 0px" width="100%">
-                                        <thead>
-                                        <tr>
-                                            <th bgcolor="#EFFAFA" width="15">
-                                                <div align="center">股價</div>
-                                            </th>
-                                            <th bgcolor="#EFFAFA" width="15">
-                                                <div align="center">漲跌</div>
-                                            </th>
-                                            <th bgcolor="#EFFAFA" width="15">
-                                                <div align="center">漲幅</div>
-                                            </th>
-                                            <th bgcolor="#EFFAFA" width="15">
-                                                <div align="center">成交量</div>
-                                            </th>
-                                            <th bgcolor="#EFFAFA" width="35">
-                                                <div align="center">股本</div>
-                                            </th>
-                                            <th bgcolor="#EFFAFA" width="10">
-                                                <div align="center">產業</div>
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <div align="center">{{ price }}</div>
-                                            </td>
-                                            <td>
-                                                <div align="center">{{ change }}</div>
-                                            </td>
-                                            <td>
-                                                <div align="center">{{ change_in_percent }}%</div>
-                                            </td>
-                                            <td>
-                                                <div align="center">{{ volume }}</div>
-                                            </td>
-                                            <td>
-                                                <div align="center">{{ capital }}</div>
-                                            </td>
-                                            <td>
-                                                <div align="center">{{ industry }}</div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                </div>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <p>
-                                            <div class="slideTxtBox1 col-md-6"
-                                                 style="width:650px; height:375px; margin-top:16px">
-                                                <div class="hd"
-                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
-                                                    <ul class="page-list-title">
-                                                        交易資訊
-                                                    </ul>
+  </div>
+  <div class="bd">
+   <ul style="display:block ">
+      <div id="report" style="height:18px;padding-top:-10px;"></div>
+	<div id="container5" style="margin-left: -15px;margin-top: -60px; ">
+        <img src="{% static 'png/k.png' %}" style="width: 640px; height: 360px;">
+	</div>
+    </ul>
+    <ul style="display:none">
+     </ul>
+  </div>
+</div></td>
+<p><td>
+<div class="slideTxtBox1 col-md-6" style="width:365px; height:375px; margin-top:26px">
+   <div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+   <ul class="page-list-title">
+    個股資訊
+     </ul>
+  </div>
+  <div class="bd">
 
-                                                </div>
-                                                <div class="bd">
-                                                    <ul style="display:block ">
-                                                        <div id="report" style="height:18px;padding-top:-10px;"></div>
-                                                        <div id="container5"
-                                                             style="margin-left: -15px;margin-top: -60px; ">
-                                                            <img src="{% static 'png/k.png' %}"
-                                                                 style="width: 640px; height: 360px;">
-                                                        </div>
-                                                    </ul>
-                                                    <ul style="display:none">
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <p>
-                                        <td>
-                                            <div class="slideTxtBox1 col-md-6"
-                                                 style="width:365px; height:375px; margin-top:26px">
-                                                <div class="hd"
-                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
-                                                    <ul class="page-list-title">
-                                                        個股資訊
-                                                    </ul>
-                                                </div>
-                                                <div class="bd">
+                  <section class="panel panel-default">
+    <header class="panel-heading font-bold"><font size="+1">綜合平均分數：<font color="#339933">4.8分</font></font></header>
+                    <div class="wrapper" >
+                     <span class="h5">評語：標準以下，<font color="#339933" size="+1"><strong>普通</strong></font></span>
 
-                                                    <section class="panel panel-default">
-                                                        <header class="panel-heading font-bold"><font
-                                                                size="+1">綜合平均分數：<font
-                                                                color="#339933">4.8分</font></font></header>
-                                                        <div class="wrapper">
-                                                            <span class="h5">評語：標準以下，<font color="#339933"
-                                                                                           size="+1"><strong>普通</strong></font></span>
+                      <div class="text-center m-b-n m-t-sm">
+                        <div class="sparkline inline" data-type="bar" data-height="60" data-bar-width="25" data-bar-spacing="32" data-bar-color="#9AE2D2">3,5,7,10,6</div>
+                      </div>
+                    </div>
+ <div class="panel-body" style="height:165px; padding-top:0px;">
+                    <nav class="nav navbar-default" style="width:330px; padding-right:10px;">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav" style="padding-top:0px; margin-bottom:7px; margin-top:-7px; margin-left:-8px;">
+          <li><a data-toggle="tab" href="#1" style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">價值</a></li>
+          <li><a data-toggle="tab" href="#2" style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">安全</a></li>
+        <li><a data-toggle="tab" href="#3" style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">成長</a></li>
+        <li><a data-toggle="tab" href="#4" style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">籌碼</a></li>
+        <li><a data-toggle="tab" href="#5" style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">技術</a></li>
+            </ul>
+        </div>
+    </nav>
+        <div class="tab-content" style="margin:20px; margin-bottom: -15px">
+            <div id="1" class="tab-pane fade in active">
+<li>本益比 < 20
+    {% if pe < 20 %}
+<span class="pull-right"> <i class="fa fa-thumbs-down text-danger"></i></span></li>
+        {% else %}
+        <span class="pull-right"> <i class="fa fa-thumbs-up text-success"></i></span></li>
+                {% endif %}
+<li>股價淨值比 < 1.5
+<span class="pull-right"> <i class="fa fa-thumbs-up text-success"></i></span></li>
+<li>殖利率 > 3%
+<span class="pull-right"> <i class="fa fa-thumbs-up text-success"></i></span></li>
+            </div>
+            <div id="2" class="tab-pane fade">
+<li>財務安全評分：<font color="#339933">{{ score }}</font></li>
 
-                                                            <div class="text-center m-b-n m-t-sm">
-                                                                <div class="sparkline inline" data-bar-color="#9AE2D2"
-                                                                     data-bar-spacing="32" data-bar-width="25"
-                                                                     data-height="60" data-type="bar">3,5,7,10,6
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="panel-body" style="height:165px; padding-top:0px;">
-                                                            <nav class="nav navbar-default"
-                                                                 style="width:330px; padding-right:10px;">
-                                                                <div class="container-fluid">
-                                                                    <ul class="nav navbar-nav"
-                                                                        style="padding-top:0px; margin-bottom:7px; margin-top:-7px; margin-left:-8px;">
-                                                                        <li><a data-toggle="tab" href="#1"
-                                                                               style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">價值</a>
-                                                                        </li>
-                                                                        <li><a data-toggle="tab" href="#2"
-                                                                               style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">安全</a>
-                                                                        </li>
-                                                                        <li><a data-toggle="tab" href="#3"
-                                                                               style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">成長</a>
-                                                                        </li>
-                                                                        <li><a data-toggle="tab" href="#4"
-                                                                               style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">籌碼</a>
-                                                                        </li>
-                                                                        <li><a data-toggle="tab" href="#5"
-                                                                               style="margin-top:8px; padding:9px; width:57px; padding-left:13px;">技術</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </nav>
-                                                            <div class="tab-content"
-                                                                 style="margin:20px; margin-bottom: -15px">
-                                                                <div class="tab-pane fade in active" id="1">
-                                                                    <li>本益比 < 20
-                                                                        {% if pe < 20 %}
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-down text-danger"></i></span>
-                                                                    </li>
-                                                                    {% else %}
-                                                                    <span class="pull-right"> <i
-                                                                            class="fa fa-thumbs-up text-success"></i></span></li>
-                                                                    {% endif %}
-                                                                    <li>股價淨值比 < 1.5
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-up text-success"></i></span>
-                                                                    </li>
-                                                                    <li>殖利率 > 3%
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-up text-success"></i></span>
-                                                                    </li>
-                                                                </div>
-                                                                <div class="tab-pane fade" id="2">
-                                                                    <li>財務安全評分：<font color="#339933">{{ score }}</font>
-                                                                    </li>
+            </div>
+            <div id="3" class="tab-pane fade">
+<li>月營收月成長 > 3%
+    {% if month_growth > 3 %}
+<span class="pull-right"> <i class="fa fa-thumbs-up text-success"></i></span></li>
+                {% else %}
+       <span class="pull-right"> <i class="fa fa-thumbs-down text-danger"></i></span></li>
+                {% endif %}
+<li>月營收年成長 > 10%
+    {% if year_growth > 10 %}
+<span class="pull-right"> <i class="fa fa-thumbs-up text-success"></i></span></li>
+            {% else %}
+        <span class="pull-right"> <i class="fa fa-thumbs-down text-danger"></i></span></li>
+            {% endif %}
+<li>近12月營收成長 > 15%
+<span class="pull-right"> <i class="fa fa-thumbs-down text-danger"></i></span></li>
+            </div>
+             <div id="4" class="tab-pane fade">
+               <li>法人連 2 天買超3%
+<span class="pull-right"> <i class="fa fa-thumbs-down text-danger"></i></span></li>
+<li>主力連 2 天買超
+<span class="pull-right"> <i class="fa fa-thumbs-down text-danger"></i></span></li>
+<li>董監持股比例增加
+<span class="pull-right"> <i class="fa fa-thumbs-down text-danger"></i></span></li>
+            </div>
+             <div id="5" class="tab-pane fade">
+               <li>股價在週線上
+<span class="pull-right"> <i class="fa fa-thumbs-up text-success"></i></span></li>
+<li>股價在月線上
+<span class="pull-right"> <i class="fa fa-thumbs-up text-success"></i></span></li>
+<li>股價在季線上
+<span class="pull-right"> <i class="fa fa-thumbs-up text-success"></i></span></li>
+            </div>
+        </div>
+                   </div>
+                  </section>
 
-                                                                </div>
-                                                                <div class="tab-pane fade" id="3">
-                                                                    <li>月營收月成長 > 3%
-                                                                        {% if month_growth > 3 %}
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-up text-success"></i></span>
-                                                                    </li>
-                                                                    {% else %}
-                                                                    <span class="pull-right"> <i
-                                                                            class="fa fa-thumbs-down text-danger"></i></span></li>
-                                                                    {% endif %}
-                                                                    <li>月營收年成長 > 10%
-                                                                        {% if year_growth > 10 %}
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-up text-success"></i></span>
-                                                                    </li>
-                                                                    {% else %}
-                                                                    <span class="pull-right"> <i
-                                                                            class="fa fa-thumbs-down text-danger"></i></span></li>
-                                                                    {% endif %}
-                                                                    <li>近12月營收成長 > 15%
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-down text-danger"></i></span>
-                                                                    </li>
-                                                                </div>
-                                                                <div class="tab-pane fade" id="4">
-                                                                    <li>法人連 2 天買超3%
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-down text-danger"></i></span>
-                                                                    </li>
-                                                                    <li>主力連 2 天買超
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-down text-danger"></i></span>
-                                                                    </li>
-                                                                    <li>董監持股比例增加
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-down text-danger"></i></span>
-                                                                    </li>
-                                                                </div>
-                                                                <div class="tab-pane fade" id="5">
-                                                                    <li>股價在週線上
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-up text-success"></i></span>
-                                                                    </li>
-                                                                    <li>股價在月線上
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-up text-success"></i></span>
-                                                                    </li>
-                                                                    <li>股價在季線上
-                                                                        <span class="pull-right"> <i
-                                                                                class="fa fa-thumbs-up text-success"></i></span>
-                                                                    </li>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </section>
+  </div>
+</div>
+</td></tr></table>
+<table>
+<!--右1--><tr><td>
+<div class="slideTxtBox1 post-item col-md-6" style="width:530px; height:350px; margin-top:10px">
+ <div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+   <ul class="page-list-title" style="font-size:20px; font-weight:bolder">
+      融資
+    </ul>
 
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <table>
-                                    <!--右1-->
-                                    <tr>
-                                        <td>
-                                            <div class="slideTxtBox1 post-item col-md-6"
-                                                 style="width:530px; height:350px; margin-top:10px">
-                                                <div class="hd"
-                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
-                                                    <ul class="page-list-title"
-                                                        style="font-size:20px; font-weight:bolder">
-                                                        融資
-                                                    </ul>
+  </div>
+  <div class="bd">
+    <div id="container3" style="height: 308px; width:520px"></div>
+  </div>
+</div></td>
+<td>
+<div class="slideTxtBox1 col-md-6" style="width:485px; height:350px;">
+ <div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
 
-                                                </div>
-                                                <div class="bd">
-                                                    <div id="container3" style="height: 308px; width:520px"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="slideTxtBox1 col-md-6" style="width:485px; height:350px;">
-                                                <div class="hd"
-                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+    <ul class="page-list-title">
+    融券
+     </ul>
+  </div>
+  <div class="bd">
+    <div id="container4" style="height: 308px; width:480px"></div>
+  </div>
+</div>
+</td></tr>
+<tr><td>
+<div class="slideTxtBox1 post-item col-md-6" style="width:530px; height:350px; margin-top:3px">
+<div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+   <ul class="page-list-title" style="font-size:20px; font-weight:bolder">
+      月營收走勢
+    </ul>
+    <ul style="font-size:23px; font-weight:bolder; padding-left:130px">
+      <input type="button" value="月營收" class="btn btn-info" style="background-color:#3C9">
+      <input type="button" value="月營收年增率" class="btn btn-info" style="background-color:#3C9">
+    </ul>
+  </div>
+  <div class="bd">
+   <div id="container" style="height: 308px; width:520px"></div>
+  </div>
+</div></td>
+<td>
+<div class="slideTxtBox1 col-md-6" style="width:485px; height:350px;  margin-top:-8px">
+ <div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d;">
 
-                                                    <ul class="page-list-title">
-                                                        融券
-                                                    </ul>
-                                                </div>
-                                                <div class="bd">
-                                                    <div id="container4" style="height: 308px; width:480px"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="slideTxtBox1 post-item col-md-6"
-                                                 style="width:530px; height:350px; margin-top:3px">
-                                                <div class="hd"
-                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
-                                                    <ul class="page-list-title"
-                                                        style="font-size:20px; font-weight:bolder">
-                                                        月營收走勢
-                                                    </ul>
-                                                    <ul style="font-size:23px; font-weight:bolder; padding-left:130px">
-                                                        <input class="btn btn-info" style="background-color:#3C9"
-                                                               type="button" value="月營收">
-                                                        <input class="btn btn-info" style="background-color:#3C9"
-                                                               type="button" value="月營收年增率">
-                                                    </ul>
-                                                </div>
-                                                <div class="bd">
-                                                    <div id="container" style="height: 308px; width:520px"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="slideTxtBox1 col-md-6"
-                                                 style="width:485px; height:350px;  margin-top:-8px">
-                                                <div class="hd"
-                                                     style="height:40px; background-color:#C9EDCA; color: #3b424d;">
+    <ul class="page-list-title">
+    股利政策
+     </ul>
+  </div>
+  <div class="bd">
+    <div id="container2" style="height: 308px; width:480px"></div>
+  </div>
+</div>
+</td></tr>
+</table>
 
-                                                    <ul class="page-list-title">
-                                                        股利政策
-                                                    </ul>
-                                                </div>
-                                                <div class="bd">
-                                                    <div id="container2" style="height: 308px; width:480px"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+<div class="slideTxtBox1 post-media col-md-6" style="width:1030px;" >
+<div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
+    <div align="right">
+      <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+      <span ><a href = "#"><i class="fa fa-arrow-circle-right"></i> more</a></span>
+    </div>
+    <ul style="font-size:20px; font-weight:bolder" class="page-list-title">
+      個股新聞
+    </ul>
+  </div>
+  <div class="bd" style="padding:10px"> <table width="100%" class="table  b-t b-b b-light">
+      <tbody>
 
-                                <div class="slideTxtBox1 post-media col-md-6" style="width:1030px;">
-                                    <div class="hd" style="height:40px; background-color:#C9EDCA; color: #3b424d; ">
-                                        <div align="right">
-                                            <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
-                                            <span><a href="#"><i class="fa fa-arrow-circle-right"></i> more</a></span>
-                                        </div>
-                                        <ul class="page-list-title" style="font-size:20px; font-weight:bolder">
-                                            個股新聞
-                                        </ul>
-                                    </div>
-                                    <div class="bd" style="padding:10px">
-                                        <table class="table  b-t b-b b-light" width="100%">
-                                            <tbody>
+         <!--列出15行--><tr class="ta">
+      <td width="90%"><a href="/outcome/?id={{ invest.discuss_id }}" style="margin-left:5px"> 《陸股》滬指弱勢震盪、收跌0.28%，週線漲1.03%</a></td>
+      <td width="10%"><font size="2">09/23</font></td>
+                            </tr>
+                              <!--列出15行--><tr class="ta">
+      <td width="90%"><a href="/outcome/?id={{ invest.discuss_id }}" style="margin-left:5px"> 先探／環泥具低ＰＥ與ＰＢ比雙優勢</a></td>
+      <td width="10%"><font size="2">09/23</font></td>
+                            </tr>
 
-                                            <!--列出15行-->
-                                            <tr class="ta">
-                                                <td width="90%"><a href="/outcome/?id={{ invest.discuss_id }}"
-                                                                   style="margin-left:5px">
-                                                    《陸股》滬指弱勢震盪、收跌0.28%，週線漲1.03%</a></td>
-                                                <td width="10%"><font size="2">09/23</font></td>
-                                            </tr>
-                                            <!--列出15行-->
-                                            <tr class="ta">
-                                                <td width="90%"><a href="/outcome/?id={{ invest.discuss_id }}"
-                                                                   style="margin-left:5px"> 先探／環泥具低ＰＥ與ＰＢ比雙優勢</a></td>
-                                                <td width="10%"><font size="2">09/23</font></td>
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <script>
+                         </tbody>
+                        </table></div>
+</div>
+    <script>
     $('#demo1').typeahead({
         source: [
             { id: 1, name: '2330 台積電' },
@@ -1607,45 +1421,32 @@ $(function() {
 
         ]
     });
+</script>
+</section><footer class="footer bg-alert">
+ <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+</h6>
+    </footer>
 
-                                </script>
-                            </section>
-                            <footer class="footer bg-alert">
-                                <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
-                                </h6>
-                            </footer>
+     </section>
+ <script src="{% static 'js/jquery.min.js' %}"></script>
+  <!-- Bootstrap -->
+  	<script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+	<script>window.jQuery || document.write('<script src="{% static 'js/jquery-2.1.1.min.js'%}"><\/script>')</script>
+	<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<!--要加!-->    <script src="{% static 'js/jquery.min.js'%}"></script>
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <!-- App -->
+  <script type="text/javascript" src="{% static 'js/SuperSlide.2.1.js' %}"></script>
+  <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/charts/sparkline/jquery.sparkline.min.js' %}"></script>
+  <script src="{% static 'js/app.plugin.js' %}"></script>
+  <script type="text/javascript" src="js/jPlayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
 
-                        </section>
-                        <script src="{% static 'js/jquery.min.js' %}"></script>
-                        <!-- Bootstrap -->
-                        <script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js"
-                                type="text/javascript"></script>
-                        <script>
-                            window.jQuery || document.write('<script src="{% static 'js/jquery-2.1.1.min.js'%}"><\/script>')
-                        </script>
-                        <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
-                        <!--要加!-->
-                        <script src="{% static 'js/jquery.min.js'%}"></script>
-                        <script src="{% static 'js/bootstrap.js' %}"></script>
-                        <!-- App -->
-                        <script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
-                        <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
-                        <script src="{% static 'js/charts/sparkline/jquery.sparkline.min.js' %}"></script>
-                        <script src="{% static 'js/app.plugin.js' %}"></script>
-                        <script src="js/jPlayer/jquery.jplayer.min.js" type="text/javascript"></script>
-                        <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
-
-                        <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
-                        <script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
-                        <script src="{% static 'js/highstock.js' %}"></script>
-                        <script src="{% static 'js/chartExt.js' %}"></script>
-                        <a href="#top">
-                            <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
-                        </a></section>
-                </section>
-            </section>
-        </section>
-    </section>
-</section>
-</body>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
+<script src="{% static 'js/highstock.js' %}"></script>
+<script src="{% static 'js/chartExt.js' %}"></script>
+                <a href="#top"><div id="gotop"><i class="fa fa-hand-o-up"></i> top</div></a></section></section></section></section></section>
+</section></body>
 </html>
