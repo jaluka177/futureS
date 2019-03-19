@@ -24,6 +24,9 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # def list_page1(request):
 #
 #     return render(request, 'news_list.html')
+def new_info(request):
+
+    return render(request, 'new_info.html')
 def new_infocon(request):
 
     return render(request, 'new_infocon.html')
