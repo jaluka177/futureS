@@ -1,0 +1,564 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+    <meta content="text/html" http-equiv="content-type">
+    <meta charset="utf-8"/>
+    <title>股票分析內容</title>
+    <link href="{% static 'css/style.css' %}" media="screen and (max-width: 700px)" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/3.png' %}" rel="shortcut icon">
+    <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+.navBar1 {
+	width:228px;
+	margin:0 auto;
+	margin-left:1px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.tb th {
+    background: #DCFEF5;
+    border: solid 1px #6DF1CA;
+	height:35px;
+	padding-left:10px;
+	
+}
+.tb{ font-size:17px; color:#568279}
+.tb td{
+	border: solid 1px #CDCDCD;
+	padding-left:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	font-size:18px;
+	}
+.tb tr:nth-child(odd){background:#F4F4F4;}
+.tb tr:hover{background:#FDFFEE;text-shadow: 0 0 10px yellow;}
+
+    </style>
+</head>
+<body style="background-image: url('{% static 'images/03.jpg' %}'); background-position: 0px 0px;">
+
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/home/">
+                <!-- <i class="icon-earphones"></i>-->
+                <span class="hidden-nav-xs m-2-sm"> <img height="56" src="{% static 'png/robot2.png' %}"
+                                                         width="58"></span>
+                <span class="hidden-nav-xs m-l-sm"><font size="4">羅伯特<img height="35" src="{% static 'png/love.gif' %}"
+                                                                          width="27">瑪妮</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/get_news/">財經新聞</a></li>
+                            <li><a href="/stock/">個股速覽</a></li>
+                            <li><a href="/fundamental/">基本面分析</a></li>
+                            <li><a href="/macd/">技術面分析</a></li>
+                            <li><a href="/margin/">籌碼面分析</a></li>
+                            <li><a href="/bal_sheet/">財報分析</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="http://sc.chinaz.com/" target="_blank"><img src="{% static 'png/tap.png' %}"> 選股專區</a>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/tech/">技術面選股</a></li>
+                            <li><a href="/master/">選股小幫手</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/test/">理財小測驗</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/member/" target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員專區</a></h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/member_news/">個股資訊 & 新聞</a></li>
+                            <li><a href="/my_stock/">投資組合清單</a></li>
+                            <li><a href="/mem_sto/">選股條件清單</a></li>
+                            <li><a href="/modify/">會員基本資料</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/financial/" target="_blank"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/get_article/" target="_blank"><img src="{% static 'png/interface.png' %}"> 討論區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/smallschool/" target="_blank"><img src="{% static 'png/open-book.png' %}">
+                            理財小學堂</a></h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">新手投資小常識</a></li>
+                            <li><a href="/economic_term/">經濟指標一覽</a></li>
+                            <li><a href="/stock_ana/">股票分析教室</a></li>
+                            <li><a href="/stock_ana/">選股小撇步</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+                            <nav>
+                                <ul class="nav bg-black clearfix" style="width:230px;">    <!--登入後消失 <div style="margin-left:40px; margin-top:8px">
+  <a href="login.html" class="myButton">登入系統</a>
+  <a href="signin.html" class="myButton">註冊會員</a>
+                     </div> -->
+
+
+                                    <!--喔喔不要壞掉惹-->
+
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font
+                                                size="3">&nbsp;您好!&nbsp;王曉明</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="#"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+                                    <!---->
+
+
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+                                            <input class="form-control input-sm no-border rounded"
+                                                   placeholder="請輸入股號/股名" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="nav navBar1 clearfix dk">
+                                        <!--崩壞開始-->
+
+                                        <div class="menu" id="menu">
+                                            <div class="menu-header"> 理財小學堂</div>
+                                            <ul>
+                                                <li><a href="/new_info/"><i class=" icon-graduation"
+                                                                            style="margin-top:7px; color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>新手投資小常識</strong></font></a></li>
+                                                <li><a href="/dict/"><i class="icon-direction"
+                                                                        style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>經濟指標一覽</strong></font></a>
+                                                </li>
+                                                <li><a href="/stock_ana/"><i class="icon-bar-chart"
+                                                                             style="margin-top:7px ;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>股票分析教室</strong></font></a>
+
+                                                </li>
+                                                <li><a href="/choose_stock/"><i class="icon-basket"
+                                                                                style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>選股小撇步</strong></font></a>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </ul>
+
+                            </nav>
+                        </div>
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="vbox">
+                    <section class="scrollable wrapper">
+                        <a id="top"></a>
+                        <div class="row text-m">
+                            <section class="panel panel-danger">
+                                <header class="panel-heading" style="height:50px"><h3 align="center"
+                                                                                      class="font-thin m-b"
+                                                                                      style="margin-top:3px;"><font
+                                        color="#4D4D4C">1. 什麼是技術面?</font></h3> <a class="btn btn-info pull-right"
+                                                                                  href="stock_ana.html"
+                                                                                  style="margin-bottom:20px; margin-left:10px; ">返回列表</a>
+                                </header>
+
+                                <div style="padding-left:20px">
+                                    <div class="c-content-out">
+                                        <div class="c-content" id="courseContent"
+                                             style="font-size: 16px; line-height: 27px;"><h1><img alt="" height="502"
+                                                                                                  src="http://www.cmoney.tw/notes/cmstatic/notes/capture/114705/20140819093547888.jpg"
+                                                                                                  width="500"></h1>
+
+                                            <h1>技術分析，透過股價判斷趨勢</h1>
+
+                                            <h2>投資分析有三大工具:基本面、技術面、籌碼面</h2>
+
+                                            <p><span style="font-size:16px"><strong>基本面－研究公司的價值</strong></span></p>
+
+                                            <p><span
+                                                    style="font-size:16px"><strong>技術面－研究過去股價走勢，預測未來股價漲跌</strong></span>
+                                            </p>
+
+                                            <p><span style="font-size:16px"><strong>籌碼面－研究主力的動向</strong></span></p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>這3個研究股市的工具，</p>
+
+                                            <p>雖然常常聽到，但是背後的理論是什麼，</p>
+
+                                            <p>要搞清楚還是需要下點功夫！</p>
+
+                                            <p>就讓我們來研究看看什麼是技術面分析吧！</p>
+
+                                            <p><img alt="" height="302"
+                                                    src="http://www.cmoney.tw/learn/cmstatic/learn/44/20140918110843422.jpg"
+                                                    width="400"></p>
+
+                                            <h1>技術面-就是研究過去股價，預測未來股價趨勢</h1>
+
+                                            <p>妮妮是一位剛進入股市的投資菜鳥，</p>
+
+                                            <p>他常常聽到均線、K線、KD指標、RSI指標、MACD...等技術面分析法，</p>
+
+                                            <p>雖然一知半解，但他還是相當有興趣！</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>研究之後妮妮發現，</p>
+
+                                            <p>技術分析，其實就是 研究市場<strong>過去的資料，</strong></p>
+
+                                            <p>再去 <strong>預測市場未來</strong>的走向。</p>
+
+                                            <p>這些過去的資料，就是我們熟悉的 <strong>價量走勢圖表</strong>。</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <h2>技術分析的根本，是『成交量』和『股價』</h2>
+
+                                            <p>很多資料都是以這兩點出發，</p>
+
+                                            <p>後續衍伸出許多技術指標：均線、RSI、KD...</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>技術分析有很多不同的理論，</p>
+
+                                            <p>就像是技術分析中又有許多不同的派別。</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>因此，不同領域的技術分析對同一張圖表，</p>
+
+                                            <p>可能就會有不同的看法。</p>
+
+                                            <p><img alt="" height="197"
+                                                    src="http://www.cmoney.tw/learn/cmstatic/learn/44/20140724160141684.png"
+                                                    width="300"></p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <h1>技術分析的 3個信念</h1>
+
+                                            <p>只要是相信技術分析，並使用技術分析的人，</p>
+
+                                            <p>都認為下面3件事是存在的，並且深信著。</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <h2>1.所有的資訊，都反映在股價上</h2>
+
+                                            <p>雖然&nbsp;股價不會被基本面影響，</p>
+
+                                            <p>但其實 <strong>基本面的資訊都充分的反映在股價上</strong>。</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <h2>2.股價的走勢是有規律的，所以可以預測未來走勢</h2>
+
+                                            <p>過去的價格變動 會形成一個走勢，</p>
+
+                                            <p>而<strong>未來的股價會 有規律的跟隨這個走勢</strong>。</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <h2>3.歷史會不斷重演，所以趨勢會不斷循環</h2>
+
+                                            <p>技術分析，<strong>相信投資人的行為會一直重複</strong>，</p>
+
+                                            <p>也就是說，人們永遠不會記取教訓。</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>但技術分析相信，</p>
+
+                                            <p><strong>從過去的圖表可以找出一個趨勢，</strong></p>
+
+                                            <p><strong>而這個趨勢是會循環，讓歷史不斷重演的。</strong></p>
+
+                                            <p><img alt="" height="214"
+                                                    src="http://www.cmoney.tw/learn/cmstatic/learn/44/20140818100444069.jpg"
+                                                    width="350"></p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>妮妮發現，透過上面 3個技術分析基本觀念，</p>
+
+                                            <p>技術分析工具的設計者 <strong>觀察價格走勢</strong>，</p>
+
+                                            <p>歸納出一套 <strong>股價走勢的規律</strong> 及 <strong>獨特的觀察想法</strong>，</p>
+
+                                            <p>藉由數學公式，把結果歸納出來。</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>透過 <strong>計算及圖表</strong>，將理論具體呈現，</p>
+
+                                            <p>方便使用者觀察。</p>
+
+                                            <p>&nbsp;</p>
+
+                                            <h1>技術分析是 最容易入門的分析工具</h1>
+
+                                            <p><img alt="" height="238"
+                                                    src="http://www.cmoney.tw/learn/cmstatic/learn/44/20140918110904137.jpg"
+                                                    width="400"></p>
+
+                                            <p>在股票市場上，</p>
+
+                                            <p>投資人大多採用<strong> 技術指標</strong><strong>分析股票。</strong></p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>畢竟 技術指標本身就是 整理過的數據，</p>
+
+                                            <p>比起較複雜的公司財報的 基本面分析，<strong>進入門檻較低。</strong></p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p>所以 技術面分析 相對基本面來說，</p>
+
+                                            <p>是比較簡單 容易學習的投資分析工具。</p>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!--<footer class="footer bg-alert">
+    <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+</h6>
+    </footer>-->
+
+
+                            <script src="{% static 'js/jquery.min.js' %}"></script>
+                            <!-- Bootstrap -->
+                            <script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js"
+                                    type="text/javascript"></script>
+                            <script>
+                                window.jQuery || document.write('<script src="{% static 'js/jquery-2.1.1.min.js' %}"><\/script>')
+                            </script>
+                            <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+                            <!--要加!-->
+                            <script src="{% static 'js/jquery.min.js' %}"></script>
+                            <script src="{% static 'js/bootstrap.js' %}"></script>
+                            <!-- App -->
+                            <script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+                            <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+                            <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+                            <a href="#top">
+                                <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+                            </a>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+</body>
+</html>

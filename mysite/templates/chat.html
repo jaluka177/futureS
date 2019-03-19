@@ -1,0 +1,743 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+    <meta content="text/html" http-equiv="content-type">
+    <script src="{% static 'js/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-1.7.2.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    </script>
+    <script src="{% static 'jquery.SuperSlide.2.1.1.js' %}" type="text/javascript"></script>
+    <meta charset="utf-8"/>
+    <title>討論區</title>
+    <!--增加兩個css-->
+    <link href="{% static 'css/easy-responsive-tabs.css ' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style.css ' %}" media="screen and (max-width: 700px)" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/f.png' %}" rel="shortcut icon">
+    <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:0px;
+	margin-top:-45px;
+	margin-bottom:10px;
+	}
+	
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 10px 5px -9px;
+}		
+
+  #container {
+            width: 1066px;
+            margin: 0 auto;
+        }
+        @media only screen and (max-width: 768px) {
+            #container {
+                width: 90%;
+                margin: 0 auto;
+            }
+        }
+		
+.myButton1 {
+	-moz-box-shadow:inset 0px 0px 5px 0px #7bbdc7;
+	-webkit-box-shadow:inset 0px 0px 5px 0px #7bbdc7;
+	box-shadow:inset 0px 0px 5px 0px #7bbdc7;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #73cbeb), color-stop(1, #39bdd1));
+	background:-moz-linear-gradient(top, #73cbeb 5%, #39bdd1 100%);
+	background:-webkit-linear-gradient(top, #73cbeb 5%, #39bdd1 100%);
+	background:-o-linear-gradient(top, #73cbeb 5%, #39bdd1 100%);
+	background:-ms-linear-gradient(top, #73cbeb 5%, #39bdd1 100%);
+	background:linear-gradient(to bottom, #73cbeb 5%, #39bdd1 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#73cbeb', endColorstr='#39bdd1',GradientType=0);
+	background-color:#73cbeb;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #3f94cc;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:微軟正黑體;
+	font-size:16px;
+	padding:5px 12px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #49bce3;
+}
+.myButton1:hover {
+	color:#FFF;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #39bdd1), color-stop(1, #73cbeb));
+	background:-moz-linear-gradient(top, #39bdd1 5%, #73cbeb 100%);
+	background:-webkit-linear-gradient(top, #39bdd1 5%, #73cbeb 100%);
+	background:-o-linear-gradient(top, #39bdd1 5%, #73cbeb 100%);
+	background:-ms-linear-gradient(top, #39bdd1 5%, #73cbeb 100%);
+	background:linear-gradient(to bottom, #39bdd1 5%, #73cbeb 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#39bdd1', endColorstr='#73cbeb',GradientType=0);
+	background-color:#39bdd1;
+}
+.myButton1:active {
+	position:relative;
+	top:1px;
+}
+.ta:hover{
+background-color:#DDE5D8;
+}
+.ta{
+color:#5B7948;
+}
+.tb{
+color:#333;
+}
+
+    </style>
+</head>
+<body style="background-image: url('{% static 'png/bk3.jpg' %}'); background-position: 0px 0px;">
+<!--<body style="background-image: url(&quot;7543.png&quot;); background-position: 0px 0px;">-->
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/smallschool/">
+                <!-- <i class="icon-earphones"></i>-->
+                <!--<span class="hidden-nav-xs m-2-sm"> <img src="{% static 'png/robot2.png' %}" height="56" width="58"></span>-->
+                <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img height="35"
+                                                                             src="{% static 'png/love.gif' %}"
+                                                                             width="27">Futures</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><a href="/get_news/" target="_blank"><img src="{% static 'png/money 2.png' %}"> NEWS</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/tap.png' %}">
+                            交易資訊</a></font></h3>
+                        <ul class="sub">
+                            <li><a href="/algotrade/">歷史回測</a></li>
+                            <li><a href="/recent/">即時資料</a></li>
+                            <li><a href="/stock/">期貨專區</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="//" target="_blank"><img src="{% static 'png/business.png' %}"> EDITOR</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/economic_term/" target="_blank"><img src="{% static 'png/anal.png' %}"> 指標專區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/tech/" target="_blank"><img src="{% static 'png/pay.png' %}"> 下單機</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/school.png' %}"> 新手專區</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/get_article/">討論區</a></li>
+                            <li><a href="/rookie/">新手投資小常識</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">我的追蹤期貨</a></li>
+                            <li><a href="/economic_term/">我的期貨新聞</a></li>
+                            <li><a href="/stock_ana/">機器人投顧</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll" data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+                            <nav>
+                                <ul class="nav bg clearfix" style="width:230px;height:130px">
+                                    {% if loginstatus == False %}
+                                    <div style="margin-left:40px; margin-top:8px">
+                                        <a class="myButton" href="/login/">登入系統</a>
+                                        <a class="myButton" href="/signin/">註冊會員</a>
+                                    </div>
+
+
+                                    <!--喔喔不要壞掉惹-->
+                                    {% else %}
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font size="3">&nbsp;您好!&nbsp;{{ name
+                                            }}</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+                                    <!---->
+                                    {% endif %}
+
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+                                            <input class="form-control input-sm no-border rounded"
+                                                   placeholder="請輸入股號/股名" type="text">
+                                        </div>
+                                    </div>
+
+                                </ul>
+                            </nav>
+
+                        </div>
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">  <!--vbox-->
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+                                <a id="top"></a>
+                                <div class="header">
+                                    <center>
+                                        <h2 class="font-thin m-b"><i class="icon-earphones" style="color:#73BCCD"></i>&nbsp;<font
+                                                color="#4D4D4C">討論區 </font><span class="musicbar animate inline m-l-sm"
+                                                                                 style="width:20px;height:20px">
+  <span class="bar1 a1 bg-primary lter"></span>
+    <span class="bar2 a2 bg-info lt"></span>
+    <span class="bar3 a3 bg-success"></span>
+    <span class="bar4 a4 bg-warning dk"></span>
+    <span class="bar5 a5 bg-danger dker"></span>
+                  </span>
+                                        </h2></center>
+                                </div>
+                                <div class="col-lg-16  bg-light dk">
+                                    <!-- .breadcrumb -->
+                                    <!--數字那些是假資料~-->
+                                    <ul class="breadcrumb">
+                                        <li><a href="#"><i class="fa fa-home"></i> 今日: <span class="badge bg-info">{{ count }}</span>
+                                        </a></li>
+                                        <li><a href="#">昨日: <span class="badge bg-info">24</span> </a></li>
+                                        <li><a href="#">文章: <span class="badge bg-info">{{ count2 }}</span> </a></li>
+                                    </ul>
+
+                                    <!--從這裡開始改~-->
+                                    <!--文章查詢-->
+                                    <div class="pull-right pull-right1" style="margin:5px">
+                                        <form action="/search_discussion/" method="post" name="form">
+                                            文章查詢: &nbsp;<input class="input-sm form-control2 input-s-sm inline v-middle"
+                                                               name="search" placeholder="請輸入搜索內容" type="text">
+                                            <button class="btn btn-sm btn-info" style="border-radius: 0px 4px 4px 0px;"
+                                                    type="submit">Go!
+                                            </button>
+                                            </span>
+                                            </input>
+                                        </form>
+                                        <img align="center" height="220" src="{% static 'png/robot.png' %}"
+                                             style="margin-left:65px;margin-top:71px;" width="158">
+                                    </div>
+                                    <!-- / .breadcrumb -->
+
+                                    <table cellpadding="0" cellspacing="0" style="margin-left:40px">
+                                        <tbody>
+                                        <tr>
+                                            <td class="category_l2" valign="top">
+                                                <div class="subjectbox">
+                                                    <!--各列四個-->
+                                                    <header style="color:#4c789a;padding: 1px 15px;">
+                                                        <div class="clearfix">
+                                                            <h4>
+                                                                <ul class="page-list-title">最新主题</ul>
+                                                            </h4>
+                                                        </div>
+                                                    </header>
+                                                    <div class="list-group no-radius alt">
+                                                        {% for latest_chat in latest %}
+                                                        <li><a class="list-group-item"
+                                                               href="/chat_outcome/?id={{ latest_chat.discuss_id }}"><i
+                                                                class="fa fa-comment icon-muted"></i> {{
+                                                            latest_chat.title }}</a></li>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td width="10px"></td>
+                                            <td class="category_l3" valign="top">
+                                                <div class="subjectbox">
+                                                    <header style="color:#4c789a;padding: 1px 15px;">
+                                                        <div class="clearfix">
+                                                            <h4>
+                                                                <ul class="page-list-title">最新回復</ul>
+                                                            </h4>
+                                                        </div>
+                                                    </header>
+                                                    <div class="list-group no-radius alt">
+                                                        {% for latest_reply_chat in latest_reply %}
+                                                        <li><a class="list-group-item"
+                                                               href="/chat_outcome/?id={{ latest_reply_chat.discuss_id }}"><i
+                                                                class="fa fa-comment icon-muted"></i> {{
+                                                            latest_reply_chat.content }}</a></li>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td width="10px"></td>
+                                            <td class="category_l3" valign="top">
+                                                <div class="subjectbox">
+                                                    <header style="color:#4c789a;padding: 1px 15px;">
+                                                        <div class="clearfix">
+                                                            <h4>
+                                                                <ul class="page-list-title">熱門文章</ul>
+                                                            </h4>
+                                                        </div>
+                                                    </header>
+                                                    <div class="list-group no-radius alt">
+                                                        {% for hot_chat in hot %}
+                                                        <li><a class="list-group-item"
+                                                               href="/chat_outcome/?id={{ hot_chat.discuss_id }}"><i
+                                                                class="fa fa-comment icon-muted"></i> {{ hot_chat.title
+                                                            }}</a></li>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                                </div>
+
+
+                                <div id="container" style="background-color:#ABD1D5">
+                                    <!--Horizontal Tab 討論主題分頁籤-->
+                                    <div id="parentHorizontalTab">
+                                        <ul class="resp-tabs-list hor_1">
+                                            <li><font color="#333333" face="華康秀風體W3" size="4.1px">投資理財</font></li>
+                                            <li><font color="#333333" face="華康秀風體W3" size="4.1px">股票相關</font></li>
+                                            <li><font color="#333333" face="華康秀風體W3" size="4.1px">機器人投顧</font></li>
+
+                                            <!-- Small modal -->
+                                            <a href="/post/">
+                                                <button class="myButton1" data-target=".bs-example-modal-sm"
+                                                        data-toggle="modal" style="margin-left:600px; margin-top:1px"
+                                                        type="submit">發文&nbsp<i class=" icon-action-redo"></i></button>
+                                            </a>
+                                            <div align="right"><font color="#2E8093" face="華康秀風體W3"
+                                                                     size="-1">登入後才能發文喔!</font></div>
+                                        </ul>
+                                        <div class="resp-tabs-container hor_1">
+                                            <!--vertical Tabs-->
+
+                                            <div id="ChildVerticalTab_1">
+                                                <!--content-->
+                                                <div style="padding: 15px;">
+                                                    <table class="table  b-t b-b b-light" width="100%">
+                                                        <tbody>
+                                                        <tr bgcolor="#DFF1F5" class="tb">
+                                                            <th>
+                                                                <div style="margin-left:15px"> 討論主題</div>
+                                                            </th>
+                                                            <th>作者</th>
+                                                            <th>發表日期</th>
+                                                            <th>回復&nbsp;/&nbsp;讚數</th>
+                                                        </tr>
+                                                        {% for invest in article %}
+                                                        <!--列出15行-->
+                                                        <tr class="ta">
+                                                            <td width="70%"><img src="{% static 'png/document.png' %}"
+                                                                                 style="margin-top:-3px"><a
+                                                                    href="/chat_outcome/?id={{ invest.discuss_id }}"
+                                                                    style="margin-left:5px"> {{ invest.title }}</a></td>
+                                                            <td width="10%"><font size="2">{{ invest.member_id }}</font>
+                                                            </td>
+                                                            <td width="10%">
+                                                                <div align="left"><font size="2">{{ invest.date
+                                                                    }}</font></div>
+                                                            </td>
+                                                            <td width="10%">
+                                                                <div align="center"><font size="2">{{invest.reply_times}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{invest.like}}</font>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <!-- Selected tab: <span class="tabName"></span> --><!--分頁P1~P5-->
+                                                <div align="center" id="nested-tabInfo"
+                                                     style="background-color:#ABD1D5; height:50px; margin-top:-5px">
+                                                    <ul class="pagination" style="margin-top:7px">
+                                                        <li><a href="/post_prev/"><i class="fa fa-chevron-left"></i> 上一頁</a>
+                                                        </li>
+                                                        {% if page == '1'%}
+                                                        <li class="active"><a href="/post_page_1/">1</a></li>
+                                                        <!--接session顯示藍色-->
+                                                        <li><a href="/post_page_2/">2</a></li>
+                                                        <li><a href="/post_page_3/">3</a></li>
+                                                        <li><a href="/post_page_3/">4</a></li>
+                                                        <li><a href="/post_page_3/">5</a></li>
+                                                        {% endif %}
+                                                        {% if page == '2'%}
+                                                        <li><a href="/post_page_1/">1</a></li>  <!--接session顯示藍色-->
+                                                        <li class="active"><a href="/post_page_2/">2</a></li>
+                                                        <li><a href="/post_page_3/">3</a></li>
+                                                        <li><a href="/post_page_3/">4</a></li>
+                                                        <li><a href="/post_page_3/">5</a></li>
+                                                        {% endif %}
+                                                        {% if page == '3'%}
+                                                        <li><a href="/post_page_1/">1</a></li>  <!--接session顯示藍色-->
+                                                        <li><a href="/post_page_2/">2</a></li>
+                                                        <li class="active"><a href="/post_page_3/">3</a></li>
+                                                        <li><a href="/post_page_3/">4</a></li>
+                                                        <li><a href="/post_page_3/">5</a></li>
+                                                        {% endif %}
+                                                        <li><a href="/post_next/">下一頁 <i
+                                                                class="fa fa-chevron-right"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div>
+
+                                                <div id="ChildVerticalTab_1">
+                                                    <!--content-->
+                                                    <div style="padding: 15px;">
+                                                        <table class="table  b-t b-b b-light" width="100%">
+                                                            <tbody>
+                                                            <tr bgcolor="#DFF1F5" class="tb">
+                                                                <th>
+                                                                    <div style="margin-left:15px"> 討論主題</div>
+                                                                </th>
+                                                                <th>作者</th>
+                                                                <th>發表日期</th>
+                                                                <th>回復&nbsp;/&nbsp;讚數</th>
+                                                            </tr>
+                                                            {% for invest in article_2 %}
+                                                            <!--列出15行-->
+                                                            <tr class="ta">
+                                                                <td width="70%"><img
+                                                                        src="{% static 'png/document.png' %}"
+                                                                        style="margin-top:-3px"><a
+                                                                        href="/chat_outcome/?id={{ invest.discuss_id }}"
+                                                                        style="margin-left:5px"> {{ invest.title }}</a>
+                                                                </td>
+                                                                <td width="10%"><font size="2">{{ invest.member_id
+                                                                    }}</font></td>
+                                                                <td width="10%">
+                                                                    <div align="left"><font size="2">{{ invest.date
+                                                                        }}</font></div>
+                                                                </td>
+                                                                <td width="10%">
+                                                                    <div align="center"><font size="2">{{invest.reply_times}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{invest.like}}</font>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <!-- Selected tab: <span class="tabName"></span> --><!--第二個主題的分頁-->
+                                                    <div align="center" id="nested-tabInfo"
+                                                         style="background-color:#ABD1D5; height:50px; margin-top:-5px">
+                                                        <ul class="pagination" style="margin-top:7px">
+                                                            <li><a href="/post_prev/"><i class="fa fa-chevron-left"></i>
+                                                                上一頁</a></li>
+                                                            <li class="active"><a href="/post_page_1/">1</a></li>
+                                                            <li><a href="/post_page_2/">2</a></li>
+                                                            <li><a href="/post_page_3/">3</a></li>
+                                                            <li><a href="/post_page_3/">4</a></li>
+                                                            <li><a href="/post_page_3/">5</a></li>
+                                                            <li><a href="/post_next/">下一頁 <i
+                                                                    class="fa fa-chevron-right"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+
+                                                <div id="ChildVerticalTab_1">
+                                                    <!--content-->
+                                                    <div style="padding: 15px;">
+                                                        <table class="table  b-t b-b b-light" width="100%">
+                                                            <tbody>
+                                                            <tr bgcolor="#DFF1F5" class="tb">
+                                                                <th>
+                                                                    <div style="margin-left:15px"> 討論主題</div>
+                                                                </th>
+                                                                <th>作者</th>
+                                                                <th>發表日期</th>
+                                                                <th>回復&nbsp;/&nbsp;讚數</th>
+                                                            </tr>
+                                                            {% for invest in article_3 %}
+                                                            <!--列出15行-->
+                                                            <tr class="ta">
+                                                                <td width="70%"><img
+                                                                        src="{% static 'png/document.png' %}"
+                                                                        style="margin-top:-3px"><a
+                                                                        href="/chat_outcome/?id={{ invest.diacuss_id }}"
+                                                                        style="margin-left:5px"> {{ invest.title }}</a>
+                                                                </td>
+                                                                <td width="10%"><font size="2">{{ invest.member_id
+                                                                    }}</font></td>
+                                                                <td width="10%">
+                                                                    <div align="left"><font size="2">{{ invest.date
+                                                                        }}</font></div>
+                                                                </td>
+                                                                <td width="10%">
+                                                                    <div align="center"><font size="2">{{invest.reply_times}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{invest.like}}</font>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor %}
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <!-- Selected tab: <span class="tabName"></span> --><!--討論主題3的分頁籤-->
+                                                    <div align="center" id="nested-tabInfo"
+                                                         style="background-color:#ABD1D5;height:50px; margin-top:-5px">
+                                                        <ul class="pagination" style="margin-top:7px">
+                                                            <li><a href="/post_prev/"><i class="fa fa-chevron-left"></i>
+                                                                上一頁</a></li>
+                                                            <li class="active"><a href="/post_page_1/">1</a></li>
+                                                            <li><a href="/post_page_2/">2</a></li>
+                                                            <li><a href="/post_page_3/">3</a></li>
+                                                            <li><a href="/post_page_3/">4</a></li>
+                                                            <li><a href="/post_page_3/">5</a></li>
+                                                            <li><a href="/post_next/">下一頁 <i
+                                                                    class="fa fa-chevron-right"></i></a></li>
+                                                        </ul>
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!--套分頁模板-->
+
+                                    <!--Plug-in Initialisation-->
+                                    <script type="text/javascript">
+    $(document).ready(function() {
+        //Horizontal Tab
+        $('#parentHorizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true, // 100% fit in a container
+            tabidentify: 'hor_1', // The tab groups identifier
+            activate: function(event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#nested-tabInfo');
+                var $name = $('span', $info);
+                $name.text($tab.text());
+                $info.show();
+            }
+        });
+
+	});
+
+                                    </script>
+                                    <script src="{% static 'js/easyResponsiveTabs.js' %}"></script>
+
+                                    <!-- Bootstrap -->
+                                    <!-- App -->
+                                    <script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+                                    <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+
+                                    <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+                                    <a href="#top">
+                                        <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+                                    </a>
+                                </div>
+                            </section>
+                            <footer class="footer bg-alert">
+                                <h6 align="center">Copyright ® 2019 by Future Futures.com. Corp. All right reserved.
+                                </h6>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+</body>
+</html>

@@ -1,0 +1,1383 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap-typeahead.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+
+    <meta charset="utf-8"/>
+    <title>買賣型機器人</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/f.png' %}" rel="shortcut icon">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/styles.css' %}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style6.css' %}" rel="stylesheet" type="text/css"/>
+
+    <style type="text/css">
+/* 整體設置*/ 
+
+.panel {
+    margin-bottom: 21px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+/**/
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+	
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:240px;border-radius:2px; }
+		.slideTxtBox1{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:150px;border-radius:2px; }
+		.slideTxtBox, .slideTxtBox1 .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox, .slideTxtBox1 .hd ul{
+	float: left;
+	position: absolute;
+	left: 20px;
+	top: 2px;
+	height: 32px;
+}
+		.slideTxtBox, .slideTxtBox1 .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox, .slideTxtBox1 .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox, .slideTxtBox1 .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox, .slideTxtBox1 .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox, .slideTxtBox1 .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+
+.navBar1 {
+	width:228px;
+	margin:0 auto;
+	margin-left:1px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+	/*new*/
+.tabbox{width:505px;height:256px;background:#fff;font-family:'微软雅黑'; }
+.tabbox .tab{overflow:hidden;background:#f0f0f0;}
+.tabbox .tab a{display:block;padding:8px 18px;float:left;text-decoration:none;color:#333;}
+.tabbox .tab a:hover{background:#E64E3F;color:#fff;text-decoration:none;}
+.tabbox .tab a.on{background:#90BF60;color:#fff;text-decoration:none;}
+.tabbox .content{overflow:hidden;width:500px;height:500px;position:relative;    margin-top: -0px;}
+.tabbox .content ul{position:absolute;left:0;top:0;}
+.tabbox .content li{width:500px;height:300px;float:left;}
+.tabbox .content li p{padding:10px;}
+
+.btn-rounded :hover{
+
+ color:#FFEB00;
+
+}
+
+.btn-icon.btn-sm {
+    width: 30px;
+    height: 30px;
+}
+.btn-sm, .btn-group-sm .bt > .btn {
+    padding: 2px 10px 10px 10px;
+    font-size: 10px;
+    line-height: 1.5;
+    border-radius: 50px;
+}
+.mb0 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #8dc272), color-stop(1, #60a83d));
+	background:-moz-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-webkit-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-o-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-ms-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:linear-gradient(to bottom, #8dc272 5%, #60a83d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8dc272', endColorstr='#60a83d',GradientType=0);
+	background-color:#8dc272;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #73a35b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:3px 3px 3px 2px;
+	padding-right:0px;
+	text-decoration:none;
+}
+.mb0:hover {
+	color:#ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #60a83d), color-stop(1, #8dc272));
+	background:-moz-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-webkit-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-o-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-ms-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:linear-gradient(to bottom, #60a83d 5%, #8dc272 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#60a83d', endColorstr='#8dc272',GradientType=0);
+	background-color:#60a83d;
+}
+.mb0:active {
+	color:#ffffff;
+	position:relative;
+	top:1px;
+}
+
+.mb1 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #8dc272), color-stop(1, #60a83d));
+	background:-moz-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-webkit-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-o-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-ms-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:linear-gradient(to bottom, #8dc272 5%, #60a83d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8dc272', endColorstr='#60a83d',GradientType=0);
+	background-color:#8dc272;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #73a35b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 10px;
+	text-decoration:none;
+}
+.mb1:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #60a83d), color-stop(1, #8dc272));
+	background:-moz-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-webkit-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-o-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-ms-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:linear-gradient(to bottom, #60a83d 5%, #8dc272 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#60a83d', endColorstr='#8dc272',GradientType=0);
+	background-color:#60a83d;
+}
+.mb1:active {
+	position:relative;
+	top:1px;
+}
+
+.sticky-wrap.sortable thead {
+    cursor: pointer;
+}
+
+.mb3 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #43adad), color-stop(1, #51b5b8));
+	background:-moz-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-webkit-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-o-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-ms-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:linear-gradient(to bottom, #43adad 5%, #51b5b8 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#43adad', endColorstr='#51b5b8',GradientType=0);
+	background-color:#43adad;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:4px;
+	border:1px solid #25a4a8;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 6px;
+	text-decoration:none;
+}
+.mb3:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #51b5b8), color-stop(1, #43adad));
+	background:-moz-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-webkit-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-o-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-ms-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:linear-gradient(to bottom, #51b5b8 5%, #43adad 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#51b5b8', endColorstr='#43adad',GradientType=0);
+	background-color:#51b5b8;
+}
+.mb3:active {
+	position:relative;
+	top:1px;
+}
+.mb01 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #43adad), color-stop(1, #51b5b8));
+	background:-moz-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-webkit-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-o-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-ms-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:linear-gradient(to bottom, #43adad 5%, #51b5b8 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#43adad', endColorstr='#51b5b8',GradientType=0);
+	background-color:#43adad;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:4px;
+	border:1px solid #25a4a8;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:3px 3px 3px 2px;
+	padding-right:0px;
+	text-decoration:none;
+}
+.mb01:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #51b5b8), color-stop(1, #43adad));
+	background:-moz-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-webkit-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-o-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-ms-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:linear-gradient(to bottom, #51b5b8 5%, #43adad 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#51b5b8', endColorstr='#43adad',GradientType=0);
+	background-color:#51b5b8;
+}
+.mb01:active {
+	background-color:#8dc272;
+	position:relative;
+	top:1px;
+}
+.elearning_title {
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffc800;
+    font-weight: bold;
+    background: url('{% static 'png/arrow.png' %}') no-repeat;
+    padding:0px 10px 3px 28px;
+    border-bottom: 1px dotted #ccc;
+	width:300px
+}
+
+.elearning_content {
+    font-size: 14px;padding: 15px;
+	color:#E9E9E9;
+}
+.breadcrumb{
+ border-color: transparent;
+ margin-bottom:-20px;
+ font-size:14px;
+}
+.mac {
+  display: block;
+  border: #ddd 1px solid;
+  border-radius: 20px;
+  color: #333;
+}
+ 
+.mac:focus {
+  outline: none;
+  box-shadow: 
+      0 0 5px 1px #51CBEE;
+}
+.mac2 {
+	border-radius:5px;
+  border: #ddd 1px solid;
+  color: #333;
+}
+.mac2:focus {
+	border-radius:5px;
+  outline: 1px solid #51CBEE;
+  box-shadow: 
+      0 0 3px 1px #4AD0BE;
+}
+/*tooltip3*/
+.tooltip3 {
+    position: relative;
+    display: inline-block;
+
+}
+
+.tooltip3 .tooltiptext3 {
+    visibility: hidden;
+    width: 165px;
+    background-color: #3A3A3A;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 135%;
+    left: 38%;
+    margin-left: -30px;
+	width: 150px;
+}
+
+.tooltip3 .tooltiptext3::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #3A3A3A transparent transparent transparent;
+}
+
+.tooltip3:hover .tooltiptext3 {
+    visibility: visible;
+}
+#customers
+  {
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  width:100%;
+  border-collapse:collapse;
+  }
+
+#customers td, #customers th {
+    font-size: 1em;
+    border: 1px solid #98bf21;
+    padding: 9px 6px 6px 10px;
+}
+
+#customers td, #customers th {
+    font-size: 1em;
+    border: 1px solid #6f9261;
+}
+
+#customers th {
+    font-size: 1.1em;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    background-color: #85af74;
+    color: #ffffff;
+}
+
+#customers tr.alt td 
+  {
+  color:#000000;
+  background-color:#EAF2D3;
+  }
+
+    </style>
+    <script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        colors: ["#566076", "#48A582", "#F4B86A", "#FA796B", "#7798BF", "#aaeeee"
+                ],
+		credits:{
+     enabled:false // 禁用版权信息
+},
+        chart: { 
+			zoomType: 'x',
+			borderColor: '#ddd',
+            borderWidth: 1,
+            type: 'line',
+			borderRadius: 15,
+			plotBorderWidth: 1,
+			spacingTop: 15,
+			plotBackgroundColor: '#FFF',
+			plotBackgroundImage:'gr.jpg',
+			style: {
+        // fontFamily: 'Dosis, sans-serif'
+      }
+			
+			//backgroundColor: {
+             //   linearGradient: [0, 0, 800, 800],
+             //   stops: [
+              //      [0, 'rgb(255, 255, 255)'],
+             //       [1, '#B1D9E1']
+            //    ]
+		//	}
+        }, subtitle: {
+            text: '2014/03/15 ~ 2016/08/26',
+			align: 'center',
+			// x: -20,
+			 y: 37,
+            style: {
+                color: '#495355',
+				//marginButton: 10,
+            }
+        },
+		"lang": {
+		"printChart": "列印",
+		"downloadPNG": "下載 PNG 圖檔",
+		"downloadJPEG": "下載 JPEG 圖檔",
+		"downloadPDF": "下載 PDF 文件",
+		"downloadSVG": ""
+	},
+		
+        title: {
+			    style:{
+        color:"Black",
+		marginTop: 5,
+		fontWeight: 'bold',
+		fontFamily: "標楷體",
+    },
+            text: '樂活五線譜({{ stock_name }})'
+        },
+        xAxis: {
+			type:'datetime',
+            labels: {
+                format: '{value:%m/%d}',
+            },
+			tickInterval:30*24 * 3600 * 1000,
+			gridLineWidth:0.6,
+			tickmarkPlacement:'on',
+			
+        },
+        legend: {
+            //backgroundColor: 'rgba(92, 128, 58, 0.13)',
+			backgroundColor: '#E7E7E7',
+            borderWidth: 1,
+            borderRadius: 5,
+           // borderColor: '#909090'  #BDC0C1
+        },
+        yAxis: [{
+			gridLineColor: '#C0C0C0',
+            gridLineDashStyle: 'Dash',
+            gridLineWidth:1,
+            allowDecimals: false,
+            min: 50,
+            //yAxis: 1,
+           // title: {
+            //    text: '(元)',
+            //    style: {
+            //        fontSize: '12px'
+            //    }
+          //  }
+		  title: {
+                    text: '(元)',
+                    style: {
+                        color: '#4572A7',
+                    }
+                },
+                 labels: {
+                     style: {
+                         color: '#4572A7'
+                     }}
+			},  // Secondary yAxis
+                {title: {
+                    text: '(%)',
+                    style: {
+                        color: '#fff',
+                    }
+                },
+                 labels: {
+                     style: {
+                         color: '#fff'
+                     }
+                 },
+				 
+                 opposite: true
+                }],
+        tooltip:{
+            shared: true,
+			borderRadius: 10,
+			borderWidth: 1.3, 
+			borderColor: '#A19D96',
+			crosshairs: true  
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: '股價',
+            type: 'spline',
+			pointStart: Date.UTC(2014, 2, 15),
+             pointInterval: 24 * 3600 * 1000 ,
+			 marker:{
+                enabled: false},
+            //yAxis: 1,
+            data: {{ price }},
+            stack: 'male',
+            tooltip: {
+			//	valueSuffix: ' 元',
+               xDateFormat: '%Y/%m/%d',
+            }
+        },{
+            name: '趨勢線',
+            type: 'spline',
+			pointStart: Date.UTC(2014, 2, 15),
+             pointInterval: 24 * 3600 * 1000 ,
+			 marker:{
+                enabled: false},
+            //yAxis: 1,
+            data: {{ TL }},
+            tooltip: {
+           //     valueSuffix: ' 元',
+                formatter: function () {
+                    return '<b>' + '20'+ this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' ;
+                }
+            }
+			},{
+            name: '-2SD',
+            type: 'spline',
+			pointStart: Date.UTC(2014, 2, 15),
+             pointInterval: 24 * 3600 * 1000 ,
+			 marker:{
+                enabled: false},
+            //yAxis: 1,
+            data: {{ TL_2SD }},
+            tooltip: {
+               // valueSuffix: ' 元',
+                formatter: function () {
+                    return '<b>' + '20'+ this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' ;
+                }
+			}
+			},
+			{
+            name: '-SD',
+            type: 'spline',
+			pointStart: Date.UTC(2014, 2, 15),
+             pointInterval: 24 * 3600 * 1000 ,
+			 marker:{
+                enabled: false},
+            //yAxis: 1,
+            data: {{ TL_SD }},
+            tooltip: {
+             //   valueSuffix: ' 元',
+                formatter: function () {
+                    return '<b>' + '20'+ this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' ;
+                }
+            },
+			},{
+            name: '+SD',
+            type: 'spline',
+			pointStart: Date.UTC(2014, 2, 15),
+             pointInterval: 24 * 3600 * 1000 ,
+			 marker:{
+                enabled: false},
+            //yAxis: 1,
+            data: {{ TL_plus_SD }},
+            tooltip: {
+               // valueSuffix: ' 元',
+                formatter: function () {
+                    return '<b>' + '20'+ this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' ;
+                }
+			}
+			},
+			{
+            name: '+2SD',
+            type: 'spline',
+			pointStart: Date.UTC(2014, 2, 15),
+             pointInterval: 24 * 3600 * 1000 ,
+			 marker:{
+                enabled: false},
+            //yAxis: 1,
+            data: {{ TL_plus_2SD }},
+            tooltip: {
+            //    valueSuffix: ' 元',
+                formatter: function () {
+                    return '<b>' + '20'+ this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' ;
+                }
+            },
+			
+        }]
+    });
+});
+
+
+    </script>
+</head>
+<body style="background-image: url('{% static 'png/bk.jpg' %}'); background-position: 0px 0px;">
+
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/smallschool/">
+                <!-- <i class="icon-earphones"></i>-->
+                <!--<span class="hidden-nav-xs m-2-sm"> <img src="{% static 'png/robot2.png' %}" height="56" width="58"></span>-->
+                <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img height="35"
+                                                                             src="{% static 'png/love.gif' %}"
+                                                                             width="27">Futures</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><a href="/get_news/" target="_blank"><img src="{% static 'png/money 2.png' %}"> NEWS</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/tap.png' %}">
+                            交易資訊</a></font></h3>
+                        <ul class="sub">
+                            <li><a href="/algotrade/">歷史回測</a></li>
+                            <li><a href="/recent/">即時資料</a></li>
+                            <li><a href="/stock/">期貨專區</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="//" target="_blank"><img src="{% static 'png/business.png' %}"> EDITOR</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/economic_term/" target="_blank"><img src="{% static 'png/anal.png' %}"> 指標專區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/tech/" target="_blank"><img src="{% static 'png/pay.png' %}"> 下單機</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/school.png' %}"> 新手專區</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/get_article/">討論區</a></li>
+                            <li><a href="/rookie/">新手投資小常識</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a href="/member/"><img src="{% static 'png/people-3.png' %}"> 會員</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">我的追蹤期貨</a></li>
+                            <li><a href="/economic_term/">我的期貨新聞</a></li>
+                            <li><a href="/stock_ana/">機器人投顧</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+                            <nav>
+                                <ul class="nav bg-black clearfix" style="width:230px;">
+                                    {% if loginstatus == False %}
+                                    <div style="margin-left:40px; margin-top:8px">
+                                        <a class="myButton" href="/login/">登入系統</a>
+                                        <a class="myButton" href="/signin/">註冊會員</a>
+                                    </div>
+
+
+                                    <!--喔喔不要壞掉惹-->
+                                    {% else %}
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font size="3">&nbsp;您好!&nbsp;{{ name
+                                            }}</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <!---->
+                                    {% endif %}
+
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search" style="padding-top:5px"></i></button>
+            </span>
+                                            <input autocomplete="off"
+                                                   class="form-control input-sm no-border rounded mac"
+                                                   placeholder="請輸入股號/股名" type="text">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="nav navBar1 clearfix dk">
+                                        <!--崩壞開始-->
+
+                                        <div class="menu" id="menu">
+                                            <div class="menu-header"> 機器人投顧</div>
+                                            <ul>
+                                                <li><a href="/predict/"><i class="fa fa-rocket"
+                                                                           style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>預知未來型</strong></font></a>
+                                                    <!--   <ul class="submenu">
+                                                         <li><a href="#" onClick="demo1()"><font size="3">財報數據</font></a></li>
+                                                         <li><a href="#" onClick="demo2()"><font size="3">獲利能力</font></a></li>
+                                                         <li><a href="#" onClick="demo3()"><font size="3">安全性</font></a></li>
+                                                         <li><a href="#" onClick="demo4()"><font size="3">成長力</font></a></li>
+                                                       </ul>-->
+                                                </li>
+                                                <li><a href="/gep/"><i class="fa fa-stethoscope"
+                                                                       style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>健康診斷型</strong></font></a></li>
+                                                <li><a href="/analysis1/"><i class="icon-like"
+                                                                             style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>推薦好股型</strong></font></a></li>
+                                                <li><a href="/five/"><i class="fa fa-shopping-cart"
+                                                                        style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        color="#CCD7D8" size="+1"><strong>買賣分析型</strong></font></a></li>
+                                                <li><a href="/funds/"><i class=" icon-present"
+                                                                         style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>投資組合推薦</strong></font></a></li>
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </nav>
+                        </div>
+                        </ul>
+
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">  <!--vbox-->
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+
+                                <a id="top"></a>
+                                <div>
+                                    <ul class="breadcrumb" style="background-color:transparent">
+                                        <a href="#"><i class="fa fa-home"></i> 首頁 </a><i
+                                            class="fa fa-angle-double-right" style="color:#066"></i>
+                                        <font color="#414141"> 選股專區</font> <i class="fa fa-angle-double-right"
+                                                                              style="color:#066"></i> <font
+                                            color="#414141"> <u>買賣機器人</u></font>
+                                        <span class="pull-right" style="color:#000;">股票交易日期 : <span style="
+   border-color:#296564;
+   font-family:'Courier New', Courier, monospace;
+    border-style: solid;
+    background-color:#368D8D;
+    border-width: thin;
+    color: #F7F9AE;
+    margin: 2px;
+    padding: 2px;"> 2016/08/26</span></span>
+                                    </ul>
+                                </div>
+
+                                <!-- <div style="margin-top:-170px; margin-bottom:-40px; margin-left: 450px">   <h1 class="h text-white animated fadeInDownBig"><font size="+3" color="#1E4C32">樂活五線譜</font></h1>     </div>-->
+                                <section class="post-item panel-success col-md-6 scrollable"
+                                         style="margin-top:20px; width:1065px;height:320px; margin-bottom:-5px;padding:20px;padding-top:10px; background: rgba(20%,18%,20%,0.6);border-radius:25px">
+                                    <h2><font color="#fff">不用盯盤，就能輕鬆找到買賣點 -- &nbsp;<font size="5px">樂活五線譜</font></font>
+                                    </h2>
+                                    <div class="elearning_block"
+                                         style="padding:18px; padding-top:5px;padding-bottom:5px;">
+                                        <div><font color="#ffc800"><strong>五線譜投資創始者 : 薛兆亨</strong></font></div>
+                                        <div><font color="#ffc800"><strong>適合對象 : </strong></font></div>
+                                        <div class="elearning_content" style="margin-bottom:5px">
+                                            <li>1. 沒時間研究股票的小資族</li>
+
+                                            <li>2. 一般散戶投資者</li>
+                                        </div>
+                                        <div class="elearning_title">什麼是五線譜投資?</div>
+                                        <div class="elearning_content">
+                                            五線譜投資是基於股價上下波動常態分佈走勢的假設，用類似一月五線譜的5條直線，來判斷股票的相對高低點，找到買賣時機
+                                        </div>
+
+                                        <div class="elearning_title">哪5條線?</div>
+                                        <div class="elearning_content">
+                                            <li>
+                                                五線譜以中間的"趨勢線"為基礎，上下一標準差各畫2條平行的直線。符合常態分佈的話，在2個標準差之外，再下跌、再上漲的機率只有個2.5%左右。此投資方法可運用於各股或個別市場。
+                                            </li>
+                                        </div>
+
+                                        <div class="elearning_title">用五線譜自動找出高低點</div>
+                                        <div class="elearning_content">
+                                            當股價掉到最下面那條線之下，繼續往下走的機率只有2.5%左右，由於再下跌的機率已經相當低，此時是買點，不是賣點!反之，股價超越最上面那條線時，再漲的機率也只有2.5%左右，是賣點，而不是買點!
+                                        </div>
+                                    </div>
+                                </section>
+
+
+                                <form action="/five/" method="post">
+                                    <section class="panel post-item panel-success col-md-6"
+                                             style="margin-top:20px; width:525px; height:320px"><input name="draw"
+                                                                                                       type="hidden"
+                                                                                                       value="click">
+                                        <header class="row-wrapper panel-heading "
+                                                style="margin-bottom:-5px;border-bottom:#063 1px solid"><i
+                                                class="fa fa-fw fa-pencil icon-muted"
+                                                style="color:inherit"></i>&nbsp;<font
+                                                size="+1"><strong>請輸入資料</strong></font>
+                                            <button class="mb3 pull-right" style="margin:-5px; margin-left:10px;"
+                                                    type="submit"> 開始繪圖&nbsp;<i class="fa  fa-angle-double-down"></i>
+                                            </button>
+                                        </header>
+
+                                        <article class="page-list-content" style="padding:10px;">
+                                            <div class="tabbox">
+                                                <div class="content">
+                                                    <ul>
+                                                        <li style="padding-top:6px; margin-left:0px">
+                                                            <div class="list-group auto m-b-sm m-b-lg">
+          <span class="list-group-item" style="    position: relative;
+    display: block;
+    padding: 20px 20px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-color: #eaeef1;
+    padding-right: 50px;">
+            <font color="#FF0000">*</font> 股號名稱或代碼  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+                  autocomplete="off" class="mac2" id="demo1" name="stock_id" required
+                  style="line-height:25px; border-radius:5px; width:167px;float: right;padding: 5px 10px; margin-top: -6.5px"
+                  type="text"><!--<input type="number" name="points" min="1" max="10"  class="mac2" />-->
+          </span>
+                                                                <script>
+    $('#demo1').typeahead({
+        source: [
+            { id: 1, name: '2330 台積電' },
+            { id: 2, name: '1101 台泥' },
+            { id: 3, name: '1102 亞泥' },
+            { id: 4, name: '1217 愛之味' },
+            { id: 5, name: '1256 鮮活果汁-KY' },
+            { id: 6, name: '1262 綠悅-KY' },
+            { id: 7, name: '1301 台塑' },
+            { id: 8, name: '1326 台化' },
+            { id: 9, name: '1565 精華' },
+            { id: 10, name: '1590 亞德客-KY' },
+			{ id: 11, name: '1704 榮化' },
+            { id: 12, name: '2002 中鋼' },
+            { id: 13, name: '2023 燁輝' },
+            { id: 14, name: '2105 正新' },
+            { id: 15, name: '2107 厚生' },
+            { id: 16, name: '2201 裕隆' },
+            { id: 17, name: '2207 和泰車' },
+            { id: 18, name: '2227 裕日車' },
+            { id: 19, name: '2308 台達電' },
+            { id: 20, name: '2317 鴻海' },
+			{ id: 21, name: '2323 中環' },
+            { id: 22, name: '2344 華邦電' },
+            { id: 23, name: '2347 聯強' },
+            { id: 24, name: '2349 錸德' },
+            { id: 25, name: '2353 宏碁' },
+            { id: 26, name: '2357 華碩' },
+            { id: 27, name: '2371 大同' },
+            { id: 28, name: '2373 震旦行' },
+            { id: 29, name: '2379 瑞昱' },
+            { id: 30, name: '2382 廣達' },
+			{ id: 31, name: '2383 台光電' },
+            { id: 32, name: '2397 友通' },
+            { id: 33, name: '2405 浩鑫' },
+            { id: 34, name: '2409 友達' },
+            { id: 35, name: '2412 中華電' },
+            { id: 36, name: '2454 聯發科' },
+            { id: 37, name: '2474 可成' },
+            { id: 38, name: '2481 強茂' },
+            { id: 39, name: '2485 兆赫' },
+            { id: 40, name: '2498 宏達電' },
+			{ id: 41, name: '2610 華航' },
+            { id: 42, name: '2618 長榮航' },
+            { id: 43, name: '2727 王品' },
+            { id: 44, name: '2729 瓦城' },
+            { id: 45, name: '2809 京城銀' },
+            { id: 46, name: '2832 台產' },
+            { id: 47, name: '2845 遠東銀' },
+            { id: 48, name: '2852 第一保' },
+            { id: 49, name: '2855 統一證' },
+            { id: 50, name: '2881 富邦金' },
+			{ id: 51, name: '2882 國泰金' },
+            { id: 52, name: '2890 永豐金' },
+            { id: 53, name: '2912 統一超' },
+            { id: 54, name: '3008 大立光' },
+            { id: 55, name: '3045 台灣大' },
+            { id: 56, name: '3059 華晶科' },
+            { id: 57, name: '3083 網龍' },
+            { id: 58, name: '3450 聯鈞' },
+            { id: 59, name: '3454 晶睿' },
+            { id: 60, name: '3548 兆利' },
+			{ id: 61, name: '3663 鑫科' },
+            { id: 62, name: '3669 圓展' },
+            { id: 63, name: '3702 大聯大' },
+            { id: 64, name: '4129 聯合' },
+            { id: 65, name: '4416 三圓' },
+            { id: 66, name: '4552 力達-KY' },
+            { id: 67, name: '4726 永昕' },
+            { id: 68, name: '4739 康普' },
+            { id: 69, name: '4904 遠傳' },
+            { id: 70, name: '4915 致伸' },
+			{ id: 71, name: '4935 茂林-KY' },
+            { id: 72, name: '4946 辣椒' },
+            { id: 73, name: '5474 聰泰' },
+            { id: 74, name: '5903 全家' },
+            { id: 75, name: '6015 宏遠證' },
+            { id: 76, name: '6154 順發' },
+            { id: 77, name: '6176 瑞儀' },
+            { id: 78, name: '6214 精誠' },
+            { id: 79, name: '6244 茂迪' },
+            { id: 80, name: '6281 全國電' },
+			{ id: 81, name: '6505 台塑化' },
+            { id: 82, name: '8044 網家' },
+            { id: 83, name: '8101 華冠' },
+            { id: 84, name: '8349 恒耀' },
+            { id: 85, name: '8906 花王' },
+            { id: 86, name: '9914 美利達' },
+            { id: 87, name: '9921 巨大' },
+
+        ]
+    });
+
+                                                                </script>
+                                                                <span class="list-group-item" style="    position: relative;
+    display: block;
+    padding: 20px 20px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-color: #eaeef1;
+    padding-right: 50px;">
+            <font color="#FF0000">*</font> 觀察日期 (預設今日)&nbsp;&nbsp;&nbsp; <input class="mac2" name="date"
+                                                                                style="line-height:25px; border-radius:5px; width:167px;float: right;padding: 5px 10px;margin-top: -6.5px"
+                                                                                type="date" value="{{ today }}"/>
+          </span>
+
+                                                                <span class="list-group-item" style="    position: relative;
+    display: block;
+    padding: 20px 20px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-color: #eaeef1;
+    padding-right: 50px;">
+          <font color="#FF0000">*</font> 計算期間 (預設3.5年)&nbsp; &nbsp; <input class="mac2" max="7" min="1" name="user_date"
+                                                                           step="0.5"
+                                                                           style="line-height:25px; border-radius:5px; width:167px;float: right;padding: 5px 10px;margin-top: -6.5px"
+                                                                           type="number" value="3.5"/>
+       </span>
+                                                                <span class="list-group-item" style="    position: relative;
+    display: block;
+    padding: 20px 20px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-color: #eaeef1;
+    padding-right: 50px;
+    height: 64px">
+        <div class=" tooltip3"><span class="tooltiptext3" style="padding: 5px; margin-left: -1px; width: 170px"><font
+                size="-2">若資料期間超過十年且高低差距較大時，可以考慮取對數</font></span>    <select class="selectable mac" id="pref"
+                                                                             name="category"
+                                                                             style="line-height:25px; border-radius:5px; width:167px;float: right;padding: 5px 10px;margin-top: -6.5px; margin-left: 93px; border-color: #ddd">
+	    		
+                <option value="0">非對數</option>
+	    			<option value="1">對數</option>
+	    	</select></div> <select class="selectable mac" id="pref" name="category"
+                                    style="line-height:25px; border-radius:5px; width:167px;float: left;padding: 5px 10px;margin-top: -6.5px; border-color: #ddd">
+	    		
+                <option value="0">收盤</option>
+	    			<option value="1">調整後收盤</option>
+	    	</select>
+          </span>
+                                                            </div>
+
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        </li></ul>   </section>
+                                </form>
+
+                                <section class="panel post-item panel-success col-md-6"
+                                         style="margin-top:20px; width:525px; height:320px; margin-left:12px">
+                                    <header class="row-wrapper panel-heading "
+                                            style="margin-bottom:-5px;border-bottom:#063 1px solid"><i
+                                            class="fa fa-fw fa-flag icon-muted" style="color:inherit"></i>&nbsp;<font
+                                            size="+1"><strong>指標解釋</strong></font></header>
+
+                                    <article class="page-list-content" style="padding:12px;">
+                                        <div class="tabbox scrollable">
+                                            <div class="content" style=" height: 700px">
+                                                <table id="customers" style="color:#333;">
+                                                    <tr>
+                                                        <th>名 稱</th>
+                                                        <th>指 標 說 明</th>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td width="25%">趨勢線<br>Trend Line</td>
+                                                        <td>使用直線回歸分析法(linear regression)，產生一條長期直線趨勢</td>
+                                                    </tr>
+
+                                                    <tr class="alt">
+                                                        <td>斜率<br>Slope</td>
+                                                        <td>趨勢線的斜率，五線譜投資用在<font color="#dc143c">正斜率的市場較容易獲利</font></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>景氣循環</td>
+                                                        <td>台灣股市一個大的景氣循環約7、8年，<font
+                                                                color="#dc143c">一般取半循環(3.5年)繪出五線譜</font>，原因是買賣訊號較多
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="alt">
+                                                        <td>股價淨值比<br>PBR</td>
+                                                        <td>(股價/淨值)<br>股價淨值比小於平均值時，代表現在比較便宜，可以考慮買進；
+                                                            股價淨值比大於平均值時，代表現在比較昂貴，可以考慮賣出。
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>股息殖利率<br>DY</td>
+                                                        <td>(股利/目前股價)<br>股息殖利率小於平均值時，代表現在比較便宜，可以考慮買進；
+                                                            殖利率大於平均值時，代表現在比較昂貴，可以考慮賣出。
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="alt">
+                                                        <td>本益比<br>PER</td>
+                                                        <td>(收盤價／每股稅後純益)<br>本益比小於平均值時，代表現在比較便宜，可以考慮買進；
+                                                            本益比大於平均值時，代表現在比較昂貴，可以考慮賣出。
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>-2SD</td>
+                                                        <td>趨勢線以下兩個標準差</td>
+                                                    </tr>
+
+                                                    <tr class="alt">
+                                                        <td>-SD</td>
+                                                        <td>趨勢線以下一個標準差</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>+SD</td>
+                                                        <td>趨勢線以上一個標準差</td>
+                                                    </tr>
+
+                                                    <tr class="alt">
+                                                        <td>+2SD</td>
+                                                        <td>趨勢線以上兩個標準差</td>
+                                                    </tr>
+
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </section>
+
+
+                                <section class="panel post-item panel-success col-md-6" id="w"
+                                         style="margin-top:2px; width:1065px; height:300px;">
+                                    <header class="row-wrapper panel-heading "
+                                            style="margin-bottom:-5px;border-bottom:#063 1px solid"><i
+                                            class="fa fa-fw fa-bar-chart-o icon-muted"
+                                            style="color:inherit"></i>&nbsp;<font size="+1"><strong>繪圖結果</strong></font>
+                                    </header>
+
+                                    <article class="page-list-content" style="padding:10px;">
+                                        {% if click != 'click' %}
+                                        <div align="center" style="padding-top:50px; background-color:#fff"><img
+                                                height="80" src="{% static 'png/in.png' %}" width="80"></div>
+                                        <div align="center" style="padding-bottom:40px; background-color:#fff"><br><font
+                                                color="#333333" size="+2"><strong>輸入資料後點擊開始繪圖</strong></font></div>
+                                        <div class="tabbox" id="draw" style=" display:none;">
+                                            {% endif %}
+
+                                            <div id="container" style="height: 500px;width:1045px; "></div>
+                                            {% if click == 'click' %}
+                                            <script>
+
+                document.getElementById( 'w' ).style.height = '560px';
+    			$(".draw").show();
+
+
+                                            </script>
+                                            {% endif %}
+                                        </div>
+                                    </article>
+                                </section>
+
+                                <script>
+    //加入追蹤
+    function add_stock(stockid) {
+        $.ajax({
+            url: "/add_stock/",
+            data: {stockID: stockid},
+            type: "POST",
+            success: function (data) {
+                alert(stockid+"已加入追蹤!");
+            },
+            complete:function() {
+                 var x = document.getElementsByClassName("mb0");
+                 x[i].disabled = true;},
+            error:function(xhr, ajaxOptions, thrownError){
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+
+        })
+    }
+
+                                </script>
+
+                                <section class="panel post-item panel-success col-md-6" id="show2"
+                                         style="margin-top:2px; width:1065px; height:265px;display: none">
+                                    <header class="row-wrapper panel-heading "
+                                            style="margin-bottom:-5px;border-bottom:#063 1px solid"><i
+                                            class="fa fa-fw fa-comments-o icon-muted"
+                                            style="color:inherit"></i>&nbsp;<font
+                                            size="+1"><strong>五線譜講解</strong></font><a
+                                            href="javascript:add_stock('{{ stock_id }}')">
+                                        <button class="mb3 pull-right" onClick="change();"
+                                                style="margin:-5px; margin-left:10px;"> 加入追蹤&nbsp;<i
+                                                class="fa  fa-plus"></i></button>
+                                    </a></header>
+                                    {% if click == 'click' %}
+                                    <script>
+
+                $("#show2").show(1000);
+
+
+                                    </script>
+                                    {% endif %}
+                                    <article class="page-list-content" style="padding:10px;">
+                                        <div class="col-md-6"
+                                             style="padding:8px; height: 210px; width: 50%; border-radius: 25px; border: #ddd 0px solid">
+                                            <table id="customers" style="color:#333">
+
+                                                <tr>
+                                                    <td>股號/日期</td>
+                                                    <td>{{ stock_name }}({{ stock_id }}) &nbsp;&nbsp;日期: {{ date }}</td>
+                                                </tr>
+
+                                                <tr class="alt">
+                                                    <td>股價</td>
+                                                    <td>{{ p }} 元</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>股價位置</td>
+                                                    <td>{{ position }}</td>
+                                                </tr>
+
+                                                <tr class="alt">
+                                                    <td>趨勢線斜率</td>
+                                                    <td>{{ slope }}</td>
+                                                </tr>
+
+                                                <tr>
+                                                <tr>
+                                                    <td>台股基本面</td>
+                                                    <td>{{ tw }}</td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6"
+                                             style="padding:10px;margin-top: 6px;height: 195px; width: 49%; border-radius: 3px; border: #ddd 1px solid; margin-left: 3px">
+                                            <div style="margin-top: -10px"><h2 style="width: 80px"><font
+                                                    color="#333">解說</font></h2></div>
+                                            <div style="margin-left: 5px; padding-top: 10px;">{% if stock_id == '2330'
+                                                %} 股價位於{{ position }}，趨勢線斜率為{{ slope }}，代表{{ conclusion }}
+                                                {% else %} 股價位於{{ position }}，趨勢線斜率為{{ slope }}，代表{{ conclusion }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </article>
+                                </section>
+
+
+                            </section>
+                            <footer class="footer bg-alert">
+                                <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+                                </h6>
+                            </footer>
+
+                        </section>
+                        <script src="{% static 'js/jquery.min.js' %}"></script>
+                        <script src="{% static 'js/bootstrap.js' %}"></script>
+                        <!-- Bootstrap -->
+
+                        <script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')
+                        </script>
+
+                        <script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/app.js' %}"></script>
+                        <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+                        <script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
+
+                        <a href="#top">
+                            <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+                        </a></section>
+                </section>
+            </section>
+        </section>
+    </section>
+</body>
+</html>

@@ -1,0 +1,693 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+    <meta content="text/html" http-equiv="content-type">
+    <meta charset="utf-8"/>
+    <title>股票分析內容</title>
+    <link href="{% static 'css/style.css' %}" media="screen and (max-width: 700px)" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/3.png' %}" rel="shortcut icon">
+    <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+	
+.navBar1 {
+	width:228px;
+	margin:0 auto;
+	margin-left:1px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.tb th {
+    background: #DCFEF5;
+    border: solid 1px #6DF1CA;
+	height:35px;
+	padding-left:10px;
+	
+}
+.tb{ font-size:17px; color:#568279}
+.tb td{
+	border: solid 1px #CDCDCD;
+	padding-left:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	font-size:18px;
+	}
+.tb tr:nth-child(odd){background:#F4F4F4;}
+.tb tr:hover{background:#FDFFEE;text-shadow: 0 0 10px yellow;}
+
+
+    </style>
+</head>
+<body style="background-image: url('{% static 'images/03.jpg' %}'); background-position: 0px 0px;">
+
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/home/">
+                <!-- <i class="icon-earphones"></i>-->
+                <span class="hidden-nav-xs m-2-sm"> <img height="56" src="{% static 'png/robot2.png' %}"
+                                                         width="58"></span>
+                <span class="hidden-nav-xs m-l-sm"><font size="4">羅伯特<img height="35" src="{% static 'png/love.gif' %}"
+                                                                          width="27">瑪妮</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/get_news/">財經新聞</a></li>
+                            <li><a href="/stock/">個股速覽</a></li>
+                            <li><a href="/fundamental/">基本面分析</a></li>
+                            <li><a href="/macd/">技術面分析</a></li>
+                            <li><a href="/margin/">籌碼面分析</a></li>
+                            <li><a href="/bal_sheet/">財報分析</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="http://sc.chinaz.com/" target="_blank"><img src="{% static 'png/tap.png' %}"> 選股專區</a>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/tech/">技術面選股</a></li>
+                            <li><a href="/master/">選股小幫手</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/test/">理財小測驗</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/member/" target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員專區</a></h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/member_news/">個股資訊 & 新聞</a></li>
+                            <li><a href="/my_stock/">投資組合清單</a></li>
+                            <li><a href="/mem_sto/">選股條件清單</a></li>
+                            <li><a href="/modify/">會員基本資料</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/financial/" target="_blank"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/get_article/" target="_blank"><img src="{% static 'png/interface.png' %}"> 討論區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/smallschool/" target="_blank"><img src="{% static 'png/open-book.png' %}">
+                            理財小學堂</a></h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">新手投資小常識</a></li>
+                            <li><a href="/economic_term/">經濟指標一覽</a></li>
+                            <li><a href="/stock_ana/">股票分析教室</a></li>
+                            <li><a href="/stock_ana/">選股小撇步</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+                            <nav>
+                                <ul class="nav bg-black clearfix" style="width:230px;">    <!--登入後消失 <div style="margin-left:40px; margin-top:8px">
+  <a href="login.html" class="myButton">登入系統</a>
+  <a href="signin.html" class="myButton">註冊會員</a>
+                     </div> -->
+
+
+                                    <!--喔喔不要壞掉惹-->
+
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font
+                                                size="3">&nbsp;您好!&nbsp;王曉明</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="#"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+                                    <!---->
+
+
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+                                            <input class="form-control input-sm no-border rounded"
+                                                   placeholder="請輸入股號/股名" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="nav navBar1 clearfix dk">
+                                        <!--崩壞開始-->
+
+                                        <div class="menu" id="menu">
+                                            <div class="menu-header"> 理財小學堂</div>
+                                            <ul>
+                                                <li><a href="/new_info/"><i class=" icon-graduation"
+                                                                            style="margin-top:7px; color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>新手投資小常識</strong></font></a></li>
+                                                <li><a href="/dict/"><i class="icon-direction"
+                                                                        style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>經濟指標一覽</strong></font></a>
+                                                </li>
+                                                <li><a href="/stock_ana/"><i class="icon-bar-chart"
+                                                                             style="margin-top:7px ;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>股票分析教室</strong></font></a>
+
+                                                </li>
+                                                <li><a href="/choose_stock/"><i class="icon-basket"
+                                                                                style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>選股小撇步</strong></font></a>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </ul>
+
+                            </nav>
+                        </div>
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="vbox">
+                    <section class="scrollable wrapper">
+                        <a id="top"></a>
+                        <div class="row text-m">
+                            <section class="panel panel-danger">
+                                <header class="panel-heading" style="height:50px"><h3 align="center"
+                                                                                      class="font-thin m-b"
+                                                                                      style="margin-top:3px;"><font
+                                        color="#4D4D4C">1-1. 什麼是 基本面 ？</font></h3> <a class="btn btn-info pull-right"
+                                                                                      href="/stock_ana/"
+                                                                                      style="margin-bottom:20px; margin-left:10px; ">返回列表</a>
+                                </header>
+
+                                <div style="padding-left:20px"></div>
+                                <div style="background-color:A7C942;height:10px; padding-top:10px">
+                                </div>
+                                <div style="padding-left:20px">
+                                    <div class="c-content" id="courseContent"
+                                         style="font-size: 16px; line-height: 27px;"><p>&nbsp;</p>
+
+                                        <p><img alt="" height="462"
+                                                src="http://www.cmoney.tw/learn/cmstatic/learn/50/20160506113132522.jpg"
+                                                width="820"></p>
+
+                                        <p>(圖片翻攝自網路）</p>
+
+                                        <h1>不是每個人</h1>
+
+                                        <h1>都可以 40 歲前退休</h1>
+
+                                        <p>應該說大部分人都沒辦法做到</p>
+
+                                        <p>要提前退休</p>
+
+                                        <p>趁年輕就應該做好理財規劃</p>
+
+                                        <p>投資股票賺錢不是傳說</p>
+
+                                        <p>只要你認真研究</p>
+
+                                        <p>不工作月領 10 萬 真的很簡單</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>老王說</p>
+
+                                        <p>投資他只看基本面</p>
+
+                                        <p>年利率竟然高達 7%....</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>趕快來看看究竟什麼是基本分析吧！</p>
+
+                                        <p>&nbsp;</p>
+
+
+                                        <h1>基本面就是</h1>
+
+                                        <h1>透過了解公司的財務狀況</h1>
+
+                                        <h1>來選擇股票</h1>
+
+                                        <h2>基本面分析是</h2>
+
+                                        <h2>檢驗一家公司的財務</h2>
+
+                                        <h2>內部運作、產業市場狀況</h2>
+
+                                        <p>包含一家公司的</p>
+
+                                        <p><strong>財務報表</strong> 和 <strong>非財務上的資訊</strong></p>
+
+                                        <p>如商品需求成長性的預測、企業比較</p>
+
+                                        <p>新制度的影響分析或人口的改變。</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>通常和 <strong>技術面分析</strong>相對</p>
+
+                                        <p>技術分析在研究證券價值的趨勢時</p>
+
+                                        <p>不使用到市場本身以外的因素</p>
+
+                                        <p>(例如: K 線圖、量價關係等等...)來做預測。</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p><img alt="" height="291"
+                                                src="http://www.cmoney.tw/learn/cmstatic/learn/50/20140728145325842.png"
+                                                width="500"></p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>基本分析通常以三個面向來分析：</p>
+
+                                        <h2>1. 總體經濟學分析</h2>
+
+                                        <p>通常包括國際和國內各經濟指標</p>
+
+                                        <p>如GDP成長率、通貨膨脹、</p>
+
+                                        <p>利率、匯率、生產力和能源價格。</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <h2>2. 產業分析：</h2>
+
+                                        <p>包括整體產業的銷售量、價格標準、</p>
+
+                                        <p>產品效能、國外競爭和進入產業的公司數。</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <h2>3. 個別公司的分析：</h2>
+
+                                        <p>&nbsp; 包括其銷售量、價格、新產品、獲利等。</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p><img alt="" height="298"
+                                                src="http://www.si-nan.com/uploads/allimg/140509/1-14050ZZ107.jpg"
+                                                width="500"></p>
+
+                                        <p><a href="/http://www.si-nan.com/News/zixun/2014/0509/98.html/"><span
+                                                style="color:#808080"><span
+                                                style="font-size:12px">(圖片翻攝自 網路)</span></span></a></p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <h1>基本面分析</h1>
+
+                                        <h1>能找出股票的真實價值</h1>
+
+                                        <p>基本面分析</p>
+
+                                        <p>即分析 <strong>公司本業</strong> 及</p>
+
+                                        <p><strong>業外投資的營運狀況</strong></p>
+
+                                        <p>配合 <strong>總體政經國際環境</strong></p>
+
+                                        <p>和 <strong>過去營運及同業競爭的結果</strong></p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>如果強調研究</p>
+
+                                        <p>整體宏觀經濟狀況</p>
+
+                                        <p>對企業及產業的影響</p>
+
+                                        <p><strong><span style="background-color:#FFFF00">掌握經濟走向及產業趨勢</span></strong>
+                                        </p>
+
+                                        <p><strong><span style="background-color:#FFFF00">並找出在未來經濟環境中</span></strong>
+                                        </p>
+
+                                        <p><strong><span style="background-color:#FFFF00">表現最佳的產業及個股</span></strong></p>
+
+                                        <p><strong><span style="background-color:#FFFF00">即可在股市中有所獲。</span></strong></p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>所以總歸來說</p>
+
+                                        <p>都是要透過基本分析來找到股票的真實價值</p>
+
+                                        <p>找出公司的真實價值後</p>
+
+                                        <p>其應用原則非常的簡單。</p>
+
+                                        <p><br>
+                                            <img alt="" height="143"
+                                                 src="http://www.cmoney.tw/learn/cmstatic/learn/50/20140728150244686.png"
+                                                 width="422"></p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <h1>投資的觀念</h1>
+
+                                        <h1>以選擇正確股票為主</h1>
+
+                                        <h1>至於經濟及市場狀況</h1>
+
+                                        <h1>則是次要考慮。</h1>
+
+                                        <p>若能選到前景良好</p>
+
+                                        <p>盈餘成長快速</p>
+
+                                        <p>而仍未被投資大眾所認知的公司</p>
+
+                                        <p>買入並持有</p>
+
+                                        <p>一旦投資者發現它被低估時</p>
+
+                                        <p>股價便會急遽上升。</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <h2>公司外部環境因素</h2>
+
+                                        <h2>即總體經濟面</h2>
+
+                                        <h2>公司內部因素</h2>
+
+                                        <h2>包括公司營運狀況、產業狀況</h2>
+
+                                        <p>公司的營收會隨著景氣的循環起伏</p>
+
+                                        <p>而股價通常會隨著 <strong>公佈營收的成長</strong>來漲跌。</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p><strong><span style="background-color:#FFFF00">因此 經濟繁榮時，營收增加</span></strong>
+                                        </p>
+
+                                        <p><strong><span
+                                                style="background-color:#FFFF00">相反的，經濟衰退時，股價減少。</span></strong></p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p><img alt="" height="231"
+                                                src="http://www.cmoney.tw/learn/cmstatic/learn/50/20140728151452380.png"
+                                                width="500"></p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>除此之外</p>
+
+                                        <p>通貨膨脹太高(錢變得比較沒有價值)時</p>
+
+                                        <p>營收減少</p>
+
+                                        <p>政府財政支出增加</p>
+
+                                        <p>例如：政府興建某經濟建設時</p>
+
+                                        <p>營收增加。</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <h2>公司營運狀況好</h2>
+
+                                        <h2>營收增加 → 基本面佳</h2>
+
+                                        <h2>公司收入好，股價漲</h2>
+
+                                        <h2>公司收入差，股價跌</h2>
+
+                                        <p><strong>公司本身營運狀況</strong></p>
+
+                                        <p>是決定基本面最基本的因素</p>
+
+                                        <p><strong><span style="background-color:#FFFF00">通常公司的 營運狀況 </span></strong>
+                                        </p>
+
+                                        <p><strong><span style="background-color:#FFFF00">會和 公司股價的漲跌成正比。</span></strong>
+                                        </p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p><img alt="" height="457"
+                                                src="http://www.cmoney.tw/learn/cmstatic/learn/50/20140728152228927.png"
+                                                width="500"></p>
+
+                                        <p><span style="font-size:12px"><span style="color:#808080">(圖片來源：</span><a
+                                                href="/https://www.google.com.tw/search?biw=1635&amp;bih=849&amp;tbm=isch&amp;sa=1&amp;q=%E9%A6%AC%E4%B8%8A%E5%8A%A0%E7%8C%A9&amp;oq=%E9%A6%AC%E4%B8%8A%E5%8A%A0%E7%8C%A9&amp;gs_l=img.3...10974.22405.0.22715.18.18.0.0.0.1.216.1285.13j4j1.18.0....0...1c.1j4.51.img..16.2.197.98zFWuuAhy4#facrc=_&amp;imgdii=_&amp;imgrc=Z39NoqHJzaVHsM%253A%3Bb58d34mloGZagM%3Bhttp%253A%252F%252Fimage.ibicn.com%252Fwww%252F201312%252F27%252F7973703220276809.jpg%3Bhttp%253A%252F%252Fwww.shebeiask.com%252Fnews%252Fd1002399.html%3B400%3B400/"
+                                                target="_blank"><span style="color:#808080">網路</span></a><span
+                                                style="color:#808080">)</span></span></p>
+
+                                        <h1>&nbsp;</h1>
+
+                                        <h1>公司的營運狀況</h1>
+
+                                        <h1>可以從財務報表中看出來</h1>
+
+                                        <p>我們可以透過財務報表內的各個數據</p>
+
+                                        <p>評估公司的成長性、營收表現</p>
+
+                                        <p>以及發生財務危機的風險高低等</p>
+
+                                        <p>這些 在之後的章節中 會詳細說明</p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p><a href="/ http://cmy.tw/004X6r /" target="_blank"><img
+                                                alt="投資小學堂文中 20141212" class="cmoneyads"
+                                                src="http://fsv.money01.com.tw/cmstatic/app/images/ads/ad35B1BBC07.png"
+                                                title=""></a></p>
+
+                                        <p>&nbsp;</p>
+
+                                        <h2>買股票看基本面</h2>
+
+                                        <h2>才容易賠小錢賺大錢呦~</h2>
+
+                                    </div>
+                                </div>
+
+                            </section>
+                        </div>
+                    </section>
+                </section><!--<footer class="footer bg-alert">
+    <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+</h6>
+    </footer>-->
+
+
+                <script src="{% static 'js/jquery.min.js' %}"></script>
+                <!-- Bootstrap -->
+                <script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js}" type="text/javascript"></script>
+                <script>
+                    window.jQuery || document.write('<script src="{% static 'js/jquery-2.1.1.min.js' %}"><\/script>')
+                </script>
+                <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+                <!--要加!-->
+                <script src="{% static 'js/jquery.min.js' %}"></script>
+                <script src="{% static 'js/bootstrap.js' %}"></script>
+                <!-- App -->
+                <script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+
+                <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+                <a href="#top">
+                    <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+                </a></section>
+        </section>
+    </section>
+</section>
+</section>
+</body>
+</html>

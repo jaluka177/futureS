@@ -1,0 +1,2398 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+    <meta content="text/html" http-equiv="content-type">
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-1.7.2.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'jquery.SuperSlide.2.1.1.js' %}" type="text/javascript"></script>
+    <meta charset="utf-8"/>
+    <title>投資組合推薦</title>
+    <link href="{% static 'css/style.css' %}" media="screen and (max-width: 700px)" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/3.png' %}" rel="shortcut icon">
+    <!--11/15-->
+    <link href="{% static 'css/tabs-vertical.css' %}" rel="stylesheet">
+    <style type="text/css">
+/* 整體設置*/ 
+.mac {
+  display: block;
+  border-radius: 20px;
+  color: #333;
+}
+ 
+.mac:focus {
+  outline: none;
+  box-shadow: 
+      0 0 5px 2px rgba(45, 40, 25, 0.33);;
+}
+.tooltip2 {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #434221;
+}
+
+.tooltip2 .tooltiptext2 {
+    visibility: hidden;
+    width: 170px;
+    background-color: #3A3A3A;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 110%;
+}
+
+.tooltip2 .tooltiptext2::after {
+    content: " ";
+    position: absolute;
+    top: 24%;  /* 50 */
+    right: 100%; /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #3A3A3A transparent transparent;
+}
+
+.tooltip2:hover .tooltiptext2 {
+    visibility: visible;
+}
+
+
+/* tooltip1 */
+.tooltip1 {
+    position: relative;
+    display: inline-block;
+   /* border-bottom: 1px dotted #434221; */
+}
+
+.tooltip1 .tooltiptext1 {
+    visibility: hidden;
+    width: 180px;
+    background-color: #3A3A3A;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 110%;
+}
+
+.tooltip1 .tooltiptext1::after {
+    content: " ";
+    position: absolute;
+    top: 24%;  /* 50 */
+    right: 100%; /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #3A3A3A transparent transparent;
+}
+
+.tooltip1:hover .tooltiptext1 {
+    visibility: visible;
+}
+
+/*tooltip3*/
+.tooltip3 {
+    position: relative;
+    display: inline-block;
+
+}
+
+.tooltip3 .tooltiptext3 {
+    visibility: hidden;
+    width: 120px;
+    background-color: #3A3A3A;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: 40%;
+    margin-left: -60px;
+	width: 150px;
+}
+
+.tooltip3 .tooltiptext3::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #3A3A3A transparent transparent transparent;
+}
+
+.tooltip3:hover .tooltiptext3 {
+    visibility: visible;
+}
+
+
+.clearfix:after, .container:after, .tab-nav:after {
+		  content: ".";
+		  display: block;
+		  height: 0;
+		  clear: both;
+		  visibility: hidden;
+		}
+
+		/* ==========
+		   Setup Page */
+		*, *:before, *:after {
+		  box-sizing: border-box;
+		}
+
+		body {
+		  font-family: 'Quicksand', sans-serif;
+		}
+
+		/* =================
+		   Container Styling */
+		.container {
+		  position: relative;
+		  background: white;
+		  padding: 3em;
+		}
+
+		/* ===========
+		   Tab Styling */
+		.tab-group {
+		  position: relative;
+		  border: 1px solid #eee;
+		  margin-top: 2.5em;
+		  border-radius: 0 0 10px 10px;
+		}
+		.tab-group section {
+		  opacity: 0;
+		  height: 0;
+		  padding: 0 1em;
+		  overflow: hidden;
+		  transition: opacity 0.4s ease, height 0.4s ease;
+		}
+		.tab-group section.active {
+		  opacity: 1;
+		  height: auto;
+		  overflow: visible;
+		}
+
+		.tab-nav {
+		  list-style: none;
+		  margin: -3.5em -1px 0 0;
+		  padding: 0;
+		  height: 3.5em;
+		  overflow: hidden;
+		}
+		.tab-nav li {
+		  display: inline;
+		}
+		.tab-nav li a {
+		  top: 1px;
+		  position: relative;
+		  display: block;
+		  float: left;
+		  border-radius: 10px 10px 0 0;
+		  background: #eee;
+		  line-height: 3em;
+		  padding: 0 5em;
+		  text-decoration: none;
+		  color: grey;
+		  margin-top: .5em;
+		  margin-right: 5px;
+		  transition: background .2s ease, line-height .2s ease, margin .2s ease;
+		}
+		.tab-nav li.active a {
+		  background: rgba(42, 33, 13, 0.53);
+		  color: white;
+		  line-height: 3.5em;
+		  margin-top: 0;
+		}
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+	
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:240px;border-radius:2px; }
+		.slideTxtBox1{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:150px;border-radius:2px; }
+		.slideTxtBox, .slideTxtBox1 .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox, .slideTxtBox1 .hd ul{
+	float: left;
+	position: absolute;
+	left: 20px;
+	top: 2px;
+	height: 32px;
+}
+		.slideTxtBox, .slideTxtBox1 .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox, .slideTxtBox1 .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox, .slideTxtBox1 .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox, .slideTxtBox1 .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox, .slideTxtBox1 .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+		.page-list-title{
+		font-size:16px;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    background: #b5d247;
+    margin: 0px 3px 3px 0;
+}
+/* page-list-title2 */
+
+.page-list-title2:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 0 0px 0px 0;
+	background: rgb(118, 107, 61);
+}
+.page-list-title3:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 0 0px 0px 0;
+	background: #7E7E64;
+}
+.page-list-title4:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 0 0px 0px 0;
+	background: #f1b77a;
+}
+.page-list-title5:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 0 0px 0px 0;
+	background: #f4963f;
+}
+.page-list-title6:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 0 0px 0px 0;
+	background: rgb(224, 106, 59);
+}
+.page-list-title7:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 0 0px 0px 0;
+	background: rgb(15, 74, 91);
+}
+.page-list-title8:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 0 0px 0px 0;
+	background: rgb(104, 207, 195);
+}
+.page-list-title9:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 0 0px 0px 0;
+	background: #5C9797;
+}
+.page-list-title10:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 0 0px 0px 0;
+	background: #688341;
+}
+.page-list-title11:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: 0 0px 0px 0;
+	background: #ACC18C;
+}
+.navBar1 {
+	width:228px;
+	margin:0 auto;
+	margin-left:1px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+
+.tb th {
+    background: #DCFEF5;
+    border: solid 1px #6DF1CA;
+	height:35px;
+	padding-left:5px;
+	
+}
+.tb{ font-size:16px; color:#666}
+.tb td{
+	border: solid 1px #CDCDCD;
+	padding-left:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	font-size:15px;
+	}
+.tb tr:nth-child(odd){background:#F4F4F4;}
+.tb tr:hover{background:#FDFFEE;}
+.timelines{
+
+    display: table;
+    width: 100%;
+    border-spacing: 0;
+    table-layout: fixed;
+    position: relative;
+    border-collapse: collapse;
+}
+/* blue button */
+a.btn {
+	display: inline-block;
+	color: #666;
+	background-color: #eee;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 16px;
+	padding: 7px 20px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-bottom-width: 3px;
+	width: 265px;
+	margin-top: 5px;
+}
+
+	a.btn:hover {
+		background-color: #e3e3e3;
+		border-color: rgba(0,0,0,0.5);
+	}
+	
+	a.btn:active {
+		background-color: #CCC;
+		border-color: rgba(0,0,0,0.9);
+	}
+
+/* blue button */
+
+a.btn.btn-blue {
+	background-color: #699DB6;
+	border-color: rgba(0,0,0,0.3);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	color: #FFF;
+}
+
+	a.btn.btn-blue:hover {
+		background-color: #4F87A2;
+		border-color: rgba(0,0,0,0.5);
+	}
+	
+	a.btn.btn-blue:active {
+		background-color: #3C677B;
+		border-color: rgba(0,0,0,0.9);
+	}
+
+/* red button */
+
+a.btn.btn-red {
+	background-color: #E48681;
+	border-color: rgba(0,0,0,0.3);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	color: #FFF;
+}
+
+	a.btn.btn-red:hover {
+		background-color: #DA4F49;
+		border-color: rgba(0,0,0,0.5);
+	}
+	
+	a.btn.btn-red:active {
+		background-color: #B32C24;
+		border-color: rgba(0,0,0,0.9);
+	}
+	
+/* new button */
+.btn2 {
+  cursor: pointer;
+  margin: 3px;
+  border-radius: 1px;
+  text-decoration: none;
+  padding: 7px;
+  font-size: 20px;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  display: inline-block;
+}
+
+.orange {
+  color: #446018;
+  font-family: 華康秀風體W3;
+  border: 1px #5D7B2E solid;
+  background-color: #A1BC75;
+}
+
+.orange:hover {
+  color: #fff;
+  background-color: #7F955B;
+  border: 1px #57683B solid;
+}
+
+#OutputBox {
+    padding: 5px;
+    border: 1px #ccc dashed;
+    font-size: 13px;
+    margin: 6px 6px;
+}
+
+    </style>
+    <script src="{% static 'js/prefixfree.min.js' %}"></script>
+    <script><!--#A0F1DF-->
+  $(function () {
+    $('#bar').highcharts({
+     colors: ["#8EEAE7"],
+        chart: {
+            type: 'column',
+            options3d: {
+                enabled: true,
+                alpha: 5,
+                beta: 15,
+                depth: 70
+            }
+        },
+        title: {
+            text: '2015年月份績效圖',
+            style: {
+                        color: '#4572A7',
+                    }
+        },
+        subtitle: {
+            text: 'Historical Performance since 2015 Jan. to Dec.'
+        },
+        plotOptions: {
+            column: {
+                depth: 25
+            }
+        },
+		tooltip: {
+                valueSuffix: ' %'
+		},
+        credits:{
+     enabled:false // 禁用版权信息
+        },
+        xAxis: {
+            categories: Highcharts.getOptions().lang.shortMonths
+        },
+        yAxis: {
+            title: {
+                text: '(%)',
+                style: {
+                        color: '#4572A7',
+                    }
+            }
+        },
+        series: [{
+            name: '投資報酬率',
+            data: [{{ return.6.re }}, {{ return.7.re }}, {{ return.8.re }}, {{ return.9.re }}, {{ return.10.re }}, {{ return.11.re }}, {{ return.0.re }}, {{ return.1.re }}, {{ return.2.re }}, {{ return.3.re }}, {{ return.4.re }}, {{ return.5.re }}]
+        }]
+    });
+});
+
+
+    </script>
+    <script>$(function () {
+
+    // Make monochrome colors and set them as default for all pies
+    Highcharts.getOptions().plotOptions.pie.colors = (function () {
+        var colors = ['rgb(15, 74, 91)','rgb(104, 207, 195)','#5C9797','#688341','#ACC18C','rgb(118, 107, 61)','#7E7E64','#f1b77a','#f4963f','rgb(224, 106, 59)'],
+            base = Highcharts.getOptions().colors[0],
+            i;
+
+        for (i = 0; i < 10; i += 1) {
+            // Start out with a darkened base color (negative brighten), and end
+            // up with a much brighter color
+            colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
+        }
+        return colors;
+    }());
+
+    // Build the chart
+    $('#container_a').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: ''
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: '資金比例',
+            data: [
+                { name: '{{ now.0.name }}', y: {{ now.0.percent }} },
+                 { name: '{{ now.1.name }}', y: {{ now.1.percent }} },
+                { name: '{{ now.2.name }}', y: {{ now.2.percent }} },
+                { name: '{{ now.3.name }}', y: {{ now.3.percent }} },
+                { name: '{{ now.4.name }}', y: {{ now.4.percent }} },
+                { name: '{{ now.5.name }}', y: {{ now.5.percent }} },
+                { name: '{{ now.6.name }}', y: {{ now.6.percent }} },
+                { name: '{{ now.7.name }}', y: {{ now.7.percent }} },
+                { name: '{{ now.9.name }}', y: {{ now.9.percent }} },
+                { name: '{{ now.8.name }}', y: {{ now.8.percent }} }
+            ]
+        }]
+    });
+});
+    </script>
+    <script>$(function () {
+
+    var gaugeOptions = {
+        chart: {
+			backgroundColor: 'rgba(90%,90%,80%,0.2)',
+            type: 'solidgauge',
+			color: '#fff',
+		//	plotBorderColor: '#346691',
+        //    plotBorderWidth: 2
+		borderColor: 'rgba(42, 33, 13, 0.53)',
+            borderWidth: 1,
+			
+        },
+
+        title: null,
+
+        pane: {
+            center: ['50%', '80%'],
+            size: '130%',
+            startAngle: -90,
+            endAngle: 90,
+            background: {
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                innerRadius: '60%',
+                outerRadius: '100%',
+                shape: 'arc',
+            }
+        },
+
+        tooltip: {
+            enabled: false
+        },
+
+        // the value axis
+        yAxis: {
+            stops: [
+                [0.1, '#55BF3B'], // green
+                [0.5, 'rgb(255, 230, 51)'], // yellow
+                [0.9, '#DF5353'] // red
+            ],
+            lineWidth: 0,
+            minorTickInterval: null,
+            tickAmount: 2,
+            title: {
+                y: -68
+            },
+            labels: {
+                y: 16
+            }
+        },
+
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: 5,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        }
+    };
+
+    // The speed gauge
+    $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
+        yAxis: {
+            min: 0,
+            max: 10,
+            title: {
+              // text: '投資風險屬性',
+			//style: {
+                   // color:  '#fff',
+					
+              //  }
+				
+            },
+			labels: {
+                style: {
+                    color:  '#fff'
+                }
+            }
+        },
+
+        credits: {
+            enabled: false
+        },
+/*{{ type_id }}*/
+        series: [{
+            name: 'Speed',
+            data: [6.5],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'rgba(42, 33, 13, 0.6)') + '">{y}</span><br/>' +
+                       '<span style="font-size:14px;color:#ddd">{{ type_name }}</span></div>'
+            },
+            tooltip: {
+                valueSuffix: ' Score'
+            }
+        }]
+
+    }));
+
+  
+
+    // Bring life to the dials
+    setInterval(function () {
+        // Speed
+        var chart = $('#container-speed').highcharts(),
+            point,
+            newVal,
+            inc;
+
+        if (chart) {
+            point = chart.series[0].points[0];
+            inc = Math.round((Math.random() - 0.5) * 100);
+            newVal = point.y + inc;
+
+            if (newVal < 0 || newVal > 10) {
+                newVal = point.y - inc;
+            }
+
+          //  point.update(newVal);
+        }
+
+        // RPM
+        chart = $('#container-rpm').highcharts();
+        if (chart) {
+            point = chart.series[0].points[0];
+            inc = Math.random() - 0.5;
+            newVal = point.y + inc;
+
+            if (newVal < 0 || newVal > 5) {
+                newVal = point.y - inc;
+            }
+
+            //point.update(newVal);
+        }
+    }, 2000);
+
+
+});
+    </script><!--#A0F1DF 第二個柱狀圖-->
+    <script>
+  $(function () {
+    $('#bar2').highcharts({
+     colors: ["#A0F1DF"],
+        chart: {
+            type: 'column',
+            options3d: {
+                enabled: true,
+                alpha: 5,
+                beta: 15,
+                depth: 70
+            }
+        },
+        title: {
+            text: '2016年月份績效圖',
+            style: {
+                        color: '#4572A7',
+                    }
+        },
+        subtitle: {
+            text: 'Historical Performance since 2016 Jan. to Sep.'
+        },
+        plotOptions: {
+            column: {
+                depth: 25
+            }
+        },
+		tooltip: {
+                valueSuffix: ' %'
+		},
+        credits:{
+     enabled:false // 禁用版权信息
+        },
+        xAxis: {
+            categories: Highcharts.getOptions().lang.shortMonths
+        },
+        yAxis: {
+            title: {
+                text: '(%)',
+                style: {
+                        color: '#4572A7',
+                    }
+            }
+        },
+        series: [{
+            name: '投資報酬率',
+            data: [{{ return.12.re }}, {{ return.13.re }}, {{ return.14.re }}, {{ return.15.re }}, {{ return.16.re }}, {{ return.17.re }}, {{ return.18.re }}, {{ return.19.re }}, {{ return.20.re }}]
+        }]
+    });
+});
+
+
+    </script>
+</head>
+<body style="background-image: url('{% static 'png/bk.jpg' %}'); background-position: 0px 0px;">
+
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/home/">
+                <!-- <i class="icon-earphones"></i>-->
+                <span class="hidden-nav-xs m-2-sm"> <img height="56" src="{% static 'png/robot2.png' %}"
+                                                         width="58"></span>
+                <span class="hidden-nav-xs m-l-sm"><font size="4">羅伯特<img height="35" src="{% static 'png/love.gif' %}"
+                                                                          width="27">瑪妮</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/get_news/">財經新聞</a></li>
+                            <li><a href="/stock/">個股速覽</a></li>
+                            <li><a href="/fundamental/">基本面分析</a></li>
+                            <li><a href="/macd/">技術面分析</a></li>
+                            <li><a href="/margin/">籌碼面分析</a></li>
+                            <li><a href="/bal_sheet/">財報分析</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="http://sc.chinaz.com/" target="_blank"><img src="{% static 'png/tap.png' %}"> 選股專區</a>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/tech/">技術面選股</a></li>
+                            <li><a href="/master/">選股小幫手</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/test/">理財小測驗</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/mem_home/" target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員專區</a>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/member_news/">個股資訊 & 新聞</a></li>
+                            <li><a href="/my_stock/">投資組合清單</a></li>
+                            <li><a href="/mem_sto/">選股條件清單</a></li>
+                            <li><a href="/modify/">會員基本資料</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/financial/" target="_blank"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/get_article/" target="_blank"><img src="{% static 'png/interface.png' %}"> 討論區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/smallschool/" target="_blank"><img src="{% static 'png/open-book.png' %}">
+                            理財小學堂</a></h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">新手投資小常識</a></li>
+                            <li><a href="/economic_term/">經濟指標一覽</a></li>
+                            <li><a href="/stock_ana/">股票分析教室</a></li>
+                            <li><a href="/stock_ana/">選股小撇步</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+                            <nav>
+                                <ul class="nav bg-black clearfix" style="width:230px;">
+                                    {% if loginstatus == False %}
+                                    <div style="margin-left:40px; margin-top:8px">
+                                        <a class="myButton" href="login.html">登入系統</a>
+                                        <a class="myButton" href="signin.html">註冊會員</a>
+                                    </div>
+
+                                    {% else %}
+                                    <!--喔喔不要壞掉惹-->
+
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font size="3">&nbsp;您好!&nbsp;{{ name
+                                            }}</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    {% endif %}
+                                    <!---->
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+                                            <script>
+    $('#demo1').typeahead({
+        source: [
+            { id: 1, name: '2330 台積電' },
+            { id: 2, name: '1101 台泥' },
+            { id: 3, name: '1102 亞泥' },
+            { id: 4, name: '1217 愛之味' },
+        { id: 5, name: '1256 鮮活果汁-KY' },
+            { id: 6, name: '1262 綠悅-KY' },
+            { id: 7, name: '1301 台塑' },
+            { id: 8, name: '1326 台化' },
+            { id: 9, name: '1565 精華' },
+            { id: 10, name: '1590 亞德客-KY' },
+			{ id: 11, name: '1704 榮化' },
+            { id: 12, name: '2002 中鋼' },
+            { id: 13, name: '2023 燁輝' },
+            { id: 14, name: '2105 正新' },
+            { id: 15, name: '2107 厚生' },
+            { id: 16, name: '2201 裕隆' },
+            { id: 17, name: '2207 和泰車' },
+            { id: 18, name: '2227 裕日車' },
+            { id: 19, name: '2308 台達電' },
+            { id: 20, name: '2317 鴻海' },
+			{ id: 21, name: '2323 中環' },
+            { id: 22, name: '2344 華邦電' },
+            { id: 23, name: '2347 聯強' },
+            { id: 24, name: '2349 錸德' },
+            { id: 25, name: '2353 宏碁' },
+            { id: 26, name: '2357 華碩' },
+            { id: 27, name: '2371 大同' },
+            { id: 28, name: '2373 震旦行' },
+            { id: 29, name: '2379 瑞昱' },
+            { id: 30, name: '2382 廣達' },
+			{ id: 31, name: '2383 台光電' },
+            { id: 32, name: '2397 友通' },
+            { id: 33, name: '2405 浩鑫' },
+            { id: 34, name: '2409 友達' },
+            { id: 35, name: '2412 中華電' },
+            { id: 36, name: '2454 聯發科' },
+            { id: 37, name: '2474 可成' },
+            { id: 38, name: '2481 強茂' },
+            { id: 39, name: '2485 兆赫' },
+            { id: 40, name: '2498 宏達電' },
+			{ id: 41, name: '2610 華航' },
+            { id: 42, name: '2618 長榮航' },
+            { id: 43, name: '2727 王品' },
+            { id: 44, name: '2729 瓦城' },
+            { id: 45, name: '2809 京城銀' },
+            { id: 46, name: '2832 台產' },
+            { id: 47, name: '2845 遠東銀' },
+            { id: 48, name: '2852 第一保' },
+            { id: 49, name: '2855 統一證' },
+            { id: 50, name: '2881 富邦金' },
+			{ id: 51, name: '2882 國泰金' },
+            { id: 52, name: '2890 永豐金' },
+            { id: 53, name: '2912 統一超' },
+            { id: 54, name: '3008 大立光' },
+            { id: 55, name: '3045 台灣大' },
+            { id: 56, name: '3059 華晶科' },
+            { id: 57, name: '3083 網龍' },
+            { id: 58, name: '3450 聯鈞' },
+            { id: 59, name: '3454 晶睿' },
+            { id: 60, name: '3548 兆利' },
+			{ id: 61, name: '3663 鑫科' },
+            { id: 62, name: '3669 圓展' },
+            { id: 63, name: '3702 大聯大' },
+            { id: 64, name: '4129 聯合' },
+            { id: 65, name: '4416 三圓' },
+            { id: 66, name: '4552 力達-KY' },
+            { id: 67, name: '4726 永昕' },
+            { id: 68, name: '4739 康普' },
+            { id: 69, name: '4904 遠傳' },
+            { id: 70, name: '4915 致伸' },
+			{ id: 71, name: '4935 茂林-KY' },
+            { id: 72, name: '4946 辣椒' },
+            { id: 73, name: '5474 聰泰' },
+            { id: 74, name: '5903 全家' },
+            { id: 75, name: '6015 宏遠證' },
+            { id: 76, name: '6154 順發' },
+            { id: 77, name: '6176 瑞儀' },
+            { id: 78, name: '6214 精誠' },
+            { id: 79, name: '6244 茂迪' },
+            { id: 80, name: '6281 全國電' },
+			{ id: 81, name: '6505 台塑化' },
+            { id: 82, name: '8044 網家' },
+            { id: 83, name: '8101 華冠' },
+            { id: 84, name: '8349 恒耀' },
+            { id: 85, name: '8906 花王' },
+            { id: 86, name: '9914 美利達' },
+            { id: 87, name: '9921 巨大' },
+
+        ]
+    });
+
+                                            </script>
+                                            <input autocomplete="off"
+                                                   class="form-control input-sm no-border rounded mac" id="demo1"
+                                                   placeholder="請輸入股號/股名" type="text"></div>
+                                    </div>
+
+                                    <div class="nav navBar1 clearfix dk">
+                                        <!--崩壞開始-->
+
+                                        <div class="menu" id="menu">
+                                            <div class="menu-header"> 機器人投顧</div>
+                                            <ul>
+                                                <li><a href="/predict/"><i class="fa fa-rocket"
+                                                                           style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>預知未來型</strong></font></a>
+                                                    <!--   <ul class="submenu">
+                                                         <li><a href="#" onClick="demo1()"><font size="3">財報數據</font></a></li>
+                                                         <li><a href="#" onClick="demo2()"><font size="3">獲利能力</font></a></li>
+                                                         <li><a href="#" onClick="demo3()"><font size="3">安全性</font></a></li>
+                                                         <li><a href="#" onClick="demo4()"><font size="3">成長力</font></a></li>
+                                                       </ul>-->
+                                                </li>
+                                                <li><a href="/analysis1/"><i class="fa fa-stethoscope"
+                                                                             style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>健康診斷型</strong></font></a></li>
+                                                <li><a href="/gep/"><i class="icon-like"
+                                                                       style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>推薦好股型</strong></font></a></li>
+                                                <li><a href="/five/"><i class="fa fa-shopping-cart"
+                                                                        style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>買賣分析型</strong></font></a></li>
+                                                <li><a href="/funds/"><i class=" icon-present"
+                                                                         style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        color="#CCD7D8" size="+1"><strong>投資組合推薦</strong></font></a>
+                                                </li>
+
+
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        </div>
+                        </ul>
+
+                        </div>
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="pop" role="dialog"
+                 tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#ECECEC; border-bottom:#333 1px solid">
+                            <button class="close" data-dismiss="modal" style="font-size: 28px;" type="button"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="color:#000"><img
+                                    src="{% static 'png/infos.png' %}"><strong> 投資屬性測驗說明</strong></h4>
+                        </div>
+                        <div class="modal-body" style="margin-left:20px; color:#333">
+                            <div class="page-list-title"> 此為根據您在投資人屬性測驗之測驗結果，我們將依據此結果推薦適合您的股票</div>
+                            <br>
+                            <div class="page-list-title"> 保守型 : 代表您不願意接受任何投資風險,
+                                您適合的金融產品偏向報酬來自利息收入的產品，縱使利率水準未必跟得上通貨膨脹的幅度。
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 安穩型 : 代表您可以接受低投資風險,希望預期報酬率可以優於中期存款利率,以期投資本金不因通貨膨脹而貶值。</div>
+                            <br>
+                            <div class="page-list-title"> 穩健型 :
+                                代表您可以接受中等的投資風險,希望預期報酬率可以優於長期存款利率;以期投資本金不因通貨膨脹而貶值,您可以接受高一點程度的波動。
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 成長型 :
+                                代表您可以接受高度的投資風險,短、中及長期的波動性均高,希望預期報酬率可以大幅超過通貨膨脹率且適合具波動性的投資品
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 積極型 :
+                                代表您可以接受非常高度的投資風險,短、中及長期的波動性均高,也希望預期報酬極度豐厚,您適合波動性極大的投資產品;預期波動性極高，你可以接受極大的資本損失。
+                            </div>
+
+                        </div>
+                        <div align="center" class="modal-footer"
+                             style="background-color:#ECECEC;border-top:#333 1px solid">
+                            <button class="btn btn-default" data-dismiss="modal" onClick="window.close()" type="button">
+                                關閉
+                            </button>
+                            <a href="/test/" style="color: #fff">
+                                <button class="btn btn-primary" type="button">返回重測</button>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.pop2 -->
+            <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="pop2" role="dialog"
+                 tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#ECECEC; border-bottom:#333 1px solid">
+                            <button class="close" data-dismiss="modal" style="font-size: 28px;" type="button"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="color:#000"><img
+                                    src="{% static 'png/infos.png' %}"><strong> 風險管理方法</strong></h4>
+                        </div>
+                        <div class="modal-body" style="margin-left:20px; color:#333">
+                            <div class="page-list-title"> 此為根據您在投資人屬性測驗之測驗結果，我們將依據此結果推薦適合您的股票</div>
+                            <br>
+                            <div class="page-list-title"> 凱利公式 : 代表您不願意接受任何投資風險,
+                                您適合的金融產品偏向報酬來自利息收入的產品，縱使利率水準未必跟得上通貨膨脹的幅度。
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 安穩型 : 代表您可以接受低投資風險,希望預期報酬率可以優於中期存款利率,以期投資本金不因通貨膨脹而貶值。</div>
+                            <br>
+                            <div class="page-list-title"> 穩健型 :
+                                代表您可以接受中等的投資風險,希望預期報酬率可以優於長期存款利率;以期投資本金不因通貨膨脹而貶值,您可以接受高一點程度的波動。
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 成長型 :
+                                代表您可以接受高度的投資風險,短、中及長期的波動性均高,希望預期報酬率可以大幅超過通貨膨脹率且適合具波動性的投資品
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 積極型 :
+                                代表您可以接受非常高度的投資風險,短、中及長期的波動性均高,也希望預期報酬極度豐厚,您適合波動性極大的投資產品;預期波動性極高，你可以接受極大的資本損失。
+                            </div>
+
+                        </div>
+                        <div align="center" class="modal-footer"
+                             style="background-color:#ECECEC;border-top:#333 1px solid">
+                            <button class="btn btn-default" data-dismiss="modal" onClick="window.close()" type="button">
+                                關閉
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.pop3 -->
+            <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="pop3" role="dialog"
+                 tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#ECECEC; border-bottom:#333 1px solid">
+                            <button class="close" data-dismiss="modal" style="font-size: 28px;" type="button"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="color:#000"><img
+                                    src="{% static 'png/infos.png' %}"><strong> 使用者常見問題</strong></h4>
+                        </div>
+                        <div class="modal-body" style="margin-left:20px; color:#333">
+                            <div class="page-list-title"> 此為根據您在投資人屬性測驗之測驗結果，我們將依據此結果推薦適合您的股票</div>
+                            <br>
+                            <div class="page-list-title"> 凱利公式 : 代表您不願意接受任何投資風險,
+                                您適合的金融產品偏向報酬來自利息收入的產品，縱使利率水準未必跟得上通貨膨脹的幅度。
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 安穩型 : 代表您可以接受低投資風險,希望預期報酬率可以優於中期存款利率,以期投資本金不因通貨膨脹而貶值。</div>
+                            <br>
+                            <div class="page-list-title"> 穩健型 :
+                                代表您可以接受中等的投資風險,希望預期報酬率可以優於長期存款利率;以期投資本金不因通貨膨脹而貶值,您可以接受高一點程度的波動。
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 成長型 :
+                                代表您可以接受高度的投資風險,短、中及長期的波動性均高,希望預期報酬率可以大幅超過通貨膨脹率且適合具波動性的投資品
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 積極型 :
+                                代表您可以接受非常高度的投資風險,短、中及長期的波動性均高,也希望預期報酬極度豐厚,您適合波動性極大的投資產品;預期波動性極高，你可以接受極大的資本損失。
+                            </div>
+
+                        </div>
+                        <div align="center" class="modal-footer"
+                             style="background-color:#ECECEC;border-top:#333 1px solid">
+                            <button class="btn btn-default" data-dismiss="modal" onClick="window.close()" type="button">
+                                關閉
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.pop4 -->
+            <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="pop4" role="dialog"
+                 tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#ECECEC; border-bottom:#333 1px solid">
+                            <button class="close" data-dismiss="modal" style="font-size: 28px;" type="button"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="color:#000"><img
+                                    src="{% static 'png/infos.png' %}"><strong> 追蹤交易訊息</strong></h4>
+                        </div>
+                        <div class="modal-body" style="margin-left:20px; color:#333">
+                            <div class="page-list-title"> 此為根據您在投資人屬性測驗之測驗結果，我們將依據此結果推薦適合您的股票</div>
+                            <br>
+                            <div class="page-list-title"> 凱利公式 : 代表您不願意接受任何投資風險,
+                                您適合的金融產品偏向報酬來自利息收入的產品，縱使利率水準未必跟得上通貨膨脹的幅度。
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 安穩型 : 代表您可以接受低投資風險,希望預期報酬率可以優於中期存款利率,以期投資本金不因通貨膨脹而貶值。</div>
+                            <br>
+                            <div class="page-list-title"> 穩健型 :
+                                代表您可以接受中等的投資風險,希望預期報酬率可以優於長期存款利率;以期投資本金不因通貨膨脹而貶值,您可以接受高一點程度的波動。
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 成長型 :
+                                代表您可以接受高度的投資風險,短、中及長期的波動性均高,希望預期報酬率可以大幅超過通貨膨脹率且適合具波動性的投資品
+                            </div>
+                            <br>
+                            <div class="page-list-title"> 積極型 :
+                                代表您可以接受非常高度的投資風險,短、中及長期的波動性均高,也希望預期報酬極度豐厚,您適合波動性極大的投資產品;預期波動性極高，你可以接受極大的資本損失。
+                            </div>
+
+                        </div>
+                        <div align="center" class="modal-footer"
+                             style="background-color:#ECECEC;border-top:#333 1px solid">
+                            <button class="btn btn-default" data-dismiss="modal" onClick="window.close() info_track()"
+                                    type="button">關閉
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <section id="content">
+                <section class="hbox stretch">
+                    <!-- .aside -->
+                    <aside class="aside-lg bg-light" id="aside" style="background: rgba(20%,20%,20%,0.5);">
+                        <div class="wrapper">
+                            <div align="center"><h4 class="m-t-none" style="color:#FFF"> &nbsp;&nbsp;您的投資風險屬性 &nbsp;<a
+                                    data-target="#pop" data-toggle="modal" href="#"><img src="{% static 'png/Q.png' %}"
+                                                                                         style="width:24px; height:24px; margin-top:-8px"></a>
+                            </h4>
+                            </div>
+                            <!--儀錶板-->
+
+                            <div id="container-speed"
+                                 style="width: 260px; height: 180px; float: left; margin-bottom: 6px;"></div>
+
+                            <hr>
+                            <!---->
+                            <div style="padding-left:12px;10px">
+                                <p class="page-list-title" style="color:#FFF;"> 風險屬性 & 資金說明
+
+                                    <!--  <div class="tooltip2"> <font color="#395629" size="-2"> &nbsp;&nbsp;How do I decide?</font>
+                    <span class="tooltiptext2">Tooltip text</span>
+                  </div>-->
+                                </p>
+                                <p style="margin-top:-7px"><font color="#2B392D" size="-1">您的風險屬性為成長型，代表您可以接受高度的投資風險,短、中及長期的波動性均高,希望預期報酬率可以大幅超過通貨膨脹率且適合具波動性的投資
+                                    品。輸入投資金額以後，系統會根據您的風險屬性來幫您進行資金分配!!</font></p>
+
+                                <div class="form-group">
+                                    <label class="page-list-title" style="color:#FFF"> 請輸入投資金額
+
+                                        <div class="tooltip2"><font color="#395629" size="-2"> &nbsp;&nbsp;How do I
+                                            decide?</font>
+                                            <span class="tooltiptext2" style="padding: 5px"><font size="-2"> 請考慮您的風險屬性與年收入來決定投資金額，投資金額愈大相對風險也會增加</font></span>
+                                        </div>
+                                    </label>
+
+                                    <form action="/funds/" method="post">
+                                        <input class="input-sm form-control mac" id="invest" name="invest"
+                                               placeholder="500萬元 (預設)" style="border-radius: 5px" type="text"
+                                               value="{{ default }}">
+                                        <br>
+                                        <label class="page-list-title" style="color:#FFF"> 請選擇風險管理方法
+                                            <div class="tooltip2" data-target="#pop2" data-toggle="modal"
+                                                 style="cursor: pointer"><font color="#395629" size="-2"> &nbsp;&nbsp;more
+                                                info? </font>
+                                                <span class="tooltiptext2" style="padding: 5px"><font size="-2"> 風險管理會根據當其報酬率計算下一期適宜的投資金額，不同方法有各自的判斷規則</font></span>
+                                            </div>
+
+
+                                        </label>
+                                        <select class="selectable mac" id="pref" name="category"
+                                                style=" font-size:16px; color:#333; border-radius:5px; width: 235px; height:30px">
+                                            {% if default2 == '無' %}
+                                            <option selected value="0">無</option>
+                                            <option value="1">凱利公式</option>
+                                            <option value="2">反秧策略</option>
+                                            <option value="3">Larry Williams</option>
+                                            <option value="4">固定比例法</option>
+                                            {% elif default2 == '凱利公式' %}
+                                            <option value="0">無</option>
+                                            <option selected value="1">凱利公式</option>
+                                            <option value="2">反秧策略</option>
+                                            <option value="3">Larry Williams</option>
+                                            <option value="4">固定比例法</option>
+                                            {% elif default2 == '反秧策略' %}
+                                            <option value="0">無</option>
+                                            <option value="1">凱利公式</option>
+                                            <option selected value="2">反秧策略</option>
+                                            <option value="3">Larry Williams</option>
+                                            <option value="4">固定比例法</option>
+                                            {% elif default2 == 'Larry Williams' %}
+                                            <option value="0">無</option>
+                                            <option value="1">凱利公式</option>
+                                            <option value="2">反秧策略</option>
+                                            <option selected value="3">Larry Williams</option>
+                                            <option value="4">固定比例法</option>
+                                            {% elif default2 == '固定比例法' %}
+                                            <option value="0">無</option>
+                                            <option value="1">凱利公式</option>
+                                            <option value="2">反秧策略</option>
+                                            <option value="3">Larry Williams</option>
+                                            <option selected value="4">固定比例法</option>
+                                            {% else %}
+                                            <option selected value="0">無</option>
+                                            <option value="1">凱利公式</option>
+                                            <option value="2">反秧策略</option>
+                                            <option value="3">Larry Williams</option>
+                                            <option value="4">固定比例法</option>
+                                            {% endif %}
+                                        </select>
+                                </div>
+
+
+                            </div>
+
+                            <!--     <p>
+       <a href="#" class="btn btn-blue">This is a button</a>
+   </p>-->
+                            <div style="margin-left: -3px">
+                                <div align="center">
+                                    <button class="btn2 orange" name="b1" style="width: 120px" type="submit" value="1">
+                                        開始推薦
+                                    </button>
+                                    </form>
+                                    <div class=" tooltip3"><a class="btn2 orange" id="master2" name="b2"
+                                                              style="width: 120px" value="1">儲存設定</a> <span
+                                            class="tooltiptext3" style="padding: 5px"><font
+                                            size="-2">儲存您的投資金額及風險管理設定</font></span></div>
+                                </div>   <!--</form>-->
+                                <!--      <script>
+                          function save_settings() {
+                              alert("設定已儲存!");
+                          }
+                          </script>-->
+
+                                <script>
+$("#master2").click(function() {
+
+    $.ajax({
+        url: "/funds/",
+        data: {
+            b2: $("#pref").find("option:selected").val(),
+
+        },
+        type: "POST",
+
+        success: function (data) {
+            var b2 = $("#pref").find("option:selected").val();
+        alert("設定已儲存!");
+    }})})
+
+                                </script>
+
+                                <!--<a href="#" class="btn btn-blue"><i class="fa fa-save"> &nbsp;儲 存 設 定</i></a> -->
+                                <!--<a href="#" class="btn btn-blue">儲存設定</a>-->
+                            </div>
+
+
+                        </div>
+                    </aside>
+                    <!-- /.aside -->
+                    <!-- .aside -->
+                    <aside>
+                        <section class="vbox">
+                            <section class="scrollable wrapper" style="margin-top: 8px">
+                                <div class="timelines">
+                                    <article class="timeline-item active">
+                                        <div class="timeline-caption">
+                                            <div class="htmleaf-container" style="background-color:#fff; height:705px;">
+
+                                                <!--<div class="container">-->
+                                                <div class="tab-group" style="border-bottom: #fff 0px">
+                                                    <section align="left" id="tab1" title="投資組合推薦">
+                                                        <h2>
+                                                            個人化投資組合
+                                                        </h2>
+                                                        <p>
+                                                            機器人投資組合推薦以遺傳演算法為基礎，利用價值投資法中盈餘品質與企業評價之觀念，透過有效編碼架構以及適當的適應函數的設定，找出良好投資組合以及資金配置的策略。此外，以企業評價方式，判斷股票之價格是高估或低估，做為擇時之處理，以有效的將交易策略三大議題:
+                                                            選股、擇時及資金配置 做整合。</p>
+                                                        <br>
+                                                        <div id="OutputBox">
+                                                            <div class="tooltip1"><font color="#069"
+                                                                                        size="-1">投資組合適合我嗎?</font>
+                                                                <span class="tooltiptext1"><font size="-2">You should set aside a "rainy day fund" in cash to cover at least six months of expenses</font></span>
+                                                            </div>
+                                                            <div class="tooltip1"><font color="#069" size="-1"> &nbsp;&nbsp;&nbsp;
+                                                                什麼是基因演算法(GA)?</font>
+                                                                <span class="tooltiptext1"><font size="-2">You should set aside a "rainy day fund" in cash to cover at least six months of expenses</font></span>
+                                                            </div>
+                                                            <div class="tooltip1"><font color="#069" size="-1">&nbsp;&nbsp;&nbsp;
+                                                                什麼是企業評價模型?</font>
+                                                                <span class="tooltiptext1"><font size="-2">You should set aside a "rainy day fund" in cash to cover at least six months of expenses</font></span>
+                                                            </div>
+
+                                                            <div class="pull-right" data-target="#pop3"
+                                                                 data-toggle="modal" style="cursor: pointer"><u><font
+                                                                    color="#069" size="-1">查看更多問題</font></u>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div id="container_a"
+                                                             style="min-width: 200px; height: 200px; max-width: 300px;float: left; margin-top: 80px"></div>
+                                                        <table class="table table-striped" id="tt" style="width: 515px;
+    float: left;
+    margin-left: 20px; margin-top:-15px;">
+                                                            <input id="hide1" name="conID1" stockID type="hidden"
+                                                                   value={{ }}>
+                                                            <!-- <caption>条纹表格布局</caption> -->
+                                                            <thead>
+                                                            <tr>
+                                                                <th width="150">
+                                                                    <div align="left">&nbsp;&nbsp;&nbsp;&nbsp;股號 / 股名
+                                                                    </div>
+                                                                </th>
+                                                                <th width="110">
+                                                                    <div align="left">資金比例</div>
+                                                                </th>
+                                                                <th width="146">
+                                                                    <div align="left">投資金額 (萬元)</div>
+                                                                </th>
+                                                                <th width="89">
+                                                                    <div align="left">購買張數</div>
+                                                                </th>
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="left" class="page-list-title2"> &nbsp;{{
+                                                                        now.5.name }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.5.percent }} %</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.5.invest }}</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.5.number }}</div>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="left" class="page-list-title3"> &nbsp;{{
+                                                                        now.6.name }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.6.percent }} %</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.6.invest }}</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.6.number }}</div>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="left" class="page-list-title4"> &nbsp;{{
+                                                                        now.2.name }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.2.percent }} %</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.2.invest }}</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.2.number }}</div>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="left" class="page-list-title5"> &nbsp;{{
+                                                                        now.3.name }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.3.percent }} %</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.3.invest }}</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.3.number }}</div>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="left" class="page-list-title6"> &nbsp;{{
+                                                                        now.4.name }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.4.percent }} %</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.4.invest }}</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.4.number }}</div>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="left" class="page-list-title7"> &nbsp;{{
+                                                                        now.0.name }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.0.percent }} %</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.0.invest }}</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.0.number }}</div>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="left" class="page-list-title8"> &nbsp;{{
+                                                                        now.1.name }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.1.percent }} %</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.1.invest }}</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.1.number }}</div>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="left" class="page-list-title9"> &nbsp;{{
+                                                                        now.2.name }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.2.percent }} %</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.2.invest }}</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.2.number }}</div>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="left" class="page-list-title10"> &nbsp;{{
+                                                                        now.3.name }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.3.percent }} %</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.3.invest }}</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.3.number }}</div>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="left" class="page-list-title11"> &nbsp;{{
+                                                                        now.5.name }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.5.percent }} %</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.5.invest }}</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div align="left">{{ now.5.number }}</div>
+                                                                </td>
+
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                        <!--<div id="OutputBox">Wibibi 網頁設計教學百科</div-->
+                                                        <!--<div id="OutputBox" style="float:left; width:740px">  <div class="tooltip1"> <font color="#069" size="-1">Why this mix?</font>
+                                                          <span class="tooltiptext1"><font size="-2">You should set aside a "rainy day fund" in cash to cover at least six months of expenses</font></span></div>
+                                                          <div class="tooltip1"> <font color="#069" size="-1"> &nbsp;&nbsp;&nbsp; Can I change it?</font>
+                                                          <span class="tooltiptext1"><font size="-2">You should set aside a "rainy day fund" in cash to cover at least six months of expenses</font></span></div>
+                                                          <div class="tooltip1"> <font color="#069" size="-1">&nbsp;&nbsp;&nbsp; Why Vanguard?</font>
+                                                          <span class="tooltiptext1"><font size="-2">You should set aside a "rainy day fund" in cash to cover at least six months of expenses</font></span></div></div>-->
+                                                        <div align="center" class="tooltip3 pull-right"
+                                                             style="margin-top: -14px; margin-right: 15px; background-color:#DCEDE1">
+                                                            <a class="btn2 orange" id="add"
+                                                               style="width: 150px">加入追蹤清單</a> <span
+                                                                class="tooltiptext3"><font
+                                                                size="-2">投資組合將會加入會員專區的清單中</font></span></div>
+                                                        <script>
+$("#add").click(function() {
+
+    $.ajax({
+        url: "/add_track/",
+        data: {
+            //stockName: {{ 1 }},
+            stockID: $("#tt").find('#hide1').val(),
+        },
+        type: "POST",
+        success: function (data) {
+            alert("投資組合已加入追蹤!");
+        }})})
+
+
+                                                        </script>
+                                                    </section>
+                                                    <section id="tab2" style="background-color: #fff" title="歷史績效圖表">
+                                                        <div style=" height:1410px; background-color:#FFF; padding:8px; ">
+                                                            <h2 align="left">
+                                                                歷史績效一覽
+                                                                <div class="pull-right" style="margin-top: -5px">
+                                                                    <div align="center"><a class="btn2 orange"
+                                                                                           onclick="window.open('/trans/?p={{ p }}', 'transaction', config='height=500,width=930');"
+                                                                                           style="width: 150px;">瀏覽交易明細</a>
+                                                                    </div>
+                                                                </div>
+                                                            </h2>
+                                                            <p align="left">
+                                                                使用者可以瀏覽去年月份績效圖表，了解每月的報酬率、標準差，
+                                                                以及每季重新分配之投資組合與根據風險管理方法計算之投資金額，還可檢視策略績效報告。另外，點選[瀏覽交易明細]即能了解去年每筆交易狀況喔!
+                                                            </p>
+                                                            <div>
+                                                                <hr>
+
+                                                                <div class="panel-body">
+                                                                    <div id="bar" style="margin-top: -8px"></div>
+                                                                </div>
+                                                                <footer class="panel-footer bg-white">
+                                                                    <div class="row text-center no-gutter">
+                                                                        <div class="col-xs-3 b-r b-light">
+                                                                            <p class="h3 font-bold m-t"><font
+                                                                                    size="3px">平均報酬率</font></p>
+                                                                            <p class="text-muted">{{ mean }}%</p>
+                                                                        </div>
+                                                                        <div class="col-xs-3 b-r b-light">
+                                                                            <p class="h3 font-bold m-t"><font
+                                                                                    size="3px">標準差 (%)</font></p>
+                                                                            <p class="text-muted">{{ std }}</p>
+                                                                        </div>
+                                                                        <div class="col-xs-3 b-r b-light">
+                                                                            <p class="h3 font-bold m-t"><font
+                                                                                    size="3px">投資金額</font></p>
+                                                                            <p class="text-muted">${{ history.0.initial
+                                                                                }}</p>
+                                                                        </div>
+                                                                        <div class="col-xs-3">
+                                                                            <p class="h3 font-bold m-t"><font
+                                                                                    size="3px">風險管理</font></p>
+                                                                            <p class="text-muted">{{ default3 }}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </footer>
+
+                                                            </div>
+                                                            <!--表1.-->
+                                                            <h3 align="left" class="page-list-title"
+                                                                style="font-size:18px">
+                                                                2015每期投資組合表
+                                                            </h3>
+                                                            <table class="tb" width="100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th width="20%">
+                                                                        <div align="center">期間 (年/季)</div>
+                                                                    </th>
+                                                                    <th width="65%">
+                                                                        <div align="center">投資組合</div>
+                                                                    </th>
+                                                                    <th width="15%">
+                                                                        <div align="center">投資金額</div>
+                                                                    </th>
+                                                                </tr>
+                                                                {% for i in history %}
+                                                                <tr>
+                                                                    <th width="20%">
+                                                                        <div align="center">{{ i.season }}</div>
+                                                                    </th>
+
+                                                                    <td>{{ i.invest }}</td>
+
+                                                                    <td>{{ i.initial }}</td>
+
+                                                                </tr>
+                                                                {% endfor %}
+
+
+                                                                </tbody>
+                                                            </table>
+
+                                                            <!--表2.-->
+                                                            <h3 align="left" class="page-list-title"
+                                                                style="font-size:18px">
+                                                                2015策略績效報告
+                                                            </h3>
+                                                            <div class="tabs-vertical" style="margin-top:-1px">
+
+                                                                <ul>
+                                                                    <li>
+                                                                        <a class="tab-active" data-index="0" href="#">績效分析</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a data-index="1" href="#">交易分析</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a data-index="2" href="#">時間分析</a>
+                                                                    </li>
+                                                                </ul>
+
+                                                                <div class="tabs-content-placeholder">
+
+                                                                    <div class="tab-content-active">
+                                                                        <p id="AnswerBox"><font size="2px"><strong>策略績效總結果</strong></font>
+                                                                        </p>
+                                                                        <table class="tb" width="200%">
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                <th style="font-size:15px; font-weight:700"
+                                                                                    width="21%">總投資金額
+                                                                                </th>
+                                                                                <td width="29%">2500000 (元)</td>
+                                                                                <th style="font-size:15px; font-weight:700"
+                                                                                    width="21%">交易期間
+                                                                                </th>
+                                                                                <td width="29%">01 / 05 - 12 / 31</td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <th onclick="ShowAnswer()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">毛利
+                                                                                </th>
+                                                                                <td width="29%">{{ gross_profit }}</td>
+                                                                                <th onclick="ShowAnswer1()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">毛損
+                                                                                </th>
+                                                                                <td width="29%"><font color="#FF3300">({{
+                                                                                    gross_loss }})</font></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th onclick="ShowAnswer2()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">月報酬率
+                                                                                </th>
+                                                                                <td width="29%">{{ mean }} %</td>
+                                                                                <th onclick="ShowAnswer3()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">年報酬率
+                                                                                </th>
+                                                                                <td width="29%">{{ sum }} %</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th onclick="ShowAnswer4()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">平均月報酬
+                                                                                </th>
+                                                                                <td width="29%">{{ month }}</td>
+                                                                                <th onclick="ShowAnswer5()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">月報酬標準差
+                                                                                </th>
+                                                                                <td width="29%">{{ std }}</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th onclick="ShowAnswer6()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">最大策略虧損
+                                                                                </th>
+                                                                                <td width="29%"><font color="#FF3300">({{
+                                                                                    max_loss }})</font></td>
+                                                                                <th style="font-size:15px; font-weight:700"
+                                                                                    width="21%">最大虧損比率
+                                                                                </th>
+                                                                                <td width="29%"><font color="#FF3300">(10
+                                                                                    %)</font>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th onclick="ShowAnswer8()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">獲利因子
+                                                                                </th>
+                                                                                <td width="29%">{{ average2 }}</td>
+                                                                                <th onclick="ShowAnswer9()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">夏普比率
+                                                                                </th>
+                                                                                <td width="29%">7 %</td>
+                                                                            </tr>
+
+                                                                            <script>
+function ShowAnswer(){
+    document.getElementById("AnswerBox").innerHTML='<font size="2px"><strong>毛利 :</strong> 策略的每筆獲利交易加總金額。</font>';
+}
+function ShowAnswer1(){
+    document.getElementById("AnswerBox").innerHTML='<font size="2px"><strong>毛損 :</strong> 策略的每筆虧損交易加總金額。</font>';
+}
+function ShowAnswer2(){
+    document.getElementById("AnswerBox").innerHTML='<font size="2px"><strong>月報酬率 :</strong> 交易期間策略的月報酬率。</font>';
+}function ShowAnswer3(){
+    document.getElementById("AnswerBox").innerHTML='<font size="2px"><strong>年報酬率 :</strong> 交易期間策略的年報酬率。</font>';
+}function ShowAnswer4(){
+    document.getElementById("AnswerBox").innerHTML='<font size="2px"><strong>平均月報酬 :</strong> 交易期間月報酬平均金額。</font>';
+}function ShowAnswer5(){
+    document.getElementById("AnswerBox").innerHTML='<font size="2px"><strong>月報酬標準差 :</strong> 可看出交易策略的報酬率差異，標準差愈小表示策略越穩定。</font>';
+}function ShowAnswer6(){
+    document.getElementById("AnswerBox").innerHTML='<font size="2px"><strong>最大策略虧損 :</strong> 交易期間內每筆交易計算過去權益增加最高值出現後的最大虧損。</font>';
+}function ShowAnswer8(){
+    document.getElementById("AnswerBox").innerHTML='<font size="2px"><strong>獲利因子 :</strong> 總獲利金額除上總損失金額，獲利因子愈高策略愈好。(Gross Profit / Gross Loss)</font>';
+}function ShowAnswer9(){
+    document.getElementById("AnswerBox").innerHTML='<font size="2px"><strong>夏普比率 :</strong> 承受每單位風險所得的報酬，值愈大愈佳。</font>';
+}
+
+                                                                            </script>
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <p id="Answer"><font
+                                                                                size="2px"><strong>總交易分析結果</strong></font>
+                                                                        </p>
+                                                                        <table class="tb" width="200%">
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                <th style="font-size:15px; font-weight:700"
+                                                                                    width="21%">交易總次數
+                                                                                </th>
+                                                                                <td width="29%">{{ count }} 次</td>
+                                                                                <th onclick="Show()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">勝率
+                                                                                </th>
+                                                                                <td width="29%">60%</td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <th onclick="Show1()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">獲利交易次數
+                                                                                </th>
+                                                                                <td width="29%">{{ countp }} 次</td>
+                                                                                <th onclick="Show2()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help"
+                                                                                    width="21%">虧損交易次數
+                                                                                </th>
+                                                                                <td width="29%">{{ countl }} 次</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th style="font-size:15px; font-weight:700"
+                                                                                    width="21%">最大交易獲利
+                                                                                </th>
+                                                                                <td width="29%">{{ max_profit }}</td>
+                                                                                <th style="font-size:15px; font-weight:700"
+                                                                                    width="21%">最大交易虧損
+                                                                                </th>
+                                                                                <td width="29%"><font color="#FF3300">({{
+                                                                                    max_loss }})</font></td>
+                                                                            </tr>
+
+                                                                            <th onclick="Show5()"
+                                                                                style="font-size:15px; font-weight:700; cursor: help"
+                                                                                width="21%">平均獲利交易
+                                                                            </th>
+                                                                            <td width="29%">{{ mean_profit }}</td>
+                                                                            <th onclick="Show6()"
+                                                                                style="font-size:15px; font-weight:700; cursor: help"
+                                                                                width="21%">平均虧損交易
+                                                                            </th>
+                                                                            <td width="29%"><font color="#FF3300">({{
+                                                                                mean_loss }})</font>
+                                                                            </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th onclick="Show7()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help">
+                                                                                    平均獲利/虧損
+                                                                                </th>
+                                                                                <td colspan="3">{{ average }}</td>
+
+                                                                            </tr>
+
+                                                                            <script>
+function Show(){
+    document.getElementById("Answer").innerHTML='<font size="2px"><strong>勝率 :</strong> 期間交易可獲利的比率。</font>';
+}
+function Show1(){
+    document.getElementById("Answer").innerHTML='<font size="2px"><strong>獲利交易次數 :</strong> 策略的獲利交易總次數。</font>';
+}
+function Show2(){
+    document.getElementById("Answer").innerHTML='<font size="2px"><strong>虧損交易次數 :</strong> 策略的虧損交易總次數。</font>';
+}
+function Show5(){
+    document.getElementById("Answer").innerHTML='<font size="2px"><strong>平均獲利交易 :</strong> 毛利除以獲利的交易次數。</font>';
+}function Show6(){
+    document.getElementById("Answer").innerHTML='<font size="2px"><strong>平均虧損交易 :</strong> 毛利除以虧損的交易次數。</font>';
+}
+function Show7(){
+    document.getElementById("Answer").innerHTML='<font size="2px"><strong>平均獲利/虧損交易 :</strong> 策略平均交易的資金獲利或虧損總額。(總淨利/總交易次數)</font>';
+}
+
+                                                                            </script>
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <p id="answer"><font
+                                                                                size="2px"><strong>交易時間分析</strong></font>
+                                                                        </p>
+                                                                        <table class="tb" width="200%">
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                <th style="font-size:15px; font-weight:700">
+                                                                                    交易總次數
+                                                                                </th>
+                                                                                <td colspan="3">{{ count }} 次</td>
+
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th style="font-size:15px; font-weight:700"
+                                                                                    width="50%">交易期間
+                                                                                </th>
+                                                                                <td colspan="3">1 Y</td>
+
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th onclick="Shows()"
+                                                                                    style="font-size:15px; font-weight:700; cursor: help">
+                                                                                    策略在市場的時間百分比
+                                                                                </th>
+                                                                                <td colspan="3">94.54%</td>
+
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th style="font-size:15px; font-weight:700">
+                                                                                    最大獲利日期
+                                                                                </th>
+                                                                                <td colspan="3">{{ date_max }}</td>
+
+                                                                            </tr>
+
+
+                                                                            <tr>
+                                                                                <th style="font-size:15px; font-weight:700">
+                                                                                    最大虧損日期
+                                                                                </th>
+                                                                                <td colspan="3">{{ date_min }}</td>
+
+                                                                            </tr>
+
+                                                                            <script>
+function Shows(){
+    document.getElementById("answer").innerHTML='<font size="2px"><strong>策略在市場的時間百分比 :</strong> 交易期間除以策略在市場的時間。</font>';
+}
+
+                                                                            </script>
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <!--表2.-->
+
+                                                    </section>
+                                                    <section id="tab3" style="background-color: #fff" title="今年交易分析">
+                                                        <div style=" height:2090px; background-color:#FFF; padding:8px">
+                                                            <h2 align="left">
+                                                                2016交易分析
+                                                                <div class="pull-right" style="margin-top: -5px">
+                                                                    <div align="center"><a class="btn2 orange"
+                                                                                           data-target="#pop4"
+                                                                                           data-toggle="modal"
+                                                                                           onClick="info_track()"
+                                                                                           style="width: 100px;">訊息追蹤</a>
+                                                                    </div>
+                                                                </div>
+                                                            </h2>
+                                                            <p align="left">
+                                                                在這裡可以瀏覽今年月份績效圖，了解每月的報酬率、標準差，
+                                                                以及每季重新分配之投資組合與根據風險管理方法計算之投資金額，還可查看本期之交易明細，了解每筆交易狀況，以達到資訊公開透明化。 </p>
+                                                            <script>
+function info_track() {
+    alert("已追蹤交易訊息!");
+}
+
+                                                            </script>
+                                                            <div>
+                                                                <hr>
+
+                                                                <div class="panel-body">
+                                                                    <div id="bar2" style="margin-top: -8px"></div>
+                                                                </div>
+                                                                <footer class="panel-footer bg-white">
+                                                                    <div class="row text-center no-gutter">
+                                                                        <div class="col-xs-3 b-r b-light">
+                                                                            <p class="h3 font-bold m-t"><font
+                                                                                    size="3px">平均報酬率</font></p>
+                                                                            <p class="text-muted">{{ mean2 }}%</p>
+                                                                        </div>
+                                                                        <div class="col-xs-3 b-r b-light">
+                                                                            <p class="h3 font-bold m-t"><font
+                                                                                    size="3px">標準差 (%)</font></p>
+                                                                            <p class="text-muted">{{ std2 }}%</p>
+                                                                        </div>
+                                                                        <div class="col-xs-3 b-r b-light">
+                                                                            <p class="h3 font-bold m-t"><font
+                                                                                    size="3px">投資金額</font></p>
+                                                                            <p class="text-muted">${{ history2.2.initial
+                                                                                }}</p>
+                                                                        </div>
+                                                                        <div class="col-xs-3">
+                                                                            <p class="h3 font-bold m-t"><font
+                                                                                    size="3px">風險管理</font></p>
+                                                                            <p class="text-muted">{{ default3 }}</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </footer>
+
+                                                            </div>
+                                                            <h3 align="left" class="page-list-title"
+                                                                style="font-size:18px">
+                                                                2016每期投資組合
+                                                            </h3>
+                                                            <table class="tb" width="100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th width="20%">
+                                                                        <div align="center">期間 (年/季)</div>
+                                                                    </th>
+                                                                    <th width="65%">
+                                                                        <div align="center">投資組合</div>
+                                                                    </th>
+                                                                    <th width="15%">
+                                                                        <div align="center">投資金額</div>
+                                                                    </th>
+                                                                </tr>
+                                                                {% for i in history2 %}
+                                                                <tr>
+                                                                    <th width="20%">
+                                                                        <div align="center">{{ i.season }}</div>
+                                                                    </th>
+
+                                                                    <td>{{ i.invest }}</td>
+
+                                                                    <td>{{ i.initial }}</td>
+
+                                                                </tr>
+
+                                                                {% endfor %}
+
+                                                                </tbody>
+                                                            </table>
+                                                            <h3 align="left" class="page-list-title"
+                                                                style="font-size:18px">
+                                                                2016本期交易明細
+                                                            </h3>
+                                                            <table class="tb" width="100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th width="20%">
+                                                                        <div align="center">日期</div>
+                                                                    </th>
+                                                                    <th width="20%">
+                                                                        <div align="center">賣出股票</div>
+                                                                    </th>
+                                                                    <th width="20%">
+                                                                        <div align="center">股價</div>
+                                                                    </th>
+                                                                    <th width="20%">
+                                                                        <div align="center">張數</div>
+                                                                    </th>
+                                                                    <th width="20%">
+                                                                        <div align="center">淨賺</div>
+                                                                    </th>
+                                                                </tr>
+                                                                {% for i in trade2 %}
+                                                                <tr>
+                                                                    <th width="20%">
+                                                                        <div align="center">{{ i.date }}</div>
+                                                                    </th>
+
+                                                                    <td>{{ i.sell_stock }}</td>
+
+                                                                    <td>{{ i.sell_price }}</td>
+                                                                    <td>{{ i.stocks }}</td>
+
+                                                                    <td>{{ i.net }}</td>
+                                                                </tr>
+
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                </div>
+                            </section>
+                            <!--	    <section id="tab4" title="Another Tab">
+                                      <h3>
+                                        Content 4
+                                      </h3>
+                                      <p>
+                                        Donec congue ligula non risus dictum, eget vehicula diam mattis. Pellentesque at ante ipsum. Suspendisse rutrum elementum dolor, non congue risus sagittis id.
+                                      </p>
+                                    </section>
+                                    <section id="tab5" title="Another Tab">
+                                      <h3>
+                                        Content 5
+                                      </h3>
+                                      <p>
+                                        Donec congue ligula non risus dictum, eget vehicula diam mattis. Pellentesque at ante ipsum. Suspendisse rutrum elementum dolor, non congue risus sagittis id.
+                                      </p>
+                                    </section>-->
+
+
+                        </section>
+                </section>
+                </aside>
+                <!-- /.aside -->
+            </section>
+            <a class="hide nav-off-screen-block" data-target="#nav,html" data-toggle="class:nav-off-screen,open"
+               href="#"></a>
+        </section>
+    </section>
+
+
+</section>
+<footer class="footer bg-alert">
+    <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+    </h6>
+</footer>
+
+</section>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
+<script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+<!--要加!-->
+<!-- App -->
+<script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+<!--11/15-->
+<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+<script>
+
+	$(document).ready(function() {
+
+		var widget = $('.tabs-vertical');
+
+		var tabs = widget.find('ul a'),
+			content = widget.find('.tabs-content-placeholder > div');
+
+		tabs.on('click', function (e) {
+
+			e.preventDefault();
+
+			// Get the data-index attribute, and show the matching content div
+
+			var index = $(this).data('index');
+
+			tabs.removeClass('tab-active');
+			content.removeClass('tab-content-active');
+
+			$(this).addClass('tab-active');
+			content.eq(index).addClass('tab-content-active');
+
+		});
+
+
+	});
+
+
+</script>
+<script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+</section></section></section></section></section>
+<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="{% static 'js/jquery-tab.js' %}" type="text/javascript"></script>
+<script type="text/javascript">
+		$(function(){
+			// Calling the plugin
+			$('.tab-group').tabify();
+		})
+
+</script>
+
+
+<!--儀錶板-->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+</body>
+</html>

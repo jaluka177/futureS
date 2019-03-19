@@ -1,0 +1,713 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app" lang="en">
+<head>
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-1.7.2.min.js' %}" type="text/javascript"></script>
+    <link href="{% static 'images/icon2.ico' %}" rel="shortcut icon">
+    <meta charset="utf-8"/>
+    <title>討論區內容</title>
+    <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;
+z-index:2;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;
+z-index:2;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+	/* Banner */
+
+	#banner{
+		-moz-align-items: center;
+		-webkit-align-items: center;
+		-ms-align-items: center;
+		align-items: center;
+		display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+		width:1000px;
+		background-attachment: fixed;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size:contain;
+		border-bottom: 0 !important;
+		cursor: default;
+		margin-bottom: 2.25em;
+		min-height: 20em;;
+		max-height: 32em;
+		position: relative;
+		padding-left:50px;
+		margin-left:40px;
+		margin-top:30px;
+		box-shadow:2px 2px 2px 						rgba(20%,20%,40%,0.6),4px 4px 6px rgba(20%,20%,40%,0.4),6px 6px 12px rgba(20%,20%,40%,0.4),4px 4px 6px rgba(20%,20%,40%,0.4);
+		background-color:rgba(36,41,67,0.3);
+	}
+		#banner:after {
+			
+			-moz-transition: opacity 2.5s ease;
+			-webkit-transition: opacity 2.5s ease;
+			-ms-transition: opacity 2.5s ease;
+			transition: opacity 2.5s ease;
+			-moz-transition-delay: 0.75s;
+			-webkit-transition-delay: 0.75s;
+			-ms-transition-delay: 0.75s;
+			transition-delay: 0.75s;
+			-moz-pointer-events: none;
+			-webkit-pointer-events: none;
+			-ms-pointer-events: none;
+			pointer-events: none;
+			content: '';
+			display: block;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+
+#banner > .inner {
+			-moz-transition: opacity 1.5s ease, -moz-transform 0.5s ease-out, -moz-filter 0.5s ease, -webkit-filter 0.5s ease;
+			-webkit-transition: opacity 1.5s ease, -webkit-transform 0.5s ease-out, -webkit-filter 0.5s ease, -webkit-filter 0.5s ease;
+			-ms-transition: opacity 1.5s ease, -ms-transform 0.5s ease-out, -ms-filter 0.5s ease, -webkit-filter 0.5s ease;
+			transition: opacity 1.5s ease, transform 0.5s ease-out, filter 0.5s ease, -webkit-filter 0.5s ease;
+			padding: 0 !important;
+			position: relative;
+			z-index: 1;
+		}
+
+			#banner > .inner .image {
+				display: none;
+			}
+
+			#banner > .inner header {
+				width: auto;
+			}
+
+	#banner > .inner header > :first-child {
+					width: auto;
+				}
+
+#banner > .inner header > :first-child:after {
+						max-width: 100%;
+					}
+
+			#banner > .inner .content {
+				display: -moz-flex;
+				display: -webkit-flex;
+				display: -ms-flex;
+				display: flex;
+				-moz-align-items: center;
+				-webkit-align-items: center;
+				-ms-align-items: center;
+				align-items: center;
+				margin: 0 0 2em 0;
+				position:relative;
+			}
+
+				#banner > .inner .content > * {
+					margin-left: 5px;
+					margin-bottom: 0;
+				}
+
+				#banner > .inner .content > :first-child {
+					margin-left: 0;
+				}
+
+				#banner > .inner .content p {
+					font-size: 0.7em;
+					font-weight: 600;
+					letter-spacing: 0.25em;
+					text-transform: uppercase;
+				}
+
+		#banner.major {
+		    min-height: 20em;
+			max-height: 50em;
+		}
+
+			#banner.major.alt {
+				opacity: 0.75;
+			}
+
+		body.is-loading #banner:after {
+			opacity: 1.0;
+		}
+
+		body.is-loading #banner > .inner {
+			-moz-filter: blur(0.125em);
+			-webkit-filter: blur(0.125em);
+			-ms-filter: blur(0.125em);
+			filter: blur(0.125em);
+			-moz-transform: translateX(-0.5em);
+			-webkit-transform: translateX(-0.5em);
+			-ms-transform: translateX(-0.5em);
+			transform: translateX(-0.5em);
+			opacity: 0;
+		}
+
+		@media screen and (max-width: 1280px) {
+
+			#banner {
+				background-attachment: scroll;
+			}
+}
+#footer {
+    height: 40px;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+	color:#999999;
+}
+
+    </style>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/f.png' %}" rel="shortcut icon">
+    <script type="text/javascript">
+
+function load(url) 
+{ 
+location.href=url; 
+} 
+
+
+    </script>
+</head>
+<body style="background-image: url('{% static 'png/bk3.jpg' %}'); background-position: 0px 0px;">
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="home.html">
+                <!-- <i class="icon-earphones"></i>-->
+                <span class="hidden-nav-xs m-2-sm"> <img height="56" src="{% static 'png/robot2.png' %}"
+                                                         width="58"></span>
+                <span class="hidden-nav-xs m-l-sm"><font size="4">羅伯特<img height="35" src="{% static 'png/love.gif' %}"
+                                                                          width="27">瑪妮</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+
+        <div class="nav">
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/get_news/">財經新聞</a></li>
+                            <li><a href="/stock/">個股速覽</a></li>
+                            <li><a href="/fundamental/">基本面分析</a></li>
+                            <li><a href="/macd/">技術面分析</a></li>
+                            <li><a href="/margin/">籌碼面分析</a></li>
+                            <li><a href="/bal_sheet/">財報分析</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="http://sc.chinaz.com/" target="_blank"><img src="{% static 'png/tap.png' %}"> 選股專區</a>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/tech/">技術面選股</a></li>
+                            <li><a href="/master/">選股小幫手</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/test/">理財小測驗</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/member/" target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員專區</a></h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/member_news/">個股資訊 & 新聞</a></li>
+                            <li><a href="/my_stock/">投資組合清單</a></li>
+                            <li><a href="/mem_sto/">選股條件清單</a></li>
+                            <li><a href="/modify/">會員基本資料</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/financial/" target="_blank"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/get_article/" target="_blank"><img src="{% static 'png/interface.png' %}"> 討論區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/smallschool/" target="_blank"><img src="{% static 'png/open-book.png' %}">
+                            理財小學堂</a></h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">新手投資小常識</a></li>
+                            <li><a href="/economic_term/">經濟指標一覽</a></li>
+                            <li><a href="/stock_ana/">股票分析教室</a></li>
+                            <li><a href="/stock_ana/">選股小撇步</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md scrollable">
+
+                        <div class="slim-scroll" data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+
+                            <!-- nav class="nav-primary hidden-xs"<br>
+            ul class="nav bg clearfix" -->
+                            <nav>
+                                <ul class="nav bg clearfix" style="width:230px;height:130px"> {% if loginstatus == False
+                                    %}
+                                    <div style="margin-left:40px; margin-top:8px">
+                                        <a class="myButton" href="/login/">登入系統</a>
+                                        <a class="myButton" href="/signin/">註冊會員</a>
+                                    </div>
+
+
+                                    <!--喔喔不要壞掉惹-->
+                                    {% else %}
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font size="3">&nbsp;您好!&nbsp;{{ name
+                                            }}</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+                                    <!---->
+
+                                    {% endif %}
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+              <button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+                                            <input class="form-control input-sm no-border rounded"
+                                                   placeholder="請輸入股號/股名" type="text">
+                                        </div>
+                                    </div>
+
+                                </ul>
+
+
+                            </nav>
+                            <!-- / nav -->
+                        </div>
+                    </section>
+
+
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight aside text-left">
+                                <li>
+                                    <span class="arrow bottom hidden-nav-xs"></span>
+                                    <a href="#">Settings</a>
+                                </li>
+                                <li>
+                                    <a href="/profile/">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="badge bg-danger pull-right">3</span>
+                                        Notifications
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/docs/">Help</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a data-toggle="ajaxModal" href="/modal.lockme/">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="hbox stretch">
+
+                    <section class="vbox">  <!--vbox-->
+                        <section class="scrollable padder-lg w-f-md" id="bjax-target">
+
+                            <div class="text-m">
+                                <a id="top"></a>
+                                <section class="major" id="banner"
+                                         style=" height:400px;width: 1040px; overflow-y:auto;margin-left: -10px">
+                                    <div class="inner">
+                                        <header class="major" id="header" style="margin-top:30px">
+                                            <div class="pull-left">
+                                                <h3 style="width:80px"><font color="#fff">討論區</font></h3></div>
+
+                                            <div style="margin-top:30px; padding-top:2.8%">
+
+                                                <a href="/get_article/"
+                                                   style="color:#dbe6c4; text-decoration:underline">討論區首頁</a><font
+                                                    color="#fff">>></font><a href="/chatcon/" style="color:#dbe6c4">討論區內容</a>
+                                            </div>
+
+                                            <hr size="10" style="margin-top:10px">
+
+                                            <a class="btn btn-primary" href="/post/">發文</a>&nbsp;&nbsp;<a href="#reply"><input
+                                                class=" btn btn-primary" name="reply" type="submit" value="回覆"></a>
+
+                                        </header>
+
+                                        <div class="content">
+                                            <div class="post-item">
+                                                <table border="1" bordercolor="#CCCCCC" height="300px" width="600px">
+                                                    <tbody>
+                                                    <tr align="left">
+                                                        <td align="center" height="10px" width="130px">發文者: {{
+                                                            article.member_id }}<br><img src="#"></td>
+                                                        <td style="padding-left:5px; padding-top:10px; font-size:20px"
+                                                            valign="top" width="470px">標題: {{ article.title }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr height="150px" valign="top">
+                                                        <td>
+                                                            <form action="/like/" method="post">
+                                                                <input name="id" type="hidden" value="{{ id }}">
+                                                                <center>
+                                                                    <button class="btn btn-default">
+		                  <span class="text">
+	<i class="fa fa-thumbs-up text-primary"></i>讚
+		                  </span>
+                                                                        <span class="text-active">
+ <i class="fa fa-thumbs-up text-success"></i>你覺得這真讚
+		                  </span>
+                                                                    </button>
+                                                                </center>
+                                                            </form>
+                                                            <table width="125">
+                                                                <tr>
+                                                                    <td style="padding-left:5px" width="80px">按讚數: {{
+                                                                        article.like }}
+                                                                    </td>
+                                                                    <td>#</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="padding-left:5px">回文數: {{
+                                                                        article.reply_times }}
+                                                                    </td>
+                                                                    <td>#</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                        <td style="padding-left:5px">內容: {{ article.content }}
+                                                            <footer id="footer">
+                                                                <div style="valign:bottom">發文時間: {{ article.date }} {{
+                                                                    article.time }}
+                                                                </div>
+                                                            </footer>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <p>
+
+                                                <div class="post-item"
+                                                     style="width:300px; height:300px; overflow-y:scroll">
+                                                    {% for comment1 in comment %}
+
+                                                    <section class="chat-body">
+                                                        <div class="panel b-light text-sm m-b-none"
+                                                             style="background-color:#FFF">
+                                                            <div class="panel-body">
+                                                                <tr>
+                                                                    <td>回答者{{ comment1.member_id }}</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td>
+                                            <p class="m-b-none">回答內容{{ comment1.content }}</p></td></tr>
+                                            <td>
+                                                <small class="text-muted"><i class="fa fa-ok text-success"></i>{{
+                                                    comment1.date }} {{ comment1.time }}
+                                                </small>
+                                            </td>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                {% endfor %}
+                            </div>
+                            </p>
+                            </div>
+                            </div>
+                        </section>
+                        </div>
+
+                        <a id="reply"></a>
+                        <form action="/reply/" method="post" name="chat">
+                            <div class="post-item text-m" style="opacity:0.8">
+                                <div class="form-group"><br>
+
+                                    <div class="btn-toolbar m-b-sm btn-editor" data-role="editor-toolbar"
+                                         data-target="#editor"><br>
+                                        <div class="btn-group">
+                                            <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"
+                                               title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b
+                                                    class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a data-edit="fontSize 5" style="font-size:24px">Huge</a></li>
+                                                <li><a data-edit="fontSize 3" style="font-size:18px">Normal</a></li>
+                                                <li><a data-edit="fontSize 1" style="font-size:14px">Small</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-default btn-sm" data-edit="bold"
+                                               title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                            <a class="btn btn-default btn-sm" data-edit="italic"
+                                               title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                            <a class="btn btn-default btn-sm" data-edit="strikethrough"
+                                               title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                            <a class="btn btn-default btn-sm" data-edit="underline"
+                                               title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-default btn-sm" data-edit="outdent"
+                                               title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                            <a class="btn btn-default btn-sm" data-edit="indent" title="Indent (Tab)"><i
+                                                    class="fa fa-indent"></i></a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-default btn-sm" data-edit="justifyleft"
+                                               title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                            <a class="btn btn-default btn-sm" data-edit="justifycenter"
+                                               title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                            <a class="btn btn-default btn-sm" data-edit="justifyright"
+                                               title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                            <a class="btn btn-default btn-sm" data-edit="justifyfull"
+                                               title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"
+                                               title="Hyperlink"><i class="fa fa-link"></i></a>
+                                            <div class="dropdown-menu">
+                                                <div class="input-group m-l-xs m-r-xs">
+                                                    <input class="form-control input-sm" data-edit="createLink"
+                                                           placeholder="URL" type="text"/>
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-default btn-sm" type="button">Add
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a class="btn btn-default btn-sm" data-edit="unlink"
+                                               title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                                        </div>
+
+                                        <div class="btn-group hide">
+                                            <a class="btn btn-default btn-sm" id="pictureBtn"
+                                               title="Insert picture (or just drag & drop)"><i
+                                                    class="fa fa-picture-o"></i></a>
+                                            <input data-edit="insertImage" data-role="magic-overlay"
+                                                   data-target="#pictureBtn" type="file"/>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-default btn-sm" data-edit="undo"
+                                               title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                            <a class="btn btn-default btn-sm" data-edit="redo"
+                                               title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                                        </div>
+                                    </div>
+                                    <input name="reply" type="hidden" value="{{ id }}">
+                                    <textarea autofocus class="input-sm form-control " name="editor"
+                                              style="width:800px;height:180px;"> 　輸入你想要寫的內容... </textarea>
+                                    <br>
+                                    <span class="input-group-btn">
+     <button class="btn btn-success" type="submit">回覆</button>
+                      </span><br>
+                                </div>
+                            </div>
+                        </form>
+
+                    </section>
+                    <footer class="footer bg-alert">
+                        <h6 align="center">Copyright ® 2019 by Future Futures.com. Corp. All right reserved.
+                        </h6>
+                    </footer>
+                    <script src="{% static 'js/jquery.min.js' %}"></script>
+                    <!-- Bootstrap -->
+                    <script src="{% static 'js/bootstrap.js' %}"></script>
+                    <!-- App -->
+                    <script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+                    <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+                    <script src="{% static 'js/datepicker/bootstrap-datepicker.js' %}"></script>
+                    <!-- slider -->
+                    <script src="{% static 'js/slider/bootstrap-slider.js' %}"></script>
+                    <!-- file input -->
+                    <script src="{% static 'js/file-input/bootstrap-filestyle.min.js' %}"></script>
+                    <!-- wysiwyg -->
+                    <script src="{% static 'js/wysiwyg/jquery.hotkeys.js' %}"></script>
+                    <script src="{% static 'js/wysiwyg/bootstrap-wysiwyg.js' %}"></script>
+                    <script src="{% static 'js/wysiwyg/demo.js' %}"></script>
+                    <!-- markdown -->
+                    <script src="{% static 'js/markdown/epiceditor.min.js' %}"></script>
+                    <script src="{% static 'js/markdown/demo.js' %}"></script>
+
+                    <script src="{% static 'js/chosen/chosen.jquery.min.js' %}"></script>
+                    <script src="{% static 'js/app.plugin.js' %}"></script>
+                    <script src="{% static 'js/jPlayer/jquery.jplayer.min.js' %}" type="text/javascript"></script>
+                    <script src="{% static 'js/jPlayer/add-on/jplayer.playlist.min.js' %}"
+                            type="text/javascript"></script>
+                    <script src="{% static 'js/jPlayer/demo.js' %}" type="text/javascript"></script>
+                    <a href="#top">
+                        <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+                    </a>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+</body>
+</html>

@@ -1,0 +1,1142 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+
+    <script src="{% static 'js/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap-typeahead.js' %}" type="text/javascript"></script>
+
+
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'jquery.SuperSlide.2.1.1.js' %}" type="text/javascript"></script>
+
+    <meta charset="utf-8"/>
+    <title>預測型機器人</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/f.png' %}" rel="shortcut icon">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/styles.css' %}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style6.css' %}" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+	
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:240px;border-radius:2px; }
+		.slideTxtBox1{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:150px;border-radius:2px; }
+		.slideTxtBox, .slideTxtBox1 .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox, .slideTxtBox1 .hd ul{
+	float: left;
+	position: absolute;
+	left: 20px;
+	top: 2px;
+	height: 32px;
+}
+		.slideTxtBox, .slideTxtBox1 .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox, .slideTxtBox1 .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox, .slideTxtBox1 .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox, .slideTxtBox1 .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox, .slideTxtBox1 .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+		.page-list-title{
+		font-size:16px;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    background: #b5d247;
+    margin: 0px 3px 3px 0;
+}
+		.page-list-title2{
+		font-size:16px;
+		}
+
+.page-list-title2:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 2px 4px 0;
+}
+.navBar1 {
+	width:228px;
+	margin:0 auto;
+	margin-left:1px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+	/*new*/
+.tabbox{width:505px;height:256px;background:#fff;font-family:'微软雅黑'; }
+.tabbox .tab{overflow:hidden;background:#f0f0f0;}
+.tabbox .tab a{display:block;padding:8px 18px;float:left;text-decoration:none;color:#333;}
+.tabbox .tab a:hover{background:#E64E3F;color:#fff;text-decoration:none;}
+.tabbox .tab a.on{background:#90BF60;color:#fff;text-decoration:none;}
+.tabbox .content{overflow:hidden;width:500px;height:500px;position:relative;    margin-top: -0px;}
+.tabbox .content ul{position:absolute;left:0;top:0;}
+.tabbox .content li{width:500px;height:300px;float:left;}
+.tabbox .content li p{padding:10px;}
+.table tr:hover{
+	background-color:#FFFCED;
+}
+.table{
+ color:#282828;
+ font-size:16px;
+}
+.btn-rounded :hover{
+
+ color:#FFEB00;
+
+}
+
+.btn-icon.btn-sm {
+    width: 30px;
+    height: 30px;
+}
+.btn-sm, .btn-group-sm .bt > .btn {
+    padding: 2px 10px 10px 10px;
+    font-size: 10px;
+    line-height: 1.5;
+    border-radius: 50px;
+}
+.mb1 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	box-shadow:inset 0px 1px 0px 0px #c6e6b8;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #8dc272), color-stop(1, #60a83d));
+	background:-moz-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-webkit-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-o-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:-ms-linear-gradient(top, #8dc272 5%, #60a83d 100%);
+	background:linear-gradient(to bottom, #8dc272 5%, #60a83d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8dc272', endColorstr='#60a83d',GradientType=0);
+	background-color:#8dc272;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #73a35b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 10px;
+	text-decoration:none;
+}
+.mb1:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #60a83d), color-stop(1, #8dc272));
+	background:-moz-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-webkit-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-o-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:-ms-linear-gradient(top, #60a83d 5%, #8dc272 100%);
+	background:linear-gradient(to bottom, #60a83d 5%, #8dc272 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#60a83d', endColorstr='#8dc272',GradientType=0);
+	background-color:#60a83d;
+}
+.mb1:active {
+	position:relative;
+	top:1px;
+}
+
+.mb2 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b8e356), color-stop(1, #a5cc52));
+	background:-moz-linear-gradient(top, #b8e356 5%, #a5cc52 100%);
+	background:-webkit-linear-gradient(top, #b8e356 5%, #a5cc52 100%);
+	background:-o-linear-gradient(top, #b8e356 5%, #a5cc52 100%);
+	background:-ms-linear-gradient(top, #b8e356 5%, #a5cc52 100%);
+	background:linear-gradient(to bottom, #b8e356 5%, #a5cc52 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8e356', endColorstr='#a5cc52',GradientType=0);
+	background-color:#b8e356;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #83c41a;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:9px 19px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #86ae47;
+}
+.mb2:hover {
+	color:#fff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #a5cc52), color-stop(1, #b8e356));
+	background:-moz-linear-gradient(top, #a5cc52 5%, #b8e356 100%);
+	background:-webkit-linear-gradient(top, #a5cc52 5%, #b8e356 100%);
+	background:-o-linear-gradient(top, #a5cc52 5%, #b8e356 100%);
+	background:-ms-linear-gradient(top, #a5cc52 5%, #b8e356 100%);
+	background:linear-gradient(to bottom, #a5cc52 5%, #b8e356 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a5cc52', endColorstr='#b8e356',GradientType=0);
+	background-color:#a5cc52;
+}
+.mb2:active {
+	color:#fff;
+	position:relative;
+	top:1px;
+}
+
+
+.mb3 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	box-shadow:inset 0px 1px 0px 0px #79c5d1;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #43adad), color-stop(1, #51b5b8));
+	background:-moz-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-webkit-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-o-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:-ms-linear-gradient(top, #43adad 5%, #51b5b8 100%);
+	background:linear-gradient(to bottom, #43adad 5%, #51b5b8 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#43adad', endColorstr='#51b5b8',GradientType=0);
+	background-color:#43adad;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:4px;
+	border:1px solid #25a4a8;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 6px;
+	text-decoration:none;
+}
+.mb3:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #51b5b8), color-stop(1, #43adad));
+	background:-moz-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-webkit-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-o-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:-ms-linear-gradient(top, #51b5b8 5%, #43adad 100%);
+	background:linear-gradient(to bottom, #51b5b8 5%, #43adad 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#51b5b8', endColorstr='#43adad',GradientType=0);
+	background-color:#51b5b8;
+}
+.mb3:active {
+	position:relative;
+	top:1px;
+}
+
+.tooltip2 {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip2 .tooltiptext2 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip2 .tooltiptext2::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip2:hover .tooltiptext2 {
+    visibility: visible;
+}
+.elearning_title {
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffc800;
+    font-weight: bold;
+    background: url('{% static 'png/arrow.png' %}') no-repeat;
+    padding:0px 10px 3px 28px;
+    border-bottom: 1px dotted #ccc;
+	width:300px
+}
+
+.elearning_content {
+    font-size: 14px;padding: 15px;
+	color:#E9E9E9;
+}
+.breadcrumb{
+ border-color: transparent;
+ margin-bottom:-20px;
+ font-size:14px;
+}
+.simple-input {
+  display: block;
+  padding: 5px;
+  border: 4px solid #F1B720;
+  border-radius: 5px;
+  color: #333;
+  transition: all 0.3s ease-out;
+}
+ 
+.simple-input:hover {
+  border-radius: 8px
+}
+ 
+.simple-input:focus {
+  outline: none;
+  border-radius: 8px;
+  border-color: #EBD292;
+}
+.mac {
+ 
+  border: #ddd 1px solid;
+  border-radius: 20px;
+  color: #333;
+}
+ 
+.mac:focus {
+  outline: none;
+  box-shadow: 
+      0 0 5px 1px #51CBEE;
+}
+.wrap{width:600px;margin:0 auto;padding:20px 40px;border:2px solid #999;border-radius:0px 0px 8px 8px;background:#fff;box-shadow:0 0 10px rgba(0,0,0,0.5);}
+
+fieldset{margin:1em 0;
+    display: block;
+    -webkit-margin-start: 2px;
+    -webkit-margin-end: 2px;
+    -webkit-padding-before: 0.35em;
+    -webkit-padding-start: 0.75em;
+    -webkit-padding-end: 0.75em;
+    -webkit-padding-after: 0.75em;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    min-width: -webkit-min-content;
+    border-width: 1px;
+    border-style: groove;
+	border-radius: 1px;
+	border-width: 1px;
+    border-color: #b5d247;
+}
+fieldset legend{font:bold 14px/2 "\5fae\8f6f\96c5\9ed1";border-bottom: 0px;}
+
+/*checkbox*/
+.i-checks i {
+    width: 18px;
+    height: 18px;
+    line-height: 1;
+    border: 1px solid #cbd5dd;
+    background-color: #fff;
+    margin-left: -20px;
+    margin-top: -2px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+    position: relative;
+    font-size: 12px;
+}
+.mac2 {
+  border: #ddd 1px solid;
+  border-radius: 20px;
+  color: #333;
+}
+.mac2:focus {
+  outline: none;
+  box-shadow: 
+      0 0 5px 1px #51CBEE;
+}
+input {
+    border: 1px solid #BBBBBB; //改變外框
+    background: #fff; // 背景色
+    /* 邊角圓弧化，不同瀏器覧設定不同　*/
+    -moz-border-radius:3px; // Firefox
+    -webkit-border-radius: 3px; // Safari 和 Chrome
+    border-radius: 3px; // Opera 10.5+
+}
+
+    </style>
+
+
+</head>
+<body style="background-image: url('{% static 'png/bk3.jpg' %}'); background-position: 0px 0px;">
+
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/smallschool/">
+                <!-- <i class="icon-earphones"></i>-->
+                <!--<span class="hidden-nav-xs m-2-sm"> <img src="{% static 'png/robot2.png' %}" height="56" width="58"></span>-->
+                <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img height="35"
+                                                                             src="{% static 'png/love.gif' %}"
+                                                                             width="27">Futures</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><a href="/get_news/" target="_blank"><img src="{% static 'png/money 2.png' %}"> NEWS</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/tap.png' %}">
+                            交易資訊</a></font></h3>
+                        <ul class="sub">
+                            <li><a href="/algotrade/">歷史回測</a></li>
+                            <li><a href="/recent/">即時資料</a></li>
+                            <li><a href="/stock/">期貨專區</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="//" target="_blank"><img src="{% static 'png/business.png' %}"> EDITOR</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/economic_term/" target="_blank"><img src="{% static 'png/anal.png' %}"> 指標專區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/tech/" target="_blank"><img src="{% static 'png/pay.png' %}"> 下單機</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/school.png' %}"> 新手專區</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/get_article/">討論區</a></li>
+                            <li><a href="/rookie/">新手投資小常識</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a href="/member/"><img src="{% static 'png/people-3.png' %}"> 會員</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">我的追蹤期貨</a></li>
+                            <li><a href="/economic_term/">我的期貨新聞</a></li>
+                            <li><a href="/stock_ana/">機器人投顧</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+
+                            <nav>
+                                <ul class="nav bg-black clearfix" style="width:230px;">
+                                    {% if loginstatus == False %}
+                                    <div style="margin-left:40px; margin-top:8px">
+                                        <a class="myButton" href="/login/">登入系統</a>
+                                        <a class="myButton" href="/signin/">註冊會員</a>
+                                    </div>
+
+
+                                    <!--喔喔不要壞掉惹-->
+                                    {% else %}
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font size="3">&nbsp;您好!&nbsp;{{ name
+                                            }}</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+                                    <!---->
+                                    {% endif %}
+
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded mac" type="submit"><i class="fa fa-search"
+                                                                          style="padding-top:5px"></i></button>
+            </span>
+                                            <input autocomplete="off"
+                                                   class="form-control input-sm no-border rounded mac" id="demo1"
+                                                   placeholder="請輸入股號/股名" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="nav navBar1 clearfix dk">
+                                        <!--崩壞開始-->
+
+                                        <div class="menu" id="menu">
+                                            <div class="menu-header"> 機器人投顧</div>
+                                            <ul>
+                                                <li><a href="/predict/"><i class="fa fa-rocket"
+                                                                           style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        color="#CCD7D8" size="+1"><strong>預知未來型</strong></font></a>
+                                                    <!--   <ul class="submenu">
+                                                         <li><a href="#" onClick="demo1()"><font size="3">財報數據</font></a></li>
+                                                         <li><a href="#" onClick="demo2()"><font size="3">獲利能力</font></a></li>
+                                                         <li><a href="#" onClick="demo3()"><font size="3">安全性</font></a></li>
+                                                         <li><a href="#" onClick="demo4()"><font size="3">成長力</font></a></li>
+                                                       </ul>-->
+                                                </li>
+                                                <li><a href="/analysis1/"><i class="fa fa-stethoscope"
+                                                                             style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>健康診斷型</strong></font></a></li>
+                                                <li><a href="/gep/"><i class="icon-like"
+                                                                       style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>推薦好股型</strong></font></a></li>
+                                                <li><a href="/five/"><i class="fa fa-shopping-cart"
+                                                                        style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>買賣分析型</strong></font></a></li>
+
+                                                <li><a href="/funds/"><i class="icon-present"
+                                                                         style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                        size="+1"><strong>投資組合推薦</strong></font></a></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </ul>
+                                <script>
+function demo1() {
+    document.getElementById("demo").innerHTML = "財報數據";
+}
+
+                                </script>
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">  <!--vbox-->
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+
+                                <a id="top"></a>
+                                <div>
+                                    <ul class="breadcrumb" style="background-color:transparent">
+                                        <a href="#"><i class="fa fa-home"></i> 首頁 </a><i
+                                            class="fa fa-angle-double-right" style="color:#066"></i>
+                                        <font color="#414141"> 機器人投顧</font> <i class="fa fa-angle-double-right"
+                                                                               style="color:#066"></i> <font
+                                            color="#414141"> <u>預知未來型機器人</u></font>
+                                        <!--<span class="pull-right" style="color:#000;">股票交易日期 : <span style="
+                                           border-color:#296564;
+                                           font-family:'Courier New', Courier, monospace;
+                                            border-style: solid;
+                                            background-color:#368D8D;
+                                            border-width: thin;
+                                            color: #F7F9AE;
+                                            margin: 2px;
+                                            padding: 2px;"> 2016/09/01</span></span>-->
+                                    </ul>
+                                </div>
+
+
+                                <section class="post-item panel-success col-md-6 scrollable"
+                                         style="margin-left:134px; margin-top:20px; width:798px;height:300px; margin-bottom:-5px;padding:20px;padding-top:10px; background: rgba(20%,18%,20%,0.6);border-radius:10px 10px 0px 0px">
+                                    <h2><font color="#fff">機器人投資顧問-- <font size="+2">預知未來型</font></font></h2>
+                                    <div class="elearning_block"
+                                         style="padding:18px; padding-top:5px;padding-bottom:5px;">
+                                        <div><font color="#ffc800"><strong>預測使用到的指標 : </strong></font></div>
+                                        <div class="elearning_content" style="margin-bottom:5px">
+                                            <li>1. 營業利益率</li>
+                                            <li>2. 營業毛利率</li>
+                                            <li>3. 稅後淨利率</li>
+                                            <li>4. 營收成長率</li>
+                                            <li>5. 稅後淨利成長率</li>
+                                            <li>6. 應收帳款周轉率</li>
+                                            <li>7. 存貨周轉率</li>
+                                            <li>8. 固定資產周轉率</li>
+                                        </div>
+                                        <div class="elearning_title">小叮嚀</div>
+                                        <div class="elearning_content">
+                                            預測功能是利用歷史資料做演算法分析，而大型股趨勢較穩定較適合使用預測功能，而中小型股趨勢波動較大，此功能並未考慮其他外在因數，建議使用者將預測結果作為參考即可。
+                                        </div>
+                                        <div class="elearning_title">演算法說明</div>
+                                        <div class="elearning_content">
+                                            本系統使用到統計學的線性回歸模型，將會影響應變數的自變數找出並建立線性回歸模型，機器人會自動去找出應變數和自變數的關係，
+                                            並且預測出近幾季或近幾年的每股盈餘。
+                                        </div>
+
+                                        <div class="elearning_title">預測結果說明</div>
+                                        <div class="elearning_content">本系統使用歷史資料來為使用者預測每股盈餘，使用者可將其和真正的數據來做比較。</div>
+
+                                        <div class="elearning_title">精準度</div>
+                                        <div class="elearning_content">精準度為預測結果的正確性，投資人可同時比較預測值和真正的數據，並將比較結果納入選股考慮因素。
+                                        </div>
+
+                                        <div class="elearning_title">標準差</div>
+                                        <div class="elearning_content">
+                                            標準差為該股票所屬產業的每股盈餘標準差。投資人可觀察該股票的每股盈餘和產業平均相差多少標準差。若變動幅度過於頻繁不定，則需
+                                            考慮是否要買進或賣出。
+                                        </div>
+                                    </div>
+
+                                </section>
+
+                                <div class="wrap" style="margin-top:320px; width:800px">
+                                    <h1><font color="#333333">讓Mr. Robot為您預測未來吧!</font><img pngsrc='{% static '/robot.png'
+                                        %}' style="width:65px; height:85px; margin-left:20px"></h1>
+                                    <div style="margin-bottom:10px"></div>
+                                    <h2>根據投資人屬性測驗結果，您屬於<font color="#75CA20">{{ cname }}</font><a href="#"><img
+                                            pngsrc='{% static '/Q.png' %}' style="width:26px; height:26px;
+                                        margin-left:10px; margin-top:-8px"></a></h2>
+                                    <form action="/predict/" method="post">
+                                        <fieldset id="city_china">
+                                            <legend style="width:14%;"><font color="#757575" face="微軟正黑體" size="+1"
+                                                                             style=" margin-left:15px;">Step 1.</font>
+                                            </legend>
+                                            <p class="page-list-title"> 請輸股號/股名：
+
+                                                <input autocomplete="off" class="mac" id="demo2" name="stock"
+                                                       placeholder="2330 台積電"
+                                                       style="width:140px; font-size:16px;border-radius:5px; padding-left:10px"
+                                                       type="text">
+                                                </input>
+                                            </p>
+                                            <hr>
+
+                                            <p class="page-list-title"> 請選擇預測的時間區間 :
+                                            <div style="margin-top:-5px">
+                                                <label class="checkbox-inline i-checks">
+                                                    <input name="myCheckBox" type="checkbox" value="year"><i></i> 年
+                                                </label>
+                                                <label class="checkbox-inline i-checks">
+                                                    <input name="myCheckBox" type="checkbox" value="season"><i></i> 季
+                                                </label>
+                                                <label class="checkbox-inline i-checks">
+                                                    <input name="myCheckBox" type="checkbox" value="month"><i></i> 月
+
+                                                </label>
+                                                <label class="checkbox-inline i-checks">
+                                                    <input name="myCheckBox" type="checkbox" value="date"><i></i> 日
+
+                                                </label>
+                                            </div>
+                                            </p>
+                                        </fieldset>
+
+                                        <script type="text/javascript">
+
+$(document).ready(function(){
+
+$("input[name=myCheckBox]").click( function () {
+var Selected = $(this).val();
+$("input[name=myCheckBox]").each(function(i){
+if($(this).val() == Selected) $(this).prop("checked", true);
+else $(this).prop("checked", false);
+});
+});
+
+});
+
+
+                                        </script>
+                                        <script type="text/javascript">
+
+$(document).ready(function(){
+
+$("input[name=myCheckBox2]").click( function () {
+var Selected = $(this).val();
+$("input[name=myCheckBox2]").each(function(i){
+if($(this).val() == Selected) $(this).prop("checked", true);
+else $(this).prop("checked", false);
+});
+});
+
+});
+
+
+                                        </script>
+                                        <script type="text/javascript">
+
+$(document).ready(function(){
+
+$("input[name=myCheckBox3]").click( function () {
+var Selected = $(this).val();
+$("input[name=myCheckBox3]").each(function(i){
+if($(this).val() == Selected) $(this).prop("checked", true);
+else $(this).prop("checked", false);
+});
+});
+
+});
+
+
+                                        </script>
+                                        <fieldset id="city_china">
+                                            <legend style="width:14%;"><font color="#757575" face="微軟正黑體" size="+1"
+                                                                             style=" margin-left:15px;">Step 2.</font>
+                                            </legend>
+                                            <p class="page-list-title"> 請選擇預測的項目：</p>
+
+                                            <div style="width:60px; border:#657D59 1px solid; padding:5px; background-color:#657D59; color:#fff; border-radius:5px">
+                                                基本面
+                                            </div>
+
+                                            <div class="pull-right;"
+                                                 style="width:408px; margin-top:-30px; margin-left:75px">
+                                                <label class="checkbox-inline i-checks">
+                                                    <input name="myCheckBox2" type="checkbox" value="profit"><i></i>
+                                                    獲利能力
+                                                </label>
+                                                <label class="checkbox-inline i-checks">
+                                                    <input name="myCheckBox2" type="checkbox" value="debt"><i></i> 償債能力
+                                                </label>
+                                                <label class="checkbox-inline i-checks">
+                                                    <input name="myCheckBox2" type="checkbox" value="credit"><i></i>
+                                                    經營績效
+
+                                                </label>
+                                                <label class="checkbox-inline i-checks">
+                                                    <input name="myCheckBox2" type="checkbox" value="capability"><i></i>
+                                                    經營能力
+
+                                                </label>
+                                            </div>
+                                            <hr>
+                                            <div style="width:60px; border:#657D59 1px solid; padding:5px; background-color:#657D59; color:#fff; border-radius:5px">
+                                                技術面
+                                            </div>
+
+                                            <div class="pull-right;"
+                                                 style="width:408px; margin-top:-30px; margin-left:75px">
+                                                <label class="checkbox-inline i-checks">
+                                                    <input name="myCheckBox2" type="checkbox" value="price"><i></i> 成交價
+                                                </label>
+                                                <label class="checkbox-inline i-checks">
+                                                    <input name="myCheckBox2" type="checkbox" value="change"><i></i> 漲跌幅
+                                                </label>
+
+                                            </div>
+                                            <br>
+                                        </fieldset>
+
+                                        <br>
+                                        <div align="center">
+                                            <button class="mb2" type="submit">開始預測</button>
+                                        </div>
+                                        <br>
+                                    </form>
+                                </div>
+                                <br>
+                                <script>
+    $('#demo1').typeahead({
+        source: [
+            { id: 1, name: '2330 台積電' },
+            { id: 2, name: '1101 台泥' },
+            { id: 3, name: '1102 亞泥' },
+            { id: 4, name: '1217 愛之味' },
+            { id: 5, name: '1256 鮮活果汁-KY' },
+            { id: 6, name: '1262 綠悅-KY' },
+            { id: 7, name: '1301 台塑' },
+            { id: 8, name: '1326 台化' },
+            { id: 9, name: '1565 精華' },
+            { id: 10, name: '1590 亞德客-KY' },
+			{ id: 11, name: '1704 榮化' },
+            { id: 12, name: '2002 中鋼' },
+            { id: 13, name: '2023 燁輝' },
+            { id: 14, name: '2105 正新' },
+            { id: 15, name: '2107 厚生' },
+            { id: 16, name: '2201 裕隆' },
+            { id: 17, name: '2207 和泰車' },
+            { id: 18, name: '2227 裕日車' },
+            { id: 19, name: '2308 台達電' },
+            { id: 20, name: '2317 鴻海' },
+			{ id: 21, name: '2323 中環' },
+            { id: 22, name: '2344 華邦電' },
+            { id: 23, name: '2347 聯強' },
+            { id: 24, name: '2349 錸德' },
+            { id: 25, name: '2353 宏碁' },
+            { id: 26, name: '2357 華碩' },
+            { id: 27, name: '2371 大同' },
+            { id: 28, name: '2373 震旦行' },
+            { id: 29, name: '2379 瑞昱' },
+            { id: 30, name: '2382 廣達' },
+			{ id: 31, name: '2383 台光電' },
+            { id: 32, name: '2397 友通' },
+            { id: 33, name: '2405 浩鑫' },
+            { id: 34, name: '2409 友達' },
+            { id: 35, name: '2412 中華電' },
+            { id: 36, name: '2454 聯發科' },
+            { id: 37, name: '2474 可成' },
+            { id: 38, name: '2481 強茂' },
+            { id: 39, name: '2485 兆赫' },
+            { id: 40, name: '2498 宏達電' },
+			{ id: 41, name: '2610 華航' },
+            { id: 42, name: '2618 長榮航' },
+            { id: 43, name: '2727 王品' },
+            { id: 44, name: '2729 瓦城' },
+            { id: 45, name: '2809 京城銀' },
+            { id: 46, name: '2832 台產' },
+            { id: 47, name: '2845 遠東銀' },
+            { id: 48, name: '2852 第一保' },
+            { id: 49, name: '2855 統一證' },
+            { id: 50, name: '2881 富邦金' },
+			{ id: 51, name: '2882 國泰金' },
+            { id: 52, name: '2890 永豐金' },
+            { id: 53, name: '2912 統一超' },
+            { id: 54, name: '3008 大立光' },
+            { id: 55, name: '3045 台灣大' },
+            { id: 56, name: '3059 華晶科' },
+            { id: 57, name: '3083 網龍' },
+            { id: 58, name: '3450 聯鈞' },
+            { id: 59, name: '3454 晶睿' },
+            { id: 60, name: '3548 兆利' },
+			{ id: 61, name: '3663 鑫科' },
+            { id: 62, name: '3669 圓展' },
+            { id: 63, name: '3702 大聯大' },
+            { id: 64, name: '4129 聯合' },
+            { id: 65, name: '4416 三圓' },
+            { id: 66, name: '4552 力達-KY' },
+            { id: 67, name: '4726 永昕' },
+            { id: 68, name: '4739 康普' },
+            { id: 69, name: '4904 遠傳' },
+            { id: 70, name: '4915 致伸' },
+			{ id: 71, name: '4935 茂林-KY' },
+            { id: 72, name: '4946 辣椒' },
+            { id: 73, name: '5474 聰泰' },
+            { id: 74, name: '5903 全家' },
+            { id: 75, name: '6015 宏遠證' },
+            { id: 76, name: '6154 順發' },
+            { id: 77, name: '6176 瑞儀' },
+            { id: 78, name: '6214 精誠' },
+            { id: 79, name: '6244 茂迪' },
+            { id: 80, name: '6281 全國電' },
+			{ id: 81, name: '6505 台塑化' },
+            { id: 82, name: '8044 網家' },
+            { id: 83, name: '8101 華冠' },
+            { id: 84, name: '8349 恒耀' },
+            { id: 85, name: '8906 花王' },
+            { id: 86, name: '9914 美利達' },
+            { id: 87, name: '9921 巨大' },
+
+        ]
+    });
+	
+	
+	  $('#demo2').typeahead({
+        source: [
+            { id: 1, name: '2330 台積電' },
+            { id: 2, name: '1101 台泥' },
+            { id: 3, name: '1102 亞泥' },
+            { id: 4, name: '1217 愛之味' },
+            { id: 5, name: '1256 鮮活果汁-KY' },
+            { id: 6, name: '1262 綠悅-KY' },
+            { id: 7, name: '1301 台塑' },
+            { id: 8, name: '1326 台化' },
+            { id: 9, name: '1565 精華' },
+            { id: 10, name: '1590 亞德客-KY' },
+			{ id: 11, name: '1704 榮化' },
+            { id: 12, name: '2002 中鋼' },
+            { id: 13, name: '2023 燁輝' },
+            { id: 14, name: '2105 正新' },
+            { id: 15, name: '2107 厚生' },
+            { id: 16, name: '2201 裕隆' },
+            { id: 17, name: '2207 和泰車' },
+            { id: 18, name: '2227 裕日車' },
+            { id: 19, name: '2308 台達電' },
+            { id: 20, name: '2317 鴻海' },
+			{ id: 21, name: '2323 中環' },
+            { id: 22, name: '2344 華邦電' },
+            { id: 23, name: '2347 聯強' },
+            { id: 24, name: '2349 錸德' },
+            { id: 25, name: '2353 宏碁' },
+            { id: 26, name: '2357 華碩' },
+            { id: 27, name: '2371 大同' },
+            { id: 28, name: '2373 震旦行' },
+            { id: 29, name: '2379 瑞昱' },
+            { id: 30, name: '2382 廣達' },
+			{ id: 31, name: '2383 台光電' },
+            { id: 32, name: '2397 友通' },
+            { id: 33, name: '2405 浩鑫' },
+            { id: 34, name: '2409 友達' },
+            { id: 35, name: '2412 中華電' },
+            { id: 36, name: '2454 聯發科' },
+            { id: 37, name: '2474 可成' },
+            { id: 38, name: '2481 強茂' },
+            { id: 39, name: '2485 兆赫' },
+            { id: 40, name: '2498 宏達電' },
+			{ id: 41, name: '2610 華航' },
+            { id: 42, name: '2618 長榮航' },
+            { id: 43, name: '2727 王品' },
+            { id: 44, name: '2729 瓦城' },
+            { id: 45, name: '2809 京城銀' },
+            { id: 46, name: '2832 台產' },
+            { id: 47, name: '2845 遠東銀' },
+            { id: 48, name: '2852 第一保' },
+            { id: 49, name: '2855 統一證' },
+            { id: 50, name: '2881 富邦金' },
+			{ id: 51, name: '2882 國泰金' },
+            { id: 52, name: '2890 永豐金' },
+            { id: 53, name: '2912 統一超' },
+            { id: 54, name: '3008 大立光' },
+            { id: 55, name: '3045 台灣大' },
+            { id: 56, name: '3059 華晶科' },
+            { id: 57, name: '3083 網龍' },
+            { id: 58, name: '3450 聯鈞' },
+            { id: 59, name: '3454 晶睿' },
+            { id: 60, name: '3548 兆利' },
+			{ id: 61, name: '3663 鑫科' },
+            { id: 62, name: '3669 圓展' },
+            { id: 63, name: '3702 大聯大' },
+            { id: 64, name: '4129 聯合' },
+            { id: 65, name: '4416 三圓' },
+            { id: 66, name: '4552 力達-KY' },
+            { id: 67, name: '4726 永昕' },
+            { id: 68, name: '4739 康普' },
+            { id: 69, name: '4904 遠傳' },
+            { id: 70, name: '4915 致伸' },
+			{ id: 71, name: '4935 茂林-KY' },
+            { id: 72, name: '4946 辣椒' },
+            { id: 73, name: '5474 聰泰' },
+            { id: 74, name: '5903 全家' },
+            { id: 75, name: '6015 宏遠證' },
+            { id: 76, name: '6154 順發' },
+            { id: 77, name: '6176 瑞儀' },
+            { id: 78, name: '6214 精誠' },
+            { id: 79, name: '6244 茂迪' },
+            { id: 80, name: '6281 全國電' },
+			{ id: 81, name: '6505 台塑化' },
+            { id: 82, name: '8044 網家' },
+            { id: 83, name: '8101 華冠' },
+            { id: 84, name: '8349 恒耀' },
+            { id: 85, name: '8906 花王' },
+            { id: 86, name: '9914 美利達' },
+            { id: 87, name: '9921 巨大' },
+
+        ]
+    });
+
+                                </script>
+
+                            </section>
+                            <footer class="footer bg-alert">
+                                <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+                                </h6>
+                            </footer>
+
+                        </section>
+                        <script src="{% static 'js/jquery.min.js' %}"></script>
+                        <script src="{% static 'js/bootstrap.js' %}"></script>
+                        <!-- Bootstrap -->
+
+                        <script>
+$(function(){
+	$('.tabbox .content ul').width(500*$('.tabbox .content li').length+'px');
+	$(".tabbox .tab a").mouseover(function(){
+		$(this).addClass('on').siblings().removeClass('on');
+		var index = $(this).index();
+		number = index;
+		var distance = -500*index;
+		$('.tabbox .content ul').stop().animate({
+			left:distance
+		});
+	});
+	
+	
+	
+});
+
+
+                        </script>
+                        <script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')
+                        </script>
+                        <script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+                        <script src="{% static 'js/app.js' %}"></script>
+                        <script src="{% static 'js/jQselectable.js' %}" type="text/javascript"></script>
+                        <a href="#top">
+                            <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+                        </a></section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+</body>
+</html>

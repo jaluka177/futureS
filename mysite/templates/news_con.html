@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{% static 'css/simple-line-icons.css' %}" type="text/css">
   <link rel="stylesheet" href="{% static 'css/font.css' %}" type="text/css">
   <link rel="stylesheet" href="{% static 'css/app.css' %}" type="text/css">
-  <link rel="shortcut icon" href="{% static 'images/icon2.ico' %}">
+    <link href="{% static 'images/f.png' %}" rel="shortcut icon">
   <style type="text/css">
 /* 整體設置*/ 
 .navigation {
@@ -196,58 +196,50 @@
 }
 </style>
 </head>
-<body style="background-image: url('{% static 'png/tree.jpg' %}'); background-position: 0px 0px;">
+<body style="background-image: url('{% static 'png/bk3.jpg' %}'); background-position: 0px 0px;">
  <!-- gotop的html語法 -->
   <section class="vbox">
     <header>
 <div class="navbar-header aside bg-info dk">
 <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
 </a>
-<a href="/home/" class="navbar-brand text-lt">
+    <a class="navbar-brand text-lt" href="/smallschool/">
          <!-- <i class="icon-earphones"></i>-->
-         <span class="hidden-nav-xs m-2-sm"> <img src="{% static 'png/robot2.png' %}" height="56" width="58"></span>
-          <span class="hidden-nav-xs m-l-sm"><font size="4">羅伯特<img src="{% static 'png/love.gif' %}" height="35" width="27">瑪妮</font>  </span>
+        <!--<span class="hidden-nav-xs m-2-sm"> <img src="{% static 'png/robot2.png' %}" height="56" width="58"></span>-->
+        <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img height="35" src="{% static 'png/love.gif' %}"
+                                                                     width="27">Futures</font>  </span>
         </a>
         <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
           <i class="icon-settings"></i>
         </a>
       </div>
-<div class="nav">       
+        <div class="nav">
        <!--nav-->
 <div class="navBar">
 		<ul class="nav clearfix">
 			<li class="m">
-			<h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font></h3>
-			<ul style="display: none;" class="sub">
-                <li><a href="/get_news/">財經新聞</a></li>
-			<li><a href="/stock/">個股速覽</a></li>
-		<li><a href="/fundamental/">基本面分析</a></li>
-                <li><a href="/macd/">技術面分析</a></li>
-                <li><a href="/margin/">籌碼面分析</a></li>
-                <li><a href="/bal_sheet/">財報分析</a></li>
-			</ul>
+                <h3><a href="/get_news/" target="_blank"><img src="{% static 'png/money 2.png' %}"> NEWS</a></h3>
             </li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="http://sc.chinaz.com/"><img src="{% static 'png/tap.png' %}"> 選股專區</a></h3>
+                <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/tap.png' %}"> 交易資訊</a></font></h3>
 			<ul class="sub">
-            <li><a href="/tech/">技術面選股</a></li>
-			<li><a href="/master/">選股小幫手</a></li>
+                <li><a href="/algotrade/">歷史回測</a></li>
+                <li><a href="/recent/">即時資料</a></li>
+                <li><a href="/stock/">期貨專區</a></li>
 			</ul>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-	<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font></h3>
-            <ul class="sub">
-				<li><a href="/test/">理財小測驗</a></li>
-            </ul>
+                <h3><a href="//" target="_blank"><img src="{% static 'png/business.png' %}"> EDITOR</a></h3>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font></h3>
+                <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}">
+                    智能機器人</a></font></h3>
 			<ul class="sub" style="display: none;">
-	<li><a href="/predict/">預知未來型</a></li>
-<li><a href="/analysis1/">健康診斷型</a></li>
+                <li><a href="/predict/">預知未來型</a></li>
+                <li><a href="/analysis1/">健康診斷型</a></li>
                 <li><a href="/gep/">推薦好股型</a></li>
                 <li><a href="/five/">買賣分析型</a></li>
                 <li><a href="/funds/">投資組合推薦</a></li>
@@ -255,38 +247,35 @@
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="/mem_home/"><img src="{% static 'png/people-3.png' %}"> 會員專區</a></h3>
-			<ul class="sub" style="display: none;">
-				<li><a href="/member_news/">個股資訊 & 新聞</a></li>
-				<li><a href="/my_stock/">投資組合清單</a></li>
-                <li><a href="/mem_sto/">選股條件清單</a></li>
-                <li><a href="/message/">追蹤訊息</a></li>
-				<li><a href="/modify/" >會員基本資料</a></li>
-
-			</ul>
+                <h3><a href="/economic_term/" target="_blank"><img src="{% static 'png/anal.png' %}"> 指標專區</a></h3>
+			</li>
+            <li class="s">|</li>
+			<li class="m">
+                <h3><a href="/tech/" target="_blank"><img src="{% static 'png/pay.png' %}"> 下單機</a></h3>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-	<h3><a target="_blank" href="/financial/"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a></h3>
+                <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/school.png' %}"> 新手專區</a></font>
+                </h3>
+                <ul class="sub">
+                    <li><a href="/get_article/">討論區</a></li>
+                    <li><a href="/rookie/">新手投資小常識</a></li>
+                </ul>
 			</li>
 			<li class="s">|</li>
 			<li class="m">
-			<h3><a target="_blank" href="/get_article/"><img src="{% static 'png/interface.png' %}"> 討論區</a></h3>
-			</li>
-			<li class="s">|</li>
-			<li class="m">
-			<h3><a target="_blank" href="/smallschool/"><img src="{% static 'png/open-book.png' %}"> 理財小學堂</a></h3>
+                <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員</a></font>
+                </h3>
             <ul class="sub">
-		<li><a href="/new_info/" >新手投資小常識</a></li>
-        <li><a href="/economic_term/">經濟指標一覽</a></li>
-                <li><a href="/stock_ana/">股票分析教室</a></li>
-                 <li><a href="/stock_ana/">選股小撇步</a></li>
+                <li><a href="/new_info/">我的追蹤期貨</a></li>
+                <li><a href="/economic_term/">我的期貨新聞</a></li>
+                <li><a href="/stock_ana/">機器人投顧</a></li>
              </ul>
 			</li>
 	<li class="block" style="left: 227px;"></li>
 		</ul>
 	</div>
-   </div> 
+        </div>
     </header>
     <section>
       <section class="hbox stretch">

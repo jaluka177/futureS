@@ -1,0 +1,584 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+    <meta content="text/html" http-equiv="content-type">
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-1.7.2.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'http://libs.baidu.com/jquery/1.6.0/jquery.min.js' %}">
+    </script>
+    <script src="{% static 'jquery.SuperSlide.2.1.1.js' %}" type="text/javascript"></script>
+    <meta charset="utf-8"/>
+    <title>新聞列表</title>
+    <link href="{% static 'css/style.css' %}" media="screen and (max-width: 700px)" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/3.png' %}" rel="shortcut icon">
+    <link href="{% static 'images/icon2.ico' %}" rel="shortcut icon">
+    <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:50px;
+	margin-top:-15px;
+	}
+	
+.pull-right2{
+	margin-right:50px;
+	margin-top:-15px;
+	}
+.pull-right3{
+	margin-right:24px;
+	margin-top:-45px;
+	}
+	
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:240px;border-radius:2px; }
+		.slideTxtBox .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox .hd ul{ float:left;  position:absolute; left:20px; top:-1px; height:32px;   }
+		.slideTxtBox .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+		.page-list-title{
+		font-size:20px;
+		font-weight:bold;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 3px 5px 0;
+}
+.navBar1 {
+	width:220px;
+	margin:0 auto;
+	margin-left:10px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;border-radius:2px; }
+		.slideTxtBox .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox .hd ul{ float:left;  position:absolute; left:20px; top:-1px; height:32px;   }
+		.slideTxtBox .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+		.page-list-title{
+		font-size:20px;
+		font-weight:bold;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 3px 5px 0;
+}
+.breadcrumb{
+ border-color: transparent;
+ margin-bottom:-20px;
+ font-size:14px;
+}
+      .mac2 {
+	border-radius:5px;
+  border: #ddd 1px solid;
+  color: #333;
+}
+.mac2:focus {
+	border-radius:5px;
+  outline: none;
+  box-shadow:
+      0 0 3px 1px #4AD0BE;
+}
+
+    </style>
+
+</head>
+<body style="background-image: url('{% static 'png/tree.jpg' %}'); background-position: 0px 0px;">
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/home/">
+                <!-- <i class="icon-earphones"></i>-->
+                <span class="hidden-nav-xs m-2-sm"> <img height="56" src="{% static 'png/robot2.png' %}"
+                                                         width="58"></span>
+                <span class="hidden-nav-xs m-l-sm"><font size="4">羅伯特<img height="35" src="{% static 'png/love.gif' %}"
+                                                                          width="27">瑪妮</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><font color="#fff"><a target="_blank"><img src="{% static 'png/line-chart.png' %}"> 個股專區</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/get_news/">財經新聞</a></li>
+                            <li><a href="/stock/">個股速覽</a></li>
+                            <li><a href="/fundamental/">基本面分析</a></li>
+                            <li><a href="/macd/">技術面分析</a></li>
+                            <li><a href="/margin/">籌碼面分析</a></li>
+                            <li><a href="/bal_sheet/">財報分析</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="http://sc.chinaz.com/" target="_blank"><img src="{% static 'png/tap.png' %}"> 選股專區</a>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/tech/">技術面選股</a></li>
+                            <li><a href="/master/">選股小幫手</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/business.png' %}"> 投資屬性分析</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/test/">理財小測驗</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 機器人投顧</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/mem_home/" target="_blank"><img src="{% static 'png/people-3.png' %}"> 會員專區</a>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/member_news/">個股資訊 & 新聞</a></li>
+                            <li><a href="/my_stock/">投資組合清單</a></li>
+                            <li><a href="/mem_sto/">選股條件清單</a></li>
+                            <li><a href="/modify/">會員基本資料</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/financial/" target="_blank"><img src="{% static 'png/money 2.png' %}"> 模擬交易所</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/get_article/" target="_blank"><img src="{% static 'png/interface.png' %}"> 討論區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/smallschool/" target="_blank"><img src="{% static 'png/open-book.png' %}">
+                            理財小學堂</a></h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">新手投資小常識</a></li>
+                            <li><a href="/economic_term/">經濟指標一覽</a></li>
+                            <li><a href="/stock_ana/">股票分析教室</a></li>
+                            <li><a href="/stock_ana/">選股小撇步</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+                            <nav>
+                                <ul class="nav bg-black clearfix" style="width:230px;height:130px">
+                                    {% if loginstatus == False %}
+                                    <div style="margin-left:40px; margin-top:8px">
+                                        <a class="myButton" href="/login/?back=新聞列表">登入系統</a>
+                                        <a class="myButton" href="/signin/">註冊會員</a>
+                                    </div>
+
+
+                                    <!--喔喔不要壞掉惹-->
+                                    {% else %}
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font size="3">&nbsp;您好!&nbsp;{{ name
+                                            }}</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+                                    <!---->
+
+                                    {% endif %}
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+                                            <input class="form-control input-sm no-border rounded"
+                                                   placeholder="請輸入股號/股名" type="text">
+                                        </div>
+                                    </div>
+
+                                    <li>
+                                        <a href="/get_news/">
+                                            <i class="icon-disc icon text-success" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold text-xs">財經新聞首頁</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=1&&category=最新頭條&&page=1">
+                                            <i class="icon-feed icon text-info" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">最新頭條</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=2&&category=國際財經&&page=1">
+                                            <i class="icon-globe icon text-primary-lter" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">國際財經</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=3&&category=熱門點閱&&page=1">
+                                            <i class="icon-fire icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">熱門點閱</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=4&&category=台股盤勢&&page=1">
+                                            <i class="icon-book-open icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">台股盤勢</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=5&&category=個股動態&&page=1">
+                                            <i class="icon-target icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">個股動態</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=6&&category=科技產業&&page=1">
+                                            <i class="icon-paper-plane icon  text-info-dker"
+                                               style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">科技產業</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=7&&category=傳統產業&&page=1">
+                                            <i class="icon-direction icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">傳統產業</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                        </div>
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="/#/">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target" style="bottom: 43px;">
+                                <a id="top"></a>
+                                <div class="header">
+                                    <div class="header m-md">
+                                        <div class="header m-md" style="margin-bottom:0px;margin-left:-0.3px"><a
+                                                id="top"></a>
+                                            <div>
+                                                <ul class="breadcrumb"
+                                                    style="background-color:transparent; margin-top: -20px; margin-bottom: 2px;">
+                                                    <a href="/get_news/"><font color="#fff"><i class="fa fa-home"></i>
+                                                        新聞首頁 </font></a><font color="#fff"><i
+                                                        class="fa fa-angle-double-right"></i></font>
+                                                    <a class="h40" href="/page_1/?id={{ id }}&&category={{ category }}"><font
+                                                            color="#fff">{{ category }} </font></a>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pull-right1" style="margin-left: 80px; margin-bottom: -10px; ">
+                                        <form action="/time_search/" method="post">        <span
+                                                class="pull-right2"><font color="#fff"><i class="fa fa-calendar"></i> 起始日期: </font><input
+                                                class="mac2" name="start"
+                                                style="width: 150px;line-height: 18px; margin-top: -5px; font-size: 16px; padding: 1px"
+                                                type="date" value="2016-11-18"/>
+
+ <font color="#fff"> &nbsp;結束日期: </font><input class="mac2" name="end"
+                                               style="width: 150px;line-height: 18px; margin-top: -5px; font-size: 16px; padding: 1px"
+                                               type="date" value="{{ date }}"/>
+       &nbsp;<button class="btn btn-sm btn-info" style="border-radius: 4px 4px 4px 4px; margin-top: -2px" type="submit"> Go!</button></span>
+                                            <span style="margin-left: 30px">     <font color="#fff"><i
+                                                    class="fa  fa-lightbulb-o"></i> 關鍵字查詢: </font><input
+                                                    class="input-sm form-control2 input-s-sm inline v-middle"
+                                                    name="search" placeholder="請輸入關鍵字" type="text"><button
+                                                    class="btn btn-sm btn-info" style="border-radius: 0px 4px 4px 0px;"
+                                                    type="submit">Go!</button>
+</span>
+                                            <!-- <input type="submit" class="btn btn-success " value="查詢新聞"></input>-->
+                                        </form>
+                                    </div>
+
+                                    <div class="slideTxtBox" style="margin-top:20px; height:1210px">
+                                        <div class="hd">
+                                            <div align="right">
+                                                <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+                                            </div>
+                                            <ul class="page-list-title">
+                                                {{ category }}
+                                            </ul>
+                                        </div>
+
+
+                                        <table class="table  b-t b-b b-light" width="100%">
+                                            <tbody>
+
+                                            {% for news_data in news_list.object_list %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?id={{ id }}&&c={{ news_data.title }}"
+                                                                   style="margin-left:15px">{{ news_data.title }}</a>
+                                                </td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ news_data.source }}</font>
+                                                    </div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ news_data.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ news_data.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </section>
+                            <footer class="footer bg-alert">
+                                <h6 align="center">
+                                    <ul class="pagination" style="margin-bottom:-6px">
+                                        {% if news_list.has_previous %}
+                                        <li>
+                                            <a href="/list/?id={{id}}&&category={{ category }}&&page={{ news_list.previous_page_number }}"><i
+                                                    class="fa fa-chevron-left"></i> {{ previous_link_decorator|safe
+                                                }}上一頁</a></li>
+                                        {% else %}
+                                        <li><a href="#"><i class="fa fa-chevron-left"></i> {{
+                                            previous_link_decorator|safe }}上一頁</a></li>
+                                        {% endif %}
+                                        {% for page in news_list.paginator.page_range %}
+                                        {% if page %}
+                                        {% ifequal page news_list.number %}
+                                        <li class="active"><a
+                                                href="/list/?id={{id}}&&category={{ category }}&&page={{ page }}">{{
+                                            page }}</a></li>
+                                        {% else %}<!--接session顯示藍色-->
+                                        <li><a href="/list/?id={{id}}&&category={{ category }}&&page={{ page }}">{{ page
+                                            }}</a></li>
+                                        {% endifequal %}
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% if news_list.has_next %}
+                                        <li>
+                                            <a href="/list/?id={{id}}&&category={{ category }}&&page={{ news_list.next_page_number }}">下一頁
+                                                {{ next_link_decorator|safe }}<i class="fa fa-chevron-right"></i></a>
+                                        </li>
+                                        {% else %}
+                                        <li><a href="#">下一頁 {{ next_link_decorator|safe }}<i
+                                                class="fa fa-chevron-right"></i></a></li>
+                                        {% endif %}
+                                    </ul>
+                                </h6>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+                <a class="hide nav-off-screen-block" data-target="#nav,html" data-toggle="class:nav-off-screen,open"
+                   href="#"></a>
+            </section>
+        </section>
+    </section>
+
+</section>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<!-- App -->
+<script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+<a href="#top">
+    <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+</a>
+</body>
+</html>

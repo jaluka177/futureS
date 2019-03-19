@@ -1,0 +1,698 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+    <meta content="text/html" http-equiv="content-type">
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-1.7.2.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'http://libs.baidu.com/jquery/1.6.0/jquery.min.js' %}">
+    </script>
+    <script src="{% static 'jquery.SuperSlide.2.1.1.js' %}" type="text/javascript"></script>
+    <meta charset="utf-8"/>
+    <title>新聞查詢</title>
+    <link href="{% static 'css/style.css' %}" media="screen and (max-width: 700px)" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/f.png' %}" rel="shortcut icon">
+    <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+.breadcrumb{
+ border-color: transparent;
+ margin-bottom:-20px;
+ font-size:14px;
+}
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;border-radius:2px; }
+		.slideTxtBox .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox .hd ul{ float:left;  position:absolute; left:20px; top:-1px; height:32px;   }
+		.slideTxtBox .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+		.page-list-title{
+		font-size:20px;
+		font-weight:bold;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 3px 5px 0;
+}
+
+
+    </style>
+</head>
+<body style="background-image: url('{% static 'png/bk3.jpg' %}'); background-position: 0px 0px;">
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/smallschool/">
+                <!-- <i class="icon-earphones"></i>-->
+                <!--<span class="hidden-nav-xs m-2-sm"> <img src="{% static 'png/robot2.png' %}" height="56" width="58"></span>-->
+                <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img height="35"
+                                                                             src="{% static 'png/love.gif' %}"
+                                                                             width="27">Futures</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><a href="/get_news/" target="_blank"><img src="{% static 'png/money 2.png' %}"> NEWS</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/tap.png' %}">
+                            交易資訊</a></font></h3>
+                        <ul class="sub">
+                            <li><a href="/algotrade/">歷史回測</a></li>
+                            <li><a href="/recent/">即時資料</a></li>
+                            <li><a href="/stock/">期貨專區</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="//" target="_blank"><img src="{% static 'png/business.png' %}"> EDITOR</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/economic_term/" target="_blank"><img src="{% static 'png/anal.png' %}"> 指標專區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/tech/" target="_blank"><img src="{% static 'png/pay.png' %}"> 下單機</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/school.png' %}"> 新手專區</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/get_article/">討論區</a></li>
+                            <li><a href="/rookie/">新手投資小常識</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a href="/member/"><img src="{% static 'png/people-3.png' %}"> 會員</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">我的追蹤期貨</a></li>
+                            <li><a href="/economic_term/">我的期貨新聞</a></li>
+                            <li><a href="/stock_ana/">機器人投顧</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll" data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+                            <nav>
+                                <ul class="nav bg clearfix" style="width:230px;height:130px">
+                                    {% if loginstatus == False %}
+                                    <div style="margin-left:40px; margin-top:8px">
+                                        <a class="myButton" href="/login/?back=新聞搜尋">登入系統</a>
+                                        <a class="myButton" href="/signin/">註冊會員</a>
+                                    </div>
+
+
+                                    <!--喔喔不要壞掉惹-->
+                                    {% else %}
+                                    <li class="dropdown"
+                                        style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                        <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                            <img src="{% static 'png/man2.png' %}"><font size="3">&nbsp;您好!&nbsp;{{ name
+                                            }}</font><b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu animated fadeInRight"
+                                            style="margin-left:35px;border-radius: 8px;">
+                                            <li>
+                                                <span class="arrow top"></span>
+                                                <a href="#"><font size="3">個人資料</font></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="badge bg-danger pull-right">3</span>
+                                                    <font size="3">訊息</font>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><font size="3">聯絡我們</font></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="/logout/"><font color="#45968F" size="3">登出</font></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+                                    <!---->
+
+                                    {% endif %}
+                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                        個股查詢
+                                    </li>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+                                            <input class="form-control input-sm no-border rounded"
+                                                   placeholder="請輸入股號/股名" type="text">
+                                        </div>
+                                    </div>
+                                    <li>
+                                        <a href="/get_news/">
+                                            <i class="icon-disc icon text-success" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold text-xs">財經新聞首頁</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=1&&category=最新頭條&&page=1">
+                                            <i class="icon-feed icon text-info" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">最新頭條</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=1&&category=國際財經&&page=1">
+                                            <i class="icon-globe icon text-primary-lter" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">國際財經</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=1&&category=熱門點閱&&page=1">
+                                            <i class="icon-fire icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">熱門點閱</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=4&&category=台股盤勢&&page=1">
+                                            <i class="icon-book-open icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">台股盤勢</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=5&&category=個股動態&&page=1">
+                                            <i class="icon-target icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">個股動態</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=6&&category=科技產業&&page=1">
+                                            <i class="icon-paper-plane icon  text-info-dker"
+                                               style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">科技產業</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/list/?id=7&&category=傳統產業&&page=1">
+                                            <i class="icon-direction icon  text-info-dker" style="line-height:26px"></i>&nbsp;
+                                            <span class="font-bold  text-xs">傳統產業</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                        </div>
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">  <!--vbox-->
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+                                <div class="header">
+                                    <div class="header m-md" style="margin-bottom:0px"><a id="top"></a>
+                                        <div class="header m-md">
+                                            <div class="header m-md" style="margin-bottom:0px;margin-left:-0.3px"><a
+                                                    id="top"></a>
+                                                <div>
+                                                    <ul class="breadcrumb"
+                                                        style="background-color:transparent; margin-top: -20px; margin-bottom: -25px; margin-left: -28px">
+                                                        <a href="/get_news/"><font color="#fff"><i
+                                                                class="fa fa-home"></i> 新聞首頁 </font></a><font
+                                                            color="#fff"><i class="fa fa-angle-double-right"></i></font>
+                                                        <font color="#fff">查詢結果 </font></a>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <center>
+                                            <h2 class="font-thin m-b"><img src="{% static 'png/news.png' %}"><font
+                                                    color="#fff"> 查詢結果 </font><span
+                                                    class="musicbar animate inline m-l-sm"
+                                                    style="width:20px;height:20px">
+  <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+                  </span>
+                                            </h2></center>
+                                        <div class="pull-right pull-right1" style="margin-right:7px">
+                                            <form action="/search/" method="post" name="form"><font color="#fff"><i
+                                                    class="fa  fa-lightbulb-o"></i> 關鍵字查詢: </font> <input
+                                                    class="input-sm form-control2 input-s-sm inline v-middle"
+                                                    name="search" placeholder="請輸入關鍵字" type="text">
+                                                <button class="btn btn-sm btn-info"
+                                                        style="border-radius: 0px 4px 4px 0px;" type="submit">Go!
+                                                </button>
+                                                </span>
+                                                </input>
+                                                <!-- <input type="submit" class="btn btn-success " value="查詢新聞"></input>-->
+                                            </form>
+                                        </div>
+                                    </div>
+
+
+                                    <!--套分頁模板-->
+                                    <div class="slideTxtBox" style="margin-top:26px;">
+                                        <div class="hd">
+                                            <div align="right">
+                                                <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+                                            </div>
+                                            {% if status == True %}
+                                            <ul class="page-list-title">
+                                                {{ key2 }}: {{ key_word }}
+                                            </ul>
+                                            {% else %}
+                                            <ul class="page-list-title">
+                                                {{ key2 }}: &nbsp; 無
+                                            </ul>
+                                            {% endif %}
+                                        </div>
+
+
+                                        <table class="table  b-t b-b b-light" width="100%">
+                                            <tbody>
+                                            {% if res_1%}
+                                            {% for r1 in res_1 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r1.title }}&&id=4"
+                                                                   style="margin-left:15px">{{ r1.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r1.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r1.date }}</font></div>
+                                                </td>
+                                                <td width="8">
+                                                    <div align="center"><font size="2">{{ r1.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if res_2%}
+                                            {% for r2 in res_2 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r2.title }}&&id=5"
+                                                                   style="margin-left:15px">{{ r2.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r2.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r2.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r2.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if res_3%}
+                                            {% for r3 in res_3 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r3.title }}&&id=5"
+                                                                   style="margin-left:15px">{{ r3.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r3.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r3.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r3.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if res_4%}
+                                            {% for r4 in res_4 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r4.title }}&&id=6"
+                                                                   style="margin-left:15px">{{ r4.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r4.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r4.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r4.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if res_5%}
+                                            {% for r5 in res_5 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r5.title }}&&id=6"
+                                                                   style="margin-left:15px">{{ r5.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r5.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r5.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r5.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if res_6%}
+                                            {% for r6 in res_6 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r6.title }}&&id=7"
+                                                                   style="margin-left:15px">{{ r6.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r6.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r6.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r6.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if res_7%}
+                                            {% for r7 in res_7 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r7.title }}&&id=7"
+                                                                   style="margin-left:15px">{{ r7.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r7.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r7.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r7.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if res_9%}
+                                            {% for r9 in res_9 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r9.title }}&&id=3"
+                                                                   style="margin-left:15px">{{ r9.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r9.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r9.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r9.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if res_10%}
+                                            {% for r10 in res_10 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r10.title }}&&id=3"
+                                                                   style="margin-left:15px">{{ r10.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r10.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r10.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r10.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if res_11%}
+                                            {% for r11 in res_11 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r11.title }}&&id=8"
+                                                                   style="margin-left:15px">{{ r11.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r11.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r11.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r11.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if res_12 %}
+                                            {% for r12 in res_12 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r12.title }}&&id=1"
+                                                                   style="margin-left:15px">{{ r12.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r12.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r12.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r12.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if id == '9' %}
+                                            {% for r13 in result_1 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r13.title }}&&id={{ id }}"
+                                                                   style="margin-left:15px">{{ r13.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r13.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r13.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r13.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% for r14 in result_2 %}
+                                            <tr>
+                                                <td width="62%"><a href="/outcome/?c={{ r14.title }}&&id={{ id }}"
+                                                                   style="margin-left:15px">{{ r14.title }}</a></td>
+                                                <td width="20%">
+                                                    <div align="center"><font size="2">{{ r14.source }}</font></div>
+                                                </td>
+                                                <td width="10%">
+                                                    <div align="center"><font size="2">{{ r14.date }}</font></div>
+                                                </td>
+                                                <td width="8%">
+                                                    <div align="center"><font size="2">{{ r14.time }}</font></div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+
+                                            {% if res_1 == None and res_2 == None and res_3 == None and res_4 == None
+                                            and res_5 == None and res_6 == None and res_7 == None and res_8 == None and
+                                            res_9 == None and res_10 == None and res_11 == None and res_12 == None%}
+                                            <tr>
+                                                <td width="78%"><font color="#FF3939">&nbsp;&nbsp;<i
+                                                        class=" icon-ghost"></i>&nbsp;&nbsp;很抱歉，此關鍵字查無資料</font></td>
+                                            </tr>
+                                            {% endif %}
+
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+
+                                    <p>
+
+                                    <p>
+
+                            </section>
+                            <footer class="footer bg-alert">
+                                <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+                                </h6>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<!-- App -->
+<script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+<a href="#top">
+    <div id="gotop"><i class="fa fa-hand-o-up"></i> top</div>
+</a>
+</body>
+</html>

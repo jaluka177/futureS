@@ -1,0 +1,589 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+    <meta content="text/html" http-equiv="content-type">
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-1.7.2.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'jquery.SuperSlide.2.1.1.js' %}" type="text/javascript"></script>
+    <meta charset="utf-8"/>
+    <title>會員專區</title>
+    <link href="{% static 'css/style.css' %}" media="screen and (max-width: 700px)" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'images/f.png' %}" rel="shortcut icon">
+    <style type="text/css">
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+	
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333; font:normal 16px/22px 微軟正黑體;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:240px;border-radius:20px; }
+		.slideTxtBox .hd{ height:35px; line-height:35px; background:#93FBC9; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox .hd ul{ float:left;  position:absolute; left:20px; top:-1px; height:32px;   }
+		.slideTxtBox .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox .bd li{ height:24px; line-height:24px; font-size:20px;   }
+		.slideTxtBox .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+		.page-list-title{
+		font-size:20px;
+		font-weight:bold;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 3px 5px 0;
+}
+.navBar1 {
+	width:220px;
+	margin:0 auto;
+	margin-left:10px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+.input-lg{
+	width:170px;
+	height:40px;
+	border-radius:10px;}
+	
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+#work .title {
+    padding: 140px 30px 50px 20px;
+}
+.title {
+    padding-bottom: 40px;
+}
+@media (min-width: 992px)
+.col-md-4 {
+    width: 33.33333333%;
+	float: left;
+}
+.col-md-8 {
+        width: 67.8%;
+}
+#work .fa {
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 50px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    transition: all 0.4s ease-in-out;
+    margin-top: 60px;
+    margin-left: 36%;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+}
+#work .bg-red {
+    background-color: rgba(103, 223, 203, 0.8);
+    color: #ffffff;
+}
+
+.col-md-6 {
+    width: 50%;
+	    height: 290px;
+}
+
+.col-md-4 {
+    width: 28.33%;
+}
+.icon.major.accent2 {
+    background: #e89980;
+    color: #ffffff;
+}
+.icon.major {
+    background: #666;
+    border-radius: 100%;
+    color: #ffffff;
+    cursor: default;
+    display: inline-block;
+    height: 4.5em;
+    line-height: 4.5em;
+    margin: 0 0 2em 0;
+	padding-left:27px;
+    width: 4.5em;
+}
+.icon {
+    text-decoration: none;
+    border-bottom: none;
+    position: relative;
+}
+.icon.major:before {
+    font-size: 2.5em;
+}
+.icon:before {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none !important;
+}
+.h {
+    font-size: 150px;
+    text-shadow: 0 1px 0 #3c763d, 0 2px 0 #d0d0d0, 0 5px 10px rgba(0,0,0,0.125), 0 10px 20px rgba(0,0,0,0.2);
+}
+/* new button */
+.btn2 {
+  cursor: pointer;
+  margin: 4px;
+  border-radius: 1px;
+  text-decoration: none;
+  padding: 5px;
+  font-size: 18px;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  display: inline-block;
+}
+
+.orange {
+  color: #446018;
+  font-family: 華康秀風體W3;
+  border: 1px #5D7B2E solid;
+  background-color: #A1BC75;
+}
+
+.orange:hover {
+  color: #fff;
+  background-color: #7F955B;
+  border: 1px #57683B solid;
+}
+.bg-black a {
+    color: #7d94a4;
+    font-family: 微軟正黑體;
+}
+
+    </style>
+</head>
+<body style="background-image: url('{% static 'png/bk2.jpg' %}'); background-position: 0px 0px; ">
+<!-- gotop的html語法 -->
+<section class="vbox">
+    <header>
+        <div class="navbar-header aside bg-info dk">
+            <a class="btn btn-link visible-xs" data-target="#nav,html" data-toggle="class:nav-off-screen,open">
+            </a>
+            <a class="navbar-brand text-lt" href="/smallschool/">
+                <!-- <i class="icon-earphones"></i>-->
+                <!--<span class="hidden-nav-xs m-2-sm"> <img src="{% static 'png/robot2.png' %}" height="56" width="58"></span>-->
+                <span class="hidden-nav-xs m-l-sm"><font size="4">Future<img height="35"
+                                                                             src="{% static 'png/love.gif' %}"
+                                                                             width="27">Futures</font>  </span>
+            </a>
+            <a class="btn btn-link visible-xs" data-target=".user" data-toggle="dropdown">
+                <i class="icon-settings"></i>
+            </a>
+        </div>
+        <div class="nav">
+            <!--nav-->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m">
+                        <h3><a href="/get_news/" target="_blank"><img src="{% static 'png/money 2.png' %}"> NEWS</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/tap.png' %}">
+                            交易資訊</a></font></h3>
+                        <ul class="sub">
+                            <li><a href="/algotrade/">歷史回測</a></li>
+                            <li><a href="/recent/">即時資料</a></li>
+                            <li><a href="/stock/">期貨專區</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="//" target="_blank"><img src="{% static 'png/business.png' %}"> EDITOR</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font>
+                        </h3>
+                        <ul class="sub" style="display: none;">
+                            <li><a href="/predict/">預知未來型</a></li>
+                            <li><a href="/analysis1/">健康診斷型</a></li>
+                            <li><a href="/gep/">推薦好股型</a></li>
+                            <li><a href="/five/">買賣分析型</a></li>
+                            <li><a href="/funds/">投資組合推薦</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/economic_term/" target="_blank"><img src="{% static 'png/anal.png' %}"> 指標專區</a>
+                        </h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><a href="/tech/" target="_blank"><img src="{% static 'png/pay.png' %}"> 下單機</a></h3>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/school.png' %}"> 新手專區</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/get_article/">討論區</a></li>
+                            <li><a href="/rookie/">新手投資小常識</a></li>
+                        </ul>
+                    </li>
+                    <li class="s">|</li>
+                    <li class="m">
+                        <h3><font color="#FFFFFF"><a href="/member/"><img src="{% static 'png/people-3.png' %}"> 會員</a></font>
+                        </h3>
+                        <ul class="sub">
+                            <li><a href="/new_info/">我的追蹤期貨</a></li>
+                            <li><a href="/economic_term/">我的期貨新聞</a></li>
+                            <li><a href="/stock_ana/">機器人投顧</a></li>
+                        </ul>
+                    </li>
+                    <li class="block" style="left: 227px;"></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-black dk aside hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f-md ">
+
+                        <div class="slim-scroll " data-disable-fade-out="true" data-distance="0" data-height="auto"
+                             data-railopacity="0.2" data-size="10px">
+
+                            <nav>
+                                <ul class="nav bg-black clearfix" style="width:230px;">
+                                    <ul class="nav bg-black clearfix" style="width:230px;">    <!--登入後消失 <div style="margin-left:40px; margin-top:8px">
+  <a href="login.html" class="myButton">登入系統</a>
+  <a href="signin.html" class="myButton">註冊會員</a>
+                     </div> -->
+
+
+                                        <!--喔喔不要壞掉惹-->
+
+                                        <li class="dropdown"
+                                            style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+                                            <a class="dropdown-toggle bg clear" data-toggle="dropdown" href="#">
+
+                                                <img src="{% static 'png/man2.png' %}"><font face="標楷體" size="3">&nbsp;您好!&nbsp;王小明</font><b
+                                                    class="caret"></b>
+                                            </a>
+                                            <ul class="dropdown-menu animated fadeInRight"
+                                                style="margin-left:35px;border-radius: 8px;">
+                                                <li>
+                                                    <span class="arrow top"></span>
+                                                    <a href="#"><font size="3">個人資料</font></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="badge bg-danger pull-right">3</span>
+                                                        <font size="3">訊息</font>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><font size="3">聯絡我們</font></a>
+                                                </li>
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <a href="#"><font color="#45968F" size="3">登出</font></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <!-- <div style="margin-left:40px; margin-top:8px">
+                                      <a href="login.html" class="myButton">登入系統</a>
+                                      <a href="signin.html" class="myButton">註冊會員</a>
+                                                         </div>-->
+                                        <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                                            個股查詢
+                                        </li>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+            <span class="input-group-btn">
+<button class="btn btn-sm bg-white btn-icon rounded" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+                                                <input autocomplete="off"
+                                                       class="form-control input-sm no-border rounded mac" id="demo1"
+                                                       placeholder="請輸入股號/股名" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="nav navBar1 clearfix dk" style="margin-left: 5px">
+                                            <!--崩壞開始-->
+
+                                            <div class="menu" id="menu">
+                                                <div class="menu-header"> 會員專區</div>
+                                                <ul>
+                                                    <li><a href="/member_news/"><i class="icon-magnifier"
+                                                                                   style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                            size="+1"><strong>個股資訊 & 新聞</strong></font></a></li>
+                                                    <li><a href="/my_stock/"><i class=" icon-calendar"
+                                                                                style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                            size="3"><strong>投資組合清單</strong></font></a>
+                                                    </li>
+                                                    <li><a href="/mem_sto/"><i class="  icon-note"
+                                                                               style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                            size="3"><strong>選股條件清單</strong></font></a>
+                                                    </li>
+                                                    <li><a href="/message/"><i class="  icon-info"
+                                                                               style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                            size="3"><strong>訊息追蹤</strong></font></a>
+                                                    </li>
+                                                    <li><a href="/modify/"><i class="icon-wrench"
+                                                                              style="margin-top:7px;color:#6FAEB7"> </i><font
+                                                            size="3"><strong>會員基本資料</strong></font></a>
+                                                        <ul class="submenu">
+                                                            <li><a href="/modify/"><font size="3">修改會員基本資料</font></a>
+                                                            </li>
+                                                            <li><a href="/mo_pass/"><font size="3">修改密碼</font></a></li>
+                                                        </ul>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+                        </ul>
+
+                        </div>
+                    </section>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <div class="bg hidden-xs ">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+
+                            </a>
+
+                        </div>
+                    </footer>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">  <!--vbox-->
+                            <section class="scrollable padder-lg w-f-md" id="bjax-target">
+
+
+                                <!--我的最愛-------------------------->
+
+                                <!--修改會員資料---------------------->
+                                <section id="work">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 title"
+                                                 style="color:#333;margin-top:-100px; margin-bottom: -15px">
+                                                <h1 class="h text-white animated fadeInDownBig"><font size="+3"><i
+                                                        class="fa  fa-user"
+                                                        style="margin-left:-12px; margin-bottom: -40px;margin-right: -20px; font-size: 35px;"></i>會員專區</font>
+                                                </h1>
+                                                <hr>
+                                                <p><font size="5px">{{ name }}您好，趕快來使用會員專屬功能吧! </font></p>
+                                                <div style="margin-top: 35px"><a href="/#/"><span
+                                                        style=" border-bottom: 1px dashed; width:30%; color:#666;"><i
+                                                        class="icon-bubbles"></i> 聯絡我們</span> &nbsp;&nbsp;<span
+                                                        style=" border-bottom: 1px dashed; width:30%; color:#666; "><i
+                                                        class=" icon-volume-2"></i> 訊息通知</span></a></div>
+                                            </div>
+                                            <div class="col-md-8 col-sm-8"><!--style="margin-top: 15px"-->
+                                                <div class="col-md-6 col-sm-6 bg-black"><span
+                                                        class="icon major  fa-pencil-square-o accent2"
+                                                        style="margin-left: 40%; margin-top:70px; margin-bottom:1px;     padding-left: 20px;"></span>
+                                                    <div align="center"><a href="/my_stock/"><h3
+                                                            style="border-bottom: 1px  dashed; padding:8px; margin-bottom:20px; margin-top:13px; width:80%">
+                                                        我的自選股</h3></a>新增、刪除及修改我的最愛股及瀏覽自選股當日的交易資訊、股票基本資料及個股新聞
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 bg-red"
+                                                     style="background-image:url('{% static 'png/cactus.jpg' %}')"><span
+                                                        class="icon major   fa-gear  accent2"
+                                                        style="margin-left: 40%; margin-top:70px; margin-bottom:0px; background-color:#2D8043; padding-left: 19px;"></span>
+
+                                                    <div align="center" style="color:#333"><a href="/mem_sto/"><h3
+                                                            style="border-bottom: 1px  dashed; padding:8px; margin-bottom:20px; margin-top:13px; width:80%">
+                                                        我的選股條件</h3></a>新增、修改及瀏覽選股條件清單的選股條件
+                                                    </div>
+
+                                                </div>
+                                                <!--    <div class="col-md-6 col-sm-6 bg-red"> <span class="icon major fa-key accent2" style="margin-left: 40%; margin-top:70px; margin-bottom:0px; background-color:#FFCF36; padding-left: 17px;"></span>
+                                                     <div align="center"> <h3>會員資料</h3><br>新增、修改及瀏覽選股條件清單的選股條件</div>
+                                                    </div>-->
+                                                <div class="col-md-6 col-sm-6 bg-red"
+                                                     style="background-image:url('{% static 'png/cactus2.jpg' %}')">
+                                                    <span class="icon major fa-key accent2"
+                                                          style="margin-left: 40%; margin-top:70px; margin-bottom:0px; background-color:#3EADA5; padding-left: 17px;"></span>
+                                                    <div align="center" style="color:#333"><a href="/modify/"><h3
+                                                            style="border-bottom: 1px  dashed; padding:8px; margin-bottom:20px; margin-top:13px; width:80%">
+                                                        會員資料</h3></a>修改郵件、電話等個人資料及會員登入密碼。
+                                                    </div>
+                                                    <div align="center"><a href="/modify/">
+                                                        <button class="btn2 orange" name="b1" style="width: 140px"
+                                                                value="1">修改基本資料
+                                                        </button>
+                                                    </a>
+                                                        <a href="/mo_pass/">
+                                                            <button class="btn2 orange" name="b1" style="width: 140px"
+                                                                    value="1">忘記密碼
+                                                            </button>
+                                                        </a></div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 bg-black"><span
+                                                        class="icon major  fa-envelope-o accent2"
+                                                        style="margin-left: 40%; margin-top:70px; margin-bottom:0px; padding-left: 16px;"></span>
+                                                    <div align="center"><a href="/message/"><h3
+                                                            style="border-bottom: 1px  dashed; padding:8px; margin-bottom:20px; margin-top:13px; width:80%">
+                                                        設定訊息</h3></a>選擇股票、設定欲收到之訊息
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </section>
+                            <footer class="footer bg-alert">
+                                <h6 align="center">Copyright ® 2019 by Future Futures.com. Corp. All right reserved.
+                                </h6>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
+<script src="{% static 'js/SuperSlide.2.1.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/app.js' %}"></script>
+<script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+</section></section></section></section></section>
+<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="{% static 'js/jquery-tab.js' %}" type="text/javascript"></script>
+<script type="text/javascript">
+ 
+</body>
+</html>
