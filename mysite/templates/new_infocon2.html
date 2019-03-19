@@ -1,0 +1,561 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="app">
+<head>
+<link href="{% static 'css/style5.css' %}" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta http-equiv="content-type" content="text/html">
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<script language="JavaScript"> 
+
+function doSearch(text) {
+	var isfound=0;
+    if (window.find && window.getSelection) {
+        document.designMode = "on";
+        var sel = window.getSelection();
+//        sel.collapse(document.body, 0);
+		sel.collapseToEnd();
+		isfound=0;
+
+        while (window.find(text)) {
+            document.getElementById("button").blur();
+            document.execCommand("HiliteColor", false, "green");
+			
+            sel.collapseToEnd();
+			isfound=1;
+        }
+ 		if (isfound == 0) {
+			alert('cant find');
+		}
+       document.designMode = "off";
+    } else if (document.body.createTextRange) {
+        var textRange = document.body.createTextRange();
+		isfound=0;
+        while (textRange.findText(texta)) {
+            textRange.execCommand("BackColor", false, "green");
+            textRange.collapse(false);
+			alert('cant scroll down less than IE8');
+			isfound=1;
+        }
+		if (isfound == 0)
+			alert('cant find');
+    }
+}
+</script>
+   <meta charset="utf-8" />
+  <title>新手投資小常識</title>
+  <link rel="stylesheet" media="screen and (max-width: 700px)" href="{% static 'css/style.css' %}" type="text/css"/>
+ <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/animate.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/simple-line-icons.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}" type="text/css">
+  <link rel="shortcut icon" href="{% static 'images/icon2.ico' %}">
+  <style type="text/css">/* 整體設置*/
+/* 整體設置*/ 
+.navigation {
+	margin:0; 
+	padding:0;
+	width:1500px;
+	list-style-type:none; 
+	font:12px Arial;
+	}
+
+.navigation li {
+	float:left; 
+    padding:0; 
+	margin:0 10px 0 0; 
+	_margin:0 2px 0 0; 
+	width:150px;
+	}
+
+/* 設置選單區塊*/
+.navigation li dl { 
+	width:150px;/*ie6*/
+    margin:0; 
+	padding:0;
+	background-color:#fff;
+	border:solid 2px #666; 
+	}
+	
+.navigation li dt a , .navigation li dd a{ display:block;}
+
+
+/* 設置主選單dt */
+.navigation li dt {
+	margin:0;
+	padding: 5px;
+	text-align:center;
+	background-color:#fff;	
+	font-size: 12px;
+	font-weight: bold;
+	height:20px;
+	overflow:hidden;
+	}
+
+.navigation li dt a ,.navigation  li dt a:visited {
+	display:block; 
+    color:#333;
+    text-decoration:none;
+	}
+
+/* 設置子選單dd */
+.navigation li dd { 
+	margin:0; 
+    padding:0; 
+	color: #333; 
+	background-color:#efefef;
+	border-bottom:dotted 1px #666;
+	}
+	
+.navigation li dd.last {
+	border-bottom:0;
+	}	
+
+.navigation li dd a, .navigation  li dd a:visited {
+	display:block; 
+	color:#333; 
+    text-decoration:none; 
+	padding:4px 5px 4px 20px;
+    }
+
+	
+/*隱藏子選單*/
+.navigation li dd { display:none;}
+
+
+/* 滑鼠滑入顯示子選單 */
+.navigation li:hover dd, .navigation li a:hover dd { display:block;}
+
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.pull-right1{
+	margin-right:12px;
+	margin-top:-45px;
+	}
+	
+		/* css 重置 */
+		*{margin:0; padding:0; list-style:none; }
+		body{ background:#fff; font:normal 16px/22px 微軟正黑體; }
+		a{ text-decoration:none; color:#333;  }
+		
+				/* 本例子css */
+		.slideTxtBox{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:240px;border-radius:2px; }
+		.slideTxtBox1{ width:1035px; border:1px solid #B8DDC4; text-align:left;background:#fff;margin-left:17px;height:150px;border-radius:2px; }
+		.slideTxtBox, .slideTxtBox1 .hd{ height:35px; line-height:35px; background:#DCF7E8; padding:0 10px 0 20px;   border-bottom:1px solid #5FBF97;  position:relative; }
+		.slideTxtBox, .slideTxtBox1 .hd ul{
+	float: left;
+	position: absolute;
+	left: 20px;
+	top: 2px;
+	height: 32px;
+}
+		.slideTxtBox, .slideTxtBox1 .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox, .slideTxtBox1 .hd ul li.on{ height:35px;  background:#fff; border:2px solid #B8DDC4; border-bottom:2px solid #fff; }
+		.slideTxtBox, .slideTxtBox1 .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox, .slideTxtBox1 .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox, .slideTxtBox1 .bd li .date{ float:right; color:#999;font-size: 10px;  }
+
+		.page-list-title{
+		font-size:20px;
+		}
+
+.page-list-title:before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50px;
+    background: #59BBD9;
+    margin: 0 3px 5px 0;
+}
+.navBar1 {
+	width:228px;
+	margin:0 auto;
+	margin-left:1px;
+	height:20px;
+	line-height:30px;
+	background:#556b5b;
+	color:#333;
+}
+/*ie6 hack*/
+.navigation li:hover,.navigation li a:hover { border:0;}
+.navigation table { border-collapse:collapse; 
+    padding:0; 		
+	text-align:left;
+	}
+.tb th {
+    background: #DCFEF5;
+    border: solid 1px #6DF1CA;
+	height:35px;
+	padding-left:10px;
+	
+}
+.tb{ font-size:17px; color:#568279}
+.tb td{
+	border: solid 1px #CDCDCD;
+	padding-left:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	font-size:18px;
+	}
+.tb tr:nth-child(odd){background:#F4F4F4;}
+.tb tr:hover{background:#FDFFEE;text-shadow: 0 0 10px yellow;}
+#customers
+  {
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  width:100%;
+  border-collapse:collapse;
+  }
+
+#customers td, #customers th 
+  {
+  font-size:1em;
+  border:1px solid #D4D7C2;
+  padding:3px 7px 2px 7px;
+  }
+
+#customers th 
+  {
+  font-size:1.1em;
+  text-align:left;
+  padding-top:5px;
+  padding-bottom:4px;
+  background-color:#B0B495;
+  color:#ffffff;
+  }
+
+#customers tr.alt td 
+  {
+  color:#000000;
+  background-color:#EAF2D3;
+  }
+#customers tr:hover{background:#EDEEDF;text-shadow: 0 0 10px yellow;} 
+ .m1 {
+	 color:#FFF;
+	 width:80px;
+	 height:40px;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f59696), color-stop(1, #f0a9a9));
+	background:-moz-linear-gradient(top, #f59696 5%, #f0a9a9 100%);
+	background:-webkit-linear-gradient(top, #f59696 5%, #f0a9a9 100%);
+	background:-o-linear-gradient(top, #f59696 5%, #f0a9a9 100%);
+	background:-ms-linear-gradient(top, #f59696 5%, #f0a9a9 100%);
+	background:linear-gradient(to bottom, #f59696 5%, #f0a9a9 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f59696', endColorstr='#f0a9a9',GradientType=0);
+	background-color:#f59696;
+	border:1px solid #ca7070;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:微軟正黑體;
+	font-size:15px;
+	font-weight:bold;
+	padding:8px 8px;
+	text-decoration:none;
+	text-shadow:0px 1px 7px #d83526;
+}
+.m1:hover {
+	color:#FFF;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f0a9a9), color-stop(1, #f59696));
+	background:-moz-linear-gradient(top, #f0a9a9 5%, #f59696 100%);
+	background:-webkit-linear-gradient(top, #f0a9a9 5%, #f59696 100%);
+	background:-o-linear-gradient(top, #f0a9a9 5%, #f59696 100%);
+	background:-ms-linear-gradient(top, #f0a9a9 5%, #f59696 100%);
+	background:linear-gradient(to bottom, #f0a9a9 5%, #f59696 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0a9a9', endColorstr='#f59696',GradientType=0);
+	background-color:#f0a9a9;
+}
+.m1:active {
+	color:#FFF;
+	position:relative;
+	top:1px;
+}
+.class-info {
+    min-height: 194px;
+    padding: 25px;
+    box-sizing: border-box;
+	    border: 1px solid #C5C5C5;
+		margin:20px;
+}
+
+  </style>
+</head>
+<body style="background-image: url('{% static 'png/bk.jpg' %}'); background-position: 0px 0px;">
+
+ <!-- gotop的html語法 -->
+  <section class="vbox">
+    <header>
+<div class="navbar-header aside bg-info dk">
+        <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+        </a>
+        <a href="/home/" class="navbar-brand text-lt">
+         <!-- <i class="icon-earphones"></i>-->
+
+          <span class="hidden-nav-xs m-l-sm" style="margin-top: -20px;"><font size="4">future<img src="{% static 'png/love.gif' %}" height="35" width="27">futures</font>  </span>
+        </a>
+        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
+          <i class="icon-settings"></i>
+        </a>
+      </div>
+<div class="nav">
+
+       <!--nav-->
+<div class="navBar">
+		<ul class="nav clearfix">
+			<li class="m">
+	<h3><a target="_blank" href="/get_news/"><img src="{% static 'png/money 2.png' %}"> NEWS</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 交易資訊</a></font></h3>
+			<ul class="sub">
+            <li><a href="/tech/">歷史回測</a></li>
+			<li><a href="/master/">即時資料</a></li>
+			</ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+	<h3><a target="_blank" href="/get_news/"><img src="{% static 'png/money 2.png' %}"> EDITOR</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 智能機器人</a></font></h3>
+			<ul class="sub" style="display: none;">
+	            <li><a href="/predict/">預知未來型</a></li>
+                <li><a href="/analysis1/">健康診斷型</a></li>
+                <li><a href="/gep/">推薦好股型</a></li>
+                <li><a href="/five/">買賣分析型</a></li>
+                <li><a href="/funds/">投資組合推薦</a></li>
+			</ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><a target="_blank" href="/mem_home/"><img src="{% static 'png/people-3.png' %}"> 指標專區</a></h3>
+			</li>
+			<li class="m">
+	<h3><a target="_blank" href="/financial/"><img src="{% static 'png/money 2.png' %}"> 下單機</a></h3>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 新手專區</a></font></h3>
+                 <ul class="sub">
+                     <li><a href="/discussion/">討論區</a></li>
+                     <li><a href="/new_info/">新手投資小常識</a></li>
+             </ul>
+			</li>
+			<li class="s">|</li>
+			<li class="m">
+			<h3><font color="#FFFFFF"><a target="_blank"><img src="{% static 'png/technology.png' %}"> 會員</a></font></h3>
+            <ul class="sub">
+		<li><a href="/new_info/" >我的追蹤期貨</a></li>
+        <li><a href="/economic_term/">我的期貨新聞</a></li>
+                <li><a href="/stock_ana/">我的期貨清單</a></li>
+                 <li><a href="/stock_ana/">機器人投顧</a></li>
+             </ul>
+			</li>
+	<li class="block" style="left: 227px;"></li>
+		</ul>
+	</div>
+   </div>
+    </header>
+    <section>
+      <section class="hbox stretch">
+        <!-- .aside -->
+      <aside class="bg-black dk aside hidden-print" id="nav">
+          <section class="vbox">
+            <section class="w-f-md ">
+
+              <div class="slim-scroll " data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railopacity="0.2">
+
+                <nav>
+  <ul class="nav bg-black clearfix" style="width:230px;">
+      {% if loginstatus == False %}
+      <div style="margin-left:40px; margin-top:8px">
+      <a href="/login/" class="myButton">登入系統</a>
+      <a href="/signin/" class="myButton">註冊會員</a>
+                         </div>
+
+
+                          <!--喔喔不要壞掉惹-->
+     {% else %}
+     <li class="dropdown" style="margin-bottom:-8px; padding-left:25px; padding-right:28px">
+              <a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown">
+
+                    <img src="{% static 'png/man2.png' %}" ><font size="3" >&nbsp;您好!&nbsp;{{ name }}</font><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu animated fadeInRight" style="margin-left:35px;border-radius: 8px;">
+                  <li>
+                    <span class="arrow top"></span>
+                    <a href="#"><font size="3">個人資料</font></a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="badge bg-danger pull-right">3</span>
+                      <font size="3" >訊息</font>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"><font size="3" >聯絡我們</font></a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="/logout/" ><font size="3" color="#45968F">登出</font></a>
+                  </li>
+                </ul>
+              </li>
+<!---->
+{% endif %}
+<li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+                    期貨查詢
+                    </li>
+        <div class="form-group">
+           <div class="input-group">
+            <span class="input-group-btn">
+<button type="submit" class="btn btn-sm bg-white btn-icon rounded mac"><i class="fa fa-search" style="padding-top:1px;"></i></button>
+            </span>
+
+   <input type="text" class="form-control input-sm no-border rounded mac" placeholder="請輸入代碼/期貨名" id="demo1"  autocomplete="off">
+          </div>
+        </div>
+        <div class="nav navBar1 clearfix dk">
+        <!--崩壞開始-->
+
+        <div id="menu" class="menu">
+          <div class="menu-header">我的個人化功能</div>
+          <ul>
+            <li><a href="/predict/"><i class="fa fa-rocket" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>我的追蹤期貨</strong></font></a></li>
+            <li><a href="/member_news/"><i class="fa fa-stethoscope" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>我的期貨新聞</strong></font></a></li>
+            <li><a href="/my_stock/"><i class="icon-like" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>我的期貨清單</strong></font></a></li>
+            <li><a href="#"><i class="icon-bulb" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>機器人投顧</strong></font></a>
+            <ul class="submenu">
+            <li><a href="/predict/"><font size="3"><strong>預知未來型</strong></font></a></li>
+            <li><a href="/analysis1/"><font size="3"><strong>健康診斷型</strong></font></a></li>
+            <li><a href="/gep/"><font size="3"><strong>推薦型</strong></font></a></li>
+              <li><a href="/portfolio/"><font size="3"><strong>投資組合清單</strong></font></a></li>
+          </ul></li>
+          <li><a href="#"><i class="icon-bulb" style="margin-top:7px;color:#6FAEB7"> </i><font size="3"><strong>新手投資小常識</strong></font></a>
+            <ul class="submenu">
+            <li><a href="/new_infocon/"><font size="3"><strong>1.一分鐘了解期貨</strong></font></a></li>
+            <li><a href="/new_infocon2/"><font size="3"><strong>2.搞懂期貨，期貨入門不難</strong></font></a></li>
+            <li><a href="/new_infocon3/"><font size="3"><strong>3.買期貨賺什麼...?</strong></font></a></li>
+              <li><a href="/new_infocon4/"><font size="3"><strong>4.第一次買期貨...</strong></font></a></li>
+                <li><a href="/new_infocon5/"><font size="3"><strong>5.如何挑選合適股票...</strong></font></a></li>
+          </ul></li>
+          </ul>
+          </div></div></ul>
+        </nav></div>
+       </ul>
+
+   </section>
+   <footer class="footer hidden-xs no-padder text-center-nav-xs">
+              <div class="bg hidden-xs ">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               </a>
+              </div>
+            </footer>
+          </section>
+</aside>
+        <!-- /.aside -->
+ <section id="content">
+       <section class="vbox">          
+            <section class="scrollable wrapper">
+            <a id="top"></a>
+             <div class="row text-m">
+     <section class="panel panel-success">
+     <header class="panel-heading" style="height:50px"><h3 align="center" class="font-thin m-b" style="margin-top:3px;"><font color="#4D4D4C">2. 搞懂期貨，期貨入門不難</font></h3> <a href="/new_info/" class="btn btn-info pull-right" style="margin-top: 10px;margin-bottom:20px; margin-left:10px; ">返回列表</a></header>
+
+<div style="padding-left:20px"></div>
+<div style="background-color:#A7C942;height:10px; padding-top:10px">
+</div>    
+<div style="padding-left:20px">
+  <h1><font color="#0000FF">期貨又分成『商品期貨』和『金融期貨』</font></h1>
+  <p>『商品期貨』有 　農產品   能源  金屬 類</p>
+  <p>『金融期貨』有  指數 及公債</p>
+  <p>當然初學者---先把重心放在 金融指數期貨----就先學台指期最易入門</p>
+    <p></p><hr>
+  <h2><font color="#00CC66">我對期貨沒有一點概念  當日沖適合嗎?</font></h2>
+  <p>我們不管做怎樣類型的投資，重要的是我們到底適不適合?</p>
+    <p><strong><font color="#DA81F5">個性應該要符合下面四種特質</font></strong></p>
+    <p><strong><font color="#DA81F5">1.停損觀念要強</font></strong></p>
+    <p><strong><font color="#DA81F5">2.無時間選股--每天有點時間對大盤進行分析研究,想每天憑藉社團教你技巧賺錢的人</font></strong></p>
+    <p><strong><font color="#DA81F5">3.面臨虧損時，心情能穩定面對  ,並且有越挫越勇的個性。(瞭解失敗只是成功中的一小環節  )</font></strong></p>
+    <p><strong><font color="#DA81F5">4.不是想靠勇氣拼博 想尋求正統方法的人,肯學習的人</font></strong>/p>
+
+  <p>若有此四種特質 恭喜你--你已俱備操作期貨成功的特質  再來就是</p>
+
+
+  <h2><font color="#00CC66">新手入門-1 什麼是台指期貨？</font></h2>
+  <p>台指(臺指期貨)是一個會上下的變動指數，而他連動的標的就是我們台灣股市的加權指數</p>
+  <p> 台指數變動1點（相當於新臺幣200元）</p>
+  <p>交易時間:上午8:45~下午13:45總計5小時</p>
+  <p>期貨的英文是Futures，它代表是一個未來的契約。</p>
+    <p> 是契約就會有到期結算的時候，其<strong><font color="#0040FF">結算的時間為交割當月份第三個星期三。</font></strong></p>
+  <p>而我們以交易當月起連續兩個月，加上 三、六、九、十二月中三個連續季月，</p>
+  <p> 所以總共有5個交易月份的契約在市場交易喔</p>
+
+  <h2><font color="#00CC66">期指好處是什麼-2</font></h2>
+  <p>當我們在操作時，只要預期走勢上漲、看多指數我們就買進多單；</p>
+  <p>反之， 預期走勢下跌、我們就做空。操作很簡單這樣我就不用選股選到頭昏眼花</p>
+
+  <h2><font color="#00cc66">多少後備金期操作才能無憂-3</font></h2>
+  <p>期指的振幅可能不一定比股票大，但因為它具有高槓桿的特性
+所以我們千萬要小心，</p>
+  <p>不要把所有子彈一次投入交易,通常我會建議你操作1口大台,</p>
+  <p> 至少要有2口前的後備金(也就是3口錢 作1口),目地是讓自己壓力降到最小º</p>
+
+  <h2><font color="#00CC66">股價指數類</font></h2>
+  <pre> 商品別	                          結算保證金	   維持保證金	     原始保證金</pre>
+    <pre><font color=red>臺股期貨</font>	                          61,000	<font color="blue">   64,000</font>	<font color="red">     80,300</font></pre>
+  <pre>電子期貨	                          50,000	   52,000	     68,000</pre>
+  <pre>金融期貨	                          39,000	   41,000            53,000</pre>
+  <pre>小型臺指期貨	                  15,250	   16,000	     20,750</pre>
+  <pre>臺指選擇權風險保證金(A值)	          16,000	   17,000	     22,000</pre>
+  <pre> 臺指選擇權風險保證金最低值(B值)	   8,000	    9,000	     11,000</pre>
+  <pre>台灣50期貨	                  22,000	   23,000   	     30,000</pre>
+  <pre>電子選擇權風險保證金(A值)	          13,000	   14,000	     18,000</pre>
+  <pre>電子選擇權風險保證金最低值(B值)	   7,000	    7,000	      9,000</pre>
+  <pre>金融選擇權風險保證金(A值)	           9,000	   10,000	     13,000</pre>
+  <pre>金融選擇權風險保證金最低值(B值)	   5,000	    5,000	      7,000</pre>
+  <pre>櫃買期貨	                          21,000	   22,000	     29,000</pre>
+  <pre>非金電期貨	                  42,000	   44,000	     57,000</pre>
+  <pre>櫃買選擇權風險保證金(A值)	           5,000	    6,000	      7,000</pre>
+  <pre>櫃買選擇權風險保證金最低值(B值)      3,000 	    3,000	      4,000</pre>
+  <pre> 非金電選擇權風險保證金(A值)	  10,000	    11,000	     14,000</pre>
+  <pre>非金電選擇權風險保證金最低值(B值)	   5,000 	     6,000	      7,000</pre>
+  <pre>東證期貨	                          11,000	    12,000	     15,000</pre>
+  <p>戶頭必須要有足夠的保證金才能下單，保證金又分"原始保證金"跟"維持保證金"。</p>
+  <p>目前大台的原始保證金是$ 80,300元，維持保證金為$ 64,000元</p>
+
+ 
+</div>
+
+    </section>
+                </div></section></section><!--<footer class="footer bg-alert">
+    <h6 align="center">Copyright ® 2016 by Robot_Love_Money.com. Corp. All right reserved.
+</h6>
+    </footer>-->
+
+
+    
+ <script src="{% static 'js/jquery.min.js' %}"></script>
+  <!-- Bootstrap -->
+  	<script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
+	<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<!--要加!-->    <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <!-- App -->
+  <script type="text/javascript" src="{% static 'js/SuperSlide.2.1.js' %}"></script>
+  <script src="{% static 'js/zzsc.js' %}" type="text/javascript"></script>
+  
+<script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+  <a href="#top"><div id="gotop"><i class="fa fa-hand-o-up"></i> top</div></a></section></section></section></section></section>
+</body>
+</html>
