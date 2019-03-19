@@ -5,8 +5,7 @@ from .models import RobotMember, RobotYahooNew, RobotCna, RobotYahooHot, RobotYa
     RobotTrackStock, RobotCategory, RobotIncomeStatementQ, RobotYahooTendency, RobotCategoryA, RobotCategoryB, \
     RobotListedShares, RobotOverTheCounterShares, RobotMonthrevenue, RobotNews2330, \
     RobotDividendPolicy, RobotMargin, RobotRatio4Q, RobotPe, RobotRatio2Q, RobotRatio2, RobotCashFlowsQ, RobotComment, \
-    RobotEconomic, RobotTechnologyIndex, RobotFqType, RobotFundSetHistory, RobotFundSet2016, RobotTrade2015, \
-    RobotSaveFund
+    RobotEconomic, RobotTechnologyIndex, RobotFqType
 from django.contrib.auth import authenticate, login
 from . import views
 from django.views.generic import View
@@ -16,7 +15,6 @@ from django.contrib import messages
 from django.core.mail import send_mail
 import random
 # from .k_diagram import predict_eps_season, predict_eps_year
-import numpy as np
 
 from datetime import datetime, date
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -48,7 +46,7 @@ def login(request):  # 登入功能
             request.session['password'] = user[0].password
             request.session['name'] = user[0].member_name
             if back == '0' or back == '':
-                return HttpResponseRedirect('/smallschool/')
+                return HttpResponseRedirect('/recent/')
         #     elif back == '討論區發文':
         #         return HttpResponseRedirect('/post/')
         #     elif back == '討論區回覆':
@@ -83,15 +81,15 @@ def register(request):
         check_m = RobotMember.objects.filter(email__exact=check_mail)
         check_p = RobotMember.objects.filter(password__exact=check_password)
 
-        if check_m:  # 如果回傳陣列是空的
+        if check_m:  #如果回傳陣列是空的
             status_m = False
-        if check_p:  # 如果回傳陣列是空的
+        if check_p:  #如果回傳陣列是空的
             status_p = False
 
         p1 = request.POST.get('password', '')
         p2 = request.POST.get('password_check', '')
 
-        if p1 == p2:  # !=改成is not
+        if p1 == p2:  #!=改成is not
             status_check_password = True
         else:
             status_check_password = False
@@ -144,11 +142,8 @@ def home1(request):  # 理財小學堂
         pass
     return render_to_response('smallschool.html', {'name': name, 'loginstatus': loginstatus})
 
-
 # 新聞
-
-
-def get_news(request):  # check
+def get_news(request):  #check
     name = ''
     loginstatus = False
     try:
@@ -156,7 +151,7 @@ def get_news(request):  # check
         loginstatus = True
     except:
         pass
-    # 新聞首頁關於最新頭條 國際財經 熱門點閱 台股盤勢 個股動態 科技產業 傳統產業的顯示文章數
+    #新聞首頁關於最新頭條 國際財經 熱門點閱 台股盤勢 個股動態 科技產業 傳統產業的顯示文章數
     result = []
     result_2 = []
     result_3 = []
@@ -199,7 +194,8 @@ def get_news(request):  # check
                                'loginstatus': loginstatus})
 
 
-def outcome_news(request):  # 搜尋文章結果 check
+# --新聞文章回傳
+def outcome_news(request):  #搜尋文章結果 check
     name = ''
     loginstatus = False
     try:
@@ -436,10 +432,13 @@ def outcome_news(request):  # 搜尋文章結果 check
                                                         'loginstatus': loginstatus})
 
 
+# --新聞回傳空白沒資料
 def news_con(request):
+
     return render(request, 'news_con.html')
 
 
+# --新聞查詢小bar
 def search_news(request):  # 查詢文章關鍵字 check
     name = ''
     loginstatus = False
@@ -517,7 +516,6 @@ def search_news(request):  # 查詢文章關鍵字 check
                                'res_12': res_12, 'status': search_status, 'name': name, 'loginstatus': loginstatus,
                                'key2': key2})  # check# #
 
-
 def search_news_for_keyword(request):  # check
     name = ''
     loginstatus = False
@@ -538,6 +536,7 @@ def search_news_for_keyword(request):  # check
                                'key2': key2})
 
 
+# --新聞查詢 有查日期功能
 def list_page1(request):  # more: 第一頁 抓出該新聞類別的資料 check
     date = datetime.now().strftime('%Y-%m-%d')
     name = ''
@@ -638,7 +637,6 @@ def list_page1(request):  # more: 第一頁 抓出該新聞類別的資料 check
 
 
 # 交易資訊
-
 # --歷史回測
 def algotrade(request):
     name = ''
@@ -1049,7 +1047,6 @@ def algotrade(request):
     return render_to_response('back.html', {'list1': list1, 'list2': list2, 'list3': list3, 'list4': list4,
                                             'list5': list5, 'num1': num1})
 
-
 # --期貨專區
 def stock(request):
     name = ''
@@ -1257,7 +1254,7 @@ def stock(request):
                                              'loginstatus': loginstatus, 'name': name})
 
 
-# --即時資料
+# 即時資料
 def recent(request):
     return render(request, 'recent.html')
 
@@ -1369,128 +1366,67 @@ def stock_analysis(request):
 
 # --預知未來型
 def predict(request):
-    return render(request, "predict.html")
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        return HttpResponseRedirect('/login/?back=未來型預測')
+    category_id = RobotMember.objects.get(member_name=name).type
+    cname = RobotFqType.objects.get(type_id=category_id).type_name
+    if request.method == 'POST':
+        stock = request.POST.get('stock', '')
+        stock = stock[0:4]
+        period = request.POST.get('myCheckBox', '')
+        item1 = request.POST.get('myCheckBox2', '')
+        paragraph1 = '本系統預測功能使用線性回歸模型來為使用者預測每股盈餘，使用者可參考此預測結果來決定要買進或賣出股票'
+        if period == 'season' and item1 == 'profit':
+            predict, search, past, industry_avg, std, category_name, score, next_season = predict_eps_season(stock)
+            return render_to_response('predict2.html', {'paragraph1': paragraph1, 'predict_type': '獲利能力', 'id': stock,
+                                                        'predict': predict, 'search': search, 'past': past,
+                                                        'industry_avg': industry_avg, 'std': std,
+                                                        'category_name': category_name, 'score': score,
+                                                        'next': next_season, 'season': '季', 'loginstatus': loginstatus,
+                                                        'name': name})
+        if period == 'year' and item1 == 'profit':
+            predict, search, past, industry_avg, std, category_name, score, next_year = predict_eps_year(stock)
+            return render_to_response('predict2.html', {'paragraph1': paragraph1, 'predict_type': '獲利能力', 'id': stock,
+                                                        'predict': predict, 'search': search, 'past': past,
+                                                        'industry_avg': industry_avg, 'std': std,
+                                                        'category_name': category_name, 'score': score,
+                                                        'next': next_year, 'season': '年', 'loginstatus': loginstatus,
+                                                        'name': name})
 
+    return render_to_response('predict.html', {'cname': cname, 'loginstatus': loginstatus, 'name': name})
 
 # --健康診斷型
-def analysis(request):
-    return render(request, "analysis.html")
-
+def stock_analysis(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    link = request.GET.get('link', 0)
+    if link == '1_1':
+        return render_to_response('stock_anacon.html', {'loginstatus': loginstatus, 'name': name})
+    elif link == '1_10':
+        return render_to_response('stock_anacon1.html', {'loginstatus': loginstatus, 'name': name})
+    return render_to_response('stock_ana.html', {'loginstatus': loginstatus, 'name': name})
 
 # --推薦好股型（開不出來
 def gep(request):
     return render(request, "gep1.html")
 
-
 # --買賣型
+
 def five(request):
     return render(request, "f.html")
 
 
 # --投資組合推薦 (開不出來
-# def fund_2(request):
-#    name = ''
-#    loginstatus = False
-#    try:
-#         name = request.session['name']
-#         loginstatus = True
-#    except:
-#         return HttpResponseRedirect('/login/?back=資金管理')
-#    type_id = RobotMember.objects.get(member_name=name).type
-#    type_name = RobotFqType.objects.get(type_id=type_id).type_name
-#    history, history2, trade, trade2, r = RobotFundSetHistory.objects.filter(season__startswith='2015'), RobotFundSetHistory.objects.filter(season__startswith='2016'), trade_2015.objects.filter(date__startswith='2015'), trade_2015.objects.filter(date__startswith='2016'), Return.objects.all()
-#    m, n, m2,gross_profit, gross_loss, month = [], [], [], [], [], []
-#    countp, countl, date_max, date_min, default, default2, default3 = 0, 0, '', '', '', '', '尚未設定'
-#    for i in RobotFundSet2016.objects.all():
-#        n.append(i)
-#    for i in range(0, 12):
-#        m.append(r[i].re)
-#    for i in range(12, 21):
-#        m2.append(r[i].re)
-#    for i in trade:
-#        if i.net > 0:
-#            gross_profit.append(i.net)
-#            countp = countp + 1
-#        elif i.net < 0:
-#            gross_loss.append(i.net)
-#            countl = countl + 1
-#        month.append(i.net)
-#    date_max, date_min = RobotTrade2015.objects.get(net=max(gross_profit)).date, RobotTrade2015.objects.get(net=min(gross_loss)).date
-#    mean, mean2, std, std2 = round(np.mean(m), ndigits=2), round(np.mean(m2), ndigits=2),round(np.std(m), ndigits=2),round(np.std(m2), ndigits=2)
-#    if type_id == '4':
-#        type_id = 7.5
-#    elif type_id == '1':
-#        type_id = 2
-#    elif type_id == '2':
-#        type_id = 4.5
-#    elif type_id == '3':
-#        type_id = 6
-#    else:
-#        type_id = 9.5
-#    p = 0
-#    if RobotSaveFund.objects.filter(name=name):
-#        default = RobotSaveFund.objects.last().invest
-#        default2 = RobotSaveFund.objects.last().strategy
-#    if request.method == 'POST':
-#        save = request.POST.get('b2', '0')
-#        invest = request.POST.get('invest', '500')
-#        category = request.POST.get('category', '')
-#        start = request.POST.get('b1', '0')
-#        if save == '0':
-#           save = '無'
-#           RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
-#        elif save == '1':
-#           save = '凱利公式'
-#           RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
-#        elif save == '2':
-#           save = '反秧策略'
-#           RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
-#        elif save == '3':
-#           save = 'Larry Williams'
-#           RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
-#        else:
-#           save = '固定比例法'
-#           RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
-#
-#        if category == '0':
-#           category = '尚未設定'
-#           default3 = category
-#        elif category == '1':
-#           save = '凱利公式'
-#           default3 = category
-#        elif category == '2':
-#           category = '反秧策略'
-#           default3 = category
-#        elif category == '3':
-#           category = 'Larry Williams'
-#           default3 = category
-#        else:
-#           category = '固定比例法'
-#           default3 = category
-#
-#        if start == '1':
-#            ranges = []
-#            for i in range(0, len(m)-3, 3):
-#                ranges.append(i)
-#            a = history.exclude(season='2015Q1')
-#            b = history.first()
-#            history = []
-#            history.append({'season':b.season, 'invest':b.invest, 'initial':int(b.initial)})
-#            for i, j in zip(ranges, a):
-#                sum1 = m[i] + m[i+1] + m[i+2]
-#                sum2 = m[i+3] + m[i+4] + m[i+5]
-#                if sum2 > sum1:
-#                    history.append({'season':j.season, 'invest':j.invest, 'initial':int(int(j.initial)*1.1)})
-#                elif sum2 < sum1:
-#                    history.append({'season':j.season, 'invest':j.invest, 'initial':int(int(j.initial)*0.9)})
-#                else:
-#                    history.append({'season':j.season, 'invest':j.invest, 'initial':int(j.initial)})
-#    return render_to_response('info3.html', {'loginstatus': loginstatus, 'name': name, 'history': history, 'history2': history2, 'return': r, 'mean': mean, 'mean2': mean2, 'std': std, 'std2': std2, 'type_name':type_name, 'type_id': type_id, 'now': n, 'trade2': trade2, 'sum': int(sum(m)),
-#                                             'gross_profit': sum(gross_profit), 'gross_loss': sum(gross_loss)*-1, 'month': int(np.mean(month)), 'max_profit': max(gross_profit), 'max_loss': min(gross_loss)*-1, 'count': countp+countl,
-#                                             'countp': countp, 'countl': countl, 'mean_profit': int(np.mean(gross_profit)), 'mean_loss': int(np.mean(gross_loss)*-1), 'average': abs(round(np.mean(gross_profit)/np.mean(gross_loss), ndigits=2)),
-#                                             'date_max':date_max, 'date_min':date_min, 'average2':round(sum(gross_profit)/(sum(gross_loss)*-1), ndigits=2), 'p':p, 'default':default, 'default2':default2, 'default3':default3})
-
-# 簡單回傳區
 
 
 # 指標專區
@@ -1514,7 +1450,6 @@ def economic_term(request):
 
 
 # 下單機
-
 def tech(request):
     name = ''
     loginstatus = False
@@ -1528,7 +1463,6 @@ def tech(request):
 
 
 # 新手專區
-
 # --討論區
 def get_article(request):  # 熱門文章 最新文章 最新回復
     today = datetime.now().strftime('%Y/%m/%d')
@@ -1572,23 +1506,7 @@ def get_article(request):  # 熱門文章 最新文章 最新回復
                                'article_2': e, 'article_3': f, 'page': page, 'name': name, 'loginstatus': loginstatus})
 
 
-# -- 發文（簡單回傳
-def issued(request):
-    return render(request, "post.html")
-
-
-# -- 發文（簡單回傳
-def like(request):
-    return render(request, "chatcon.html")
-
-
-# --討論區搜尋(簡單回傳
-def chat_search(request):
-    return render(request, 'chat_search.html')
-
-
 # --回傳內容
-
 def content(request):
     name = ''
     loginstatus = False
@@ -1756,8 +1674,34 @@ def post_prev(request):  # 上一頁 check
         return HttpResponseRedirect('/post_page_2/')
 
 
+def like(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    if request.method == 'POST':
+        id = request.POST.get('id', 0)
+        likes = RobotDiscuss.objects.get(discuss_id=id).like
+        RobotDiscuss.objects.filter(discuss_id=id).update(like=likes + 1)
+        res = RobotDiscuss.objects.get(discuss_id=id)
+        comment = RobotComment.objects.filter(discuss_id=id)
+        return render_to_response('chatcon.html', {'article': res, 'comment': comment, 'id': id, 'name': name,
+                                                   'loginstatus': loginstatus})
+
+
+def issued(request):
+    return render(request, 'post.html')
+
+
+def chat_search(request):
+    return render(request, 'chat_search')
+
+
 # 會員
-# --會員首頁
+
 def member(request):
     name = ''
     loginstatus = False
@@ -1770,7 +1714,7 @@ def member(request):
     return render_to_response('member2.html', {'name': name, 'loginstatus': loginstatus})
 
 
-def mem_home(request): #check
+def mem_home(request):  # check
     name = ''
     loginstatus = False
     try:
@@ -1780,46 +1724,6 @@ def mem_home(request): #check
         pass
     return render_to_response('member2.html', {'loginstatus': loginstatus, 'name': name})
 
-
-# --忘記密碼
-def modifypassword(request):
-    try:
-        username = request.session['userName']
-    except:
-        return HttpResponseRedirect('/login/?back=修改密碼')
-    if request.method == 'POST':
-        newpassword = request.POST.get('newpass', '')
-        check = request.POST.get('pass', '')
-        check_2 = RobotMember.objects.filter(password=newpassword)
-        if check_2:
-            wrong = '此密碼已被使用'
-            return render_to_response('mo_pass.html', {'wrong': wrong})
-        elif newpassword == check:
-            RobotMember.objects.filter(email=username).update(password=newpassword)
-            return render_to_response('login.html')
-    return render_to_response('mo_pass.html')
-
-
-# --修改基本資料
-def modify(request):
-    try:
-        username = request.session['userName']
-        result = RobotMember.objects.get(email=username)
-    except:
-        return HttpResponseRedirect('/login/?back=修改基本資料')
-    if request.method == 'POST':
-        name = request.POST.get('name', '')
-        mail = request.POST.get('mail', '')
-        phone = request.POST.get('phone', '')
-        RobotMember.objects.filter(email=username).update(member_name=name, email=mail, phone_num=phone)
-        request.session['name'] = name
-        request.session['userName'] = mail
-        return render_to_response('login.html')
-    return render_to_response('modify.html', {'member': result})
-
-
-#
-# --
 
 # def member_news(request):
 #     name = ''
@@ -1973,7 +1877,45 @@ def modify(request):
 #                                                'range1': range1, 'news': news, 'name': name, 'loginstatus': loginstatus, 'list': list,'tr_list': tr_list})
 
 
-#開得出來功能
+# --新聞首頁
+
+# --忘記密碼
+
+def modifypassword(request):
+    try:
+        username = request.session['userName']
+    except:
+        return HttpResponseRedirect('/login/?back=修改密碼')
+    if request.method == 'POST':
+        newpassword = request.POST.get('newpass', '')
+        check = request.POST.get('pass', '')
+        check_2 = RobotMember.objects.filter(password=newpassword)
+        if check_2:
+            wrong = '此密碼已被使用'
+            return render_to_response('mo_pass.html', {'wrong': wrong})
+        elif newpassword == check:
+            RobotMember.objects.filter(email=username).update(password=newpassword)
+            return render_to_response('login.html')
+    return render_to_response('mo_pass.html')
+
+
+def modify(request):
+    try:
+        username = request.session['userName']
+        result = RobotMember.objects.get(email=username)
+    except:
+        return HttpResponseRedirect('/login/?back=修改基本資料')
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        mail = request.POST.get('mail', '')
+        phone = request.POST.get('phone', '')
+        RobotMember.objects.filter(email=username).update(member_name=name, email=mail, phone_num=phone)
+        request.session['name'] = name
+        request.session['userName'] = mail
+        return render_to_response('login.html')
+    return render_to_response('modify.html', {'member': result})
+
+
 # 損益表
 def income_statement(request):
     name = ''
@@ -2032,6 +1974,7 @@ def cash_flow_statement(request):
                                                  'capital': capital, 'industry': industry, 'stosk_2': set,
                                                  'id': identity, 'name': name, 'loginstatus': loginstatus})
 
+
 # 股票代碼查詢
 def stock_choice(request):
     # 列出所有產業
@@ -2082,11 +2025,38 @@ def stock_choice(request):
                                             'b1': stock_b1, 'b2': stock_b2, 'b3': stock_b3, 'status': status,
                                             'stock_number': stock_number, 'type': type})
 
-# 簡單回傳開不了區
-
-# def inc_sta(request):
-#     return render(request, 'inc_sta.html')
-
-# def message(request):
 #
-#     return render(request, 'message.html')
+#
+#
+#
+# def reply(request):
+#     name = ''
+#     loginstatus = False
+#     try:
+#         name = request.session['name']
+#         loginstatus = True
+#     except:
+#         pass
+#     date_now = datetime.now().strftime('%Y/%m/%d')
+#     time_now = datetime.now().strftime('%H:%M')
+#     try:
+#         member = request.session['name']
+#         if member is not None:
+#             if request.method == 'POST':
+#                 content = request.POST.get('editor', 0)
+#                 discuss_id = request.POST.get('reply', 0)
+#                 RobotComment.objects.create(discuss_id=discuss_id, content=content,
+#                                        date=date_now, member_id=member, time=time_now)
+#                 reply_times = RobotDiscuss.objects.get(discuss_id = discuss_id).reply_times
+#                 RobotDiscuss.objects.filter(discuss_id=discuss_id).update(reply_times = reply_times + 1)
+#                 res = RobotDiscuss.objects.get(discuss_id=discuss_id)
+#                 comment =  RobotComment.objects.filter(discuss_id=discuss_id)
+#                 return render_to_response('chatcon.html', {'article': res, 'comment': comment, 'id': discuss_id, 'name': name, 'loginstatus': loginstatus})
+#      except:
+#      return render_to_response('login.html')
+#
+
+
+
+
+
