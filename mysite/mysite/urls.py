@@ -45,6 +45,12 @@ urlpatterns = [
     url(r'^economic_term/', views.economic_term),
     url(r'^tech/', views.tech),
     url(r'^algotrade/', views.algotrade),
+    url(r'^new_info/', views.new_info),
+url(r'^new_infocon2/', views.new_infocon2),
+url(r'^new_infocon3/', views.new_infocon3),
+url(r'^new_infocon4/', views.new_infocon4),
+url(r'^new_infocon5/', views.new_infocon5),
+url(r'^new_infocon/', views.new_infocon),
     # url(r'^predict/', views.predict1),
 
     url(r'^search_discussion/', views.search_discussion),
