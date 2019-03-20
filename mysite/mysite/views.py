@@ -1416,2671 +1416,7 @@ def stock_analysis(request):
         return render_to_response('stock_anacon1.html', {'loginstatus': loginstatus, 'name': name})
     return render_to_response('stock_ana.html', {'loginstatus': loginstatus, 'name': name})
 
-# --推薦好股型（開不出來
-def gep(request):
-    return render(request, "gep1.html")
-
-# --買賣型
-
-def five(request):
-    return render(request, "f.html")
-
-
-# --投資組合推薦 (開不出來
-
-
-# 指標專區
-
-def economic_term(request):
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    c_1 = RobotEconomic.objects.filter(category='獲利能力')
-    c_2 = RobotEconomic.objects.filter(category='安全性')
-    c_3 = RobotEconomic.objects.filter(category='成長力')
-    c_4 = RobotEconomic.objects.filter(category='財務報表')
-    return render_to_response('dict.html',
-                              {'name': name, 'loginstatus': loginstatus, 'c_1': c_1, 'c_2': c_2, 'c_3': c_3,
-                               'ca_1': c_1[0].category, 'ca_2': c_2[0].category, 'ca_3': c_3[0].category,
-                               'c_4': c_4, 'ca_4': c_4[0].category})
-
-
-# 下單機
-def tech(request):
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-
-    return render_to_response('tech.html', {'name': name, 'loginstatus': loginstatus})
-
-
-# 新手專區
-# --討論區
-def get_article(request):#熱門文章 最新文章 最新回復
-    today = datetime.datetime.now().strftime('%Y/%m/%d')
-    count = Discuss.objects.filter(date=today).count()
-    count2 = Discuss.objects.all().count()
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    a = []
-    res = Discuss.objects.order_by('-like').all()
-    for i in range(0, 4):
-        a.append(res[i])
-    res_2 = Comment.objects.order_by('-date', '-time')
-    b = []
-    for i in range(0, 4):
-        b.append(res_2[i])
-    res_3 = Discuss.objects.order_by('-date', '-time')
-    c = []
-    for i in range(0, 4):
-        c.append(res_3[i])
-    request.session['post_page'] = '1'
-    page = request.session['post_page']
-    d = []
-    res_4 = Discuss.objects.order_by('-reply_times').filter(theme = '投資理財')
-    for i in range(0, 15):
-        d.append(res_4[i])
-    e = []
-    res_5 = Discuss.objects.order_by('-reply_times').filter(theme = '股票相關')
-    for i in range(0, 15):
-        e.append(res_5[i])
-    f = []
-    res_6 = Discuss.objects.order_by('-reply_times').filter(theme = '機器人投顧')
-    for i in range(0, 15):
-        f.append(res_6[i])
-    return render_to_response('chat.html', {'count': count, 'count2': count2,'hot': a, 'latest_reply': b,'latest': c,'article': d, 'article_2': e, 'article_3': f,'page': page, 'name': name, 'loginstatus': loginstatus})
-
-# --回傳內容
-def content(request):
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    id = request.GET.get('id', 0)
-    id = int(id)
-    res = RobotDiscuss.objects.get(discuss_id=id)
-    comment = RobotComment.objects.filter(discuss_id=id)
-    return render_to_response('chatcon.html',
-                              {'article': res, 'comment': comment, 'id': id, 'name': name, 'loginstatus': loginstatus})
-
-
-def post_page_1(request):
-    today = datetime.now().strftime('%Y/%m/%d')
-    count = RobotDiscuss.objects.filter(date=today).count()
-    count2 = RobotDiscuss.objects.all().count()
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    a = []
-    res = RobotDiscuss.objects.order_by('-like').all()
-    for i in range(0, 4):
-        a.append(res[i])
-    res_2 = RobotComment.objects.order_by('-date', '-time')
-    b = []
-    for i in range(0, 4):
-        b.append(res_2[i])
-    res_3 = RobotDiscuss.objects.order_by('-date', '-time')
-    c = []
-    for i in range(0, 4):
-        c.append(res_3[i])
-    request.session['post_page'] = '1'
-    page = request.session['post_page']
-    d = []
-    res_4 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='投資理財')
-    for i in range(0, 15):
-        d.append(res_4[i])
-    e = []
-    res_5 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='股票相關')
-    for i in range(0, 15):
-        e.append(res_5[i])
-    f = []
-    res_6 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='機器人投顧')
-    for i in range(0, 15):
-        f.append(res_6[i])
-    return render_to_response('chat.html',
-                              {'count': count, 'count2': count2, 'page': page, 'article': d, 'article_2': e,
-                               'article_3': f, 'hot': a, 'latest_reply': b, 'latest': c, 'name': name,
-                               'loginstatus': loginstatus})
-
-
-def post_page_2(request):
-    today = datetime.now().strftime('%Y/%m/%d')
-    count = RobotDiscuss.objects.filter(date=today).count()
-    count2 = RobotDiscuss.objects.all().count()
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    a = []
-    res = RobotDiscuss.objects.order_by('-like').all()
-    for i in range(0, 4):
-        a.append(res[i])
-    res_2 = RobotComment.objects.order_by('-date', '-time')
-    b = []
-    for i in range(0, 4):
-        b.append(res_2[i])
-    res_3 = RobotDiscuss.objects.order_by('-date', '-time')
-    c = []
-    for i in range(0, 4):
-        c.append(res_3[i])
-    request.session['post_page'] = '2'
-    page = request.session['post_page']
-    d = []
-    res_4 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='投資理財')
-    for i in range(15, 30):
-        d.append(res_4[i])
-    e = []
-    res_5 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='股票相關')
-    for i in range(15, 30):
-        e.append(res_5[i])
-    f = []
-    res_6 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='機器人投顧')
-    for i in range(15, 30):
-        f.append(res_6[i])
-    return render_to_response('chat.html',
-                              {'count': count, 'count2': count2, 'page': page, 'article_2': e, 'article_3': f,
-                               'article': d, 'hot': a, 'latest_reply': b, 'latest': c, 'name': name,
-                               'loginstatus': loginstatus})
-
-
-def post_page_3(request):
-    today = datetime.now().strftime('%Y/%m/%d')
-    count = RobotDiscuss.objects.filter(date=today).count()
-    count2 = RobotDiscuss.objects.all().count()
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    a = []
-    res = RobotDiscuss.objects.order_by('-like').all()
-    for i in range(0, 4):
-        a.append(res[i])
-    res_2 = RobotComment.objects.order_by('-date', '-time')
-    b = []
-    for i in range(0, 4):
-        b.append(res_2[i])
-    res_3 = RobotDiscuss.objects.order_by('-date', '-time')
-    c = []
-    for i in range(0, 4):
-        c.append(res_3[i])
-    request.session['post_page'] = '3'
-    page = request.session['post_page']
-    d = []
-    res_4 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='投資理財')
-    for i in range(30, 45):
-        d.append(res_4[i])
-    e = []
-    res_5 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='股票相關')
-    for i in range(30, 45):
-        e.append(res_5[i])
-    f = []
-    res_6 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='機器人投顧')
-    for i in range(30, 45):
-        f.append(res_6[i])
-    return render_to_response('chat.html',
-                              {'count': count, 'count2': count2, 'page': page, 'article_2': e, 'article_3': f,
-                               'article': d, 'hot': a, 'latest_reply': b, 'latest': c, 'name': name,
-                               'loginstatus': loginstatus})
-
-
-def post_next(request):  # 下一頁 check
-    page = request.session['post_page']
-    type = request.GET.get('type', 0)
-    if page is '1':
-        return HttpResponseRedirect('/post_page_2/')
-    if page is '2':
-        return HttpResponseRedirect('/post_page_3/')
-    if page is '3':
-        return HttpResponseRedirect('/post_page_3/')
-
-
-def post_prev(request):  # 上一頁 check
-    page = request.session['post_page']
-    type = request.GET.get('type', 0)
-    if page is '1':
-        return HttpResponseRedirect('/post_page_1/')
-    if page is '2':
-        return HttpResponseRedirect('/post_page_1/')
-    if page is '3':
-        return HttpResponseRedirect('/post_page_2/')
-
-
-def like(request):
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    if request.method == 'POST':
-        id = request.POST.get('id', 0)
-        likes = RobotDiscuss.objects.get(discuss_id=id).like
-        RobotDiscuss.objects.filter(discuss_id=id).update(like=likes + 1)
-        res = RobotDiscuss.objects.get(discuss_id=id)
-        comment = RobotComment.objects.filter(discuss_id=id)
-        return render_to_response('chatcon.html', {'article': res, 'comment': comment, 'id': id, 'name': name,
-                                                   'loginstatus': loginstatus})
-
-
-def issued(request):
-    return render(request, 'post.html')
-
-
-def chat_search(request):
-    return render(request, 'chat_search')
-
-
-# 會員
-
-def member(request):
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-
-    return render_to_response('member2.html', {'name': name, 'loginstatus': loginstatus})
-
-
-def mem_home(request):  # check
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    return render_to_response('member2.html', {'loginstatus': loginstatus, 'name': name})
-
-
-# def member_news(request):
-#     name = ''
-#     loginstatus = False
-#     member = ''
-#     try:
-#          name = request.session['name']
-#          member = RobotMember.objects.get(member_name=name).member_id
-#          loginstatus = True
-#     except:
-#         return HttpResponseRedirect('/login/?back=My_News')
-#     # member = '1'
-#     stock = RobotTrackStock.objects.filter(member_id=member)
-#     tra = []
-#     tra1 = [] # 漲跌
-#     tra2 = [] # 漲跌幅
-#     inf = []
-#     cate = []
-#     range1 = []
-#     list, l0, l1, l2, l3, l4, l5 = [], [], [], [], [], [], []
-#     # 投資組合清單
-#     try:
-#        l0 = RobotTrackStock.objects.filter(member_id = member, list_id = '0')
-#        list.append(l0[0])
-#     except:
-#        #l0 = 0
-#        #list.append(l0)
-#        pass
-#     try:
-#        l1 = RobotTrackStock.objects.filter(member_id = member, list_id = '1')
-#        list.append(l1[0])
-#     except:
-#        #l1 = 0
-#        #list.append(l1)
-#        pass
-#     try:
-#        l2 = RobotTrackStock.objects.filter(member_id = member, list_id = '2')
-#        list.append(l2[0])
-#     except:
-#        #l2 = 0
-#        #list.append(l2)
-#        pass
-#     try:
-#        l3 = RobotTrackStock.objects.filter(member_id = member, list_id = '3')
-#        list.append(l3[0])
-#     except:
-#        #l3 = 0
-#        #list.append(l3)
-#        pass
-#     try:
-#        l4 = RobotTrackStock.objects.filter(member_id = member, list_id = '4')
-#        list.append(l4[0])
-#     except:
-#        #l4 = 0
-#        #list.append(l4)
-#        pass
-#     try:
-#        l5 = RobotTrackStock.objects.filter(member_id = member, list_id = '5')
-#        list.append(l5[0])
-#     except:
-#        #l5 = 0
-#        #list.append(l5)
-#        pass
-#     #list = [l0[0], l1[0], l2[0], l3[0], l4[0], l5[0]]
-#
-#     # 當日的交易資訊-- ALL
-#     tr_list = request.POST.get('list', '')
-#     if tr_list == 'ALL' or tr_list == '':
-#         for n in range(0, len(stock)):
-#             tra.append(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826'))
-#             tra1.append(float(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826').change))
-#             tra2.append(float(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826').change_percent))
-#             a = RobotInformation.objects.get(stock_id=stock[n].stock_id)
-#             inf.append(a)
-#             cate.append(RobotCategory.objects.get(category_id=a.category))
-#             range1.append(n)
-#         page_2 = request.GET.get('page' , '1')
-#         page_2 = int(page_2)
-#         track_stock = RobotTrackStock.objects.filter(member_id=member)
-#         yahoo = []
-#         for news in track_stock:
-#             if RobotYahoo.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                 for i in RobotYahoo.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                     yahoo.append({'category': 'Yahoo!奇摩股市-台盤股勢', 'type': '4', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
-#             if RobotYahooStock.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                 for i in RobotYahooStock.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                     yahoo.append({'category': 'Yahoo!奇摩股市-個股動態', 'type': '5', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
-#             if RobotYahooTec.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                 for i in RobotYahooTec.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                     yahoo.append({'category': 'Yahoo!奇摩股市-科技產業', 'type': '6', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
-#             if RobotYahooTra.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                 for i in RobotYahooTra.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                     yahoo.append({'category': 'Yahoo!奇摩股市-傳統產業', 'type': '7', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
-#             if news.stock_id == '2330':
-#                 for i in RobotNews2330.objects.order_by('-date'):
-#                     yahoo.append({'category': 'Yahoo!奇摩股市-科技產業', 'type': '2330', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
-#     else:
-#         if tr_list == '0':
-#             stock = l0
-#         elif tr_list == '1':
-#             stock = l1
-#         elif tr_list == '2':
-#             stock = l2
-#         elif tr_list == '3':
-#             stock = l3
-#         elif tr_list == '4':
-#             stock = l4
-#         print(stock)
-#         for n in range(0, len(stock)):
-#             print(stock[n].stock_id)
-#             tra.append(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826'))
-#             tra1.append(float(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826').change))
-#             tra2.append(float(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826').change_percent))
-#             a = RobotInformation.objects.get(stock_id=stock[n].stock_id)
-#             inf.append(a)
-#             cate.append(RobotCategory.objects.get(category_id=a.category))
-#             range1.append(n)
-#         page_2 = request.GET.get('page' , '1')
-#         page_2 = int(page_2)
-#         track_stock = RobotTrackStock.objects.filter(member_id=member)
-#         yahoo = []
-#         for news in track_stock:
-#             if RobotYahoo.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                 for i in RobotYahoo.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                     yahoo.append({'category': 'Yahoo!奇摩股市-台盤股勢', 'type': '4', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
-#             if RobotYahooStock.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                 for i in RobotYahooStock.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                     yahoo.append({'category': 'Yahoo!奇摩股市-個股動態', 'type': '5', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
-#             if RobotYahooTec.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                 for i in RobotYahooTec.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                     yahoo.append({'category': 'Yahoo!奇摩股市-科技產業', 'type': '6', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
-#             if RobotYahooTra.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                 for i in RobotYahooTra.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
-#                     yahoo.append({'category': 'Yahoo!奇摩股市-傳統產業', 'type': '7', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
-#             if news.stock_id == '2330':
-#                 for i in RobotNews2330.objects.order_by('-date'):
-#                     yahoo.append({'category': 'Yahoo!奇摩股市-科技產業', 'type': '2330', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
-#
-#
-#
-#     #a = Transaction_info.objects.all().aggregate(Min('the_close'))
-#     #print(a)
-#     paginator = Paginator(yahoo, 10)
-#     try:
-#         news = paginator.page(page_2)
-#     except PageNotAnInteger:
-#         news = paginator.page(1)
-#     except EmptyPage:
-#         news = paginator.page(paginator.num_pages)
-#     return render_to_response('member_news_2.html', {'tra_data': tra, 'tra1': tra1, 'tra2': tra2, 'inf_data': inf, 'cate': cate,
-#                                                'range1': range1, 'news': news, 'name': name, 'loginstatus': loginstatus, 'list': list,'tr_list': tr_list})
-
-
-# --新聞首頁
-
-# --忘記密碼
-
-def modifypassword(request):
-    try:
-        username = request.session['userName']
-    except:
-        return HttpResponseRedirect('/login/?back=修改密碼')
-    if request.method == 'POST':
-        newpassword = request.POST.get('newpass', '')
-        check = request.POST.get('pass', '')
-        check_2 = RobotMember.objects.filter(password=newpassword)
-        if check_2:
-            wrong = '此密碼已被使用'
-            return render_to_response('mo_pass.html', {'wrong': wrong})
-        elif newpassword == check:
-            RobotMember.objects.filter(email=username).update(password=newpassword)
-            return render_to_response('login.html')
-    return render_to_response('mo_pass.html')
-
-
-def modify(request):
-    try:
-        username = request.session['userName']
-        result = RobotMember.objects.get(email=username)
-    except:
-        return HttpResponseRedirect('/login/?back=修改基本資料')
-    if request.method == 'POST':
-        name = request.POST.get('name', '')
-        mail = request.POST.get('mail', '')
-        phone = request.POST.get('phone', '')
-        RobotMember.objects.filter(email=username).update(member_name=name, email=mail, phone_num=phone)
-        request.session['name'] = name
-        request.session['userName'] = mail
-        return render_to_response('login.html')
-    return render_to_response('modify.html', {'member': result})
-
-
-# 損益表
-def income_statement(request):
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    identity = request.GET.get('id', '2330')
-    data_2 = RobotIncomeStatementQ.objects.filter(stock_id=identity)
-    sets = []
-    for i in range(0, 8):
-        sets.append(data_2[i])
-    #     # share = Share(identity+'.TW')
-    #     # price = share.get_price()
-    #     # change = share.get_change()
-    #     # prev_close = share.get_prev_close()
-    #     # change_in_percent = round(float(change)/float(prev_close), ndigits=2)*100
-    #     # volume = share.get_volume()
-    capital = RobotInformation.objects.get(stock_id=identity).co_capital
-    category_id = RobotInformation.objects.get(stock_id=identity).category
-    industry = RobotCategory.objects.get(category_id=category_id).category_name
-    #     # return render_to_response('inc_sta.html', {'stock_name': RobotInformation.objects.get(stock_id=identity).co_name, 'stock': sets, 'price': price, 'change_in_percent': change_in_percent, 'change': change, 'volume': volume, 'capital': capital, 'industry': industry, 'id': identity, 'name': name, 'loginstatus': loginstatus})
-    return render_to_response('inc_sta.html',
-                              {'stock_name': RobotInformation.objects.get(stock_id=identity).co_name, 'stock': sets,
-                               'capital': capital, 'industry': industry, 'id': identity, 'name': name,
-                               'loginstatus': loginstatus})
-
-
-# 現金流量表
-def cash_flow_statement(request):
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    identity = request.GET.get('id', '2330')
-    set = []
-    data_2 = RobotCashFlowsQ.objects.filter(stock_id=identity)
-    for i in range(0, 8):
-        set.append(data_2[i])
-    # share = Share(identity+'.TW')
-    # price = share.get_price()
-    # change = share.get_change()
-    # prev_close = share.get_prev_close()
-    # change_in_percent = round(float(change)/float(prev_close), ndigits=2)*100
-    # volume = share.get_volume()
-    capital = RobotInformation.objects.get(stock_id=identity).co_capital
-    category_id = RobotInformation.objects.get(stock_id=identity).category
-    industry = RobotCategory.objects.get(category_id=category_id).category_name
-    # return render_to_response('cash_flow.html', {'stock_name': RobotInformation.objects.get(stock_id=identity).co_name, 'price': price, 'change_in_percent': change_in_percent, 'change': change, 'volume': volume, 'capital': capital, 'industry': industry,'stosk_2': set, 'id': identity, 'name': name, 'loginstatus': loginstatus})
-    return render_to_response('cash_flow.html', {'stock_name': RobotInformation.objects.get(stock_id=identity).co_name,
-                                                 'capital': capital, 'industry': industry, 'stosk_2': set,
-                                                 'id': identity, 'name': name, 'loginstatus': loginstatus})
-
-
-# 股票代碼查詢
-def stock_choice(request):
-    # 列出所有產業
-    stock_a1 = []  # 上市產業:28個
-    stock_a2 = []
-    stock_a3 = []
-    stock_b1 = []  # 上櫃產業:25個
-    stock_b2 = []
-    stock_b3 = []
-    stock_a = []  # 上市所有股票
-    stock_b = []  # 上櫃所有股票
-    status = False
-
-    # 前端產業選項用a帶參數id, name
-    stock_id = request.GET.get('id', 0)  # 傳到stock.html
-    stock_name = request.GET.get('name', 0)  # 哪個產業  傳到stock.html
-
-    type = request.GET.get('c', 0)  # 上市or上櫃
-    stock_number = request.GET.get('s_num', 0)  # 顯示在查詢的input
-    '''
-    <tr>
-    {% for stock in a1 %}  要寫三次(有三列)
-      <td><a href="/choice/?id={{ stock.id }}&&name={{ stock.name }}&&c=1(上市)/2(上櫃)">{{ stock.name }}</a></td>
-    {% endfor %}
-    </tr>
-    '''
-
-    for n in range(1, 11):  # 10筆一列放入上市
-        stock_a1.append(RobotCategoryA.objects.get(cat_id=n))
-    for n in range(11, 21):
-        stock_a2.append(RobotCategoryA.objects.get(cat_id=n))
-    for n in range(21, 29):
-        stock_a3.append(RobotCategoryA.objects.get(cat_id=n))
-    for n in range(1, 11):  # 10筆一列放入上櫃
-        stock_b1.append(RobotCategoryB.objects.get(cat_id=n))
-    for n in range(11, 21):
-        stock_b2.append(RobotCategoryB.objects.get(cat_id=n))
-    for n in range(21, 26):
-        stock_b3.append(RobotCategoryB.objects.get(cat_id=n))
-
-    if type is '1':  # 上市找產業的所有股票
-        stock_a = RobotListedShares.objects.filter(industry__contains=stock_name)
-
-    elif type is '2':  # 上櫃找產業的所有股票
-        stock_b = RobotOverTheCounterShares.objects.filter(industry__contains=stock_name)
-
-    return render_to_response('look.html', {'a': stock_a, 'b': stock_b, 'a1': stock_a1, 'a2': stock_a2, 'a3': stock_a3,
-                                            'b1': stock_b1, 'b2': stock_b2, 'b3': stock_b3, 'status': status,
-                                            'stock_number': stock_number, 'type': type})
-
-#
-#
-#
-#
-# def reply(request):
-#     name = ''
-#     loginstatus = False
-#     try:
-#         name = request.session['name']
-#         loginstatus = True
-#     except:
-#         pass
-#     date_now = datetime.now().strftime('%Y/%m/%d')
-#     time_now = datetime.now().strftime('%H:%M')
-#     try:
-#         member = request.session['name']
-#         if member is not None:
-#             if request.method == 'POST':
-#                 content = request.POST.get('editor', 0)
-#                 discuss_id = request.POST.get('reply', 0)
-#                 RobotComment.objects.create(discuss_id=discuss_id, content=content,
-#                                        date=date_now, member_id=member, time=time_now)
-#                 reply_times = RobotDiscuss.objects.get(discuss_id = discuss_id).reply_times
-#                 RobotDiscuss.objects.filter(discuss_id=discuss_id).update(reply_times = reply_times + 1)
-#                 res = RobotDiscuss.objects.get(discuss_id=discuss_id)
-#                 comment =  RobotComment.objects.filter(discuss_id=discuss_id)
-#                 return render_to_response('chatcon.html', {'article': res, 'comment': comment, 'id': discuss_id, 'name': name, 'loginstatus': loginstatus})
-#      except:
-#      return render_to_response('login.html')
-#
-
-def fund2(request):
-   name = ''
-   loginstatus = False
-   try:
-        name = request.session['name']
-        loginstatus = True
-   except:
-        return HttpResponseRedirect('/login/?back=資金管理')
-
-   money = request.POST.get('invest', '500')
-   type = RobotMember.objects.get(member_name=name).type #4
-   stock = RobotStocks.objects.filter(type=type)
-   sc = int(stock.count())
-   id, mt, count,  mo = [], [], [], []
-   for i in stock:
-       id.append(i.stock_num)
-       mt.append(i.type)
-       count.append(sc)
-       mo.append(money)
-
-   #history, s, n = main(sc, id, type, count, money)
-   history = {'season':'2015Q2', 'invest':'中華電(2.1%) 裕日車(17.5%) 台灣大(16.9%) 台塑化(13.2%) 震旦行(5.2%) 瑞昱(19.3%) 國泰金(1.9%) 強茂(0.5%) 康普(3.5%) 台積電(5.6%) 鴻海(14.3%) ', 'initial':'5134000.0'}
-   s = ['2227', '2412', '3045', '2330', '6505', '2373', '2882', '2481', '4739', '2317']#['3045', '4726', '2227', '4915', '2373', '6281', '3702', '2481', '3548', '2317', '2832']
-   n = [3, 12, 8, 2, 10, 5, 2, 2, 4, 8]#[1, 8, 4, 5, 4, 11, 13, 3, 10, 10, 13]
-   sum, sell_stock = 0.0, []  #賣價、 賣出的股票
-   m = int(RobotTransactionInfo.objects.get(stock_id='2412', date='20150401').the_close)*12000 + int(RobotTransactionInfo.objects.get(stock_id='3045', date='20150401').the_close)*8000+ int(RobotTransactionInfo.objects.get(stock_id='2330', date='20150401').the_close)*2000 + int(RobotTransactionInfo.objects.get(stock_id='6505', date='20150401').the_close)*5000\
-       + int(RobotTransactionInfo.objects.get(stock_id='2373', date='20150401').the_close)*10000 + int(RobotTransactionInfo.objects.get(stock_id='2882', date='20150401').the_close)*2000 + int(RobotTransactionInfo.objects.get(stock_id='2227', date='20150401').the_close)*3000 + int(RobotTransactionInfo.objects.get(stock_id='2481', date='20150401').the_close)*2000 \
-       + int(RobotTransactionInfo.objects.get(stock_id='4739', date='20150401').the_close)*4000 + int(RobotTransactionInfo.objects.get(stock_id='2317', date='20150401').the_close)*8000
-   print(m)
-   #for i in history:
-        #Fund_set_history.objects.create(season=i['season'], invest=i['invest'], initial=i['initial'])
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q2', stock_id=i).pe_for_four_season #2015Q1
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season) #201404
-       evl = float(RobotCashFlowsQ.objects.get(date='201502', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201504', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           #evl2 = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201504', stock_id=i).order_by('date')[0].the_close)
-           '''if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-evl
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break'''
-           if dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1] or dates[j].the_close == price_plus[2] or dates[j].the_close == price_plus[3]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-
-           if dates[j].the_close > buy_price*1.5 :#and dates[j].the_close > (evl2*1.5): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 :#and dates[j].the_close > (evl2*1.2): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-           '''elif dates[j].the_close > buy_price : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break'''
-
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201504', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201504', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   #報酬率
-   r = float((sum - m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q2', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       evl = float(RobotCashFlowsQ.objects.get(date='201502', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201505', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           #evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201505', stock_id=i).order_by('date')[0].the_close)
-           '''if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-evl
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break'''
-           if dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1] : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           if dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-       '''for j in Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date'):
-           if j.the_close > (evl*2): #if j.the_close > (evl*1.5):
-               net = float(j.the_close)-float(Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date')[0].the_close)
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(j.the_close)*1000*num
-               trade_2015.objects.create(date=j.date, sell_stock=i+' '+name2, sell_price=j.the_close, stocks=num, net=net)
-               print(evl)
-               print(j.the_close)
-               break'''
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201505', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201505', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   r = float((sum - m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   '''if r > xx:
-       money = xx
-   mo = []
-   for i in stock:
-       mo.append(money)
-   history, s, n = main(sc, id, type, count, money)'''
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q1', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       evl = float(RobotCashFlowsQ.objects.get(date='201502', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201506', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           #evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201506', stock_id=i).order_by('date')[0].the_close)
-           '''if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-evl
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break'''
-           if dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           if dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201506', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201506', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   r = float((sum - m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-   return HttpResponse()
-
-
-# 原版
-def fund0(request):
-   name = ''
-   loginstatus = False
-   try:
-        name = request.session['name']
-        loginstatus = True
-   except:
-        return HttpResponseRedirect('/login/?back=資金管理')
-
-   money = request.POST.get('invest', '500')
-   type = RobotMember.objects.get(member_name=name).type #4
-   stock = RobotStocks.objects.filter(type=type)
-   sc = int(stock.count())
-   id, mt, count,  mo= [], [], [], []
-   for i in stock:
-       id.append(i.stock_num)
-       mt.append(i.type)
-       count.append(sc)
-       mo.append(money)
-
-   #history, s, n = main(sc, id, type, count, money)
-   history = {'season':'2015Q2', 'invest':'台灣大(2.1%) 永昕(8.9%) 裕日車(26.2%) 致伸(3.9%) 震旦行(4.3%) 全國電(13.5%) 大聯大(9.5%) 強茂(0.9%) 兆利(7.6%) 鴻海(17.4%) 台產(5.8%) ', 'initial':'5021200.0'}
-   s = ['2412', '3045', '2330', '6505', '2373', '2379', '2882', '2481', '4739', '2317']
-   n = [14, 8, 2, 15, 12, 6, 2, 2, 4, 10]
-   sum, sell_stock = 0.0, []  #賣價、 賣出的股票
-   #for i in history:
-        #Fund_set_history.objects.create(season=i['season'], invest=i['invest'], initial=i['initial'])
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q2', stock_id=i).pe_for_four_season #2015Q1
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season) #201404
-       #evl = float(Cash_Flows_Q.objects.get(date='201501', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201504', stock_id=i).order_by('date')
-       count = dates.count()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           #evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201504', stock_id=i).order_by('date')[0].the_close)
-           if dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print(dates[j].the_close)
-               break
-           '''elif dates[j].the_close > buy_price*1.2 and evl > buy_price: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-           elif dates[j].the_close > buy_price : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break'''
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201504', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201504', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   #報酬率
-   #r = float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = float((sum - 5860600)/5860600)
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q2', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       evl = float(RobotCashFlowsQ.objects.get(date='201502', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       for j in RobotTransactionInfo.objects.filter(date__startswith='201505', stock_id=i).order_by('date'):
-           if j.the_close > (evl*2): #if j.the_close > (evl*1.5):
-               net = float(j.the_close)-float(RobotTransactionInfo.objects.filter(date__startswith='201505', stock_id=i).order_by('date')[0].the_close)
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(j.the_close)*1000*num
-               RobotTrade2015.objects.create(date=j.date, sell_stock=i+' '+name2, sell_price=j.the_close, stocks=num, net=net)
-               print(evl)
-               print(j.the_close)
-               break
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201505', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201505', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   #r = float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = float((sum - 5860600)/5860600)
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   '''if r > xx:
-       money = xx
-   mo = []
-   for i in stock:
-       mo.append(money)
-   history, s, n = main(sc, id, type, count, money)'''
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q1', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       evl = float(RobotCashFlowsQ.objects.get(date='201501', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       for j in RobotTransactionInfo.objects.filter(date__startswith='201506', stock_id=i).order_by('date'):
-           if j.the_close > (evl*2): #if j.the_close > (evl*1.5):
-               net = float(j.the_close)-float(RobotTransactionInfo.objects.filter(date__startswith='201506', stock_id=i).order_by('date')[0].the_close)
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(j.the_close)*1000*num
-               RobotTrade2015.objects.create(date=j.date, sell_stock=i+' '+name2, sell_price=j.the_close, stocks=num, net=net)
-               print(evl)
-               print(j.the_close)
-               break
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201506', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201506', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   #r = float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = float((sum - 5860600)/5860600)
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   return HttpResponse()
-
-
-# 原版第一季(?) main2(sc, id, mt, count, mo)
-def fund1(request):
-   name = ''
-   loginstatus = False
-   try:
-        name = request.session['name']
-        loginstatus = True
-   except:
-        return HttpResponseRedirect('/login/?back=資金管理')
-
-   money = request.POST.get('invest', '500')
-   type = RobotMember.objects.get(member_name=name).type #4
-   stock = RobotStocks.objects.filter(type=type)
-   sc = int(stock.count())
-   id, mt, count,  mo= [], [], [], []
-   for i in stock:
-       id.append(i.stock_num)
-       mt.append(i.type)
-       count.append(sc)
-       mo.append(money)
-
-   #history, s, n = main(sc, id, type, count, money)
-   history = {'season':'2015Q2', 'invest':'台灣大(2.1%) 永昕(8.9%) 裕日車(26.2%) 致伸(3.9%) 震旦行(4.3%) 全國電(13.5%) 大聯大(9.5%) 強茂(0.9%) 兆利(7.6%) 鴻海(17.4%) 台產(5.8%) ', 'initial':'5021200.0'}
-   s = ['2412', '3045', '2330', '6505', '2373', '2379', '2882', '2481', '4739', '2317']#['3045', '4726', '2227', '4915', '2373', '6281', '3702', '2481', '3548', '2317', '2832']
-   n = [14, 8, 2, 15, 12, 6, 2, 2, 4, 10]#[1, 8, 4, 5, 4, 11, 13, 3, 10, 10, 13]
-   sum, sell_stock = 0.0, []  #賣價、 賣出的股票
-   m = int(RobotTransactionInfo.objects.get(stock_id='2412', date='20150105').the_close)*14000 + int(RobotTransactionInfo.objects.get(stock_id='3045', date='20150105').the_close)*8000+ int(RobotTransactionInfo.objects.get(stock_id='2330', date='20150105').the_close)*2000 + int(RobotTransactionInfo.objects.get(stock_id='6505', date='20150105').the_close)*15000\
-       + int(RobotTransactionInfo.objects.get(stock_id='2373', date='20150105').the_close)*12000 + int(RobotTransactionInfo .objects.get(stock_id='2882', date='20150105').the_close)*6000 + int(RobotTransactionInfo.objects.get(stock_id='2882', date='20150105').the_close)*2000 + int(RobotTransactionInfo.objects.get(stock_id='2481', date='20150105').the_close)*2000 \
-       + int(RobotTransactionInfo.objects.get(stock_id='4739', date='20150105').the_close)*4000 + int(RobotTransactionInfo.objects.get(stock_id='2317', date='20150105').the_close)*10000
-   print('money='+str(m))
-   #for i in history:
-        #Fund_set_history.objects.create(season=i['season'], invest=i['invest'], initial=i['initial'])
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q1', stock_id=i).pe_for_four_season #2015Q1
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season) #201404
-       evl = float(RobotCashFlowsQ.objects.get(date='201501', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201501', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           #evl2 = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201501', stock_id=i).order_by('date')[0].the_close)
-           '''if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-evl
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break'''
-           if dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1] or dates[j].the_close == price_plus[2] or dates[j].the_close == price_plus[3]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-
-           if dates[j].the_close > buy_price*1.5 :#and dates[j].the_close > (evl2*1.5): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 :#and dates[j].the_close > (evl2*1.2): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-           '''elif dates[j].the_close > buy_price : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break'''
-
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201501', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201501', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   #報酬率
-   r = float((sum - m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q1', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       evl = float(RobotCashFlowsQ.objects.get(date='201501', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201502', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           #evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201502', stock_id=i).order_by('date')[0].the_close)
-           '''if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-evl
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break'''
-           if dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1] : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           if dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-       '''for j in Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date'):
-           if j.the_close > (evl*2): #if j.the_close > (evl*1.5):
-               net = float(j.the_close)-float(Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date')[0].the_close)
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(j.the_close)*1000*num
-               trade_2015.objects.create(date=j.date, sell_stock=i+' '+name2, sell_price=j.the_close, stocks=num, net=net)
-               print(evl)
-               print(j.the_close)
-               break'''
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201502', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201502', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   r = r = float((sum - m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   '''if r > xx:
-       money = xx
-   mo = []
-   for i in stock:
-       mo.append(money)
-   history, s, n = main(sc, id, type, count, money)'''
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q1', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       evl = float(RobotCashFlowsQ.objects.get(date='201502', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201503', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           #evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201503', stock_id=i).order_by('date')[0].the_close)
-           '''if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-evl
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break'''
-           if dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           if dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201503', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201503', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   r = float((sum - m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-   return HttpResponse()
-
-
-# 第三季
-def fund3(request): # 第三季
-   name = ''
-   loginstatus = False
-   try:
-        name = request.session['name']
-        loginstatus = True
-   except:
-        return HttpResponseRedirect('/login/?back=資金管理')
-
-   money = request.POST.get('invest', '500')
-   type = RobotMember.objects.get(member_name=name).type #4
-   stock = RobotStocks.objects.filter(type=type)
-   sc = int(stock.count())
-   id, mt, count,  mo= [], [], [], []
-   for i in stock:
-       id.append(i.stock_num)
-       mt.append(i.type)
-       count.append(sc)
-       mo.append(money)
-   #報酬率: 0.08、0.03、0.0
-   #history, s, n, m= main(sc, id, type, count, money)
-   history = {'season':'2015Q3', 'invest':'台積電(4.8%) 鴻海(26.3%) 台塑(18.7%) 中華電(18.6%) 富邦(5.3%) 台灣大(3.6%) 遠傳(6.5%) 震旦行(3.5%) 台塑(11.4%) 強茂(2.2%) 兆利(5.8%) ', 'initial':'5562500'}
-   s = ['2330', '2317', '6505', '2412', '2881', '3045', '4904', '2373', '1301', '2481', '3548']
-   n = [2, 12, 15, 11, 5, 2, 5, 4, 9, 11, 15]#[1, 8, 4, 5, 4, 11, 13, 3, 10, 10, 13]
-   sum, sell_stock = 0.0, []  #賣價、 賣出的股票
-   m = int(RobotTransactionInfo.objects.get(stock_id='2330', date='20150701').the_close)*2000 + int(RobotTransactionInfo.objects.get(stock_id='2317', date='20150701').the_close)*12000 + int(RobotTransactionInfo.objects.get(stock_id='6505', date='20150701').the_close)*15000 + int(RobotTransactionInfo.objects.get(stock_id='2412', date='20150701').the_close)*11000\
-       + int(RobotTransactionInfo.objects.get(stock_id='2881', date='20150701').the_close)*2000 + int(RobotTransactionInfo.objects.get(stock_id='3045', date='20150701').the_close)*2000 + int(RobotTransactionInfo.objects.get(stock_id='4904', date='20150701').the_close)*5000 + int(RobotTransactionInfo.objects.get(stock_id='2373', date='20150701').the_close)*4000 \
-       + int(RobotTransactionInfo.objects.get(stock_id='1301', date='20150701').the_close)*9000 + int(RobotTransactionInfo.objects.get(stock_id='2481', date='20150701').the_close)*11000 + int(RobotTransactionInfo.objects.get(stock_id='3548', date='20150701').the_close)*15000
-
-   m = 5562500.0 #5756000
-   print('money='+str(m))
-   for i in history:
-        RobotFundSetHistory.objects.create(season=i['season'], invest=i['invest'], initial=i['initial'])
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q3', stock_id=i).pe_for_four_season #2015Q1
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season) #201404
-       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201507', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201507', stock_id=i).order_by('date')[0].the_close)
-           if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-evl
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break
-           elif dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1] or dates[j].the_close == price_plus[2] or dates[j].the_close == price_plus[3]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-
-           elif dates[j].the_close > buy_price*1.5 :#and dates[j].the_close > (evl2*1.5): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 :#and dates[j].the_close > (evl2*1.2): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-           '''elif dates[j].the_close > buy_price : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break'''
-
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201507', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201507', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   #報酬率
-   r = float((sum - m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q3', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201508', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201508', stock_id=i).order_by('date')[0].the_close)
-           if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-evl
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break
-           elif dates[j].the_close == price_plus[0] :#or dates[j].the_close == price_plus[1] : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-       '''for j in Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date'):
-           if j.the_close > (evl*2): #if j.the_close > (evl*1.5):
-               net = float(j.the_close)-float(Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date')[0].the_close)
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(j.the_close)*1000*num
-               trade_2015.objects.create(date=j.date, sell_stock=i+' '+name2, sell_price=j.the_close, stocks=num, net=net)
-               print(evl)
-               print(j.the_close)
-               break'''
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201508', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201508', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   r = r = float((sum - m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   '''if r > xx:
-       money = xx
-   mo = []
-   for i in stock:
-       mo.append(money)
-   history, s, n = main(sc, id, type, count, money)'''
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q3', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201509', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201509', stock_id=i).order_by('date')[0].the_close)
-           if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-evl
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break
-           elif dates[j].the_close == price_plus[0] : #or dates[j].the_close == price_plus[1]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201509', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201509', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   r = float((sum - m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-   return HttpResponse()
-
-
-# 第四季
-def fund4(request):
-   name = ''
-   loginstatus = False
-   try:
-        name = request.session['name']
-        loginstatus = True
-   except:
-        return HttpResponseRedirect('/login/?back=資金管理')
-
-   money = request.POST.get('invest', '500')
-   type = RobotMember.objects.get(member_name=name).type #4
-   stock = RobotStocks.objects.filter(type=type)
-   sc = int(stock.count())
-   id, mt, count,  mo= [], [], [], []
-   for i in stock:
-       id.append(i.stock_num)
-       mt.append(i.type)
-       count.append(sc)
-       mo.append(money)
-   #報酬率: 0.07、0.12、0.12
-   #history, s, n, m= main(sc, id, type, count, money)
-   history = {'season':'2015Q2', 'invest':'台灣大(2.1%) 永昕(8.9%) 裕日車(26.2%) 致伸(3.9%) 震旦行(4.3%) 全國電(13.5%) 大聯大(9.5%) 強茂(0.9%) 兆利(7.6%) 鴻海(17.4%) 台產(5.8%) ', 'initial':'4802000.0'}
-   #{'season':'2015Q3', 'invest':'台積電(4.8%) 鴻海(26.3%) 台塑(18.7%) 中華電(18.6%) 富邦(5.3%) 台灣大(3.6%) 遠傳(6.5%) 震旦行(3.5%) 台塑(11.4%) 強茂(2.2%) 兆利(5.8%) ', 'initial':'5562500'}
-   s = ['3045', '4726', '2227', '4915', '2373', '6281', '3702', '2481', '3548', '2317', '2832']#['2330', '2317', '6505', '2412', '2881', '3045', '4904', '2373', '1301', '2481', '3548']
-   n = [3, 8, 5, 5, 4, 15, 13, 6, 12, 11, 13]#[2, 12, 15, 11, 5, 2, 5, 4, 9, 11, 15]#[1, 8, 4, 5, 4, 11, 13, 3, 10, 10, 13]
-   sum, sell_stock = 0.0, []  #賣價、 賣出的股票
-   m = int(RobotTransactionInfo.objects.get(stock_id='3045', date='20151001').the_close)*3000 + int(RobotTransactionInfo.objects.get(stock_id='4726', date='20151001').the_close)*8000+ int(RobotTransactionInfo.objects.get(stock_id='2227', date='20151001').the_close)*5000 + int(RobotTransactionInfo.objects.get(stock_id='4915', date='20151001').the_close)*5000\
-       + int(RobotTransactionInfo.objects.get(stock_id='2373', date='20151001').the_close)*4000 + int(RobotTransactionInfo.objects.get(stock_id='6281', date='20151001').the_close)*15000 + int(RobotTransactionInfo.objects.get(stock_id='3702', date='20151001').the_close)*13000 + int(RobotTransactionInfo.objects.get(stock_id='2481', date='20151001').the_close)*6000 \
-       + int(RobotTransactionInfo.objects.get(stock_id='2317', date='20151001').the_close)*11000 + int(RobotTransactionInfo.objects.get(stock_id='3548', date='20151001').the_close)*12000 + int(RobotTransactionInfo.objects.get(stock_id='2832', date='20151001').the_close)*13000
-
-   #m = 5021200.0#5562500.0 #5756000
-   print('money='+str(m))
-   #for i in history:
-        #Fund_set_history.objects.create(season=i['season'], invest=i['invest'], initial=i['initial'])
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q4', stock_id=i).pe_for_four_season #2015Q1
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season) #201404
-       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201510', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201510', stock_id=i).order_by('date')[0].the_close)
-           if dates[j].the_close > evl:
-               net = float(dates[j].the_close) -buy_price
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break
-           elif dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1] or dates[j].the_close == price_plus[2] or dates[j].the_close == price_plus[3]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-
-           elif dates[j].the_close > buy_price*1.5 :#and dates[j].the_close > (evl2*1.5): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 :#and dates[j].the_close > (evl2*1.2): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-           '''elif dates[j].the_close > buy_price : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break'''
-
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201510', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201510', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   #報酬率
-   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q4', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201511', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201511', stock_id=i).order_by('date')[0].the_close)
-           if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break
-           elif dates[j].the_close == price_plus[0] :#or dates[j].the_close == price_plus[1] : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)#-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-       '''for j in Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date'):
-           if j.the_close > (evl*2): #if j.the_close > (evl*1.5):
-               net = float(j.the_close)-float(Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date')[0].the_close)
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(j.the_close)*1000*num
-               trade_2015.objects.create(date=j.date, sell_stock=i+' '+name2, sell_price=j.the_close, stocks=num, net=net)
-               print(evl)
-               print(j.the_close)
-               break'''
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201511', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201511', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   '''if r > xx:
-       money = xx
-   mo = []
-   for i in stock:
-       mo.append(money)
-   history, s, n = main(sc, id, type, count, money)'''
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2015Q4', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201512', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201512', stock_id=i).order_by('date')[0].the_close)
-           if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break
-           elif dates[j].the_close == price_plus[0] : #or dates[j].the_close == price_plus[1]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201512', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201512', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-   return HttpResponse()
-
-# 2016第一季
-'''
-茂迪(2.6%) 中華電(21.4%) 遠傳(8.0%) 可成(5.8%) 全國電(12.1%) 國泰金(17.5%) 大聯大(6.1%) 康普(9.2%) 兆利(11.0%) 台產(6.3%)
-0.05、0.05、0.08
-s = ['6244', '2412', '4904', '2474', '6281', '2882', '3702', '4739', '3548', '2832']
-n = [3, 13, 3, 5, 8, 10, 7, 7, 11, 11]
-sum3=4905000
-'''
-
-
-def fund(request):
-   name = ''
-   loginstatus = False
-   try:
-        name = request.session['name']
-        loginstatus = True
-   except:
-        return HttpResponseRedirect('/login/?back=資金管理')
-
-   money = request.POST.get('invest', '500')
-   type = RobotMember.objects.get(member_name=name).type #4
-   stock = RobotStocks.objects.filter(type=type)
-   sc = int(stock.count())
-   id, mt, count,  mo= [], [], [], []
-   for i in stock:
-       id.append(i.stock_num)
-       mt.append(i.type)
-       count.append(sc)
-       mo.append(money)
-   #報酬率: 0.05、0.05、0.08
-   #history, s, n, m= main(sc, id, type, count, money)
-   #history = {'season':'2015Q2', 'invest':'台灣大(2.1%) 永昕(8.9%) 裕日車(26.2%) 致伸(3.9%) 震旦行(4.3%) 全國電(13.5%) 大聯大(9.5%) 強茂(0.9%) 兆利(7.6%) 鴻海(17.4%) 台產(5.8%) ', 'initial':'4802000.0'}
-   #{'season':'2015Q3', 'invest':'台積電(4.8%) 鴻海(26.3%) 台塑(18.7%) 中華電(18.6%) 富邦(5.3%) 台灣大(3.6%) 遠傳(6.5%) 震旦行(3.5%) 台塑(11.4%) 強茂(2.2%) 兆利(5.8%) ', 'initial':'5562500'}
-   s = ['6244', '2412', '4904', '2474', '6281', '2882', '3702', '4739', '3548', '2832']
-   n = [3, 13, 3, 5, 8, 10, 7, 7, 11, 11]
-   sum, sell_stock = 0.0, []  #賣價、 賣出的股票
-   m = int(RobotTransactionInfo.objects.get(stock_id='6244', date='20160104').the_close)*3000 + int(RobotTransactionInfo.objects.get(stock_id='2412', date='20160104').the_close)*13000+ int(RobotTransactionInfo.objects.get(stock_id='4904', date='20160104').the_close)*3000 + int(RobotTransactionInfo.objects.get(stock_id='2474', date='20160104').the_close)*5000\
-       + int(RobotTransactionInfo.objects.get(stock_id='6281', date='20160104').the_close)*8000 + int(RobotTransactionInfo.objects.get(stock_id='2882', date='20160104').the_close)*10000 + int(RobotTransactionInfo.objects.get(stock_id='3702', date='20160104').the_close)*7000 + int(RobotTransactionInfo.objects.get(stock_id='4739', date='20160104').the_close)*7000 \
-       + int(RobotTransactionInfo.objects.get(stock_id='3548', date='20160104').the_close)*11000 + int(RobotTransactionInfo.objects.get(stock_id='2832', date='20160104').the_close)*11000
-
-   #m = 5021200.0#5562500.0 #5756000
-   print('money='+str(m))
-   #for i in history:
-        #Fund_set_history.objects.create(season=i['season'], invest=i['invest'], initial=i['initial'])
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2016Q1', stock_id=i).pe_for_four_season #2015Q1
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season) #201404
-       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date')[0].the_close)
-           if dates[j].the_close > evl:
-               net = float(dates[j].the_close) -buy_price
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break
-           elif dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1] or dates[j].the_close == price_plus[2] or dates[j].the_close == price_plus[3]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-
-           elif dates[j].the_close > buy_price*1.5 :#and dates[j].the_close > (evl2*1.5): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 :#and dates[j].the_close > (evl2*1.2): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-           '''elif dates[j].the_close > buy_price : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               trade_2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break'''
-
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   #報酬率
-   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2016Q1', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date')[0].the_close)
-           if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break
-           elif dates[j].the_close == price_plus[0] :#or dates[j].the_close == price_plus[1] : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)#-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-       '''for j in Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date'):
-           if j.the_close > (evl*2): #if j.the_close > (evl*1.5):
-               net = float(j.the_close)-float(Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date')[0].the_close)
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(j.the_close)*1000*num
-               trade_2015.objects.create(date=j.date, sell_stock=i+' '+name2, sell_price=j.the_close, stocks=num, net=net)
-               print(evl)
-               print(j.the_close)
-               break'''
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-
-   '''if r > xx:
-       money = xx
-   mo = []
-   for i in stock:
-       mo.append(money)
-   history, s, n = main(sc, id, type, count, money)'''
-   sum, sell_stock = 0.0, []
-   for i, num in zip(s, n):
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       pe_for_four_season = RobotPe.objects.get(date='2016Q1', stock_id=i).pe_for_four_season
-       if pe_for_four_season == '--':
-           pe_for_four_season = 0.0
-       else:
-           pe_for_four_season = float(pe_for_four_season)
-       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
-       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
-           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
-       else:
-           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
-       '''
-       dates = RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date')
-       count = dates.count()
-       price_plus, price_minus = [], []
-       for j in range(0, count):
-          p = float(dates[j].the_close) #該股票在該月的股價
-          price_plus.append(p)
-          '''if p >= 0:
-            price_plus.append(p)
-          else:
-            price_minus.append(p)'''
-       #price_minus.reverse()
-       price_plus.reverse()
-       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
-       for j in range(0, count): #201501
-           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
-           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
-           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date')[0].the_close)
-           if dates[j].the_close > evl:
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = net*1000*num
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               break
-           elif dates[j].the_close == price_plus[0] : #or dates[j].the_close == price_plus[1]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               #print(evl)
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print('evl=' + str(evl))
-               print('current=' + str(dates[j].the_close))
-               print('buy=' + str(buy_price))
-               break
-           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
-               net = float(dates[j].the_close)-buy_price
-               net = round(net, ndigits=2)
-               net = int(net*1000*num)
-               sell_stock.append(i)
-               sum = sum + float(dates[j].the_close)*1000*num
-               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
-               print(evl)
-               print(dates[j].the_close)
-               break
-   for i in s:
-       name2 = RobotInformation.objects.get(stock_id=i).co_name
-       if i not in sell_stock:
-           price = RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date').last()
-           date = price.date
-           price = float(price.the_close)
-           z = n[s.index(i)]
-           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date').first().the_close)
-           net = round(net, ndigits=2)
-           net = int(net*1000*z)
-           sell_stock.append(i)
-           sum = sum + price*1000*z
-           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
-   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
-   r = round(r, ndigits=2)
-   RobotReturn.objects.create(re=r)
-   print('sum = '+ str(sum))
-   print('r = '+ str(r))
-   return HttpResponse()
-
-
-def portfolio(request):
-    name = ''
-    loginstatus = False
-    member = ''
-    try:
-         name = request.session['name']
-         member = RobotMember.objects.get(member_name=name).member_id
-         loginstatus = True
-    except:
-        return HttpResponseRedirect('/login/?back=My_News')
-    return render_to_response('info3.html')
-
-
-def fundamental_information(request):
-    name = ''
-    loginstatus = False
-    try:
-        name = request.session['name']
-        loginstatus = True
-    except:
-        pass
-    identity = request.GET.get('id', '2330')
-    data = RobotInformation.objects.get(stock_id=identity)
-    industry = RobotCategory.objects.get(category_id=data.category).category_name
-    return render_to_response('info.html', {'industry': industry, 'stock': data, 'id': identity, 'name': name, 'loginstatus': loginstatus})
-
-
-def fund_2(request):
-   name = ''
-   loginstatus = False
-   try:
-        name = request.session['name']
-        loginstatus = True
-   except:
-        return HttpResponseRedirect('/login/?back=資金管理')
-   type_id = RobotMember.objects.get(member_name=name).type
-   type_name = RobotFqType.objects.get(type_id=type_id).type_name
-   history, history2, trade, trade2, r = RobotFundSetHistory.objects.filter(season__startswith='2015'), RobotFundSetHistory.objects.filter(season__startswith='2016'), RobotTrade2015.objects.filter(date__startswith='2015'), RobotTrade2015.objects.filter(date__startswith='2016'), RobotReturn.objects.all()
-   m, n, m2,gross_profit, gross_loss, month = [], [], [], [], [], []
-   countp, countl, date_max, date_min, default, default2, default3 = 0, 0, '', '', '', '', '尚未設定'
-   for i in RobotFundSet2016.objects.all():
-       n.append(i)
-   for i in range(0, 12):
-       m.append(r[i].re)
-   for i in range(12, 21):
-       m2.append(r[i].re)
-   for i in trade:
-       if i.net > 0:
-           gross_profit.append(i.net)
-           countp = countp + 1
-       elif i.net < 0:
-           gross_loss.append(i.net)
-           countl = countl + 1
-       month.append(i.net)
-   date_max, date_min = RobotTrade2015.objects.get(net=max(gross_profit)).date, RobotTrade2015.objects.get(net=min(gross_loss)).date
-   mean, mean2, std, std2 = round(np.mean(m), ndigits=2), round(np.mean(m2), ndigits=2),round(np.std(m), ndigits=2),round(np.std(m2), ndigits=2)
-   if type_id == '4':
-       type_id = 7.5
-   elif type_id == '1':
-       type_id = 2
-   elif type_id == '2':
-       type_id = 4.5
-   elif type_id == '3':
-       type_id = 6
-   else:
-       type_id = 9.5
-   p = 0
-   if RobotSaveFund.objects.filter(name=name):
-       default = RobotSaveFund.objects.last().invest
-       default2 = RobotSaveFund.objects.last().strategy
-   if request.method == 'POST':
-       save = request.POST.get('b2', '0')
-       invest = request.POST.get('invest', '500')
-       category = request.POST.get('category', '')
-       start = request.POST.get('b1', '0')
-       if save == '0':
-          save = '無'
-          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
-       elif save == '1':
-          save = '凱利公式'
-          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
-       elif save == '2':
-          save = '反秧策略'
-          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
-       elif save == '3':
-          save = 'Larry Williams'
-          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
-       else:
-          save = '固定比例法'
-          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
-
-       if category == '0':
-          category = '尚未設定'
-          default3 = category
-       elif category == '1':
-          save = '凱利公式'
-          default3 = category
-       elif category == '2':
-          category = '反秧策略'
-          default3 = category
-       elif category == '3':
-          category = 'Larry Williams'
-          default3 = category
-       else:
-          category = '固定比例法'
-          default3 = category
-
-       if start == '1':
-           ranges = []
-           for i in range(0, len(m)-3, 3):
-               ranges.append(i)
-           a = history.exclude(season='2015Q1')
-           b = history.first()
-           history = []
-           history.append({'season':b.season, 'invest':b.invest, 'initial':int(b.initial)})
-           for i, j in zip(ranges, a):
-               sum1 = m[i] + m[i+1] + m[i+2]
-               sum2 = m[i+3] + m[i+4] + m[i+5]
-               if sum2 > sum1:
-                   history.append({'season':j.season, 'invest':j.invest, 'initial':int(int(j.initial)*1.1)})
-               elif sum2 < sum1:
-                   history.append({'season':j.season, 'invest':j.invest, 'initial':int(int(j.initial)*0.9)})
-               else:
-                   history.append({'season':j.season, 'invest':j.invest, 'initial':int(j.initial)})
-   return render_to_response('info3.html', {'loginstatus': loginstatus, 'name': name, 'history': history, 'history2': history2, 'return': r, 'mean': mean, 'mean2': mean2, 'std': std, 'std2': std2, 'type_name':type_name, 'type_id': type_id, 'now': n, 'trade2': trade2, 'sum': int(sum(m)),
-                                            'gross_profit': sum(gross_profit), 'gross_loss': sum(gross_loss)*-1, 'month': int(np.mean(month)), 'max_profit': max(gross_profit), 'max_loss': min(gross_loss)*-1, 'count': countp+countl,
-                                            'countp': countp, 'countl': countl, 'mean_profit': int(np.mean(gross_profit)), 'mean_loss': int(np.mean(gross_loss)*-1), 'average': abs(round(np.mean(gross_profit)/np.mean(gross_loss), ndigits=2)),
-                                            'date_max':date_max, 'date_min':date_min, 'average2':round(sum(gross_profit)/(sum(gross_loss)*-1), ndigits=2), 'p':p, 'default':default, 'default2':default2, 'default3':default3})
-
-
-def predict(request):
-   name = ''
-   loginstatus = False
-   try:
-        name = request.session['name']
-        loginstatus = True
-   except:
-        return HttpResponseRedirect('/login/?back=未來型預測')
-   category_id = RobotMember.objects.get(member_name=name).type
-   cname = RobotFqType.objects.get(type_id=category_id).type_name
-   if request.method == 'POST':
-        stock = request.POST.get('stock', '')
-        stock = stock[0:4]
-        period = request.POST.get('myCheckBox', '')
-        item1 = request.POST.get('myCheckBox2', '')
-        paragraph1 = '本系統預測功能使用線性回歸模型來為使用者預測每股盈餘，使用者可參考此預測結果來決定要買進或賣出股票'
-        if period == 'season' and item1 == 'profit':
-            predict, search, past, industry_avg, std, category_name, score, next_season = predict_eps_season(stock)
-            return render_to_response('predict2.html', {'paragraph1': paragraph1,'predict_type': '獲利能力', 'id': stock, 'predict': predict, 'search': search, 'past': past, 'industry_avg': industry_avg, 'std': std, 'category_name': category_name, 'score': score, 'next': next_season, 'season': '季','loginstatus': loginstatus, 'name': name})
-        if period == 'year' and item1 == 'profit':
-            predict, search, past, industry_avg, std, category_name, score, next_year = predict_eps_year(stock)
-            return render_to_response('predict2.html', {'paragraph1': paragraph1,'predict_type': '獲利能力', 'id': stock, 'predict': predict, 'search': search, 'past': past, 'industry_avg': industry_avg, 'std': std, 'category_name': category_name, 'score': score, 'next': next_year, 'season': '年','loginstatus': loginstatus, 'name': name})
-
-   return render_to_response('predict.html', {'cname': cname, 'loginstatus': loginstatus, 'name': name})
-
-
+#健康診斷分析
 # 股票一產業分析: 表單
 def analysis1(request):
     name = ''
@@ -4953,7 +2289,7 @@ def add(request): #健診機器人--加入追蹤
             else:
                 return render_to_response('login.html')
 
-
+# --推薦好股型（開一半
 def gep(request):
     name = ''
     loginstatus = False
@@ -5126,7 +2462,8 @@ def add3(request): #gep 加入追蹤
         return render_to_response('gep1.html', {'type': your_type, 'name': name, 'loginstatus': loginstatus})
     return render_to_response('login.html')
 
-
+# --買賣型
+#######fq為該頁面的評估積分表單#####
 def fq(request):
    name = ''
    loginstatus = False
@@ -5337,4 +2674,1093 @@ def five_stock(request):
         , 'TL': TL, 'stock_name': stock_name, 'click': click, 'today': today, 'date': date, 'stock_id': stock_id, 'tw': tw, 'slope': slope, 'p': p, 'position': position, 'conclusion': conclusion})
 
 
+# --投資組合推薦 (可以了
+
+def fund(request):
+   name = ''
+   loginstatus = False
+   try:
+        name = request.session['name']
+        loginstatus = True
+   except:
+        return HttpResponseRedirect('/login/?back=資金管理')
+
+   money = request.POST.get('invest', '500')
+   type = RobotMember.objects.get(member_name=name).type #4
+   stock = RobotStocks.objects.filter(type=type)
+   sc = int(stock.count())
+   id, mt, count,  mo= [], [], [], []
+   for i in stock:
+       id.append(i.stock_num)
+       mt.append(i.type)
+       count.append(sc)
+       mo.append(money)
+   #報酬率: 0.05、0.05、0.08
+   #history, s, n, m= main(sc, id, type, count, money)
+   #history = {'season':'2015Q2', 'invest':'台灣大(2.1%) 永昕(8.9%) 裕日車(26.2%) 致伸(3.9%) 震旦行(4.3%) 全國電(13.5%) 大聯大(9.5%) 強茂(0.9%) 兆利(7.6%) 鴻海(17.4%) 台產(5.8%) ', 'initial':'4802000.0'}
+   #{'season':'2015Q3', 'invest':'台積電(4.8%) 鴻海(26.3%) 台塑(18.7%) 中華電(18.6%) 富邦(5.3%) 台灣大(3.6%) 遠傳(6.5%) 震旦行(3.5%) 台塑(11.4%) 強茂(2.2%) 兆利(5.8%) ', 'initial':'5562500'}
+   s = ['6244', '2412', '4904', '2474', '6281', '2882', '3702', '4739', '3548', '2832']
+   n = [3, 13, 3, 5, 8, 10, 7, 7, 11, 11]
+   sum, sell_stock = 0.0, []  #賣價、 賣出的股票
+   m = int(RobotTransactionInfo.objects.get(stock_id='6244', date='20160104').the_close)*3000 + int(RobotTransactionInfo.objects.get(stock_id='2412', date='20160104').the_close)*13000+ int(RobotTransactionInfo.objects.get(stock_id='4904', date='20160104').the_close)*3000 + int(RobotTransactionInfo.objects.get(stock_id='2474', date='20160104').the_close)*5000\
+       + int(RobotTransactionInfo.objects.get(stock_id='6281', date='20160104').the_close)*8000 + int(RobotTransactionInfo.objects.get(stock_id='2882', date='20160104').the_close)*10000 + int(RobotTransactionInfo.objects.get(stock_id='3702', date='20160104').the_close)*7000 + int(RobotTransactionInfo.objects.get(stock_id='4739', date='20160104').the_close)*7000 \
+       + int(RobotTransactionInfo.objects.get(stock_id='3548', date='20160104').the_close)*11000 + int(RobotTransactionInfo.objects.get(stock_id='2832', date='20160104').the_close)*11000
+
+   #m = 5021200.0#5562500.0 #5756000
+   print('money='+str(m))
+   #for i in history:
+        #Fund_set_history.objects.create(season=i['season'], invest=i['invest'], initial=i['initial'])
+   for i, num in zip(s, n):
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       pe_for_four_season = RobotPe.objects.get(date='2016Q1', stock_id=i).pe_for_four_season #2015Q1
+       if pe_for_four_season == '--':
+           pe_for_four_season = 0.0
+       else:
+           pe_for_four_season = float(pe_for_four_season) #201404
+       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
+       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
+           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
+       else:
+           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
+       '''
+       dates = RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date')
+       count = dates.count()
+       price_plus, price_minus = [], []
+       for j in range(0, count):
+          p = float(dates[j].the_close) #該股票在該月的股價
+          price_plus.append(p)
+          '''if p >= 0:
+            price_plus.append(p)
+          else:
+            price_minus.append(p)'''
+       #price_minus.reverse()
+       price_plus.reverse()
+       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
+       for j in range(0, count): #201501
+           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
+           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
+           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date')[0].the_close)
+           if dates[j].the_close > evl:
+               net = float(dates[j].the_close) -buy_price
+               net = round(net, ndigits=2)
+               net = net*1000*num
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               break
+           elif dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1] or dates[j].the_close == price_plus[2] or dates[j].the_close == price_plus[3]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               #print(evl)
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+
+           elif dates[j].the_close > buy_price*1.5 :#and dates[j].the_close > (evl2*1.5): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print('evl=' + str(evl))
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+           elif dates[j].the_close > buy_price*1.2 :#and dates[j].the_close > (evl2*1.2): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print(evl)
+               print(dates[j].the_close)
+               break
+           '''elif dates[j].the_close > buy_price : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               trade_2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print(evl)
+               print(dates[j].the_close)
+               break'''
+
+   for i in s:
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       if i not in sell_stock:
+           price = RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date').last()
+           date = price.date
+           price = float(price.the_close)
+           z = n[s.index(i)]
+           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date').first().the_close)
+           net = round(net, ndigits=2)
+           net = int(net*1000*z)
+           sell_stock.append(i)
+           sum = sum + price*1000*z
+           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
+   #報酬率
+   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
+   r = round(r, ndigits=2)
+   RobotReturn.objects.create(re=r)
+   print('sum = '+ str(sum))
+   print('r = '+ str(r))
+
+   sum, sell_stock = 0.0, []
+   for i, num in zip(s, n):
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       pe_for_four_season = RobotPe.objects.get(date='2016Q1', stock_id=i).pe_for_four_season
+       if pe_for_four_season == '--':
+           pe_for_four_season = 0.0
+       else:
+           pe_for_four_season = float(pe_for_four_season)
+       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
+       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
+           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
+       else:
+           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
+       '''
+       dates = RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date')
+       count = dates.count()
+       price_plus, price_minus = [], []
+       for j in range(0, count):
+          p = float(dates[j].the_close) #該股票在該月的股價
+          price_plus.append(p)
+          '''if p >= 0:
+            price_plus.append(p)
+          else:
+            price_minus.append(p)'''
+       #price_minus.reverse()
+       price_plus.reverse()
+       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
+       for j in range(0, count): #201501
+           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
+           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
+           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date')[0].the_close)
+           if dates[j].the_close > evl:
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = net*1000*num
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               break
+           elif dates[j].the_close == price_plus[0] :#or dates[j].the_close == price_plus[1] : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)#-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               #print(evl)
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+           elif dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print('evl=' + str(evl))
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print(evl)
+               print(dates[j].the_close)
+               break
+       '''for j in Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date'):
+           if j.the_close > (evl*2): #if j.the_close > (evl*1.5):
+               net = float(j.the_close)-float(Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date')[0].the_close)
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(j.the_close)*1000*num
+               trade_2015.objects.create(date=j.date, sell_stock=i+' '+name2, sell_price=j.the_close, stocks=num, net=net)
+               print(evl)
+               print(j.the_close)
+               break'''
+   for i in s:
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       if i not in sell_stock:
+           price = RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date').last()
+           date = price.date
+           price = float(price.the_close)
+           z = n[s.index(i)]
+           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date').first().the_close)
+           net = round(net, ndigits=2)
+           net = int(net*1000*z)
+           sell_stock.append(i)
+           sum = sum + price*1000*z
+           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
+   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
+   r = round(r, ndigits=2)
+   RobotReturn.objects.create(re=r)
+   print('sum = '+ str(sum))
+   print('r = '+ str(r))
+
+   '''if r > xx:
+       money = xx
+   mo = []
+   for i in stock:
+       mo.append(money)
+   history, s, n = main(sc, id, type, count, money)'''
+   sum, sell_stock = 0.0, []
+   for i, num in zip(s, n):
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       pe_for_four_season = RobotPe.objects.get(date='2016Q1', stock_id=i).pe_for_four_season
+       if pe_for_four_season == '--':
+           pe_for_four_season = 0.0
+       else:
+           pe_for_four_season = float(pe_for_four_season)
+       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
+       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
+           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
+       else:
+           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
+       '''
+       dates = RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date')
+       count = dates.count()
+       price_plus, price_minus = [], []
+       for j in range(0, count):
+          p = float(dates[j].the_close) #該股票在該月的股價
+          price_plus.append(p)
+          '''if p >= 0:
+            price_plus.append(p)
+          else:
+            price_minus.append(p)'''
+       #price_minus.reverse()
+       price_plus.reverse()
+       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
+       for j in range(0, count): #201501
+           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
+           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
+           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date')[0].the_close)
+           if dates[j].the_close > evl:
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = net*1000*num
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               break
+           elif dates[j].the_close == price_plus[0] : #or dates[j].the_close == price_plus[1]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               #print(evl)
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+           elif dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print('evl=' + str(evl))
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print(evl)
+               print(dates[j].the_close)
+               break
+   for i in s:
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       if i not in sell_stock:
+           price = RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date').last()
+           date = price.date
+           price = float(price.the_close)
+           z = n[s.index(i)]
+           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date').first().the_close)
+           net = round(net, ndigits=2)
+           net = int(net*1000*z)
+           sell_stock.append(i)
+           sum = sum + price*1000*z
+           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
+   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
+   r = round(r, ndigits=2)
+   RobotReturn.objects.create(re=r)
+   print('sum = '+ str(sum))
+   print('r = '+ str(r))
+   return HttpResponse()
+
+
+def portfolio(request):
+    name = ''
+    loginstatus = False
+    member = ''
+    try:
+         name = request.session['name']
+         member = RobotMember.objects.get(member_name=name).member_id
+         loginstatus = True
+    except:
+        return HttpResponseRedirect('/login/?back=My_News')
+    return render_to_response('info3.html')
+
+
+def fundamental_information(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    identity = request.GET.get('id', '2330')
+    data = RobotInformation.objects.get(stock_id=identity)
+    industry = RobotCategory.objects.get(category_id=data.category).category_name
+    return render_to_response('info.html', {'industry': industry, 'stock': data, 'id': identity, 'name': name, 'loginstatus': loginstatus})
+
+
+def fund_2(request):
+   name = ''
+   loginstatus = False
+   try:
+        name = request.session['name']
+        loginstatus = True
+   except:
+        return HttpResponseRedirect('/login/?back=資金管理')
+   type_id = RobotMember.objects.get(member_name=name).type
+   type_name = RobotFqType.objects.get(type_id=type_id).type_name
+   history, history2, trade, trade2, r = RobotFundSetHistory.objects.filter(season__startswith='2015'), RobotFundSetHistory.objects.filter(season__startswith='2016'), RobotTrade2015.objects.filter(date__startswith='2015'), RobotTrade2015.objects.filter(date__startswith='2016'), RobotReturn.objects.all()
+   m, n, m2,gross_profit, gross_loss, month = [], [], [], [], [], []
+   countp, countl, date_max, date_min, default, default2, default3 = 0, 0, '', '', '', '', '尚未設定'
+   for i in RobotFundSet2016.objects.all():
+       n.append(i)
+   for i in range(0, 12):
+       m.append(r[i].re)
+   for i in range(12, 21):
+       m2.append(r[i].re)
+   for i in trade:
+       if i.net > 0:
+           gross_profit.append(i.net)
+           countp = countp + 1
+       elif i.net < 0:
+           gross_loss.append(i.net)
+           countl = countl + 1
+       month.append(i.net)
+   date_max, date_min = RobotTrade2015.objects.get(net=max(gross_profit)).date, RobotTrade2015.objects.get(net=min(gross_loss)).date
+   mean, mean2, std, std2 = round(np.mean(m), ndigits=2), round(np.mean(m2), ndigits=2),round(np.std(m), ndigits=2),round(np.std(m2), ndigits=2)
+   if type_id == '4':
+       type_id = 7.5
+   elif type_id == '1':
+       type_id = 2
+   elif type_id == '2':
+       type_id = 4.5
+   elif type_id == '3':
+       type_id = 6
+   else:
+       type_id = 9.5
+   p = 0
+   if RobotSaveFund.objects.filter(name=name):
+       default = RobotSaveFund.objects.last().invest
+       default2 = RobotSaveFund.objects.last().strategy
+   if request.method == 'POST':
+       save = request.POST.get('b2', '0')
+       invest = request.POST.get('invest', '500')
+       category = request.POST.get('category', '')
+       start = request.POST.get('b1', '0')
+       if save == '0':
+          save = '無'
+          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
+       elif save == '1':
+          save = '凱利公式'
+          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
+       elif save == '2':
+          save = '反秧策略'
+          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
+       elif save == '3':
+          save = 'Larry Williams'
+          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
+       else:
+          save = '固定比例法'
+          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
+
+       if category == '0':
+          category = '尚未設定'
+          default3 = category
+       elif category == '1':
+          save = '凱利公式'
+          default3 = category
+       elif category == '2':
+          category = '反秧策略'
+          default3 = category
+       elif category == '3':
+          category = 'Larry Williams'
+          default3 = category
+       else:
+          category = '固定比例法'
+          default3 = category
+
+       if start == '1':
+           ranges = []
+           for i in range(0, len(m)-3, 3):
+               ranges.append(i)
+           a = history.exclude(season='2015Q1')
+           b = history.first()
+           history = []
+           history.append({'season':b.season, 'invest':b.invest, 'initial':int(b.initial)})
+           for i, j in zip(ranges, a):
+               sum1 = m[i] + m[i+1] + m[i+2]
+               sum2 = m[i+3] + m[i+4] + m[i+5]
+               if sum2 > sum1:
+                   history.append({'season':j.season, 'invest':j.invest, 'initial':int(int(j.initial)*1.1)})
+               elif sum2 < sum1:
+                   history.append({'season':j.season, 'invest':j.invest, 'initial':int(int(j.initial)*0.9)})
+               else:
+                   history.append({'season':j.season, 'invest':j.invest, 'initial':int(j.initial)})
+   return render_to_response('info3.html', {'loginstatus': loginstatus, 'name': name, 'history': history, 'history2': history2, 'return': r, 'mean': mean, 'mean2': mean2, 'std': std, 'std2': std2, 'type_name':type_name, 'type_id': type_id, 'now': n, 'trade2': trade2, 'sum': int(sum(m)),
+                                            'gross_profit': sum(gross_profit), 'gross_loss': sum(gross_loss)*-1, 'month': int(np.mean(month)), 'max_profit': max(gross_profit), 'max_loss': min(gross_loss)*-1, 'count': countp+countl,
+                                            'countp': countp, 'countl': countl, 'mean_profit': int(np.mean(gross_profit)), 'mean_loss': int(np.mean(gross_loss)*-1), 'average': abs(round(np.mean(gross_profit)/np.mean(gross_loss), ndigits=2)),
+                                            'date_max':date_max, 'date_min':date_min, 'average2':round(sum(gross_profit)/(sum(gross_loss)*-1), ndigits=2), 'p':p, 'default':default, 'default2':default2, 'default3':default3})
+
+# 指標專區
+
+def economic_term(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    c_1 = RobotEconomic.objects.filter(category='獲利能力')
+    c_2 = RobotEconomic.objects.filter(category='安全性')
+    c_3 = RobotEconomic.objects.filter(category='成長力')
+    c_4 = RobotEconomic.objects.filter(category='財務報表')
+    return render_to_response('dict.html',
+                              {'name': name, 'loginstatus': loginstatus, 'c_1': c_1, 'c_2': c_2, 'c_3': c_3,
+                               'ca_1': c_1[0].category, 'ca_2': c_2[0].category, 'ca_3': c_3[0].category,
+                               'c_4': c_4, 'ca_4': c_4[0].category})
+
+
+# 下單機
+def tech(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+
+    return render_to_response('tech.html', {'name': name, 'loginstatus': loginstatus})
+
+
+# 新手專區
+# --討論區
+def get_article(request):#熱門文章 最新文章 最新回復
+    today = datetime.datetime.now().strftime('%Y/%m/%d')
+    count = Discuss.objects.filter(date=today).count()
+    count2 = Discuss.objects.all().count()
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    a = []
+    res = Discuss.objects.order_by('-like').all()
+    for i in range(0, 4):
+        a.append(res[i])
+    res_2 = Comment.objects.order_by('-date', '-time')
+    b = []
+    for i in range(0, 4):
+        b.append(res_2[i])
+    res_3 = Discuss.objects.order_by('-date', '-time')
+    c = []
+    for i in range(0, 4):
+        c.append(res_3[i])
+    request.session['post_page'] = '1'
+    page = request.session['post_page']
+    d = []
+    res_4 = Discuss.objects.order_by('-reply_times').filter(theme = '投資理財')
+    for i in range(0, 15):
+        d.append(res_4[i])
+    e = []
+    res_5 = Discuss.objects.order_by('-reply_times').filter(theme = '股票相關')
+    for i in range(0, 15):
+        e.append(res_5[i])
+    f = []
+    res_6 = Discuss.objects.order_by('-reply_times').filter(theme = '機器人投顧')
+    for i in range(0, 15):
+        f.append(res_6[i])
+    return render_to_response('chat.html', {'count': count, 'count2': count2,'hot': a, 'latest_reply': b,'latest': c,'article': d, 'article_2': e, 'article_3': f,'page': page, 'name': name, 'loginstatus': loginstatus})
+
+# --回傳內容
+def content(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    id = request.GET.get('id', 0)
+    id = int(id)
+    res = RobotDiscuss.objects.get(discuss_id=id)
+    comment = RobotComment.objects.filter(discuss_id=id)
+    return render_to_response('chatcon.html',
+                              {'article': res, 'comment': comment, 'id': id, 'name': name, 'loginstatus': loginstatus})
+
+
+def post_page_1(request):
+    today = datetime.now().strftime('%Y/%m/%d')
+    count = RobotDiscuss.objects.filter(date=today).count()
+    count2 = RobotDiscuss.objects.all().count()
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    a = []
+    res = RobotDiscuss.objects.order_by('-like').all()
+    for i in range(0, 4):
+        a.append(res[i])
+    res_2 = RobotComment.objects.order_by('-date', '-time')
+    b = []
+    for i in range(0, 4):
+        b.append(res_2[i])
+    res_3 = RobotDiscuss.objects.order_by('-date', '-time')
+    c = []
+    for i in range(0, 4):
+        c.append(res_3[i])
+    request.session['post_page'] = '1'
+    page = request.session['post_page']
+    d = []
+    res_4 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='投資理財')
+    for i in range(0, 15):
+        d.append(res_4[i])
+    e = []
+    res_5 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='股票相關')
+    for i in range(0, 15):
+        e.append(res_5[i])
+    f = []
+    res_6 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='機器人投顧')
+    for i in range(0, 15):
+        f.append(res_6[i])
+    return render_to_response('chat.html',
+                              {'count': count, 'count2': count2, 'page': page, 'article': d, 'article_2': e,
+                               'article_3': f, 'hot': a, 'latest_reply': b, 'latest': c, 'name': name,
+                               'loginstatus': loginstatus})
+
+
+def post_page_2(request):
+    today = datetime.now().strftime('%Y/%m/%d')
+    count = RobotDiscuss.objects.filter(date=today).count()
+    count2 = RobotDiscuss.objects.all().count()
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    a = []
+    res = RobotDiscuss.objects.order_by('-like').all()
+    for i in range(0, 4):
+        a.append(res[i])
+    res_2 = RobotComment.objects.order_by('-date', '-time')
+    b = []
+    for i in range(0, 4):
+        b.append(res_2[i])
+    res_3 = RobotDiscuss.objects.order_by('-date', '-time')
+    c = []
+    for i in range(0, 4):
+        c.append(res_3[i])
+    request.session['post_page'] = '2'
+    page = request.session['post_page']
+    d = []
+    res_4 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='投資理財')
+    for i in range(15, 30):
+        d.append(res_4[i])
+    e = []
+    res_5 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='股票相關')
+    for i in range(15, 30):
+        e.append(res_5[i])
+    f = []
+    res_6 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='機器人投顧')
+    for i in range(15, 30):
+        f.append(res_6[i])
+    return render_to_response('chat.html',
+                              {'count': count, 'count2': count2, 'page': page, 'article_2': e, 'article_3': f,
+                               'article': d, 'hot': a, 'latest_reply': b, 'latest': c, 'name': name,
+                               'loginstatus': loginstatus})
+
+
+def post_page_3(request):
+    today = datetime.now().strftime('%Y/%m/%d')
+    count = RobotDiscuss.objects.filter(date=today).count()
+    count2 = RobotDiscuss.objects.all().count()
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    a = []
+    res = RobotDiscuss.objects.order_by('-like').all()
+    for i in range(0, 4):
+        a.append(res[i])
+    res_2 = RobotComment.objects.order_by('-date', '-time')
+    b = []
+    for i in range(0, 4):
+        b.append(res_2[i])
+    res_3 = RobotDiscuss.objects.order_by('-date', '-time')
+    c = []
+    for i in range(0, 4):
+        c.append(res_3[i])
+    request.session['post_page'] = '3'
+    page = request.session['post_page']
+    d = []
+    res_4 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='投資理財')
+    for i in range(30, 45):
+        d.append(res_4[i])
+    e = []
+    res_5 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='股票相關')
+    for i in range(30, 45):
+        e.append(res_5[i])
+    f = []
+    res_6 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='機器人投顧')
+    for i in range(30, 45):
+        f.append(res_6[i])
+    return render_to_response('chat.html',
+                              {'count': count, 'count2': count2, 'page': page, 'article_2': e, 'article_3': f,
+                               'article': d, 'hot': a, 'latest_reply': b, 'latest': c, 'name': name,
+                               'loginstatus': loginstatus})
+
+
+def post_next(request):  # 下一頁 check
+    page = request.session['post_page']
+    type = request.GET.get('type', 0)
+    if page is '1':
+        return HttpResponseRedirect('/post_page_2/')
+    if page is '2':
+        return HttpResponseRedirect('/post_page_3/')
+    if page is '3':
+        return HttpResponseRedirect('/post_page_3/')
+
+
+def post_prev(request):  # 上一頁 check
+    page = request.session['post_page']
+    type = request.GET.get('type', 0)
+    if page is '1':
+        return HttpResponseRedirect('/post_page_1/')
+    if page is '2':
+        return HttpResponseRedirect('/post_page_1/')
+    if page is '3':
+        return HttpResponseRedirect('/post_page_2/')
+
+
+def like(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    if request.method == 'POST':
+        id = request.POST.get('id', 0)
+        likes = RobotDiscuss.objects.get(discuss_id=id).like
+        RobotDiscuss.objects.filter(discuss_id=id).update(like=likes + 1)
+        res = RobotDiscuss.objects.get(discuss_id=id)
+        comment = RobotComment.objects.filter(discuss_id=id)
+        return render_to_response('chatcon.html', {'article': res, 'comment': comment, 'id': id, 'name': name,
+                                                   'loginstatus': loginstatus})
+
+
+def issued(request):
+    return render(request, 'post.html')
+
+
+def chat_search(request):
+    return render(request, 'chat_search')
+
+
+# 會員
+
+def member(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+
+    return render_to_response('member2.html', {'name': name, 'loginstatus': loginstatus})
+
+
+def mem_home(request):  # check
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    return render_to_response('member2.html', {'loginstatus': loginstatus, 'name': name})
+
+
+# def member_news(request):
+#     name = ''
+#     loginstatus = False
+#     member = ''
+#     try:
+#          name = request.session['name']
+#          member = RobotMember.objects.get(member_name=name).member_id
+#          loginstatus = True
+#     except:
+#         return HttpResponseRedirect('/login/?back=My_News')
+#     # member = '1'
+#     stock = RobotTrackStock.objects.filter(member_id=member)
+#     tra = []
+#     tra1 = [] # 漲跌
+#     tra2 = [] # 漲跌幅
+#     inf = []
+#     cate = []
+#     range1 = []
+#     list, l0, l1, l2, l3, l4, l5 = [], [], [], [], [], [], []
+#     # 投資組合清單
+#     try:
+#        l0 = RobotTrackStock.objects.filter(member_id = member, list_id = '0')
+#        list.append(l0[0])
+#     except:
+#        #l0 = 0
+#        #list.append(l0)
+#        pass
+#     try:
+#        l1 = RobotTrackStock.objects.filter(member_id = member, list_id = '1')
+#        list.append(l1[0])
+#     except:
+#        #l1 = 0
+#        #list.append(l1)
+#        pass
+#     try:
+#        l2 = RobotTrackStock.objects.filter(member_id = member, list_id = '2')
+#        list.append(l2[0])
+#     except:
+#        #l2 = 0
+#        #list.append(l2)
+#        pass
+#     try:
+#        l3 = RobotTrackStock.objects.filter(member_id = member, list_id = '3')
+#        list.append(l3[0])
+#     except:
+#        #l3 = 0
+#        #list.append(l3)
+#        pass
+#     try:
+#        l4 = RobotTrackStock.objects.filter(member_id = member, list_id = '4')
+#        list.append(l4[0])
+#     except:
+#        #l4 = 0
+#        #list.append(l4)
+#        pass
+#     try:
+#        l5 = RobotTrackStock.objects.filter(member_id = member, list_id = '5')
+#        list.append(l5[0])
+#     except:
+#        #l5 = 0
+#        #list.append(l5)
+#        pass
+#     #list = [l0[0], l1[0], l2[0], l3[0], l4[0], l5[0]]
+#
+#     # 當日的交易資訊-- ALL
+#     tr_list = request.POST.get('list', '')
+#     if tr_list == 'ALL' or tr_list == '':
+#         for n in range(0, len(stock)):
+#             tra.append(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826'))
+#             tra1.append(float(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826').change))
+#             tra2.append(float(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826').change_percent))
+#             a = RobotInformation.objects.get(stock_id=stock[n].stock_id)
+#             inf.append(a)
+#             cate.append(RobotCategory.objects.get(category_id=a.category))
+#             range1.append(n)
+#         page_2 = request.GET.get('page' , '1')
+#         page_2 = int(page_2)
+#         track_stock = RobotTrackStock.objects.filter(member_id=member)
+#         yahoo = []
+#         for news in track_stock:
+#             if RobotYahoo.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                 for i in RobotYahoo.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                     yahoo.append({'category': 'Yahoo!奇摩股市-台盤股勢', 'type': '4', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
+#             if RobotYahooStock.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                 for i in RobotYahooStock.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                     yahoo.append({'category': 'Yahoo!奇摩股市-個股動態', 'type': '5', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
+#             if RobotYahooTec.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                 for i in RobotYahooTec.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                     yahoo.append({'category': 'Yahoo!奇摩股市-科技產業', 'type': '6', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
+#             if RobotYahooTra.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                 for i in RobotYahooTra.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                     yahoo.append({'category': 'Yahoo!奇摩股市-傳統產業', 'type': '7', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
+#             if news.stock_id == '2330':
+#                 for i in RobotNews2330.objects.order_by('-date'):
+#                     yahoo.append({'category': 'Yahoo!奇摩股市-科技產業', 'type': '2330', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
+#     else:
+#         if tr_list == '0':
+#             stock = l0
+#         elif tr_list == '1':
+#             stock = l1
+#         elif tr_list == '2':
+#             stock = l2
+#         elif tr_list == '3':
+#             stock = l3
+#         elif tr_list == '4':
+#             stock = l4
+#         print(stock)
+#         for n in range(0, len(stock)):
+#             print(stock[n].stock_id)
+#             tra.append(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826'))
+#             tra1.append(float(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826').change))
+#             tra2.append(float(RobotTransactionInfo.objects.get(stock_id=stock[n].stock_id, date='20160826').change_percent))
+#             a = RobotInformation.objects.get(stock_id=stock[n].stock_id)
+#             inf.append(a)
+#             cate.append(RobotCategory.objects.get(category_id=a.category))
+#             range1.append(n)
+#         page_2 = request.GET.get('page' , '1')
+#         page_2 = int(page_2)
+#         track_stock = RobotTrackStock.objects.filter(member_id=member)
+#         yahoo = []
+#         for news in track_stock:
+#             if RobotYahoo.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                 for i in RobotYahoo.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                     yahoo.append({'category': 'Yahoo!奇摩股市-台盤股勢', 'type': '4', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
+#             if RobotYahooStock.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                 for i in RobotYahooStock.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                     yahoo.append({'category': 'Yahoo!奇摩股市-個股動態', 'type': '5', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
+#             if RobotYahooTec.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                 for i in RobotYahooTec.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                     yahoo.append({'category': 'Yahoo!奇摩股市-科技產業', 'type': '6', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
+#             if RobotYahooTra.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                 for i in RobotYahooTra.objects.order_by('-date').filter(title__contains=news.stock_name, content__contains=news.stock_name):
+#                     yahoo.append({'category': 'Yahoo!奇摩股市-傳統產業', 'type': '7', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
+#             if news.stock_id == '2330':
+#                 for i in RobotNews2330.objects.order_by('-date'):
+#                     yahoo.append({'category': 'Yahoo!奇摩股市-科技產業', 'type': '2330', 'title': i.title, 'date': i.date,'time':i.time, 'stock': news.stock_name})
+#
+#
+#
+#     #a = Transaction_info.objects.all().aggregate(Min('the_close'))
+#     #print(a)
+#     paginator = Paginator(yahoo, 10)
+#     try:
+#         news = paginator.page(page_2)
+#     except PageNotAnInteger:
+#         news = paginator.page(1)
+#     except EmptyPage:
+#         news = paginator.page(paginator.num_pages)
+#     return render_to_response('member_news_2.html', {'tra_data': tra, 'tra1': tra1, 'tra2': tra2, 'inf_data': inf, 'cate': cate,
+#                                                'range1': range1, 'news': news, 'name': name, 'loginstatus': loginstatus, 'list': list,'tr_list': tr_list})
+
+
+# --新聞首頁
+
+# --忘記密碼
+
+def modifypassword(request):
+    try:
+        username = request.session['userName']
+    except:
+        return HttpResponseRedirect('/login/?back=修改密碼')
+    if request.method == 'POST':
+        newpassword = request.POST.get('newpass', '')
+        check = request.POST.get('pass', '')
+        check_2 = RobotMember.objects.filter(password=newpassword)
+        if check_2:
+            wrong = '此密碼已被使用'
+            return render_to_response('mo_pass.html', {'wrong': wrong})
+        elif newpassword == check:
+            RobotMember.objects.filter(email=username).update(password=newpassword)
+            return render_to_response('login.html')
+    return render_to_response('mo_pass.html')
+
+
+def modify(request):
+    try:
+        username = request.session['userName']
+        result = RobotMember.objects.get(email=username)
+    except:
+        return HttpResponseRedirect('/login/?back=修改基本資料')
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        mail = request.POST.get('mail', '')
+        phone = request.POST.get('phone', '')
+        RobotMember.objects.filter(email=username).update(member_name=name, email=mail, phone_num=phone)
+        request.session['name'] = name
+        request.session['userName'] = mail
+        return render_to_response('login.html')
+    return render_to_response('modify.html', {'member': result})
+
+
+# 損益表
+def income_statement(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    identity = request.GET.get('id', '2330')
+    data_2 = RobotIncomeStatementQ.objects.filter(stock_id=identity)
+    sets = []
+    for i in range(0, 8):
+        sets.append(data_2[i])
+    #     # share = Share(identity+'.TW')
+    #     # price = share.get_price()
+    #     # change = share.get_change()
+    #     # prev_close = share.get_prev_close()
+    #     # change_in_percent = round(float(change)/float(prev_close), ndigits=2)*100
+    #     # volume = share.get_volume()
+    capital = RobotInformation.objects.get(stock_id=identity).co_capital
+    category_id = RobotInformation.objects.get(stock_id=identity).category
+    industry = RobotCategory.objects.get(category_id=category_id).category_name
+    #     # return render_to_response('inc_sta.html', {'stock_name': RobotInformation.objects.get(stock_id=identity).co_name, 'stock': sets, 'price': price, 'change_in_percent': change_in_percent, 'change': change, 'volume': volume, 'capital': capital, 'industry': industry, 'id': identity, 'name': name, 'loginstatus': loginstatus})
+    return render_to_response('inc_sta.html',
+                              {'stock_name': RobotInformation.objects.get(stock_id=identity).co_name, 'stock': sets,
+                               'capital': capital, 'industry': industry, 'id': identity, 'name': name,
+                               'loginstatus': loginstatus})
+
+
+# 現金流量表
+def cash_flow_statement(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    identity = request.GET.get('id', '2330')
+    set = []
+    data_2 = RobotCashFlowsQ.objects.filter(stock_id=identity)
+    for i in range(0, 8):
+        set.append(data_2[i])
+    # share = Share(identity+'.TW')
+    # price = share.get_price()
+    # change = share.get_change()
+    # prev_close = share.get_prev_close()
+    # change_in_percent = round(float(change)/float(prev_close), ndigits=2)*100
+    # volume = share.get_volume()
+    capital = RobotInformation.objects.get(stock_id=identity).co_capital
+    category_id = RobotInformation.objects.get(stock_id=identity).category
+    industry = RobotCategory.objects.get(category_id=category_id).category_name
+    # return render_to_response('cash_flow.html', {'stock_name': RobotInformation.objects.get(stock_id=identity).co_name, 'price': price, 'change_in_percent': change_in_percent, 'change': change, 'volume': volume, 'capital': capital, 'industry': industry,'stosk_2': set, 'id': identity, 'name': name, 'loginstatus': loginstatus})
+    return render_to_response('cash_flow.html', {'stock_name': RobotInformation.objects.get(stock_id=identity).co_name,
+                                                 'capital': capital, 'industry': industry, 'stosk_2': set,
+                                                 'id': identity, 'name': name, 'loginstatus': loginstatus})
+
+
+# 股票代碼查詢
+def stock_choice(request):
+    # 列出所有產業
+    stock_a1 = []  # 上市產業:28個
+    stock_a2 = []
+    stock_a3 = []
+    stock_b1 = []  # 上櫃產業:25個
+    stock_b2 = []
+    stock_b3 = []
+    stock_a = []  # 上市所有股票
+    stock_b = []  # 上櫃所有股票
+    status = False
+
+    # 前端產業選項用a帶參數id, name
+    stock_id = request.GET.get('id', 0)  # 傳到stock.html
+    stock_name = request.GET.get('name', 0)  # 哪個產業  傳到stock.html
+
+    type = request.GET.get('c', 0)  # 上市or上櫃
+    stock_number = request.GET.get('s_num', 0)  # 顯示在查詢的input
+    '''
+    <tr>
+    {% for stock in a1 %}  要寫三次(有三列)
+      <td><a href="/choice/?id={{ stock.id }}&&name={{ stock.name }}&&c=1(上市)/2(上櫃)">{{ stock.name }}</a></td>
+    {% endfor %}
+    </tr>
+    '''
+
+    for n in range(1, 11):  # 10筆一列放入上市
+        stock_a1.append(RobotCategoryA.objects.get(cat_id=n))
+    for n in range(11, 21):
+        stock_a2.append(RobotCategoryA.objects.get(cat_id=n))
+    for n in range(21, 29):
+        stock_a3.append(RobotCategoryA.objects.get(cat_id=n))
+    for n in range(1, 11):  # 10筆一列放入上櫃
+        stock_b1.append(RobotCategoryB.objects.get(cat_id=n))
+    for n in range(11, 21):
+        stock_b2.append(RobotCategoryB.objects.get(cat_id=n))
+    for n in range(21, 26):
+        stock_b3.append(RobotCategoryB.objects.get(cat_id=n))
+
+    if type is '1':  # 上市找產業的所有股票
+        stock_a = RobotListedShares.objects.filter(industry__contains=stock_name)
+
+    elif type is '2':  # 上櫃找產業的所有股票
+        stock_b = RobotOverTheCounterShares.objects.filter(industry__contains=stock_name)
+
+    return render_to_response('look.html', {'a': stock_a, 'b': stock_b, 'a1': stock_a1, 'a2': stock_a2, 'a3': stock_a3,
+                                            'b1': stock_b1, 'b2': stock_b2, 'b3': stock_b3, 'status': status,
+                                            'stock_number': stock_number, 'type': type})
+
+#
+#
+#
+#
+# def reply(request):
+#     name = ''
+#     loginstatus = False
+#     try:
+#         name = request.session['name']
+#         loginstatus = True
+#     except:
+#         pass
+#     date_now = datetime.now().strftime('%Y/%m/%d')
+#     time_now = datetime.now().strftime('%H:%M')
+#     try:
+#         member = request.session['name']
+#         if member is not None:
+#             if request.method == 'POST':
+#                 content = request.POST.get('editor', 0)
+#                 discuss_id = request.POST.get('reply', 0)
+#                 RobotComment.objects.create(discuss_id=discuss_id, content=content,
+#                                        date=date_now, member_id=member, time=time_now)
+#                 reply_times = RobotDiscuss.objects.get(discuss_id = discuss_id).reply_times
+#                 RobotDiscuss.objects.filter(discuss_id=discuss_id).update(reply_times = reply_times + 1)
+#                 res = RobotDiscuss.objects.get(discuss_id=discuss_id)
+#                 comment =  RobotComment.objects.filter(discuss_id=discuss_id)
+#                 return render_to_response('chatcon.html', {'article': res, 'comment': comment, 'id': discuss_id, 'name': name, 'loginstatus': loginstatus})
+#      except:
+#      return render_to_response('login.html')
+#
 
