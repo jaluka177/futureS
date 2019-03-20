@@ -59,16 +59,26 @@ urlpatterns = [
 
     # 智能機器人
     url(r'^stock_analysis/', views.stock_analysis),
+    
 
     # --預知未來型
     url(r'^predict/', views.predict),
     # --健康診斷型
-    url(r'^stock_ana/', views.stock_analysis),
+    url(r'^stock_ana/', views.stock_analysis), 
+    url(r'^analysis1/', views.analysis1),
+    url(r'^analysis2/', views.analysis2),
+    url(r'^add/', views.add),
     # --推薦好股型（開不出來
     url(r'^gep/', views.gep),
+    url(r'^add3/', views.add3),
     # --買賣型
-    url(r'^five/', views.five),
-    # --投資組合推薦 (開不出來
+    # --test是問卷可以用
+    url(r'^test', views.fq),
+    url(r'^five/', views.five_stock),
+    # --投資組合推薦 (開不出來--------可以開了
+    url(r'^funds/', views.fund_2),
+    url(r'^portfolio/', views.portfolio),
+    url(r'^fundamental/', views.fundamental_information),
     # url(r'^funds/', views.fund_2),
 
     # 指標專區
@@ -121,19 +131,7 @@ urlpatterns = [
     # url(r'^message/', views.message),
     # url(r'^search_discussion/', views.search_discussion),
     
-    ##機器人投顧
-    url(r'^funds/', views.fund_2),
-    url(r'^portfolio/', views.portfolio),
-    url(r'^fundamental/', views.fundamental_information),
-    url(r'^analysis1/', views.analysis1),
-    url(r'^analysis2/', views.analysis2),
-    url(r'^add/', views.add),
-    url(r'^gep/', views.gep),
-    url(r'^add3/', views.add3),
-    url(r'^test', views.fq),
-    url(r'^five/', views.five_stock),
-    url(r'^add3/', views.add3),
-
+    
 
 ]
 urlpatterns += staticfiles_urlpatterns()
