@@ -1465,7 +1465,7 @@ def tech(request):
 # 新手專區
 # --討論區
 def get_article(request):  # 熱門文章 最新文章 最新回復
-    today = datetime.now().strftime('%Y/%m/%d')
+    today = datetime.datetime.now().strftime('%Y/%m/%d')
     count = RobotDiscuss.objects.filter(date=today).count()
     count2 = RobotDiscuss.objects.all().count()
     name = ''
@@ -1504,7 +1504,6 @@ def get_article(request):  # 熱門文章 最新文章 最新回復
     return render_to_response('chat.html',
                               {'count': count, 'count2': count2, 'hot': a, 'latest_reply': b, 'latest': c, 'article': d,
                                'article_2': e, 'article_3': f, 'page': page, 'name': name, 'loginstatus': loginstatus})
-
 
 # --回傳內容
 def content(request):
