@@ -120,6 +120,19 @@ urlpatterns = [
     # url(r'^ inc_sta/', views.inc_sta),
     # url(r'^message/', views.message),
     # url(r'^search_discussion/', views.search_discussion),
+    
+    ##機器人投顧
+    url(r'^funds/', views.fund_2),
+    url(r'^portfolio/', views.portfolio),
+    url(r'^fundamental/', views.fundamental_information),
+    url(r'^analysis1/', views.analysis1),
+    url(r'^analysis2/', views.analysis2),
+    url(r'^add/', views.add),
+    url(r'^gep/', views.gep),
+    url(r'^add3/', views.add3),
+    url(r'^test', views.fq),
+    url(r'^five/', views.five_stock),
+    url(r'^add3/', views.add3),
 
 
 ]
