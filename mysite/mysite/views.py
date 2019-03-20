@@ -5,7 +5,7 @@ from .models import RobotMember, RobotYahooNew, RobotCna, RobotYahooHot, RobotYa
     RobotTrackStock, RobotCategory, RobotIncomeStatementQ, RobotYahooTendency, RobotCategoryA, RobotCategoryB, \
     RobotListedShares, RobotOverTheCounterShares, RobotMonthrevenue, RobotNews2330, \
     RobotDividendPolicy, RobotMargin, RobotRatio4Q, RobotPe, RobotRatio2Q, RobotRatio2, RobotCashFlowsQ, RobotComment, \
-    RobotEconomic, RobotTechnologyIndex, RobotFqType
+    RobotEconomic, RobotTechnologyIndex, RobotFqType, Discuss, Comment
 from django.contrib.auth import authenticate, login
 from . import views
 from django.views.generic import View
@@ -13,10 +13,10 @@ from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.core.mail import send_mail
-import random
+import random,datetime
 # from .k_diagram import predict_eps_season, predict_eps_year
 
-from datetime import datetime, date
+from datetime import date
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
@@ -1464,10 +1464,10 @@ def tech(request):
 
 # 新手專區
 # --討論區
-def get_article(request):  # 熱門文章 最新文章 最新回復
+def get_article(request):#熱門文章 最新文章 最新回復
     today = datetime.datetime.now().strftime('%Y/%m/%d')
-    count = RobotDiscuss.objects.filter(date=today).count()
-    count2 = RobotDiscuss.objects.all().count()
+    count = Discuss.objects.filter(date=today).count()
+    count2 = Discuss.objects.all().count()
     name = ''
     loginstatus = False
     try:
@@ -1476,34 +1476,32 @@ def get_article(request):  # 熱門文章 最新文章 最新回復
     except:
         pass
     a = []
-    res = RobotDiscuss.objects.order_by('-like').all()
+    res = Discuss.objects.order_by('-like').all()
     for i in range(0, 4):
         a.append(res[i])
-    res_2 = RobotComment.objects.order_by('-date', '-time')
+    res_2 = Comment.objects.order_by('-date', '-time')
     b = []
     for i in range(0, 4):
         b.append(res_2[i])
-    res_3 = RobotDiscuss.objects.order_by('-date', '-time')
+    res_3 = Discuss.objects.order_by('-date', '-time')
     c = []
     for i in range(0, 4):
         c.append(res_3[i])
     request.session['post_page'] = '1'
     page = request.session['post_page']
     d = []
-    res_4 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='投資理財')
+    res_4 = Discuss.objects.order_by('-reply_times').filter(theme = '投資理財')
     for i in range(0, 15):
         d.append(res_4[i])
     e = []
-    res_5 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='股票相關')
+    res_5 = Discuss.objects.order_by('-reply_times').filter(theme = '股票相關')
     for i in range(0, 15):
         e.append(res_5[i])
     f = []
-    res_6 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='機器人投顧')
+    res_6 = Discuss.objects.order_by('-reply_times').filter(theme = '機器人投顧')
     for i in range(0, 15):
         f.append(res_6[i])
-    return render_to_response('chat.html',
-                              {'count': count, 'count2': count2, 'hot': a, 'latest_reply': b, 'latest': c, 'article': d,
-                               'article_2': e, 'article_3': f, 'page': page, 'name': name, 'loginstatus': loginstatus})
+    return render_to_response('chat.html', {'count': count, 'count2': count2,'hot': a, 'latest_reply': b,'latest': c,'article': d, 'article_2': e, 'article_3': f,'page': page, 'name': name, 'loginstatus': loginstatus})
 
 # --回傳內容
 def content(request):
