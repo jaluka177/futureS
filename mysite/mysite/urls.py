@@ -103,6 +103,12 @@ urlpatterns = [
     url(r'^post/', views.issued),
     # --討論區搜尋(簡單回傳
     url(r'^chat_search/', views.chat_search),
+    # 新手小教室
+    url(r'^new_infocon2/', views.new_infocon2),
+    url(r'^new_infocon3/', views.new_infocon3),
+    url(r'^new_infocon4/', views.new_infocon4),
+    url(r'^new_infocon5/', views.new_infocon5),
+    url(r'^new_infocon/', views.new_infocon),
 
     # 會員
     # --會員首頁
@@ -112,6 +118,8 @@ urlpatterns = [
     url(r'^mo_pass/', views.modifypassword),
     # --修改基本資料
     url(r'^modify/', views.modify),
+    # 自選股
+    url(r'^my_stock/', views.my_stock),
 
     # url(r'^member_news', views.member_news),
     # url(r'^mem_sto/', member_list_add),
