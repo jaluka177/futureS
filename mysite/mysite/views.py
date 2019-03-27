@@ -3406,6 +3406,25 @@ def issued(request):
 
 def chat_search(request):
     return render(request, 'chat_search')
+def new_info(request):
+
+#新手投資小常識
+    return render(request, 'new_info.html')
+def new_infocon(request):
+
+    return render(request, 'new_infocon.html')
+def new_infocon2(request):
+
+    return render(request, 'new_infocon2.html')
+def new_infocon3(request):
+
+    return render(request, 'new_infocon3.html')
+def new_infocon4(request):
+
+    return render(request, 'new_infocon4.html')
+def new_infocon5(request):
+
+    return render(request, 'new_infocon5.html')
 
 
 # 會員
@@ -3431,7 +3450,9 @@ def mem_home(request):  # check
     except:
         pass
     return render_to_response('member2.html', {'loginstatus': loginstatus, 'name': name})
-
+# 自選股
+def my_stock(request):
+    return render(request, 'my_stock.html')
 
 # def member_news(request):
 #     name = ''
