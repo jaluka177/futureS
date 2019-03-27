@@ -104,6 +104,7 @@ urlpatterns = [
     # --討論區搜尋(簡單回傳
     url(r'^chat_search/', views.chat_search),
     # 新手小教室
+    url(r'new_info/',views.new_info),
     url(r'^new_infocon2/', views.new_infocon2),
     url(r'^new_infocon3/', views.new_infocon3),
     url(r'^new_infocon4/', views.new_infocon4),
