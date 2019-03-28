@@ -56,6 +56,7 @@ urlpatterns = [
     url(r'^index/', views.index),
 
     # EDITOR
+    url(r'^editor/', views.editor),
 
     # 智能機器人
     url(r'^stock_analysis/', views.stock_analysis),
@@ -64,12 +65,22 @@ urlpatterns = [
     url(r'^predict/', views.predict),
     # --健康診斷型
     url(r'^stock_ana/', views.stock_analysis),
+    url(r'^analysis1/', views.analysis1),
+    # url(r'^analysis2/', views.analysis2),
+    url(r'^add/', views.add),
     # --推薦好股型（開不出來
     url(r'^gep/', views.gep),
+    url(r'^add3/', views.add3),
     # --買賣型
-    url(r'^five/', views.five),
+    url(r'^five/', views.five_stock),
     # --投資組合推薦 (開不出來
     # url(r'^funds/', views.fund_2),
+    url(r'^test', views.fq),
+    url(r'^five/', views.five_stock),
+    # --投資組合推薦 (開不出來--------可以開了
+    # url(r'^funds/', views.fund_2),
+    # url(r'^portfolio/', views.portfolio),
+    # url(r'^fundamental/', views.fundamental_information),
 
     # 指標專區
     url(r'^economic_term/', views.economic_term),
@@ -94,6 +105,14 @@ urlpatterns = [
     # --討論區搜尋(簡單回傳
     url(r'^chat_search/', views.chat_search),
 
+    # --新手投資小常識
+    url(r'^new_info/', views.new_info),
+    url(r'^new_infocon2/', views.new_infocon2),
+    url(r'^new_infocon3/', views.new_infocon3),
+    url(r'^new_infocon4/', views.new_infocon4),
+    url(r'^new_infocon5/', views.new_infocon5),
+    url(r'^new_infocon/', views.new_infocon),
+
     # 會員
     # --會員首頁
     url(r'^member/', views.member),
@@ -115,11 +134,27 @@ urlpatterns = [
     # 股票代碼查詢
     url(r'^choice/', views.stock_choice),
 
+    ##機器人投顧
+    # url(r'^funds/', views.fund),
+    # url(r'^portfolio/', views.portfolio),
+    # url(r'^fundamental/', views.fundamental_information),
+    # url(r'^analysis1/', views.analysis1),
+    # url(r'^analysis2/', views.analysis2),
+    # url(r'^add/', views.add),
+    # url(r'^gep/', views.gep),
+    # url(r'^add3/', views.add3),
+    # url(r'^test', views.fq),
+    # url(r'^five/', views.five_stock),
+    # url(r'^add3/', views.add3),
+
     # 簡單回傳開不了區
 
     # url(r'^ inc_sta/', views.inc_sta),
     # url(r'^message/', views.message),
     # url(r'^search_discussion/', views.search_discussion),
+
+    # EDIITOR
+    # url(r'^EDITOR/', views.Editor),
 
 
 ]
