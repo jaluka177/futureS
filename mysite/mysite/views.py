@@ -5,7 +5,7 @@ from .models import RobotMember, RobotYahooNew, RobotCna, RobotYahooHot, RobotYa
     RobotTrackStock, RobotCategory, RobotIncomeStatementQ, RobotYahooTendency, RobotCategoryA, RobotCategoryB, \
     RobotListedShares, RobotOverTheCounterShares, RobotMonthrevenue, RobotNews2330, \
     RobotDividendPolicy, RobotMargin, RobotRatio4Q, RobotPe, RobotRatio2Q, RobotRatio2, RobotCashFlowsQ, RobotComment, \
-    RobotEconomic, RobotTechnologyIndex, RobotFqType
+    RobotEconomic, RobotTechnologyIndex, RobotFqType, Discuss, Comment
 from django.contrib.auth import authenticate, login
 from . import views
 from django.views.generic import View
@@ -13,10 +13,10 @@ from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.core.mail import send_mail
-import random
+import random,datetime
 # from .k_diagram import predict_eps_season, predict_eps_year
 
-from datetime import datetime, date
+from datetime import date
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
@@ -1416,18 +1416,1729 @@ def stock_analysis(request):
         return render_to_response('stock_anacon1.html', {'loginstatus': loginstatus, 'name': name})
     return render_to_response('stock_ana.html', {'loginstatus': loginstatus, 'name': name})
 
-# --推薦好股型（開不出來
+#健康診斷分析
+# 股票一產業分析: 表單
+def analysis1(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+
+    if loginstatus == True:
+        type = RobotMember.objects.get(member_name=name).type
+        your_type = RobotFqType.objects.get(type_id=type).type_name
+        return render_to_response('analysis.html', {'type_name': your_type, 'name': name, 'loginstatus': loginstatus})
+    else:
+        return render_to_response('login.html')
+
+
+# 股票一產業分析: 結果
+def analysis2(request):
+    ana = RobotAnalysis.objects.all()
+    count = RobotAnalysis.objects.all().count()
+    stock = [] #適合的股票類型
+    stock1 = []
+    #your_type = ''
+    name = ''
+    loginstatus = False
+    category_name = 0
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+
+    type = RobotMember.objects.get(member_name=name).type
+    member = RobotMember.objects.get(member_name=name).member_id
+
+    if request.method == 'POST':
+        category = request.POST.get('category', '0')
+        check1 = request.POST.get('check1', 0)
+        stock_name = request.POST.get('stock_name', 0)
+        #check2 = request.POST.get('check2', 0) #2
+        pe = RobotPe.objects.all()
+        if category != '0':
+            category_name = RobotCategory.objects.get(category_id=category).category_name
+        if category == '24' and check1 == '1':  #半導體業  #基本面診斷
+            add1 = request.POST.get('2330', 0)
+            add2 = request.POST.get('2344', 0)
+            add3 = request.POST.get('2379', 0)
+            add4 = request.POST.get('2454', 0)
+            add5 = request.POST.get('2481', 0)
+
+            for n in range(0, count):
+                type_now = ana[n].type
+                if type_now != type:
+                    stock1.append(ana[n])
+                else:
+                    stock.append(ana[n]) #使用者適合的股票
+            last = '強茂'#stock[-1]  抓最後一筆資料
+            '''if type == '4':
+                stock = ['台積電', '震旦行', '中華電信', '可成科技']'''
+
+            your_type = RobotFqType.objects.get(type_id=type).type_name #顯示使用者為哪型
+            return render_to_response('analysis2.html', {'last': last, 'category_name': category_name, 'ana': ana,'stock': stock, 'type': your_type, 'name': name, 'loginstatus': loginstatus})
+
+        if category == '17' and check1 == '1':  #半導體業  #基本面診斷
+            ana = RobotAnalysis2.objects.all()
+            count = RobotAnalysis2.objects.all().count()
+            for n in range(0, count):
+                type_now = ana[n].type
+                if type_now != type:
+                    stock1.append(ana[n])
+                else:
+                    stock.append(ana[n]) #使用者適合的股票
+            last = '國泰金'#stock[-1]  抓最後一筆資料
+            your_type = RobotFqType.objects.get(type_id=type).type_name #顯示使用者為哪型
+            return render_to_response('analysis2.html', {'last': last, 'category_name': category_name, 'ana': ana,'stock': stock, 'type': your_type, 'name': name, 'loginstatus': loginstatus})
+
+        if stock_name != 0 and check1 == '1':  #輸入股號  #基本面診斷
+            stock_name = stock_name[:4]
+            category = RobotInformation.objects.get(stock_id=stock_name).category
+            category_name = RobotCategory.objects.get(category_id=category).category_name
+            st_type = RobotStocks.objects.get(stock_num=stock_name).type
+            st_type2 = RobotFqType.objects.get(type_id=st_type).type_name
+            if category == '24':
+                RobotAna.objects.all().delete()
+                ana0 = RobotAnalysis.objects.all()
+                count = ana0.count()
+                for i in range(0, count):
+                    if ana0[i].stock_id == stock_name or ana0[i].stock_name == '同業平均':
+                        RobotAna.objects.create(stock_id=ana0[i].stock_id, stock_name=ana0[i].stock_name, m0=ana0[i].m0, m1=ana0[i].m1, m2=ana0[i].m2, m3=ana0[i].m3, m4=ana0[i].m4, m5=ana0[i].m5,
+                                           m6=ana0[i].m6, m7=ana0[i].m7, m8=ana0[i].m8, m9=ana0[i].m9, m10=ana0[i].m10, m11=ana0[i].m11, m12=ana0[i].m12, a1=ana0[i].a1, a2=ana0[i].a2, a3=ana0[i].a3, a4=ana0[i].a4, a5=ana0[i].a5)
+                    #elif ana0[i].stock_id == 'mean':
+                        #Ana.objects.create(ana0[i])
+                count = RobotAna.objects.all().count()
+                ana = RobotAna.objects.all()
+            else:
+                RobotAna.objects.all().delete()
+                ana0 = RobotAnalysis2.objects.all()
+                count = ana0.count()
+                for i in range(0, count):
+                    if ana0[i].stock_id == stock_name or ana0[i].stock_name == '同業平均':
+                        RobotAna.objects.create(stock_id=ana0[i].stock_id, stock_name=ana0[i].stock_name, m0=ana0[i].m0, m1=ana0[i].m1, m2=ana0[i].m2, m3=ana0[i].m3, m4=ana0[i].m4, m5=ana0[i].m5,
+                                           m6=ana0[i].m6, m7=ana0[i].m7, m8=ana0[i].m8, m9=ana0[i].m9, m10=ana0[i].m10, m11=ana0[i].m11, m12=ana0[i].m12, a1=ana0[i].a1, a2=ana0[i].a2, a3=ana0[i].a3, a4=ana0[i].a4, a5=ana0[i].a5)
+                    #elif ana0[i].stock_id == 'mean':
+                        #Ana.objects.create(ana0[i])
+                count = RobotAna.objects.all().count()
+                ana = RobotAna.objects.all()
+            for n in range(0, count):
+                type_now = ana[n].type
+                if type_now != type:
+                    stock1.append(ana[n])
+                else:
+                    stock.append(ana[n]) #使用者適合的股票
+            last = '1'#stock[-1]  抓最後一筆資料
+            ex = st_type2
+            your_type = RobotFqType.objects.get(type_id=type).type_name #顯示使用者為哪型
+            return render_to_response('analysis2.html', {'last': last, 'category_name': category_name, 'ana': ana,'stock': stock, 'type': your_type, 'name': name, 'loginstatus': loginstatus, 'ex': ex})
+
+        if category == '24' and check1 == '2': #買賣時機分析
+            list = ['2330', '2344', '2379', '2454', '2481']  #半導體的個股
+            result = predict_eps_season2(list)  #預測是否會成長(1, 0)
+            stock_name = []
+            cheaps = []
+            normals = []
+            expensives = []
+            prices = []
+            signals = []
+            a = []
+            b = []
+            f = []
+            signal = '0'
+            a_status = '0'
+            b_status = '0'
+            final = 0
+            big = []
+            ####### 計算合理價--本益比估價
+            min0 = []
+            max0 = []
+            min1 = []
+            max1 = []
+            min2 = []
+            max2 = []
+            min3 = []
+            max3 = []
+            min4 = []
+            max4 = []
+
+            st_2330 = pe.filter(stock_id=list[0])
+            for n in st_2330:
+                min0.append(round(float(n.pe_low), ndigits=2))
+                max0.append(round(float(n.pe_high), ndigits=2))
+
+            st_2344 = pe.filter(stock_id=list[1])
+            for n in st_2344:
+                min1.append(round(float(n.pe_low), ndigits=2))
+                max1.append(round(float(n.pe_high), ndigits=2))
+
+            st_2379 = pe.filter(stock_id=list[2])
+            for n in st_2379:
+                min2.append(round(float(n.pe_low), ndigits=2))
+                max2.append(round(float(n.pe_high), ndigits=2))
+
+            st_2454 = pe.filter(stock_id=list[3])
+            for n in st_2454:
+                min3.append(round(float(n.pe_low), ndigits=2))
+                max3.append(round(float(n.pe_high), ndigits=2))
+
+            st_2481 = pe.filter(stock_id=list[4])
+            for n in st_2481:
+                min4.append(round(float(n.pe_low), ndigits=2))
+                max4.append(round(float(n.pe_high), ndigits=2))
+
+            # 2330
+            min0 = np.mean(min0)  # 近5年最低本益比平均
+            max0 = np.mean(max0)  # 近5年最高本益比平均
+            mean0 = (min0 + max0)/2  # 平均本益比
+            mean0_4Q = round(float(pe.get(stock_id=list[0], date='2016Q2').pe_for_four_season), ndigits=2) #前四季平均本益比
+
+            #print(min0)
+            #print(max0)
+            #print(mean0)
+            #print(mean0_4Q)
+            cheap = mean0_4Q*min0
+            expensive = mean0_4Q*max0
+            normal = mean0_4Q*mean0
+            #price = Transaction_info.objects.get(stock_id=list[0], date='20160826')
+            share = Share(list[0]+'.TW')
+            price = float(share.get_price()) # 即時股價
+            if price > expensive: #被高估 : 賣(-)
+                signal = '-'
+            elif price < cheap: #被低估 : 買(+)
+                signal = '+'
+            else:
+                signal = '0'
+            #st0 = ['2330 台積電', cheap, normal, expensive, price, signal] #a_status, b_status, big, final
+
+            #2330 技術面
+            try:
+                k_now = float(RobotTechnologyIndex2.objects.get(stock_id='2330', date='20160826').day_K)
+                k_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2330', date='20160825').day_K)
+                d_now = float(RobotTechnologyIndex2.objects.get(stock_id='2330', date='20160826').day_D)
+                d_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2330', date='20160825').day_D)
+            except:
+                k_now = 0
+                k_yes = 0
+                d_now = 0
+                d_yes = 0
+
+            if k_now >= d_now and k_yes < d_yes : # 日KD黃金交叉
+                a_status = '+'
+            elif k_now < d_now and k_yes >= d_yes : # 日KD死亡交叉
+                a_status = '-'
+            else:
+                a_status = '0'
+            #st0.append(a_status)
+
+            try:
+                ma_now = float(RobotTechnologyIndex2.objects.get(stock_id='2330', date='20160826').day_MACD)
+                ma_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2330', date='20160825').day_MACD)
+            except:
+                ma_now = 0
+                ma_yes = 0
+
+            if ma_now > ma_yes : # 日MACD黃金交叉
+                b_status = '+'
+            elif ma_now < ma_yes : # 日MACD死亡交叉
+                b_status = '-'
+            else:
+                b_status = '0'
+            #st0.append(b_status)
+            big.append('1') #是否為成長穩定企業
+            #最終計算
+            final = 0
+            if result[0] == 1 and signal == '+':  # 未來是否繼續成長
+                final = 2*(final + 1)  #2
+            elif result[0] == 1 and signal == '0':
+                final = final
+            elif result[0] == 1 and signal == '-':
+                final = final
+            elif result[0] == 0 and signal == '+':
+                final = final
+            elif result[0] == 0 and signal == '0':
+                final = final
+            elif result[0] == 0 and signal == '-':
+                final = 2*(final - 1)
+            else:
+                final = final
+            if big[0] == '1':     #大型企業看估價signal
+                if a_status == '+':
+                    final = final + 1
+                elif a_status == '-':
+                    final = final - 1
+                if b_status == '+':
+                    final = final + 1
+                elif b_status == '-':
+                    final = final - 1
+                if signal == '+':
+                    final = final + 2
+                elif a_status == '-':
+                    final = final - 2
+            else:
+                if a_status == '+':
+                    final = final + 2
+                elif a_status == '-':
+                    final = final - 2
+                if b_status == '+':
+                    final = final + 2
+                elif b_status == '-':
+                    final = final - 2
+                if signal == '+':
+                    final = final + 1
+                elif a_status == '-':
+                    final = final - 1
+
+            # final >= 2代表有強烈買入訊號, big='1'較準確, result=1適合買進
+            #st0.append(final)
+            #st0 = ['2330 台積電', cheap, normal, expensive, price, signal] #a_status, b_status, big, final
+            stock_name.append('台積電')
+            cheaps.append(cheap)
+            normals.append(normal)
+            expensives.append(expensive)
+            prices.append(price)
+            signals.append(signal)
+            a.append(a_status)
+            b.append(b_status)
+            f.append(final)
+            print('f='+ str(f))
+
+            '''print(cheap)
+            print(normal)
+            print(expensive)
+            print(price)
+            print(signal)
+            print(a_status)
+            print(b_status)
+            print(final)
+            print('#')
+            print(cheaps)
+            print(normals)
+            print(expensives)'''
+
+            # 2344
+            print(min1)
+            print(max1)
+            min1 = np.mean(min1)  # 近5年最低本益比平均
+            max1 = np.mean(max1)  # 近5年最高本益比平均
+            mean1 = (min1 + max1)/2  # 平均本益比
+            mean1_4Q = round(float(pe.get(stock_id=list[1], date='2016Q2').pe_for_four_season), ndigits=2) #前四季平均本益比
+
+            cheap = round((mean1_4Q*min1)/10, ndigits=2)
+            expensive = round((mean1_4Q*max1)/10, ndigits=2)
+            normal = round((mean1_4Q*mean1)/10, ndigits=2)
+            #price = float(Transaction_info.objects.get(stock_id=list[0], date='20160826').the_close)
+            share = Share('2344'+'.TW')
+            price = float(share.get_price())
+            if price > expensive: #被高估 : 賣(-)
+                signal = '-'
+            elif price < cheap: #被低估 : 買(+)
+                signal = '+'
+            else:
+                signal = '0'
+            #st1 = ['2344 華邦電', cheap, normal, expensive, price, signal]
+
+            #2344技術面
+            try:
+                k_now = float(RobotTechnologyIndex2.objects.get(stock_id='2344', date='20160826').day_K)
+                k_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2344', date='20160825').day_K)
+                d_now = float(RobotTechnologyIndex2.objects.get(stock_id='2344', date='20160826').day_D)
+                d_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2344', date='20160825').day_D)
+            except:
+                k_now = 0
+                k_yes = 0
+                d_now = 0
+                d_yes = 0
+
+            if k_now >= d_now and k_yes < d_yes : # 日KD黃金交叉
+                a_status = '+'
+            elif k_now < d_now and k_yes >= d_yes : # 日KD死亡交叉
+                a_status = '-'
+            else:
+                a_status = '0'
+            #st1.append(a_status)
+
+            try:
+                ma_now = float(RobotTechnologyIndex2.objects.get(stock_id='2344', date='20160826').day_MACD)
+                ma_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2344', date='20160825').day_MACD)
+            except:
+                ma_now = 0
+                ma_yes = 0
+
+            if ma_now > ma_yes : # 日MACD黃金交叉
+                b_status = '+'
+            elif ma_now < ma_yes : # 日MACD死亡交叉
+                b_status = '-'
+            else:
+                b_status = '0'
+            #st1.append(b_status)
+            big.append('0') #是否為成長穩定企業
+            #最終計算
+            final = 0
+            if result[0] == 1 and signal == '+':  # 未來是否繼續成長
+                final = 2*(final + 1)  #2
+            elif result[0] == 1 and signal == '0':
+                final = final
+            elif result[0] == 1 and signal == '-':
+                final = final
+            elif result[0] == 0 and signal == '+':
+                final = final
+            elif result[0] == 0 and signal == '0':
+                final = final
+            elif result[0] == 0 and signal == '-':
+                final = 2*(final - 1)
+            else:
+                final = final
+            if big[0] == '1':     #大型企業看估價signal
+                if a_status == '+':
+                    final = final + 1
+                elif a_status == '-':
+                    final = final - 1
+                if b_status == '+':
+                    final = final + 1
+                elif b_status == '-':
+                    final = final - 1
+                if signal == '+':
+                    final = final + 2
+                elif a_status == '-':
+                    final = final - 2
+            else:
+                if a_status == '+':
+                    final = final + 2
+                elif a_status == '-':
+                    final = final - 2
+                if b_status == '+':
+                    final = final + 2
+                elif b_status == '-':
+                    final = final - 2
+                if signal == '+':
+                    final = final + 1
+                elif a_status == '-':
+                    final = final - 1
+
+
+            # final >= 2代表有強烈買入訊號, big='1'較準確, result=1適合買進
+            #st1.append(final)
+            stock_name.append('華邦電')
+            cheaps.append(cheap)
+            normals.append(normal)
+            expensives.append(expensive)
+            prices.append(price)
+            signals.append(signal)
+            a.append(a_status)
+            b.append(b_status)
+            f.append(final)
+
+            print(cheap)
+            print(normal)
+            print(expensive)
+            print(price)
+            print(signal)
+            print(a_status)
+            print(b_status)
+            print(final)
+            print('#')
+            print(cheaps)
+            print(normals)
+            print(expensives)
+            print(min1)
+            print(max1)
+            print(mean1)
+            print(mean1_4Q)
+
+
+            # 2379
+            min2 = np.mean(min2)  # 近5年最低本益比平均
+            max2 = np.mean(max2)  # 近5年最高本益比平均
+            mean2 = (min2 + max2)/2  # 平均本益比
+            mean2_4Q = round(float(pe.get(stock_id=list[2], date='2016Q2').pe_for_four_season), ndigits=2) #前四季平均本益比
+
+            #print(min0)
+            #print(max0)
+            #print(mean0)
+            #print(mean0_4Q)
+            cheap = round(mean2_4Q*min2*0.6, ndigits=2)
+            expensive = round(mean2_4Q*max2*0.6, ndigits=2)
+            normal = round(mean2_4Q*mean2*0.6, ndigits=2)
+            #price = Transaction_info.objects.get(stock_id=list[0], date='20160826')
+            share = Share(list[2]+'.TW')
+            price = float(share.get_price()) # 即時股價
+            if price > expensive: #被高估 : 賣(-)
+                signal = '-'
+            elif price < cheap: #被低估 : 買(+)
+                signal = '+'
+            else:
+                signal = '0'
+            #st0 = ['2330 台積電', cheap, normal, expensive, price, signal] #a_status, b_status, big, final
+
+            #2379 技術面
+            try:
+                k_now = float(RobotTechnologyIndex2.objects.get(stock_id='2379', date='20160826').day_K)
+                k_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2379', date='20160825').day_K)
+                d_now = float(RobotTechnologyIndex2.objects.get(stock_id='2379', date='20160826').day_D)
+                d_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2379', date='20160825').day_D)
+            except:
+                k_now = 0
+                k_yes = 0
+                d_now = 0
+                d_yes = 0
+
+            if k_now >= d_now and k_yes < d_yes : # 日KD黃金交叉
+                a_status = '+'
+            elif k_now < d_now and k_yes >= d_yes : # 日KD死亡交叉
+                a_status = '-'
+            else:
+                a_status = '0'
+            #st0.append(a_status)
+
+            try:
+                ma_now = float(RobotTechnologyIndex2.objects.get(stock_id='2379', date='20160826').day_MACD)
+                ma_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2379', date='20160825').day_MACD)
+            except:
+                ma_now = 0
+                ma_yes = 0
+
+            if ma_now > ma_yes : # 日MACD黃金交叉
+                b_status = '+'
+            elif ma_now < ma_yes : # 日MACD死亡交叉
+                b_status = '-'
+            else:
+                b_status = '0'
+            #st0.append(b_status)
+            big.append('0') #是否為成長穩定企業
+            #最終計算
+            final = 0
+            if result[0] == 1 and signal == '+':  # 未來是否繼續成長
+                final = 2*(final + 1)  #2
+            elif result[0] == 1 and signal == '0':
+                final = final
+            elif result[0] == 1 and signal == '-':
+                final = final
+            elif result[0] == 0 and signal == '+':
+                final = final
+            elif result[0] == 0 and signal == '0':
+                final = final
+            elif result[0] == 0 and signal == '-':
+                final = 2*(final - 1)
+            else:
+                final = final
+            if big[0] == '1':     #大型企業看估價signal
+                if a_status == '+':
+                    final = final + 1
+                elif a_status == '-':
+                    final = final - 1
+                if b_status == '+':
+                    final = final + 1
+                elif b_status == '-':
+                    final = final - 1
+                if signal == '+':
+                    final = final + 2
+                elif a_status == '-':
+                    final = final - 2
+            else:
+                if a_status == '+':
+                    final = final + 2
+                elif a_status == '-':
+                    final = final - 2
+                if b_status == '+':
+                    final = final + 2
+                elif b_status == '-':
+                    final = final - 2
+                if signal == '+':
+                    final = final + 1
+                elif a_status == '-':
+                    final = final - 1
+
+
+            # final >= 2代表有強烈買入訊號, big='1'較準確, result=1適合買進
+            #st0.append(final)
+            #st0 = ['2330 台積電', cheap, normal, expensive, price, signal] #a_status, b_status, big, final
+            stock_name.append('瑞昱')
+            cheaps.append(cheap)
+            normals.append(normal)
+            expensives.append(expensive)
+            prices.append(price)
+            signals.append(signal)
+            a.append(a_status)
+            b.append(b_status)
+            f.append(final)
+
+
+            # 2454
+            min3 = np.mean(min3)  # 近5年最低本益比平均
+            max3 = np.mean(max3)  # 近5年最高本益比平均
+            mean3 = (min3 + max3)/2  # 平均本益比
+            mean3_4Q = round(float(pe.get(stock_id=list[3], date='2016Q2').pe_for_four_season), ndigits=2) #前四季平均本益比
+
+            #print(min0)
+            #print(max0)
+            #print(mean0)
+            #print(mean0_4Q)
+            cheap = round(mean3_4Q*min3*0.9, ndigits=2)
+            expensive = round(mean3_4Q*max3*0.9, ndigits=2)
+            normal = round(mean3_4Q*mean3*0.9, ndigits=2)
+            #price = Transaction_info.objects.get(stock_id=list[0], date='20160826')
+            share = Share(list[3]+'.TW')
+            price = float(share.get_price()) # 即時股價
+            if price > expensive: #被高估 : 賣(-)
+                signal = '-'
+            elif price < cheap: #被低估 : 買(+)
+                signal = '+'
+            else:
+                signal = '0'
+            #st0 = ['2330 台積電', cheap, normal, expensive, price, signal] #a_status, b_status, big, final
+
+            #2379 技術面
+            try:
+                k_now = float(RobotTechnologyIndex2.objects.get(stock_id='2454', date='20160826').day_K)
+                k_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2454', date='20160825').day_K)
+                d_now = float(RobotTechnologyIndex2.objects.get(stock_id='2454', date='20160826').day_D)
+                d_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2454', date='20160825').day_D)
+            except:
+                k_now = 0
+                k_yes = 0
+                d_now = 0
+                d_yes = 0
+
+            if k_now >= d_now and k_yes < d_yes : # 日KD黃金交叉
+                a_status = '+'
+            elif k_now < d_now and k_yes >= d_yes : # 日KD死亡交叉
+                a_status = '-'
+            else:
+                a_status = '0'
+            #st0.append(a_status)
+
+            try:
+                ma_now = float(RobotTechnologyIndex2.objects.get(stock_id='2454', date='20160826').day_MACD)
+                ma_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2454', date='20160825').day_MACD)
+            except:
+                ma_now = 0
+                ma_yes = 0
+
+            if ma_now > ma_yes : # 日MACD黃金交叉
+                b_status = '+'
+            elif ma_now < ma_yes : # 日MACD死亡交叉
+                b_status = '-'
+            else:
+                b_status = '0'
+            #st0.append(b_status)
+            big.append('1') #是否為成長穩定企業
+            #最終計算
+            final = 0
+            a_status = '+'
+            if result[3] == 1 and signal == '+':  # 未來是否繼續成長
+                final = 2*(final + 1)  #2
+            elif result[3] == 1 and signal == '0':
+                final = final
+            elif result[3] == 1 and signal == '-':
+                final = final
+            elif result[3] == 0 and signal == '+':
+                final = final
+            elif result[3] == 0 and signal == '0':
+                final = final
+            elif result[3] == 0 and signal == '-':
+                final = 2*(final - 1)
+            else:
+                final = final
+            if big[3] == '1':     #大型企業看估價signal
+                if a_status == '+':
+                    final = final + 1
+                elif a_status == '-':
+                    final = final - 1
+                if b_status == '+':
+                    final = final + 1
+                elif b_status == '-':
+                    final = final - 1
+                if signal == '+':
+                    final = final + 2
+                elif a_status == '-':
+                    final = final - 2
+            else:
+                if a_status == '+':
+                    final = final + 2
+                elif a_status == '-':
+                    final = final - 2
+                if b_status == '+':
+                    final = final + 2
+                elif b_status == '-':
+                    final = final - 2
+                if signal == '+':
+                    final = final + 1
+                elif a_status == '-':
+                    final = final - 1
+
+
+            # final >= 2代表有強烈買入訊號, big='1'較準確, result=1適合買進
+            #st0.append(final)
+            #st0 = ['2330 台積電', cheap, normal, expensive, price, signal] #a_status, b_status, big, final
+            stock_name.append('聯發科')
+            cheaps.append(cheap)
+            normals.append(normal)
+            expensives.append(expensive)
+            prices.append(price)
+            signals.append(signal)
+            a.append(a_status)
+            b.append(b_status)
+            f.append(final)
+
+
+            # 2481
+            min4 = np.mean(min4)  # 近5年最低本益比平均
+            max4 = np.mean(max4)  # 近5年最高本益比平均
+            mean4 = (min4 + max4)/2  # 平均本益比
+            mean4_4Q = round(float(pe.get(stock_id=list[4], date='2016Q2').pe_for_four_season), ndigits=2) #前四季平均本益比
+
+            #print(min0)
+            #print(max0)
+            #print(mean0)
+            #print(mean0_4Q)
+            cheap = round(mean4_4Q*min4, ndigits=2)
+            expensive = round(mean4_4Q*max4, ndigits=2)
+            normal = round(mean4_4Q*mean4, ndigits=2)
+            #price = Transaction_info.objects.get(stock_id=list[0], date='20160826')
+            share = Share(list[4]+'.TW')
+            price = float(share.get_price()) # 即時股價
+            if price > expensive: #被高估 : 賣(-)
+                signal = '-'
+            elif price < cheap: #被低估 : 買(+)
+                signal = '+'
+            else:
+                signal = '0'
+            #st0 = ['2330 台積電', cheap, normal, expensive, price, signal] #a_status, b_status, big, final
+
+            #2379 技術面
+            try:
+                k_now = float(RobotTechnologyIndex2.objects.get(stock_id='2481', date='20160826').day_K)
+                k_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2481', date='20160825').day_K)
+                d_now = float(RobotTechnologyIndex2.objects.get(stock_id='2481', date='20160826').day_D)
+                d_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2481', date='20160825').day_D)
+            except:
+                k_now = 0
+                k_yes = 0
+                d_now = 0
+                d_yes = 0
+
+            if k_now >= d_now and k_yes < d_yes : # 日KD黃金交叉
+                a_status = '+'
+            elif k_now < d_now and k_yes >= d_yes : # 日KD死亡交叉
+                a_status = '-'
+            else:
+                a_status = '0'
+            #st0.append(a_status)
+
+            try:
+                ma_now = float(RobotTechnologyIndex2.objects.get(stock_id='2481', date='20160826').day_MACD)
+                ma_yes = float(RobotTechnologyIndex2.objects.get(stock_id='2481', date='20160825').day_MACD)
+            except:
+                ma_now = 0
+                ma_yes = 0
+
+            if ma_now > ma_yes : # 日MACD黃金交叉
+                b_status = '+'
+            elif ma_now < ma_yes : # 日MACD死亡交叉
+                b_status = '-'
+            else:
+                b_status = '0'
+            #st0.append(b_status)
+            big.append('0') #是否為成長穩定企業
+            #最終計算
+            final = 0
+            if result[4] == 1 and signal == '+':  # 未來是否繼續成長
+                final = 2*(final + 1)  #2
+            elif result[4] == 1 and signal == '0':
+                final = final
+            elif result[4] == 1 and signal == '-':
+                final = final
+            elif result[4] == 0 and signal == '+':
+                final = final
+            elif result[4] == 0 and signal == '0':
+                final = final
+            elif result[4] == 0 and signal == '-':
+                final = 2*(final - 1)
+            else:
+                final = final
+            if big[4] == '1':     #大型企業看估價signal
+                if a_status == '+':
+                    final = final + 1
+                elif a_status == '-':
+                    final = final - 1
+                if b_status == '+':
+                    final = final + 1
+                elif b_status == '-':
+                    final = final - 1
+                if signal == '+':
+                    final = final + 2
+                elif a_status == '-':
+                    final = final - 2
+            else:
+                if a_status == '+':
+                    final = final + 2
+                elif a_status == '-':
+                    final = final - 2
+                if b_status == '+':
+                    final = final + 2
+                elif b_status == '-':
+                    final = final - 2
+                if signal == '+':
+                    final = final + 1
+                elif a_status == '-':
+                    final = final - 1
+
+            # final >= 2代表有強烈買入訊號, big='1'較準確, result=1適合買進
+            #st0.append(final)
+            #st0 = ['2330 台積電', cheap, normal, expensive, price, signal] #a_status, b_status, big, final
+            stock_name.append('強茂')
+            cheaps.append(cheap)
+            normals.append(normal)
+            expensives.append(expensive)
+            prices.append(price)
+            signals.append(signal)
+            a.append(a_status)
+            b.append(b_status)
+            f.append(final)
+            print(big)
+
+
+            for n in range(0, count):
+                type_now = ana[n].type
+                if type_now != type:
+                    stock1.append(ana[n])
+                else:
+                    stock.append(ana[n]) #使用者適合的股票
+            last = '強茂'#stock[-1]  抓最後一筆資料
+            print(f)
+            c1 = len(list)
+            your_type = RobotFqType.objects.get(type_id=type).type_name #顯示使用者為哪型
+            return render_to_response('analysis2_buy.html', {'c1': range(0,c1), 'last': '強茂', 'category_name': category_name, 'ana': ana,'stock': stock, 'type': your_type, 'stock_name': stock_name, 'cheaps': cheaps, 'normals': normals, 'expensives': expensives, 'prices': prices, 'signals': signals, 'a': a, 'b': b, 'f': f, 'big': big, 'result': result, 'name': name, 'loginstatus': loginstatus})
+
+
+def add(request): #健診機器人--加入追蹤
+
+            name = request.session['name']
+            member = RobotMember.objects.get(member_name=name).member_id
+
+            stock_status = 0
+            content = RobotTrackStock.objects.filter(member_id=member)
+
+            add1 = request.POST.get('2330', 0)
+            add2 = request.POST.get('2344', 0)
+            add3 = request.POST.get('2379', 0)
+            add4 = request.POST.get('2454', 0)
+            add5 = request.POST.get('2481', 0)
+            if add1 != 0:
+                if len(content) == 0:  # 沒有加過 任何股票(資料庫沒有資料)
+                    RobotTrackStock.objects.create(member_id=member, stock_id='2330')
+                else:
+                    for n in range(0, len(content)):
+                        if '2330' != content[n].stock_id:
+                            stock_status = stock_status + 1
+                        if stock_status == len(content):
+                            RobotTrackStock.objects.create(member_id=member, stock_id='2330')
+
+            if add2 != 0:
+                if len(content) == 0:  # 沒有加過 任何股票(資料庫沒有資料)
+                    RobotTrackStock.objects.create(member_id=member, stock_id='2344')
+                else:
+                    for n in range(0, len(content)):
+                        if '2330' != content[n].stock_id:
+                            stock_status = stock_status + 1
+                        if stock_status == len(content):
+                            RobotTrackStock.objects.create(member_id=member, stock_id='2344')
+            if add3 != 0:
+                if len(content) == 0:  # 沒有加過 任何股票(資料庫沒有資料)
+                    RobotTrackStock.objects.create(member_id=member, stock_id='2379')
+                else:
+                    for n in range(0, len(content)):
+                        if '2379' != content[n].stock_id:
+                            stock_status = stock_status + 1
+                        if stock_status == len(content):
+                            RobotTrackStock.objects.create(member_id=member, stock_id='2379')
+            if add4 != 0:
+                if len(content) == 0:  # 沒有加過 任何股票(資料庫沒有資料)
+                    RobotTrackStock.objects.create(member_id=member, stock_id='2454')
+                else:
+                    for n in range(0, len(content)):
+                        if '2454' != content[n].stock_id:
+                            stock_status = stock_status + 1
+                        if stock_status == len(content):
+                            RobotTrackStock.objects.create(member_id=member, stock_id='2454')
+            if add5 != 0:
+                if len(content) == 0:  # 沒有加過 任何股票(資料庫沒有資料)
+                    RobotTrackStock.objects.create(member_id=member, stock_id='2481')
+                else:
+                    for n in range(0, len(content)):
+                        if '2481' != content[n].stock_id:
+                            stock_status = stock_status + 1
+                        if stock_status == len(content):
+                            RobotTrackStock.objects.create(member_id=member, stock_id='2481')
+            name = ''
+            loginstatus = False
+            try:
+                 name = request.session['name']
+                 loginstatus = True
+            except:
+                  pass
+
+            if loginstatus == True:
+                type = RobotMember.objects.get(member_name=name).type
+                your_type = RobotFqType.objects.get(type_id=type).type_name
+                return render_to_response('analysis.html', {'type_name': your_type, 'name': name, 'loginstatus': loginstatus})
+            else:
+                return render_to_response('login.html')
+
+# --推薦好股型（開一半
 def gep(request):
-    return render(request, "gep1.html")
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+
+    if loginstatus == True:
+        type = RobotMember.objects.get(member_name=name).type
+        your_type = RobotFqType.objects.get(type_id=type).type_name
+        elec = request.GET.get('elec', '0')
+        no_elec = request.GET.get('no_elec', '0')
+        if request.method == 'GET' and request.GET.get('btn', 0)== '1': #年
+            if elec == no_elec:
+                stock_type = RobotStocks.objects.filter(type=type) #符合投資人屬性的股票
+                elec = '電子&非電子類股'
+            elif elec == '1':
+                stock_type = RobotStocks.objects.filter(type=type, elec='1') #符合投資人屬性&電子類股的股票
+                elec = '電子類股'
+            elif no_elec == '1':
+                stock_type = RobotStocks.objects.filter(type=type, elec='0') #符合投資人屬性&非電子類股的股票
+                elec = '非電子類股'
+            stock_credit = [] #第二層篩選
+            stock_good = [] #$回傳好股票
+            stock_soso = [] #$回傳次等股票
+            s1 = []  #$好股票總評
+            s2 = []  #$次等股票總評
+            cat1 = []  #$好股票產業
+            cat2 = []  #$次等股票產業
+            d = []
+
+            #選擇排名前50上市櫃公司
+            for n in stock_type:
+                if n.credit_type != '0':
+                    stock_credit.append(n.stock_num)
+            for i in stock_credit: #i是股號
+                co_name = RobotInformation.objects.get(stock_id= i).co_name #股名
+                category1 = RobotInformation.objects.get(stock_id= i).co_market #上市櫃
+                category = RobotInformation.objects.get(stock_id= i).category #抓產業(不加)
+                category2 = RobotCategory.objects.get(category_id=category).category_name #產業
+                c0 = float(RobotRatio1.objects.get(stock_id= i, date='2015').ROE) #roe
+                c1 = float(RobotIncomeStatement.objects.get(stock_id= i, date='2015').eps)
+                c2 = float(RobotRatio1.objects.get(stock_id= i, date='2015').operating_profit_ratio) #營業利益率
+                c3 = float(RobotRatio1.objects.get(stock_id= i, date='2015').gross_margin)
+                c4 = float(RobotRatio1.objects.get(stock_id= i, date='2015').pretax_net_profit_margin)
+                c5 = float(RobotRatio4.objects.get(stock_id= i, date='2015').debt_ratio)
+                c6 = float(RobotRatio4.objects.get(stock_id= i, date='2015').current_ratio)
+                c7 = float(RobotRatio2.objects.get(stock_id= i, date='2015').revenue_growth_ratio)
+                c8 = 0
+                c9 = 0
+                if RobotRatio3.objects.get(stock_id= i, date='2015').accounts_receivable_turnover_ratio != '--':
+                    c8 = float(RobotRatio3.objects.get(stock_id= i, date='2015').accounts_receivable_turnover_ratio)
+                if RobotRatio3.objects.get(stock_id= i, date='2015').inventory_turnover_ratio != '--':
+                    c9 = float(RobotRatio3.objects.get(stock_id= i, date='2015').inventory_turnover_ratio)
+
+                c10 = float(RobotRatio3.objects.get(stock_id= i, date='2015').fixed_asset_turnover_ratio)
+                c11 = float(RobotPe.objects.get(stock_id= i, date='2016Q1').pe_for_four_season)
+                c12 = 0
+                d = [c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12]
+                stock_class = gepModel(d) #一個股票一個結果:0, 1
+
+                score = 0
+
+                if c0 >= RobotMean.objects.get(id='1').m0:
+                    score = score+1
+                if c1 >= RobotMean.objects.get(id='1').m1:
+                    score = score+1
+                if c2 >= RobotMean.objects.get(id='1').m2:
+                    score = score+1
+                if c3 >= RobotMean.objects.get(id='1').m3:
+                    score = score+1
+                if c4 >= RobotMean.objects.get(id='1').m4:
+                    score = score+1
+                if c5 <= RobotMean.objects.get(id='1').m5:
+                    score = score+1
+                if c6 <= RobotMean.objects.get(id='1').m6:
+                    score = score+1
+                if c7 <= RobotMean.objects.get(id='1').m7:
+                    score = score+1
+                if c8 <= RobotMean.objects.get(id='1').m8:
+                    score = score+1
+                if c9 <= RobotMean.objects.get(id='1').m9:
+                    score = score+1
+                if c10 <= RobotMean.objects.get(id='1').m10:
+                    score = score+1
+                if c11 <= RobotMean.objects.get(id='1').m11:
+                    score = score+1
+
+                if stock_class == 1:
+                    if score >= 4:
+                        a = RobotInformation.objects.get(stock_id=i).category
+                        cat1.append(RobotCategory.objects.get(category_id=a).category_name)
+                        stock_good.append(RobotInformation.objects.get(stock_id=i)) #好股票的股號
+                        if score >= 5:
+                           s1.append('5')
+                        else:
+                           s1.append('4.5')
+
+                    elif score < 4 and score >=2:
+                        a = RobotInformation.objects.get(stock_id=i).category
+                        cat2.append(RobotCategory.objects.get(category_id=a).category_name)
+                        stock_soso.append(RobotInformation.objects.get(stock_id=i))  #較差的股號 stock_good.co_name/ category
+                        if score >= 4:
+                            s2.append('4')
+                        else:
+                            s2.append('3')
+
+            count1 = len(stock_good)  #$好股票個數
+            count2 = len(stock_soso)  #$次等股票個數
+            #count = count1 + count2
+            print(count1)
+            print(count2)
+            print(stock_good)
+            print(stock_soso)
+            print(cat1)
+            print(cat2)
+            print(s1)
+            print(s2)
+            return render_to_response('gep_elec.html', {'count1': count1,'count2': count2,'c1': range(0,count1),'c2': range(0,count2),'cat1': cat1,'cat2': cat2,'s1': s1,'s2': s2,'type': your_type,'stock_good': stock_good,'stock_soso': stock_soso, 'name': name, 'loginstatus': loginstatus, 'elec': elec})
+        else:
+            return render_to_response('gep_elec.html', {'type': your_type, 'name': name, 'loginstatus': loginstatus})
+
+    else :
+        return render_to_response('login.html')
+
+
+def add3(request): #gep 加入追蹤
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    if loginstatus == True:
+        type = RobotMember.objects.get(member_name=name).type
+        member_id = RobotMember.objects.get(member_name=name).member_id
+        your_type = RobotFqType.objects.get(type_id=type).type_name
+        stock_status = 0
+        content = RobotTrackStock.objects.filter(member_id=member_id)
+        if request.method == 'POST' and request.POST.get('btn2', 0)== '1':
+            count1 = int(request.POST.get('count1'))
+            count2 = int(request.POST.get('count2'))
+            for i in range(0,count1):  #優良
+                add = request.POST.get(str(i))
+                if add != None:
+                    if len(content) == 0:  # 沒有加過 任何股票(資料庫沒有資料)
+                        RobotTrackStock.objects.create(member_id=member_id, stock_id=add)
+                    else:
+                        for n in range(0, len(content)):
+                            if add != content[n].stock_id:
+                                stock_status = stock_status + 1
+                            if stock_status == len(content):
+                                RobotTrackStock.objects.create(member_id=member_id, stock_id=add)
+
+            for i in range(0,count2):  #次等
+                add = request.POST.get('5'+str(i))
+                if add != None:
+                    if len(content) == 0:  # 沒有加過 任何股票(資料庫沒有資料)
+                        RobotTrackStock.objects.create(member_id=member_id, stock_id=add)
+                    else:
+                        for n in range(0, len(content)):
+                            if add != content[n].stock_id:
+                                stock_status = stock_status + 1
+                            if stock_status == len(content):
+                                RobotTrackStock.objects.create(member_id=member_id, stock_id=add)
+
+        return render_to_response('gep1.html', {'type': your_type, 'name': name, 'loginstatus': loginstatus})
+    return render_to_response('login.html')
 
 # --買賣型
+#######fq為該頁面的評估積分表單#####
+def fq(request):
+   name = ''
+   loginstatus = False
+   try:
+        name = request.session['name']
+        loginstatus = True
+   except:
+        pass
+   sum = 0
+   if request.method == 'POST':
+       q1 = request.POST.get('q1', '')
+       q2 = request.POST.get('q2', '')
+       q3 = request.POST.get('q3', '')
+       q4 = request.POST.get('q4', '')
+       q5 = request.POST.get('q5', '')
+       q6 = request.POST.get('q6', '')
+       q7 = request.POST.get('q7', '')
 
-def five(request):
-    return render(request, "f.html")
+       if q1 is '' or q2 is '' or q3 is '' or q4 is '' or q5 is '' or q6 is '' or q7 is '':
+           status = False
+           message = '您尚有題目未作答，請重新確認'
+           return render_to_response('test.html', {'loginstatus': loginstatus, 'name': name, 'message': message, 'status': status})
+       else:
+           q1 = int(q1)
+           q2 = int(q2)
+           q3 = int(q3)
+           q4 = int(q4)
+           q5 = int(q5)
+           q6 = int(q6)
+           q7 = int(q7)
+           sum = q1 + q2 + q3 + q4 + q5 + q6 + q7
+           if sum in range(0, 11):
+               try:
+                   RobotMember.objects.filter(member_name=name).update(type = '1')
+               except:
+                   pass
+               return render_to_response('test_result.html', {'loginstatus': loginstatus, 'name': name, 'sum': sum})
+           elif sum in range(11, 16):
+               try:
+                   RobotMember.objects.filter(member_name=name).update(type = '2')
+               except:
+                   pass
+               return render_to_response('test_result2.html', {'loginstatus': loginstatus, 'name': name, 'sum': sum})
+           elif sum in range(16, 23):
+               try:
+                   RobotMember.objects.filter(member_name=name).update(type = '3')
+               except:
+                   pass
+               return render_to_response('test_result3.html', {'loginstatus': loginstatus, 'name': name, 'sum': sum})
+           elif sum in range(23, 31):
+               try:
+                   RobotMember.objects.filter(member_name=name).update(type = '4')
+               except:
+                   pass
+               return render_to_response('test_result4.html', {'loginstatus': loginstatus, 'name': name, 'sum': sum})
+           else:
+               try:
+                   RobotMember.objects.filter(member_name=name).update(type = '5')
+               except:
+                   pass
+               return render_to_response('test_result5.html', {'loginstatus': loginstatus, 'name': name, 'sum': sum})
+
+   return render_to_response('test.html', {'loginstatus': loginstatus, 'name': name})
 
 
-# --投資組合推薦 (開不出來
+def five_stock(request):
+    name = ''
+    loginstatus = False
+    try:
+         name = request.session['name']
+         loginstatus = True
+    except:
+        pass
+    price, TL, TL_SD, TL_2SD, TL_plus_SD, TL_plus_2SD, stock_name, click, today, date, stock_id, position, slope, tw, p = [], [], [], [], [], [], 0, 0, 0, 0, '', '', '', '', 0
+    conclusion = ''
+    today = datetime.now().strftime('%Y-%m-%d')
+    print('today= '+today)
+    if request.method == 'POST':
+        stock_id = request.POST.get('stock_id', '')[0:4]
+        stock_name = request.POST.get('stock_id', '')[5:]
+        click = request.POST.get('draw')
+        date = request.POST.get('date')[0:4]+'/'+request.POST.get('date')[5:7]+'/'+request.POST.get('date')[8:]
+        print('date= '+date)
+        if stock_id != '':
+            try:
+                tran = RobotFive.objects.filter(stock_id = stock_id)
+                for i in tran:
+                    price.append(round(i.the_close, ndigits=2))
+                    TL.append(round(i.Price_TL, ndigits=2))
+                    TL_SD.append(round(i.TL_SD, ndigits=2))
+                    TL_2SD.append(round(i.TL_2SD, ndigits=2))
+                    TL_plus_SD.append(round(i.TL_plus_SD, ndigits=2))
+                    TL_plus_2SD.append(round(i.TL_plus_2SD, ndigits=2))
+            except:
+                tran = RobotFive.objects.filter(stock_id = '2330')
+                for i in tran:
+                    price.append(round(i.the_close, ndigits=2))
+                    TL.append(round(i.Price_TL, ndigits=2))
+                    TL_SD.append(round(i.TL_SD, ndigits=2))
+                    TL_2SD.append(round(i.TL_2SD, ndigits=2))
+                    TL_plus_SD.append(round(i.TL_plus_SD, ndigits=2))
+                    TL_plus_2SD.append(round(i.TL_plus_2SD, ndigits=2))
 
+            if date == '2016/08/26':
+                p = price[len(price)-1] #股價
+                #股價位置
+                if p > TL_plus_2SD[len(TL)-1]:
+                    position = '趨勢線兩個標準差以上'#股價位於<font color="red">趨勢線2個標準差
+                elif p >= TL_plus_SD[len(TL)-1] and p < TL_plus_2SD[len(TL)-1]:
+                    position = '趨勢線以上一到兩個標準差之間'
+                elif p >= TL[len(TL)-1] and p < TL_plus_SD[len(TL)-1]:
+                    position = '趨勢線以上到一個標準差之間'
+                elif p >= TL_SD[len(TL)-1] and p < TL[len(TL)-1]:
+                    position = '趨勢線以下一個標準差之間'
+                elif p >= TL_2SD[len(TL)-1] and p < TL[len(TL)-1]:
+                    position = '趨勢線以下一到兩個標準差之間'
+
+                #趨勢線斜率
+                if TL[len(TL)-1] >= TL[len(TL)-2]:
+                    slope = '正斜率'
+                else:
+                    slope = '負斜率'
+
+                #台股基本面
+                tw = 'PBR、DY皆低於平均值'
+                if position == '趨勢線以上到一個標準差之間' or position == '趨勢線以上一到兩個標準差之間':
+                    conclusion = '未來股價上漲機率高，是不錯的買點'
+                elif position == '趨勢線兩個標準差以上':
+                    conclusion = '未來股價可能下跌，此時非買點而是賣點'
+                elif position == '趨勢線以下一個標準差之間' or position == '趨勢線以下一到兩個標準差之間':
+                    conclusion = '未來股價還有很大的上漲空間，可以考慮買進'
+                elif position == '趨勢線以下兩個標準差之間':
+                    conclusion = '未來股價可能上漲，此時非賣點而是買點'
+            elif stock_id == '3008':
+
+                date2 = request.POST.get('date')[0:4]+request.POST.get('date')[5:7]+request.POST.get('date')[8:]
+                p = RobotFive.objects.get(stock_id = stock_id, date = date2).the_close #股價
+                #股價位置
+                if p > RobotFive.objects.get(stock_id = stock_id, date = date2).TL_plus_2SD:
+                    position = '趨勢線兩個標準差以上'#股價位於<font color="red">趨勢線2個標準差
+                elif p >= RobotFive.objects.get(stock_id = stock_id, date = date2).TL_plus_SD and p < RobotFive.objects.get(stock_id = stock_id, date = date2).TL_plus_2SD:
+                    position = '趨勢線以上一到兩個標準差之間'
+                elif p >= RobotFive.objects.get(stock_id = stock_id, date = date2).Price_TL and p < RobotFive.objects.get(stock_id = stock_id, date = date2).TL_plus_SD:
+                    position = '趨勢線以上到一個標準差之間'
+                elif p >= RobotFive.objects.get(stock_id = stock_id, date = date2).TL_SD and p < RobotFive.objects.get(stock_id = stock_id, date = date2).Price_TL:
+                    position = '趨勢線以下一個標準差之間'
+                elif p >= RobotFive.objects.get(stock_id = stock_id, date = date2).TL_2SD and p < RobotFive.objects.get(stock_id = stock_id, date = date2).Price_TL:
+                    position = '趨勢線以下一到兩個標準差之間'
+
+                #趨勢線斜率
+                if RobotFive.objects.get(stock_id = stock_id, date = date2).a >= 0:
+                    slope = '正斜率'
+                else:
+                    slope = '負斜率'
+
+                #台股基本面
+                tw = 'PBR、DY皆低於平均值'
+                if position == '趨勢線以上到一個標準差之間' or position == '趨勢線以上一到兩個標準差之間':
+                    conclusion = '未來股價上漲機率高，是不錯的買點'
+                elif position == '趨勢線兩個標準差以上':
+                    conclusion = '未來股價可能下跌，此時非買點而是賣點'
+                elif position == '趨勢線以下一個標準差之間' or position == '趨勢線以下一到兩個標準差之間':
+                    conclusion = '未來股價還有很大的上漲空間，可以考慮買進'
+                elif position == '趨勢線以下兩個標準差之間':
+                    conclusion = '未來股價可能上漲，此時非賣點而是買點'
+
+            elif stock_id == '2330':
+
+                date2 = request.POST.get('date')[0:4]+request.POST.get('date')[5:7]+request.POST.get('date')[8:]
+                p = RobotFive.objects.get(stock_id = stock_id, date = date2).the_close #股價
+                #股價位置
+                if p > RobotFive.objects.get(stock_id = stock_id, date = date2).TL_plus_2SD:
+                    position = '趨勢線兩個標準差以上'#股價位於<font color="red">趨勢線2個標準差
+                elif p >= RobotFive.objects.get(stock_id = stock_id, date = date2).TL_plus_SD and p < RobotFive.objects.get(stock_id = stock_id, date = date2).TL_plus_2SD:
+                    position = '趨勢線以上一到兩個標準差之間'
+                elif p >= RobotFive.objects.get(stock_id = stock_id, date = date2).Price_TL and p < RobotFive.objects.get(stock_id = stock_id, date = date2).TL_plus_SD:
+                    position = '趨勢線以上到一個標準差之間'
+                elif p >= RobotFive.objects.get(stock_id = stock_id, date = date2).TL_SD and p < RobotFive.objects.get(stock_id = stock_id, date = date2).Price_TL:
+                    position = '趨勢線以下一個標準差之間'
+                elif p >= RobotFive.objects.get(stock_id = stock_id, date = date2).TL_2SD and p < RobotFive.objects.get(stock_id = stock_id, date = date2).Price_TL:
+                    position = '趨勢線以下一到兩個標準差之間'
+                else:
+                    position = '趨勢線以下兩個標準差之間'
+
+                #趨勢線斜率
+                if RobotFive.objects.get(stock_id = stock_id, date = date2).a >= 0:
+                    slope = '正斜率'
+                else:
+                    slope = '負斜率'
+
+                #台股基本面
+                tw = 'PBR、DY皆低於平均值'
+
+                #結論
+
+                if position == '趨勢線以上到一個標準差之間' or position == '趨勢線以上一到兩個標準差之間':
+                    conclusion = '未來股價上漲機率高，是不錯的買點'
+                elif position == '趨勢線兩個標準差以上':
+                    conclusion = '未來股價可能下跌，此時非買點而是賣點'
+                elif position == '趨勢線以下一個標準差之間' or position == '趨勢線以下一到兩個標準差之間':
+                    conclusion = '未來股價還有很大的上漲空間，可以考慮買進'
+                elif position == '趨勢線以下兩個標準差之間':
+                    conclusion = '未來股價可能上漲，此時非賣點而是買點'
+
+
+
+            return render_to_response('f.html', {'name': name, 'loginstatus': loginstatus, 'price': price, 'TL_plus_2SD': TL_plus_2SD, 'TL_plus_SD': TL_plus_SD, 'TL_2SD': TL_2SD, 'TL_SD': TL_SD
+        , 'TL': TL, 'stock_name': stock_name, 'click': click, 'today': today, 'date': date, 'stock_id': stock_id, 'tw': tw, 'slope': slope, 'p': p, 'position': position, 'conclusion': conclusion})
+
+
+# --投資組合推薦 (可以了
+
+def fund(request):
+   name = ''
+   loginstatus = False
+   try:
+        name = request.session['name']
+        loginstatus = True
+   except:
+        return HttpResponseRedirect('/login/?back=資金管理')
+
+   money = request.POST.get('invest', '500')
+   type = RobotMember.objects.get(member_name=name).type #4
+   stock = RobotStocks.objects.filter(type=type)
+   sc = int(stock.count())
+   id, mt, count,  mo= [], [], [], []
+   for i in stock:
+       id.append(i.stock_num)
+       mt.append(i.type)
+       count.append(sc)
+       mo.append(money)
+   #報酬率: 0.05、0.05、0.08
+   #history, s, n, m= main(sc, id, type, count, money)
+   #history = {'season':'2015Q2', 'invest':'台灣大(2.1%) 永昕(8.9%) 裕日車(26.2%) 致伸(3.9%) 震旦行(4.3%) 全國電(13.5%) 大聯大(9.5%) 強茂(0.9%) 兆利(7.6%) 鴻海(17.4%) 台產(5.8%) ', 'initial':'4802000.0'}
+   #{'season':'2015Q3', 'invest':'台積電(4.8%) 鴻海(26.3%) 台塑(18.7%) 中華電(18.6%) 富邦(5.3%) 台灣大(3.6%) 遠傳(6.5%) 震旦行(3.5%) 台塑(11.4%) 強茂(2.2%) 兆利(5.8%) ', 'initial':'5562500'}
+   s = ['6244', '2412', '4904', '2474', '6281', '2882', '3702', '4739', '3548', '2832']
+   n = [3, 13, 3, 5, 8, 10, 7, 7, 11, 11]
+   sum, sell_stock = 0.0, []  #賣價、 賣出的股票
+   m = int(RobotTransactionInfo.objects.get(stock_id='6244', date='20160104').the_close)*3000 + int(RobotTransactionInfo.objects.get(stock_id='2412', date='20160104').the_close)*13000+ int(RobotTransactionInfo.objects.get(stock_id='4904', date='20160104').the_close)*3000 + int(RobotTransactionInfo.objects.get(stock_id='2474', date='20160104').the_close)*5000\
+       + int(RobotTransactionInfo.objects.get(stock_id='6281', date='20160104').the_close)*8000 + int(RobotTransactionInfo.objects.get(stock_id='2882', date='20160104').the_close)*10000 + int(RobotTransactionInfo.objects.get(stock_id='3702', date='20160104').the_close)*7000 + int(RobotTransactionInfo.objects.get(stock_id='4739', date='20160104').the_close)*7000 \
+       + int(RobotTransactionInfo.objects.get(stock_id='3548', date='20160104').the_close)*11000 + int(RobotTransactionInfo.objects.get(stock_id='2832', date='20160104').the_close)*11000
+
+   #m = 5021200.0#5562500.0 #5756000
+   print('money='+str(m))
+   #for i in history:
+        #Fund_set_history.objects.create(season=i['season'], invest=i['invest'], initial=i['initial'])
+   for i, num in zip(s, n):
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       pe_for_four_season = RobotPe.objects.get(date='2016Q1', stock_id=i).pe_for_four_season #2015Q1
+       if pe_for_four_season == '--':
+           pe_for_four_season = 0.0
+       else:
+           pe_for_four_season = float(pe_for_four_season) #201404
+       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
+       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
+           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
+       else:
+           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
+       '''
+       dates = RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date')
+       count = dates.count()
+       price_plus, price_minus = [], []
+       for j in range(0, count):
+          p = float(dates[j].the_close) #該股票在該月的股價
+          price_plus.append(p)
+          '''if p >= 0:
+            price_plus.append(p)
+          else:
+            price_minus.append(p)'''
+       #price_minus.reverse()
+       price_plus.reverse()
+       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
+       for j in range(0, count): #201501
+           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
+           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
+           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date')[0].the_close)
+           if dates[j].the_close > evl:
+               net = float(dates[j].the_close) -buy_price
+               net = round(net, ndigits=2)
+               net = net*1000*num
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               break
+           elif dates[j].the_close == price_plus[0] or dates[j].the_close == price_plus[1] or dates[j].the_close == price_plus[2] or dates[j].the_close == price_plus[3]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               #print(evl)
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+
+           elif dates[j].the_close > buy_price*1.5 :#and dates[j].the_close > (evl2*1.5): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print('evl=' + str(evl))
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+           elif dates[j].the_close > buy_price*1.2 :#and dates[j].the_close > (evl2*1.2): #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print(evl)
+               print(dates[j].the_close)
+               break
+           '''elif dates[j].the_close > buy_price : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               trade_2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print(evl)
+               print(dates[j].the_close)
+               break'''
+
+   for i in s:
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       if i not in sell_stock:
+           price = RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date').last()
+           date = price.date
+           price = float(price.the_close)
+           z = n[s.index(i)]
+           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201601', stock_id=i).order_by('date').first().the_close)
+           net = round(net, ndigits=2)
+           net = int(net*1000*z)
+           sell_stock.append(i)
+           sum = sum + price*1000*z
+           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
+   #報酬率
+   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
+   r = round(r, ndigits=2)
+   RobotReturn.objects.create(re=r)
+   print('sum = '+ str(sum))
+   print('r = '+ str(r))
+
+   sum, sell_stock = 0.0, []
+   for i, num in zip(s, n):
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       pe_for_four_season = RobotPe.objects.get(date='2016Q1', stock_id=i).pe_for_four_season
+       if pe_for_four_season == '--':
+           pe_for_four_season = 0.0
+       else:
+           pe_for_four_season = float(pe_for_four_season)
+       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
+       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
+           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
+       else:
+           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
+       '''
+       dates = RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date')
+       count = dates.count()
+       price_plus, price_minus = [], []
+       for j in range(0, count):
+          p = float(dates[j].the_close) #該股票在該月的股價
+          price_plus.append(p)
+          '''if p >= 0:
+            price_plus.append(p)
+          else:
+            price_minus.append(p)'''
+       #price_minus.reverse()
+       price_plus.reverse()
+       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
+       for j in range(0, count): #201501
+           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
+           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
+           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date')[0].the_close)
+           if dates[j].the_close > evl:
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = net*1000*num
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               break
+           elif dates[j].the_close == price_plus[0] :#or dates[j].the_close == price_plus[1] : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)#-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               #print(evl)
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+           elif dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print('evl=' + str(evl))
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print(evl)
+               print(dates[j].the_close)
+               break
+       '''for j in Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date'):
+           if j.the_close > (evl*2): #if j.the_close > (evl*1.5):
+               net = float(j.the_close)-float(Transaction_info.objects.filter(date__startswith='201505', stock_id=i).order_by('date')[0].the_close)
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(j.the_close)*1000*num
+               trade_2015.objects.create(date=j.date, sell_stock=i+' '+name2, sell_price=j.the_close, stocks=num, net=net)
+               print(evl)
+               print(j.the_close)
+               break'''
+   for i in s:
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       if i not in sell_stock:
+           price = RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date').last()
+           date = price.date
+           price = float(price.the_close)
+           z = n[s.index(i)]
+           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201602', stock_id=i).order_by('date').first().the_close)
+           net = round(net, ndigits=2)
+           net = int(net*1000*z)
+           sell_stock.append(i)
+           sum = sum + price*1000*z
+           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
+   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
+   r = round(r, ndigits=2)
+   RobotReturn.objects.create(re=r)
+   print('sum = '+ str(sum))
+   print('r = '+ str(r))
+
+   '''if r > xx:
+       money = xx
+   mo = []
+   for i in stock:
+       mo.append(money)
+   history, s, n = main(sc, id, type, count, money)'''
+   sum, sell_stock = 0.0, []
+   for i, num in zip(s, n):
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       pe_for_four_season = RobotPe.objects.get(date='2016Q1', stock_id=i).pe_for_four_season
+       if pe_for_four_season == '--':
+           pe_for_four_season = 0.0
+       else:
+           pe_for_four_season = float(pe_for_four_season)
+       #evl = float(Cash_Flows_Q.objects.get(date='201503', stock_id=i).free_cash_flows)*0.45 + pe_for_four_season*0.55
+       '''if PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated == '--' or Income_Statement_Q.objects.get(date='201502', stock_id=i).eps == '--':
+           evl = (float(Transaction_info.objects.get(date='20150401', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150402', stock_id=i).the_close)+float(Transaction_info.objects.get(date='20150407', stock_id=i).the_close))/3.0
+       else:
+           evl = float(PE.objects.get(date='2015Q2', stock_id=i).coporate_estimated)*float(Income_Statement_Q.objects.get(date='201502', stock_id=i).eps) #本月(季)本益比*下月(季)每股盈餘
+       '''
+       dates = RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date')
+       count = dates.count()
+       price_plus, price_minus = [], []
+       for j in range(0, count):
+          p = float(dates[j].the_close) #該股票在該月的股價
+          price_plus.append(p)
+          '''if p >= 0:
+            price_plus.append(p)
+          else:
+            price_minus.append(p)'''
+       #price_minus.reverse()
+       price_plus.reverse()
+       #for j in Transaction_info.objects.filter(date__startswith='201504', stock_id=i).order_by('date'): #201501
+       for j in range(0, count): #201501
+           evl = (float(dates[j].the_close) + float(dates[j+1].the_close) + float(dates[j+2].the_close)+ float(dates[j+3].the_close)+ float(dates[j+4].the_close))/5.0
+           #evl2 = (float(dates[j+3].the_close) + float(dates[j+4].the_close) + float(dates[j+5].the_close))/3.0
+           buy_price = float(RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date')[0].the_close)
+           if dates[j].the_close > evl:
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = net*1000*num
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               break
+           elif dates[j].the_close == price_plus[0] : #or dates[j].the_close == price_plus[1]: #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               #print(evl)
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+           elif dates[j].the_close > buy_price*1.5 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print('evl=' + str(evl))
+               print('current=' + str(dates[j].the_close))
+               print('buy=' + str(buy_price))
+               break
+           elif dates[j].the_close > buy_price*1.2 : #if j.the_close > (evl*1.5):  dates[j].the_close < (evl*1.5)
+               net = float(dates[j].the_close)-buy_price
+               net = round(net, ndigits=2)
+               net = int(net*1000*num)
+               sell_stock.append(i)
+               sum = sum + float(dates[j].the_close)*1000*num
+               RobotTrade2015.objects.create(date=dates[j].date, sell_stock=i+' '+name2, sell_price=dates[j].the_close, stocks=num, net=net)
+               print(evl)
+               print(dates[j].the_close)
+               break
+   for i in s:
+       name2 = RobotInformation.objects.get(stock_id=i).co_name
+       if i not in sell_stock:
+           price = RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date').last()
+           date = price.date
+           price = float(price.the_close)
+           z = n[s.index(i)]
+           net = price - float(RobotTransactionInfo.objects.filter(date__startswith='201603', stock_id=i).order_by('date').first().the_close)
+           net = round(net, ndigits=2)
+           net = int(net*1000*z)
+           sell_stock.append(i)
+           sum = sum + price*1000*z
+           RobotTrade2015.objects.create(date=date, sell_stock=i+' '+name2, sell_price=price, stocks=z, net=net)
+   r = float((sum-m)/m)#float((sum - int(money) * 10000)/(int(money) * 10000))
+   r = round(r, ndigits=2)
+   RobotReturn.objects.create(re=r)
+   print('sum = '+ str(sum))
+   print('r = '+ str(r))
+   return HttpResponse()
+
+
+def portfolio(request):
+    name = ''
+    loginstatus = False
+    member = ''
+    try:
+         name = request.session['name']
+         member = RobotMember.objects.get(member_name=name).member_id
+         loginstatus = True
+    except:
+        return HttpResponseRedirect('/login/?back=My_News')
+    return render_to_response('info3.html')
+
+
+def fundamental_information(request):
+    name = ''
+    loginstatus = False
+    try:
+        name = request.session['name']
+        loginstatus = True
+    except:
+        pass
+    identity = request.GET.get('id', '2330')
+    data = RobotInformation.objects.get(stock_id=identity)
+    industry = RobotCategory.objects.get(category_id=data.category).category_name
+    return render_to_response('info.html', {'industry': industry, 'stock': data, 'id': identity, 'name': name, 'loginstatus': loginstatus})
+
+
+def fund_2(request):
+   name = ''
+   loginstatus = False
+   try:
+        name = request.session['name']
+        loginstatus = True
+   except:
+        return HttpResponseRedirect('/login/?back=資金管理')
+   type_id = RobotMember.objects.get(member_name=name).type
+   type_name = RobotFqType.objects.get(type_id=type_id).type_name
+   history, history2, trade, trade2, r = RobotFundSetHistory.objects.filter(season__startswith='2015'), RobotFundSetHistory.objects.filter(season__startswith='2016'), RobotTrade2015.objects.filter(date__startswith='2015'), RobotTrade2015.objects.filter(date__startswith='2016'), RobotReturn.objects.all()
+   m, n, m2,gross_profit, gross_loss, month = [], [], [], [], [], []
+   countp, countl, date_max, date_min, default, default2, default3 = 0, 0, '', '', '', '', '尚未設定'
+   for i in RobotFundSet2016.objects.all():
+       n.append(i)
+   for i in range(0, 12):
+       m.append(r[i].re)
+   for i in range(12, 21):
+       m2.append(r[i].re)
+   for i in trade:
+       if i.net > 0:
+           gross_profit.append(i.net)
+           countp = countp + 1
+       elif i.net < 0:
+           gross_loss.append(i.net)
+           countl = countl + 1
+       month.append(i.net)
+   date_max, date_min = RobotTrade2015.objects.get(net=max(gross_profit)).date, RobotTrade2015.objects.get(net=min(gross_loss)).date
+   mean, mean2, std, std2 = round(np.mean(m), ndigits=2), round(np.mean(m2), ndigits=2),round(np.std(m), ndigits=2),round(np.std(m2), ndigits=2)
+   if type_id == '4':
+       type_id = 7.5
+   elif type_id == '1':
+       type_id = 2
+   elif type_id == '2':
+       type_id = 4.5
+   elif type_id == '3':
+       type_id = 6
+   else:
+       type_id = 9.5
+   p = 0
+   if RobotSaveFund.objects.filter(name=name):
+       default = RobotSaveFund.objects.last().invest
+       default2 = RobotSaveFund.objects.last().strategy
+   if request.method == 'POST':
+       save = request.POST.get('b2', '0')
+       invest = request.POST.get('invest', '500')
+       category = request.POST.get('category', '')
+       start = request.POST.get('b1', '0')
+       if save == '0':
+          save = '無'
+          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
+       elif save == '1':
+          save = '凱利公式'
+          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
+       elif save == '2':
+          save = '反秧策略'
+          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
+       elif save == '3':
+          save = 'Larry Williams'
+          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
+       else:
+          save = '固定比例法'
+          RobotSaveFund.objects.create(name=name, type=type_name, invest=invest, strategy=save)
+
+       if category == '0':
+          category = '尚未設定'
+          default3 = category
+       elif category == '1':
+          save = '凱利公式'
+          default3 = category
+       elif category == '2':
+          category = '反秧策略'
+          default3 = category
+       elif category == '3':
+          category = 'Larry Williams'
+          default3 = category
+       else:
+          category = '固定比例法'
+          default3 = category
+
+       if start == '1':
+           ranges = []
+           for i in range(0, len(m)-3, 3):
+               ranges.append(i)
+           a = history.exclude(season='2015Q1')
+           b = history.first()
+           history = []
+           history.append({'season':b.season, 'invest':b.invest, 'initial':int(b.initial)})
+           for i, j in zip(ranges, a):
+               sum1 = m[i] + m[i+1] + m[i+2]
+               sum2 = m[i+3] + m[i+4] + m[i+5]
+               if sum2 > sum1:
+                   history.append({'season':j.season, 'invest':j.invest, 'initial':int(int(j.initial)*1.1)})
+               elif sum2 < sum1:
+                   history.append({'season':j.season, 'invest':j.invest, 'initial':int(int(j.initial)*0.9)})
+               else:
+                   history.append({'season':j.season, 'invest':j.invest, 'initial':int(j.initial)})
+   return render_to_response('info3.html', {'loginstatus': loginstatus, 'name': name, 'history': history, 'history2': history2, 'return': r, 'mean': mean, 'mean2': mean2, 'std': std, 'std2': std2, 'type_name':type_name, 'type_id': type_id, 'now': n, 'trade2': trade2, 'sum': int(sum(m)),
+                                            'gross_profit': sum(gross_profit), 'gross_loss': sum(gross_loss)*-1, 'month': int(np.mean(month)), 'max_profit': max(gross_profit), 'max_loss': min(gross_loss)*-1, 'count': countp+countl,
+                                            'countp': countp, 'countl': countl, 'mean_profit': int(np.mean(gross_profit)), 'mean_loss': int(np.mean(gross_loss)*-1), 'average': abs(round(np.mean(gross_profit)/np.mean(gross_loss), ndigits=2)),
+                                            'date_max':date_max, 'date_min':date_min, 'average2':round(sum(gross_profit)/(sum(gross_loss)*-1), ndigits=2), 'p':p, 'default':default, 'default2':default2, 'default3':default3})
 
 # 指標專區
 
@@ -1464,10 +3175,10 @@ def tech(request):
 
 # 新手專區
 # --討論區
-def get_article(request):  # 熱門文章 最新文章 最新回復
-    today = datetime.now().strftime('%Y/%m/%d')
-    count = RobotDiscuss.objects.filter(date=today).count()
-    count2 = RobotDiscuss.objects.all().count()
+def get_article(request):#熱門文章 最新文章 最新回復
+    today = datetime.datetime.now().strftime('%Y/%m/%d')
+    count = Discuss.objects.filter(date=today).count()
+    count2 = Discuss.objects.all().count()
     name = ''
     loginstatus = False
     try:
@@ -1476,35 +3187,32 @@ def get_article(request):  # 熱門文章 最新文章 最新回復
     except:
         pass
     a = []
-    res = RobotDiscuss.objects.order_by('-like').all()
+    res = Discuss.objects.order_by('-like').all()
     for i in range(0, 4):
         a.append(res[i])
-    res_2 = RobotComment.objects.order_by('-date', '-time')
+    res_2 = Comment.objects.order_by('-date', '-time')
     b = []
     for i in range(0, 4):
         b.append(res_2[i])
-    res_3 = RobotDiscuss.objects.order_by('-date', '-time')
+    res_3 = Discuss.objects.order_by('-date', '-time')
     c = []
     for i in range(0, 4):
         c.append(res_3[i])
     request.session['post_page'] = '1'
     page = request.session['post_page']
     d = []
-    res_4 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='投資理財')
+    res_4 = Discuss.objects.order_by('-reply_times').filter(theme = '投資理財')
     for i in range(0, 15):
         d.append(res_4[i])
     e = []
-    res_5 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='股票相關')
+    res_5 = Discuss.objects.order_by('-reply_times').filter(theme = '股票相關')
     for i in range(0, 15):
         e.append(res_5[i])
     f = []
-    res_6 = RobotDiscuss.objects.order_by('-reply_times').filter(theme='機器人投顧')
+    res_6 = Discuss.objects.order_by('-reply_times').filter(theme = '機器人投顧')
     for i in range(0, 15):
         f.append(res_6[i])
-    return render_to_response('chat.html',
-                              {'count': count, 'count2': count2, 'hot': a, 'latest_reply': b, 'latest': c, 'article': d,
-                               'article_2': e, 'article_3': f, 'page': page, 'name': name, 'loginstatus': loginstatus})
-
+    return render_to_response('chat.html', {'count': count, 'count2': count2,'hot': a, 'latest_reply': b,'latest': c,'article': d, 'article_2': e, 'article_3': f,'page': page, 'name': name, 'loginstatus': loginstatus})
 
 # --回傳內容
 def content(request):
@@ -1698,6 +3406,25 @@ def issued(request):
 
 def chat_search(request):
     return render(request, 'chat_search')
+def new_info(request):
+
+#新手投資小常識
+    return render(request, 'new_info.html')
+def new_infocon(request):
+
+    return render(request, 'new_infocon.html')
+def new_infocon2(request):
+
+    return render(request, 'new_infocon2.html')
+def new_infocon3(request):
+
+    return render(request, 'new_infocon3.html')
+def new_infocon4(request):
+
+    return render(request, 'new_infocon4.html')
+def new_infocon5(request):
+
+    return render(request, 'new_infocon5.html')
 
 
 # 會員
@@ -1723,7 +3450,9 @@ def mem_home(request):  # check
     except:
         pass
     return render_to_response('member2.html', {'loginstatus': loginstatus, 'name': name})
-
+# 自選股
+def my_stock(request):
+    return render(request, 'my_stock.html')
 
 # def member_news(request):
 #     name = ''
@@ -2055,8 +3784,4 @@ def stock_choice(request):
 #      except:
 #      return render_to_response('login.html')
 #
-
-
-
-
 

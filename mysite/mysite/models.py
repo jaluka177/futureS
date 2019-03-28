@@ -1117,3 +1117,31 @@ class RobotYahooTra(models.Model):
     class Meta:
         managed = False
         db_table = 'robot_yahoo_tra'
+        
+        
+#討論區
+class Discuss(models.Model):
+    discuss_id = models.AutoField(primary_key=True)
+    theme = models.CharField(max_length=8)
+    title = models.CharField(max_length=20)
+    content = models.TextField(default='')
+    member_id = models.CharField(max_length=50)
+    date = models.CharField(max_length=20)
+    like = models.IntegerField(null=True)
+    reply_times = models.IntegerField(null=True)
+    time = models.CharField(max_length=20, default='')
+    class Meta:
+        managed = False
+        db_table = 'robot_discuss'
+# 討論區回覆  id 文章id 內容 作者id 時間 按讚數
+
+class Comment(models.Model):
+    comment_id = models.AutoField(primary_key=True)
+    discuss_id = models.CharField(max_length=8)
+    content = models.TextField(default='')
+    member_id = models.CharField(max_length=50)
+    date = models.CharField(max_length=20)
+    time = models.CharField(max_length=20, default='')
+    class Meta:
+        managed = False
+        db_table = 'robot_comment'
